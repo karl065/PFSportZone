@@ -2,20 +2,18 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "Usuarios",
+    "Roles",
     {
-      id_usuarios: {
-        type: DataTypes.INTEGER,
+      id_rol: {
+        type: DataTypes.INTEGER(10),
         primaryKey: true,
         autoIncrement: true,
       },
-      nombre_usuario: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      nombre_rol: {
+        type: DataTypes.STRING(15),
       },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      descripcion: {
+        type: DataTypes.STRING(50),
       },
       estado: {
         type: DataTypes.ENUM("Activo", "Inactivo"),
