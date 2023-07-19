@@ -1,42 +1,42 @@
-import React, { useState } from "react";
-import styles from "./SearchBar.module.css";
+import {useState} from 'react';
+import styles from './SearchBar.module.css';
 
 // ! Prueba funcionamiento => Borrar luego.
 const products = [
-  { id: 1, name: "Balón de fútbol" },
-  { id: 2, name: "Camiseta de baloncesto" },
-  { id: 3, name: "Raqueta de tenis" },
-  { id: 4, name: "Pelota de voleibol" },
-  { id: 5, name: "Guantes de boxeo" },
-  { id: 6, name: "Patines en línea" },
-  { id: 7, name: "Saco de boxeo" },
-  { id: 8, name: "Casco de ciclismo" },
-  { id: 9, name: "Red de bádminton" },
-  { id: 10, name: "Pesa rusa" },
-  { id: 11, name: "Gorra de natación" },
-  { id: 12, name: "Tabla de surf" },
-  { id: 13, name: "Gafas de esquí" },
-  { id: 14, name: "Cuerda de saltar" },
-  { id: 15, name: "Bicicleta de montaña" },
-  { id: 16, name: "Botas de fútbol" },
-  { id: 17, name: "Tablero de ajedrez" },
-  { id: 18, name: "Pelota de rugby" },
-  { id: 19, name: "Gorro de waterpolo" },
-  { id: 20, name: "Balón de béisbol" },
-  { id: 21, name: "Tabla de snowboard" },
-  { id: 22, name: "Pelota de golf" },
-  { id: 23, name: "Cinta de correr" },
-  { id: 24, name: "Máscara de buceo" },
-  { id: 25, name: "Patines de hielo" },
-  { id: 26, name: "Bolso de deporte" },
-  { id: 27, name: "Muñequeras de tenis" },
-  { id: 28, name: "Zapatillas de running" },
-  { id: 29, name: "Balón de balonmano" },
-  { id: 30, name: "Cuerdas de escalada" },
+  {id: 1, name: 'Balón de fútbol'},
+  {id: 2, name: 'Camiseta de baloncesto'},
+  {id: 3, name: 'Raqueta de tenis'},
+  {id: 4, name: 'Pelota de voleibol'},
+  {id: 5, name: 'Guantes de boxeo'},
+  {id: 6, name: 'Patines en línea'},
+  {id: 7, name: 'Saco de boxeo'},
+  {id: 8, name: 'Casco de ciclismo'},
+  {id: 9, name: 'Red de bádminton'},
+  {id: 10, name: 'Pesa rusa'},
+  {id: 11, name: 'Gorra de natación'},
+  {id: 12, name: 'Tabla de surf'},
+  {id: 13, name: 'Gafas de esquí'},
+  {id: 14, name: 'Cuerda de saltar'},
+  {id: 15, name: 'Bicicleta de montaña'},
+  {id: 16, name: 'Botas de fútbol'},
+  {id: 17, name: 'Tablero de ajedrez'},
+  {id: 18, name: 'Pelota de rugby'},
+  {id: 19, name: 'Gorro de waterpolo'},
+  {id: 20, name: 'Balón de béisbol'},
+  {id: 21, name: 'Tabla de snowboard'},
+  {id: 22, name: 'Pelota de golf'},
+  {id: 23, name: 'Cinta de correr'},
+  {id: 24, name: 'Máscara de buceo'},
+  {id: 25, name: 'Patines de hielo'},
+  {id: 26, name: 'Bolso de deporte'},
+  {id: 27, name: 'Muñequeras de tenis'},
+  {id: 28, name: 'Zapatillas de running'},
+  {id: 29, name: 'Balón de balonmano'},
+  {id: 30, name: 'Cuerdas de escalada'},
 ];
 
 const SearchBar = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
   const handleChange = (event) => {
@@ -52,7 +52,7 @@ const SearchBar = () => {
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       handleSearch(searchQuery);
     }
   };
@@ -70,7 +70,7 @@ const SearchBar = () => {
   };
 
   const handleClearSearch = () => {
-    setSearchQuery("");
+    setSearchQuery('');
     setSearchResults([]);
   };
 
