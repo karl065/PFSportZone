@@ -1,11 +1,11 @@
 const {
   createUserDb,
-} = require("../../Controllers/ControllersUsers/postUserController");
+} = require('../../Controllers/ControllersUsers/postUserController');
 
 const postUserDbHandler = async (req, res) => {
-  const { email, user, password, role, userStatus } = req.body;
+  const {email, user, password, role, userStatus} = req.body;
   if (!email || !user || !password) {
-    return res.status(404).send("Los campos no deben estar vacíos...!");
+    return res.status(404).send('Los campos no deben estar vacíos...!');
   }
   try {
     const dataUser = await createUserDb(
@@ -17,8 +17,8 @@ const postUserDbHandler = async (req, res) => {
     );
     return res.status(201).json(dataUser);
   } catch (error) {
-    return res.status(400).json({ error: error.message });
+    return res.status(400).json({error: error.message});
   }
 };
 
-module.exports = { postUserDbHandler };
+module.exports = {postUserDbHandler};

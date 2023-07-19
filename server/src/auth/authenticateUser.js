@@ -33,7 +33,7 @@ const authenticateUser = async (email, password) => {
     }
 
     const payload = {
-      user: {id: user[0].id},
+      user: {id: user[0].idUser},
     };
 
     return new Promise((resolve, reject) => {

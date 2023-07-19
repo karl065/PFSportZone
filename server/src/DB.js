@@ -2,6 +2,7 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
+const { relaciones } = require("./Relaciones/Relaciones.js");
 const { DB_DIALECT, DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_DEPLOY } =
   process.env;
 
@@ -38,7 +39,7 @@ let capsEntries = entries.map((entry) => [
   entry[1],
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
-relaciones(sequelize.models);
+//relaciones(sequelize.models);
 
 module.exports = {
   ...sequelize.models,
