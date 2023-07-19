@@ -31,7 +31,7 @@ const authenticateUser = async (email, password) => {
         },
         (err, token) => {
           if (err) {
-            reject({msg: err.message});
+            reject({msg: 'Error al crear el Token'});
           }
           resolve(token);
         }
