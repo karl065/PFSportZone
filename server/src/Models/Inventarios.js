@@ -5,30 +5,30 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Inventarios",
     {
-      id_inventarios: {
+      id_inventory: {
         type: DataTypes.STRING,
         primaryKey: true,
       },
-      nombre_articulo: {
+      article_name: {
         type: DataTypes.STRING,
       },
-      precio_venta: {
+      selling_price: {
         type: DataTypes.FLOAT,
       },
-      precio_compra: {
+      purchase_price: {
         type: DataTypes.FLOAT,
       },
       stock: {
         type: DataTypes.INTEGER,
       },
-      descripcion: {
+      description: {
         type: DataTypes.STRING,
       },
-      imagen: {
+      image: {
         type: DataTypes.STRING,
       },
-      estado: {
-        type: DataTypes.ENUM("Disponible", "No Disponible", "Descontinuado"),
+      status: {
+        type: DataTypes.ENUM("Available", "Not Available", "Discontinued"),
       },
     },
     {

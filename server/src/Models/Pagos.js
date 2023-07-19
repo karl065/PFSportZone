@@ -4,19 +4,30 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Pagos",
     {
-      id_pagos: {
-        type: DataTypes.INTEGER,
+      id_inventory: {
+        type: DataTypes.STRING,
         primaryKey: true,
-        autoIncrement: true,
       },
-      Metodo_pago: {
-        type: DataTypes.ENUM("Tarjeta", "PSE", "otros"),
+      article_name: {
+        type: DataTypes.STRING,
       },
-      fecha: {
-        type: DataTypes.DATE,
-      },
-      monto: {
+      selling_price: {
         type: DataTypes.FLOAT,
+      },
+      purchase_price: {
+        type: DataTypes.FLOAT,
+      },
+      stock: {
+        type: DataTypes.INTEGER,
+      },
+      description: {
+        type: DataTypes.STRING,
+      },
+      image: {
+        type: DataTypes.STRING,
+      },
+      status: {
+        type: DataTypes.ENUM("Available", "Not Available", "Discontinued"),
       },
     },
     {

@@ -6,32 +6,25 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Ventas",
     {
-      id_ventas: {
-        type: DataTypes.INTEGER(10),
+      id_sales: {
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      id_usuarios: {
-        type: DataTypes.INTEGER(10),
-        references: {
-          model: Usuarios,
-          key: "id_usuarios",
-        },
+      receipt_code: {
+        type: DataTypes.STRING,
       },
-      codigo_comprobante: {
-        type: DataTypes.STRING(20),
-      },
-      fecha: {
+      date: {
         type: DataTypes.DATE,
       },
-      impuesto: {
+      tax: {
         type: DataTypes.FLOAT,
       },
-      total: {
+      total_amount: {
         type: DataTypes.FLOAT,
       },
-      estado: {
-        type: DataTypes.ENUM("Pendiente", "En Proceso", "Rechazado", "Pagado"),
+      status: {
+        type: DataTypes.ENUM("Pending", "In Progress", "Rejected", "Paid"),
       },
     },
     {

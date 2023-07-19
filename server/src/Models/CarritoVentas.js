@@ -4,21 +4,21 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Carrito",
     {
-      id_Carrito: {
+      id_shopping_cart: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      cantidad_producto: {
+      product_quantity: {
         type: DataTypes.INTEGER,
       },
-      monto_por_producto: {
+      amount_per_product: {
         type: DataTypes.FLOAT,
       },
-      cantidad_total_producto: {
+      total_product_quantity: {
         type: DataTypes.INTEGER,
       },
-      monto_total_producto: {
+      total_product_amount: {
         type: DataTypes.FLOAT,
       },
     },

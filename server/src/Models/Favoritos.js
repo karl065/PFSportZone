@@ -4,8 +4,8 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Favoritos",
     {
-      id_favoritos: {
-        type: DataTypes.INTEGER(10),
+      id_favorites: {
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
