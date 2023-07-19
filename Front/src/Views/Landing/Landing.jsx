@@ -1,23 +1,21 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import {useNavigate} from 'react-router-dom';
+import styles from './Landing.module.css';
+
 const Landing = () => {
   const navigate = useNavigate();
 
-  //* funcion para redirigir al home al momento de hacer click a "Tienda"
+  //* función para redirigir al home al momento de hacer click a "Tienda"
   const toHome = () => {
     navigate('/home');
   };
-  //* funcion para redirigir al login al momento de hacer click a "Log In"
+  //* función para redirigir al login al momento de hacer click a "Log In"
   const toLogIn = () => {
     navigate('/login');
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.barraSuperior}>
-        <NavLink to="/about">About Us</NavLink>
-        <NavLink to="/signup">SIGN UP</NavLink>
-        <NavLink to="/faq">F&A</NavLink>
-      </div>
-
       <div className={styles.titles}>
         <h1>SPORTZONE</h1>
         <h3>Todo el deporte en un solo lugar...</h3>
