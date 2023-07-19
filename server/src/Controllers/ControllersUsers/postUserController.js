@@ -1,5 +1,5 @@
-const { Usuarios } = require("../../DB");
-const bcryptjs = require("bcryptjs");
+const {Usuarios} = require('../../DB.js');
+const bcryptjs = require('bcryptjs');
 
 const createUserDb = async (email, user, password, role, userStatus) => {
   password = await bcryptjs.hash(password, 10);
@@ -15,4 +15,4 @@ const createUserDb = async (email, user, password, role, userStatus) => {
   return newUser;
 };
 
-module.exports = { createUserDb };
+module.exports = {createUserDb};
