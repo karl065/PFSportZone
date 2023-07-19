@@ -1,7 +1,7 @@
-const { Usuarios } = require("../DB");
+const { Usuarios } = require("../../DB");
 const bcryptjs = require("bcrypt");
 
-const createUserDb = async (name, address, phone, email, password, rol) => {
+const createUserDb = async (name, address, phone, email, password, role) => {
   const passwordHash = await bcryptjs.hash(password, 10);
 
   password = passwordHash;
@@ -12,7 +12,7 @@ const createUserDb = async (name, address, phone, email, password, rol) => {
     phone,
     email,
     password,
-    rol,
+    role,
   });
 
   return newUser;

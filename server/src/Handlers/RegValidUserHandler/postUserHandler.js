@@ -1,7 +1,9 @@
-const { createUserDb } = require("../Controllers/postUserController");
+const {
+  createUserDb,
+} = require("../../Controllers/RegValidUserControllers/postUserController");
 
 const postUserDbHandler = async (req, res) => {
-  const { name, address, phone, email, password, rol } = req.body;
+  const { name, address, phone, email, password, role } = req.body;
 
   try {
     const response = await createUserDb(
@@ -10,7 +12,7 @@ const postUserDbHandler = async (req, res) => {
       phone,
       email,
       password,
-      rol
+      role
     );
     res.status(201).json(response);
   } catch (error) {

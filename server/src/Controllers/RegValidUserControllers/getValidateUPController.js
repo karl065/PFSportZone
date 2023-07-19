@@ -1,5 +1,5 @@
 /* El código está importando el modelo `Usuarios` del archivo "../DB" y la biblioteca `bcryptjs`. */
-const { Usuarios } = require("../DB");
+const { Usuarios } = require("../../DB");
 const bcryptjs = require("bcrypt");
 
 /**

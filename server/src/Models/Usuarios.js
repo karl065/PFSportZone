@@ -14,10 +14,22 @@ module.exports = (sequelize) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          len: {
+            args: [5, 50],
+            msg: "The name must contain between 5 and 50 characters",
+          },
+        },
       },
       address: {
         type: DataTypes.STRING,
         allowNull: true,
+        validate: {
+          len: {
+            args: [5, 100],
+            msg: "The address must contain between 5 and 100 characters",
+          },
+        },
       },
       phone: {
         type: DataTypes.STRING,
@@ -27,12 +39,17 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        validate: {
+          isEmail: {
+            msg: "It must be a valid email...!!!",
+          },
+        },
       },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      rol: {
+      role: {
         type: DataTypes.ENUM("Admin", "Customer", "Employee"),
         allowNull: false,
       },

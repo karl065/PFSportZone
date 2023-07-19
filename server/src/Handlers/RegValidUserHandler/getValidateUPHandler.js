@@ -4,7 +4,7 @@ desestructuración de objetos para asignar la función importada a una variable 
 `validateUserPassword`. */
 const {
   validateUserPassword,
-} = require("../Controllers/getValidateUPController");
+} = require("../../Controllers/RegValidUserControllers/getValidateUPController");
 
 /**
  * La función `getValidateUserPasswordHandler` es una función asíncrona que maneja una solicitud para
