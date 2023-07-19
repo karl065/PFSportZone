@@ -1,1 +1,1 @@
-export default Landing;
+
