@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
   sequelize.define(
     'Usuarios',
     {
-      id_usuarios: {
+      idUser: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
         allowNull: false,
         unique: true,
       },
-      nombre_usuario: {
+      user: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
@@ -27,11 +27,11 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      roles: {
+      role: {
         type: DataTypes.ENUM('Admin', 'Cliente', 'Empleados'),
         allowNull: false,
       },
-      estado: {
+      userStatus: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
