@@ -1,23 +1,27 @@
-const {DataTypes} = require('sequelize');
+/* Este código está definiendo un modelo Sequelize para una tabla llamada "Usuarios" en una base de
+datos. */
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    'Usuarios',
+    "Usuarios",
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      nombre: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      direccion: {
+      address: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
-      celular: {
+      phone: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
@@ -29,7 +33,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       rol: {
-        type: DataTypes.ENUM('Admin', 'Cliente'),
+        type: DataTypes.ENUM("Admin", "Customer", "Employee"),
         allowNull: false,
       },
     },
