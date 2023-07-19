@@ -35,7 +35,7 @@ const toLogIn = () => {
 
       <img className={styles.image} src="src\assets\image1.png" alt="imagen-landing" />
 
-      <footer>Aca va el footer</footer>
+      <footer>Aca va</footer>
     </div>
   )
 }
