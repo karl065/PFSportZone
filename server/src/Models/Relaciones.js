@@ -28,12 +28,12 @@ const relaciones = (models) => {
   Categorias.hasMany(Inventarios, { foreignKey: "id_categories" });
 
   // Relaciones entre Usuarios y Ventas
-  Usuarios.hasMany(Ventas, { foreignKey: "id_usuarios" });
-  Ventas.belongsTo(Usuarios, { foreignKey: "id_usuarios" });
+  Usuarios.hasMany(Ventas, { foreignKey: "idUser" });
+  Ventas.belongsTo(Usuarios, { foreignKey: "idUser" });
 
   // Relaciones entre Usuarios y Favoritos
-  Usuarios.hasMany(Favoritos, { foreignKey: "id_usuarios" });
-  Favoritos.belongsTo(Usuarios, { foreignKey: "id_usuarios" });
+  Usuarios.hasMany(Favoritos, { foreignKey: "idUser" });
+  Favoritos.belongsTo(Usuarios, { foreignKey: "idUser" });
 
   // Relaciones entre Inventarios y Favoritos
   Inventarios.hasMany(Favoritos, { foreignKey: "id_inventory" });
