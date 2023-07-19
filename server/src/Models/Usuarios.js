@@ -1,5 +1,7 @@
 const {DataTypes} = require('sequelize');
 
+/* El código que proporcionó está definiendo un modelo Sequelize para una tabla llamada "Usuarios" en
+una base de datos. */
 module.exports = (sequelize) => {
   sequelize.define(
     'Usuarios',
@@ -9,14 +11,14 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      nombre: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      direccion: {
+      address: {
         type: DataTypes.STRING,
       },
-      celular: {
+      phone: {
         type: DataTypes.STRING,
       },
       email: {
@@ -28,8 +30,8 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      rol: {
-        type: DataTypes.ENUM('Admin', 'Cliente'),
+      role: {
+        type: DataTypes.ENUM('Admin', 'Cliente', 'Empleado'),
         allowNull: false,
       },
     },
