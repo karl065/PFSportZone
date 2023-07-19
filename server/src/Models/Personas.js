@@ -1,3 +1,4 @@
+/* Este código define un modelo Sequelize para una tabla llamada "Personas" en una base de datos. */
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
@@ -10,7 +11,7 @@ module.exports = (sequelize) => {
         autoIncrement: true,
       },
       tipo_persona: {
-        type: DataTypes.ENUM("Natural", "Juridical"),
+        type: DataTypes.ENUM("Natural", "Juridica"),
       },
       tipo_documento: {
         type: DataTypes.ENUM("CC", "CE", "PA", "NIT"),
@@ -20,15 +21,14 @@ module.exports = (sequelize) => {
       },
       nombres: {
         type: DataTypes.STRING(25),
+        allowNull: false,
       },
       apellidos: {
         type: DataTypes.STRING(25),
+        allowNull: false,
       },
       telefono: {
         type: DataTypes.INTEGER(15),
-      },
-      email: {
-        type: DataTypes.STRING(50),
       },
       direccion: {
         type: DataTypes.STRING(50),

@@ -2,21 +2,21 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "Roles",
+    "Pagos",
     {
-      id_rol: {
-        type: DataTypes.INTEGER(10),
+      id_pagos: {
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      nombre_rol: {
-        type: DataTypes.STRING(15),
+      Metodo_pago: {
+        type: DataTypes.ENUM("Tarjeta", "PSE", "otros"),
       },
-      descripcion: {
-        type: DataTypes.STRING(50),
+      fecha: {
+        type: DataTypes.DATE,
       },
-      estado: {
-        type: DataTypes.ENUM("Activo", "Inactivo"),
+      monto: {
+        type: DataTypes.FLOAT,
       },
     },
     {

@@ -1,3 +1,4 @@
+/* Este código define un modelo Sequelize para una tabla llamada "Categorías" en una base de datos. */
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
@@ -16,7 +17,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING(50),
       },
       estado: {
-        type: DataTypes.ENUM("Disponible", "No Disponible", "Descontinuado"),
+        type: DataTypes.BOOLEAN,
       },
     },
     {

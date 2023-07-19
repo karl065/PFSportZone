@@ -1,3 +1,5 @@
+/* Este código está definiendo un modelo Sequelize para una tabla llamada "Usuarios" en una base de
+datos. */
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
@@ -9,6 +11,10 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       nombre_usuario: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -17,8 +23,13 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      roles: {
+        type: DataTypes.ENUM("Admin", "Cliente", "Empleados"),
+        allowNull: false,
+      },
       estado: {
-        type: DataTypes.ENUM("Activo", "Inactivo"),
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
       },
     },
     {
