@@ -4,11 +4,11 @@ mÃ©todo `listen` en el objeto `server`, pasando la constante `PORT` y una funciÃ
 llamada que registra un mensaje en la consola cuando el servidor comienza a escuchar en el puerto
 especificado. */
 
-const { conn } = require("./src/DB");
-const server = require("./src/server");
+const {conn} = require('./src/DB');
+const server = require('./src/server');
 const PORT = 3000;
 
-conn.sync({ force: false }).then(() => {
+conn.sync({force: false}).then(() => {
   server.listen(PORT, () => {
     console.log(`Corriendo en el puerto: ${PORT}`);
   });

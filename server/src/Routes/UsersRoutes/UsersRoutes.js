@@ -1,10 +1,11 @@
-const { Router } = require("express");
+const { getHandlerUsers } = require("../../Handlers/HandlersUsers/GetUsers");
 const {
   postUserDbHandler,
-} = require("../../Handlers/HandlersUsers/postUserHandler.js");
+} = require("../../Handlers/HandlersUsers/postUserHandler");
 
-const router = Router();
+const router = require("express").Router();
 
 router.post("/", postUserDbHandler);
+router.get("/", getHandlerUsers);
 
 module.exports = router;

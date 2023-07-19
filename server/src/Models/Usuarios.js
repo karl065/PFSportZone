@@ -1,47 +1,28 @@
-/* Este código está definiendo un modelo Sequelize para una tabla llamada "Usuarios" en una base de
-datos. */
-const { DataTypes } = require("sequelize");
+const {DataTypes} = require('sequelize');
 
+/* El código que proporcionó está definiendo un modelo Sequelize para una tabla llamada "Usuarios" en
+una base de datos. */
 module.exports = (sequelize) => {
   sequelize.define(
-    "Usuarios",
+    'Usuarios',
     {
-      id: {
+      idUser: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-      },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          len: {
-            args: [5, 50],
-            msg: "The name must contain between 5 and 50 characters",
-          },
-        },
-      },
-      address: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        validate: {
-          len: {
-            args: [5, 100],
-            msg: "The address must contain between 5 and 100 characters",
-          },
-        },
-      },
-      phone: {
-        type: DataTypes.STRING,
-        allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+      },
+      user: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
         validate: {
           isEmail: {
-            msg: "It must be a valid email...!!!",
+            msg: 'It must be a valid email...!!!',
           },
         },
       },
@@ -50,12 +31,11 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       role: {
-        type: DataTypes.ENUM("Admin", "Customer", "Employee"),
+        type: DataTypes.ENUM('Admin', 'Cliente', 'Empleados'),
         allowNull: false,
       },
       userStatus: {
-        type: DataTypes.ENUM("Active", "Inactive", "Blocked"),
-        defaultValue: "Active",
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
     },
