@@ -4,7 +4,7 @@ const {
 
 const postHandlerUsers = async (req, res) => {
   const {name, address, phone, email, password, role} = req.body;
-  if ((!name, !email, !password, !role)) {
+  if (!name || !email || !password || !role) {
     return res.status(404).send('Los campos no deben estar vacíos');
   }
   try {
