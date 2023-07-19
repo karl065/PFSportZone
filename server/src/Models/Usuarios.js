@@ -1,5 +1,3 @@
-/* Este código está definiendo un modelo Sequelize para una tabla llamada "Usuarios" en una base de
-datos. */
 const {DataTypes} = require('sequelize');
 
 /* El código que proporcionó está definiendo un modelo Sequelize para una tabla llamada "Usuarios" en
@@ -22,6 +20,11 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        validate: {
+          isEmail: {
+            msg: 'It must be a valid email...!!!',
+          },
+        },
       },
       password: {
         type: DataTypes.STRING,
