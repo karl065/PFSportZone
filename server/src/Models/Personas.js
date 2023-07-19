@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
     "Personas",
     {
       id_personas: {
-        type: DataTypes.INTEGER(10),
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
@@ -17,21 +17,21 @@ module.exports = (sequelize) => {
         type: DataTypes.ENUM("CC", "CE", "PA", "NIT"),
       },
       num_documento: {
-        type: DataTypes.INTEGER(15),
+        type: DataTypes.INTEGER,
       },
       nombres: {
-        type: DataTypes.STRING(25),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       apellidos: {
-        type: DataTypes.STRING(25),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       telefono: {
-        type: DataTypes.INTEGER(15),
+        type: DataTypes.INTEGER,
       },
       direccion: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING,
       },
     },
     {

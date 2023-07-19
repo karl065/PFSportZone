@@ -2,18 +2,18 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define("IngresosProductos", {
-    id_IngresosProductos: {
+    id_product_income: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    nombre_articulo: {
+    article_name: {
       type: DataTypes.STRING,
     },
-    precio_compra: {
+    purchase_price: {
       type: DataTypes.FLOAT,
     },
-    cantidad_producto: {
+    product_quantity: {
       type: DataTypes.INTEGER,
     },
   });
