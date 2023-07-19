@@ -5,32 +5,32 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Personas",
     {
-      id_personas: {
+      id_persons: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      tipo_persona: {
-        type: DataTypes.ENUM("Natural", "Juridica"),
+      person_type: {
+        type: DataTypes.ENUM("Natural", "Juridical"),
       },
-      tipo_documento: {
+      document_type: {
         type: DataTypes.ENUM("CC", "CE", "PA", "NIT"),
       },
-      num_documento: {
+      document_number: {
         type: DataTypes.INTEGER,
       },
-      nombres: {
+      first_name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      apellidos: {
+      last_name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      telefono: {
+      phone: {
         type: DataTypes.INTEGER,
       },
-      direccion: {
+      address: {
         type: DataTypes.STRING,
       },
     },
