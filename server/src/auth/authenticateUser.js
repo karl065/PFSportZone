@@ -3,6 +3,20 @@ const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {SECRETA} = process.env;
 
+/**
+ * La función `authenticateUser` es una función asíncrona que toma un correo electrónico y una
+ * contraseña como parámetros, y autentica al usuario al verificar si el correo electrónico y la
+ * contraseña coinciden con un usuario en la base de datos, y si lo hacen, genera un token web JSON
+ * (JWT). ) para el usuario.
+ * @param email - El parámetro de correo electrónico es la dirección de correo electrónico del usuario
+ * que intenta autenticarse.
+ * @param password - El parámetro `contraseña` es la contraseña ingresada por el usuario para la
+ * autenticación.
+ * @returns una promesa que se resuelve en un token si el usuario se autentica correctamente. Si el
+ * usuario o la contraseña son incorrectos, devuelve un objeto con un mensaje que indica el error. Si
+ * hay un error durante la creación del token, rechaza la Promesa con un objeto que contiene un mensaje
+ * de error. Si hay un error durante la ejecución de la función, devuelve el mensaje de error.
+ */
 const authenticateUser = async (email, password) => {
   try {
     const user = await Usuarios.findAll({
