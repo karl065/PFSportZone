@@ -29,7 +29,7 @@ const toLogIn = () => {
       </div>
 
       <div className={styles.buttons}>
-      <button onClick={toHome}>TIENDA</button>
+      <button className={styles.tienda}onClick={toHome}>TIENDA</button>
       <button onClick={toLogIn}>LOG IN</button>
       </div>
 

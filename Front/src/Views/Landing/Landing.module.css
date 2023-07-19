@@ -13,6 +13,7 @@ flex-direction: column;
     display: inline-flex;
     flex-direction: column;
     margin:20px
+
 }
 .titles h1{
     font-size: 2cm;
@@ -26,6 +27,21 @@ flex-direction: column;
 
 .buttons{
     display: inline-flex;
+    gap:50px;
+    margin-left: 20px;
+}
+.buttons button {
+    width: 138.993px;
+    height: 40.016px;
+    transform: rotate(-0.572deg);
+    flex-shrink: 0;
+    font-family: 'Koulen', cursive;
+    font-size: 20px;
+    border: transparent;
+    border-radius: 10px;
+}
+.tienda{
+    background: #B5E423;
 }
 
 .image{
