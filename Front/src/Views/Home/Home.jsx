@@ -1,8 +1,35 @@
-import React from 'react'
+import React,{useState} from 'react'
+import Styles from './Home.module.css';
+import Pagination from '../../Components/Pagination/Pagination';
 
-const Home = () => {
+const Home = (props) => {
+  const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+  const [page, setPage] = useState(1);
+  const [amountPerPage, setAmountPerPage] = useState(3);
+  const pageCount = items.length / amountPerPage;
+  console.log(pageCount);
+
   return (
-    <div>Home</div>
+    <div className={Styles.container}>
+
+      <div className={Styles.cards}>
+         {
+          items.slice(
+            (page - 1) * amountPerPage,
+            (page - 1) * amountPerPage + amountPerPage
+          )
+          .map((item)=>{
+            return <h3>{item}</h3>
+          })
+         }
+      </div>
+     
+      <Pagination page={page} setPage={setPage}  pageCount={pageCount}/>
+      
+      <footer>
+        <p>2023 derechos reservados sportzone s.a.</p>
+      </footer>
+    </div>
   )
 }
 
