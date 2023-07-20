@@ -30,7 +30,7 @@ const Landing = () => {
 
       <img
         className={styles.image}
-        src="src\assets\image1.png"
+        src="https://res.cloudinary.com/dpjeltekx/image/upload/v1689812951/PF/image1_xrg2b8.png"
         alt="imagen-landing"
       />
 
