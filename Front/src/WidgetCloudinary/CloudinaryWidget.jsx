@@ -37,7 +37,7 @@ const CloudinaryWidget = () => {
     }
   };
   useEffect(() => {
-    console.log(uploadedImage);
+    console.log(uploadedImage.url);
   }, [uploadedImage]);
 
   const handleDeleteImage = async () => {
