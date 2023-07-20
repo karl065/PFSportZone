@@ -1,11 +1,11 @@
-import { Routes, Route } from "react-router-dom";
-import { NavBar,Login,SignUp } from "./Components";
-import { Landing, Home, Detail, Review, Faq, Error, About } from "./Views";
+import {Routes, Route} from 'react-router-dom';
+import {NavBar, Login, SignUp} from './Components';
+import {Landing, Home, Detail, Review, Faq, Error, About} from './Views';
 
 function App() {
   return (
     <div className="App">
-      {/* <NavBar /> */}
+      <NavBar />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
