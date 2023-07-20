@@ -21,12 +21,11 @@ const {
  * estado 500 con un mensaje de error.
  */
 const updatePersonHandler = async (req, res) => {
-  const id_Persons = req.params.id;
-  console.log(id_Persons);
+  const id_persons = req.params.id;
   const dataToUpdate = req.body;
 
   try {
-    const result = await updatePersonDbController(id_Persons, dataToUpdate);
+    const result = await updatePersonDbController(id_persons, dataToUpdate);
     if (result.error) {
       return res.status(404).json({ error: result.error });
     } else {
