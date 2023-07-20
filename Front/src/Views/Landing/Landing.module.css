@@ -47,3 +47,15 @@
   height: 874px;
   flex-shrink: 0;
 }
+
+.barraSuperior{
+  border: transparent;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(0, 0, 0, 0.920);
+  color:whitesmoke
+}
+.barraSuperior p{
+  color: whitesmoke;
+  text-decoration: none;
+}
