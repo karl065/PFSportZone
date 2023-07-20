@@ -1,7 +1,7 @@
 const {
   getControllerUserByEmail,
   getControllerUser,
-} = require('../../Controllers/ControllersUsers/GetControllersUsers');
+} = require("../../Controllers/ControllersUsers/GetControllersUsers");
 
 /**
  * La función `getHandlerUsers` es una función asíncrona que maneja una solicitud GET para recuperar
@@ -20,7 +20,7 @@ const {
  * devolverá un objeto de respuesta con un código de estado de 500
  */
 const getHandlerUsers = async (req, res) => {
-  const {email} = req.query;
+  const { email } = req.query;
   try {
     if (email) {
       const user = await getControllerUserByEmail(email);
@@ -29,8 +29,8 @@ const getHandlerUsers = async (req, res) => {
     const user = await getControllerUser();
     return res.status(200).json(user);
   } catch (error) {
-    return res.status(500).json({error: error.message});
+    return res.status(500).json({ error: error.message });
   }
 };
 
-module.exports = {getHandlerUsers};
+module.exports = { getHandlerUsers };

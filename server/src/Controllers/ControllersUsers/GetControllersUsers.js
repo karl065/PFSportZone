@@ -1,4 +1,4 @@
-const {Usuarios} = require('../../DB.js');
+const { Usuarios } = require("../../DB.js");
 
 const getControllerUser = async () => {
   return await Usuarios.findAll();
@@ -12,4 +12,4 @@ const getControllerUserByEmail = async (email) => {
   });
 };
 
-module.exports = {getControllerUser, getControllerUserByEmail};
+module.exports = { getControllerUser, getControllerUserByEmail };
