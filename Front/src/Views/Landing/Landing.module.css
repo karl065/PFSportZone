@@ -23,9 +23,23 @@
   font-size: 1cm;
 }
 
-
-.buttons{
-    display: inline-flex;
+.buttons {
+  display: inline-flex;
+  gap: 50px;
+  margin-left: 20px;
+}
+.buttons button {
+  width: 138.993px;
+  height: 40.016px;
+  transform: rotate(-0.572deg);
+  flex-shrink: 0;
+  font-family: 'Koulen', cursive;
+  font-size: 20px;
+  border: transparent;
+  border-radius: 10px;
+}
+.tienda {
+  background: #b5e423;
 }
 
 .image {
