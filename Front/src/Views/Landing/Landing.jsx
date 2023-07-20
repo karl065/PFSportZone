@@ -22,8 +22,10 @@ const Landing = () => {
       </div>
 
       <div className={styles.buttons}>
-      <button className={styles.tienda}onClick={toHome}>TIENDA</button>
-      <button onClick={toLogIn}>LOG IN</button>
+        <button className={styles.tienda} onClick={toHome}>
+          TIENDA
+        </button>
+        <button onClick={toLogIn}>LOG IN</button>
       </div>
 
       <img
