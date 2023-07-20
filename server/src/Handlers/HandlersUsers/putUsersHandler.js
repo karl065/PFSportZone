@@ -1,9 +1,9 @@
 const {
-  putUsuarios,
+  putUser,
 } = require('../../Controllers/ControllersUsers/putControllersUsers');
 const bcryptjs = require('bcryptjs');
 
-const putHandlerUsuarios = async (req, res) => {
+const putHandlerUser = async (req, res) => {
   const {id} = req.params;
   const {email, user, password, role, userStatus} = req.body;
   let passwordHash;
@@ -19,12 +19,12 @@ const putHandlerUsuarios = async (req, res) => {
         ...(role !== undefined && {role}),
         ...(userStatus !== undefined && {userStatus}),
       };
-      const usuario = await putUsuarios(userData, id);
-      return res.status(200).json(usuario);
+      const user = await putUser(userData, id);
+      return res.status(200).json(user);
     } catch (error) {
       return res.status(500).json({error: error});
     }
   }
 };
 
-module.exports = {putHandlerUsuarios};
+module.exports = {putHandlerUser};

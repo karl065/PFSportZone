@@ -1,13 +1,13 @@
 const {Usuarios} = require('../../DB.js');
 
-const deleteUsuario = async (id) => {
+const deleteUser = async (id) => {
   try {
-    const usuario = await Usuarios.findByPk(id);
-    await usuario.destroy({where: {idUser: id}});
-    return usuario;
+    const user = await Usuarios.findByPk(id);
+    await user.destroy({where: {idUser: id}});
+    return user;
   } catch (error) {
     return error.message;
   }
 };
 
-module.exports = {deleteUsuario};
+module.exports = {deleteUser};
