@@ -7,5 +7,17 @@ import Error from "./Error/Error";
 import Review from "./Review/Review";
 import UserRegister from "./Form/UserRegister/UserRegister.jsx";
 import ProductCreation from "./Form/ProductCreation/ProductCreation.jsx";
+import UserLogin from "./Form/UserLogin/UserLogin.jsx";
 
-export { Landing, Home, Detail, Faq, About, Review, Error, UserRegister, ProductCreation };
+export {
+  Landing,
+  Home,
+  Detail,
+  Faq,
+  About,
+  Review,
+  Error,
+  UserRegister,
+  ProductCreation,
+  UserLogin,
+};
