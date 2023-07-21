@@ -1,37 +1,36 @@
-import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import styles from "./ProductCreation.module.css";
-import axios from "axios";
-import server from "../../../Connections/Server";
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import * as Yup from 'yup';
+import styles from './ProductCreation.module.css';
+import axios from 'axios';
+import server from '../../../Connections/Server';
 
 const initialValues = {
-  article_name: "",
-  selling_price: "",
-  purchase_price: "",
-  stock: "",
-  image: "",
-  description: "",
+  article_name: '',
+  selling_price: '',
+  purchase_price: '',
+  stock: '',
+  image: '',
+  description: '',
 };
 
 export const ProductCreation = () => {
   const SignupSchema = Yup.object().shape({
     article_name: Yup.string()
-      .required("Required")
-      .min(2, "Too Short!")
-      .max(80, "Too Long!"),
+      .required('Required')
+      .min(2, 'Too Short!')
+      .max(80, 'Too Long!'),
     selling_price: Yup.number()
-      .required("Required")
-      .min(0.1, "Minimum Price = 0.1"),
+      .required('Required')
+      .min(0.1, 'Minimum Price = 0.1'),
     purchase_price: Yup.number()
-      .required("Required")
-      .min(0.1, "Minimum Price = 0.1"),
-    stock: Yup.number().required("Required").min(0, "Stock must be positive"),
+      .required('Required')
+      .min(0.1, 'Minimum Price = 0.1'),
+    stock: Yup.number().required('Required').min(0, 'Stock must be positive'),
     description: Yup.string()
-      .required("Description required")
-      .min(20, "Too Short!")
-      .max(500, "Too Long!"),
-    image: Yup.string().required("Image required").url("Not an URL"),
+      .required('Description required')
+      .min(20, 'Too Short!')
+      .max(500, 'Too Long!'),
+    image: Yup.string().required('Image required').url('Not an URL'),
   });
 
   const handleSubmit = (values) => {
@@ -41,13 +40,13 @@ export const ProductCreation = () => {
       axios
         .post(`${server.api.baseURL}users`, {
           ...values,
-          status: "Available",
+          status: 'Available',
         })
         .then(() => {
-          alert("Product successfully created!");
+          alert('Product successfully created!');
         });
     } catch (error) {
-      alert("Fail creating product. Please try again later.");
+      alert('Fail creating product. Please try again later.');
     }
   };
 
@@ -58,7 +57,7 @@ export const ProductCreation = () => {
         onSubmit={handleSubmit}
         validationSchema={SignupSchema}
       >
-        {({ errors }) => (
+        {({errors}) => (
           <Form className={styles.form}>
             <div className={styles.header}>
               <label>New product</label>

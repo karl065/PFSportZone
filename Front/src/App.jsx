@@ -1,4 +1,4 @@
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, useLocation} from 'react-router-dom';
 import {NavBar, Login} from './Components';
 import {
   Landing,
