@@ -1,0 +1,30 @@
+.container{
+    display: flex;
+    justify-content: center;
+    gap:10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.container button{
+    font-size: 24px;
+    width: 100px;
+    height: 40px;
+    border:transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    background: black;
+    color:whitesmoke
+}
+.container button:hover{
+    background: #b5e423;
+    color: black
+}
+
+.container button:disabled{
+    cursor:no-drop;
+    background: grey;
+}
+.container button:disabled:hover{
+    background: red;
+}

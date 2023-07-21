@@ -1,18 +1,31 @@
-import {Routes, Route} from 'react-router-dom';
-import {NavBar, Login, SignUp} from './Components';
-import {Landing, Home, Detail, Review, Faq, Error, About} from './Views';
+import {Routes, Route, useLocation} from 'react-router-dom';
+import {NavBar, Login} from './Components';
+import {
+  Landing,
+  Home,
+  Detail,
+  Review,
+  Faq,
+  Error,
+  About,
+  UserRegister,
+  ProductCreation,
+} from './Views';
 
 function App() {
+  const location = useLocation();
   return (
     <div className="App">
-      <NavBar />
+      {location.pathname !== '/' && <NavBar />}
+
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/register" element={<UserRegister />} />
         <Route path="/home" element={<Home />} />
         {/* <Route path="/favorites"/> */}
         <Route path="/product/:id" element={<Detail />} />
+        <Route path="/product/create" element={<ProductCreation />} />
         <Route path="/about" element={<About />} />
         <Route path="/review" element={<Review />} />
         <Route path="/faq" element={<Faq />} />

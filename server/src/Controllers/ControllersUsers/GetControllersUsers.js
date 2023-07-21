@@ -12,4 +12,8 @@ const getControllerUserByEmail = async (email) => {
   });
 };
 
-module.exports = {getControllerUser, getControllerUserByEmail};
+const getUserId = async (id) => {
+  return await Usuarios.findByPk(id);
+};
+
+module.exports = {getControllerUser, getControllerUserByEmail, getUserId};

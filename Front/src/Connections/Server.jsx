@@ -4,7 +4,7 @@ tiene una propiedad llamada `api` que también es un objeto. El objeto `api` tie
 llamada `baseURL` con un valor de `'http://localhost:3000'`. */
 const server = {
   api: {
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://backsportzone.onrender.com/',
   },
 };
 
