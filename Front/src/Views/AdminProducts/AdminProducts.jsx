@@ -25,7 +25,7 @@ const AdminProducts = () => {
                     <li className="nav-item"><Link to="/adminUsers"><FontAwesomeIcon icon="user" /><span> Usuarios</span></Link></li>
                     <li className="nav-item"><Link to="/adminEmployes"><FontAwesomeIcon icon="user-circle"/><span> Empleados</span></Link></li>
                     <li className="nav-item"><Link to="/"><FontAwesomeIcon icon="unlock-alt"/><span> Pagos</span></Link></li>
-                    <li className="nav-item"><Link to="/product/create"><FontAwesomeIcon icon="tshirt"/><span> Crear Producto</span></Link></li>
+                    <li className="nav-item"><Link to="/adminNewProduct"><FontAwesomeIcon icon="tshirt"/><span> Crear Producto</span></Link></li>
                     <li className="nav-item"><Link to="/"><FontAwesomeIcon icon="cogs"/><span> Configuracion</span></Link></li>
                 </ul>
                 <div className="text-center d-none d-md-inline"><button className="btn rounded-circle border-3" id="sidebarToggle" type="button"></button></div>

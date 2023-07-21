@@ -14,6 +14,7 @@ import {
   AdminUsers,
   AdminProducts,
   AdminEmployes,
+  AdminNewProduct,
   UserRegister,
   ProductCreation,
   UserLogin
@@ -44,7 +45,8 @@ function App() {
         <Route path="/adminEmployes" element={<AdminEmployes />} />
         {/* <Route path="/favorites"/> */}
         <Route path="/product/:id" element={<Detail />} />
-        <Route path="/product/create" element={<ProductCreation />} />
+        {/* <Route path="/product/create" element={<ProductCreation />} /> */}
+        <Route path="/adminNewProduct" element={<AdminNewProduct />} /> 
         <Route path="/about" element={<About />} />
         <Route path="/review" element={<Review />} />
         <Route path="/faq" element={<Faq />} />
