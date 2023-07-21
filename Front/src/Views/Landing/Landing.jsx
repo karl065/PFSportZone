@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, NavLink} from 'react-router-dom';
 import styles from './Landing.module.css';
 
 const Landing = () => {
@@ -16,6 +16,17 @@ const Landing = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.barraSuperior}>
+        <NavLink to="/about">
+          <p>About Us</p>
+        </NavLink>
+        <NavLink to="/register">
+          <p>Sign Up</p>
+        </NavLink>
+        <NavLink to="/faq">
+          <p>F&A</p>
+        </NavLink>
+      </div>
       <div className={styles.titles}>
         <h1>SPORTZONE</h1>
         <h3>Todo el deporte en un solo lugar...</h3>
