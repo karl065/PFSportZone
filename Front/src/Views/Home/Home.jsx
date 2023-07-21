@@ -29,6 +29,6 @@ const Home = (props) => {
       </footer>
     </div>
   );
-};
+}
 
 export default Home;
