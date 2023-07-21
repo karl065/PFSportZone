@@ -1,16 +1,16 @@
 /* Este código define un modelo Sequelize para una tabla llamada "Categorías" en una base de datos. */
-const {DataTypes} = require('sequelize');
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    'Categorias',
+    "Categorias",
     {
       id_categories: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      categoryName: {
+      category_name: {
         type: DataTypes.STRING,
       },
       description: {
