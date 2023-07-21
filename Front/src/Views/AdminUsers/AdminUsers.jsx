@@ -5,6 +5,7 @@ import {fas} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Form} from 'react-bootstrap';
 import {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 
 library.add(fas);
 const AdminUsers = () => {
@@ -78,10 +79,10 @@ const AdminUsers = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/adminEmployes">
+                <Link to={'/adminEmployes'}>
                   <FontAwesomeIcon icon="user-circle" />
                   <span> Empleados</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/">
