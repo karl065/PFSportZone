@@ -1,5 +1,7 @@
-import {Routes, Route, useLocation} from 'react-router-dom';
-import {NavBar} from './Components';
+import { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { NavBar } from "./Components";
 import {
   Landing,
   Home,
@@ -8,19 +10,36 @@ import {
   Faq,
   Error,
   About,
+  AdminUsers,
+  AdminProducts,
+  AdminEmployes,
   UserRegister,
   ProductCreation,
-AdminUsers,AdminProducts,AdminEmployes} from './Views';
+} from './Views';
+=========
+import {Routes, Route} from 'react-router-dom';
+import {NavBar, Login, SignUp} from './Components';
+import {Landing, Home, Detail, Review, Faq, Error, About,AdminUsers,AdminProducts,AdminEmployes} from './Views';
+>>>>>>>>> Temporary merge branch 2
 
 function App() {
+  const dispatch = useDispatch();
   const location = useLocation();
+
+  // * Carga inicial de los datos necesarios para la app.
+  useEffect(() => {
+    dispatch(setLoading(true));
+    dispatch(getUsers());
+    dispatch(getInventory()).then(() => dispatch(setLoading(false)));
+  }, [dispatch]);
+
   return (
     <div className="App">
-      {location.pathname !== '/' && <NavBar />}
+      {location.pathname !== "/" && <NavBar />}
 
       <Routes>
         <Route path="/" element={<Landing />} />
-        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/login" element={<UserLogin />} />
         <Route path="/register" element={<UserRegister />} />
         <Route path="/home" element={<Home />} />
         <Route path="/adminUsers" element={<AdminUsers />} />
