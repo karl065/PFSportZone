@@ -1,4 +1,10 @@
-import { EXAMPLE, SET_LOADING } from "../actions-types/action-types";
+import {
+  EXAMPLE,
+  SET_LOADING,
+  GET_INVENTORY,
+} from "../actions-types/action-types";
+import server from "../../Connections/Server";
+import axios from "axios";
 
 export function example(value) {
   return {
@@ -6,6 +12,16 @@ export function example(value) {
     payload: value,
   };
 }
+
+export const getInventory = () => {
+  return async (dispatch) => {
+    const { data } = await axios.get(`${server.api.baseURL}inventory`);
+    dispatch({
+      type: GET_INVENTORY,
+      payload: data,
+    });
+  };
+};
 
 export const setLoading = (isLoading) => {
   return {
