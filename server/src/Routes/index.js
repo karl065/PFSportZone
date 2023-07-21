@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const users = require("./UsersRoutes/UsersRoutes.js");
 const auth = require("./AuthRoutes/authRoutes.js");
+const inventary = require("./InventariosRoutes/InventariosRoutes.js");
 const router = Router();
 
 /* `router.get('/', prueba);` está definiendo una ruta para una solicitud GET a la URL raíz ("/") de la
@@ -8,5 +9,6 @@ aplicación. Cuando se realiza una solicitud GET a la URL raíz, se ejecutará l
 módulo `PruebaHandler`. */
 router.use("/users", users);
 router.use("/auth", auth);
+router.use("/inventary", inventary);
 
 module.exports = router;
