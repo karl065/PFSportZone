@@ -1,9 +1,9 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import styles from "./ProductCreation.module.css";
-import axios from "axios";
-import server from "../../../Connections/Server";
 import Swal from "sweetalert2";
+import { createProduct } from "../../../redux/actions/actions";
 
 const initialValues = {
   id_inventory: "",
@@ -16,6 +16,8 @@ const initialValues = {
 };
 
 export const ProductCreation = () => {
+  const dispatch = useDispatch();
+
   const SignupSchema = Yup.object().shape({
     id_inventory: Yup.string()
       .required("Product Identifier required")
@@ -24,10 +26,8 @@ export const ProductCreation = () => {
       .required("Required product name")
       .min(2, "Too Short!. At leas 2 characters.")
       .max(80, "Too Long!. No more than 80 characters.")
-      .test(
-        "has-3-letters",
-        "Must contain at least 3 letters",
-        (value) => /^(.*[a-zA-Z].*){3,}$/.test(value)
+      .test("has-3-letters", "Must contain at least 3 letters", (value) =>
+        /^(.*[a-zA-Z].*){3,}$/.test(value)
       ),
     selling_price: Yup.number()
       .required("Required selling price")
@@ -50,17 +50,15 @@ export const ProductCreation = () => {
   });
 
   const handleSubmit = (values) => {
-    // ! Aun no esta el endpoint del producto pero esta era la plantilla que tenia
-    // a agregar status: "Available"
     try {
-      axios
-        .post(`${server.api.baseURL}inventory`, {
+      dispatch(
+        createProduct({
           ...values,
           status: "Available",
         })
-        .then(() => {
-          Swal.fire("Good job!", "Successfully register!", "success");
-        });
+      ).then(() => {
+        Swal.fire("Good job!", "Product created!", "success");
+      });
     } catch (error) {
       Swal.fire({
         icon: "error",

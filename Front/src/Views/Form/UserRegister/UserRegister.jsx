@@ -2,12 +2,10 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "../../../Components";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../../../redux/actions/actions";
 import * as Yup from "yup";
 import styles from "./UserRegister.module.css";
 import Swal from "sweetalert2";
-import axios from "axios";
-import server from "../../../Connections/Server";
+import { createUser } from "../../../redux/actions/actions";
 
 const initialValues = {
   email: "",
@@ -42,23 +40,19 @@ export const UserRegister = () => {
   });
 
   const handleSubmit = (values) => {
-    // ! Funcional pero cuando este el redux cambiarlo a una action thunk, el swal dejarlo aca.
     // ? Implementar como un componente loading que tenga un fondo tipo swal, centrado en la pantalla y cargue un spinner.
-    // role: Client userStatus: true
     try {
-      dispatch(setLoading(true));
-      axios
-        .post(`${server.api.baseURL}users`, {
-          ...values,
-          role: "Cliente",
-          userStatus: true,
-        })
-        .then(() => {
-          dispatch(setLoading(false));
-          Swal.fire("Good job!", "Successfully register!", "success").then(() =>
-            navigate("/home")
-          );
-        });
+      const newUser = {
+        ...values,
+        role: "Cliente",
+        userStatus: true,
+      };
+
+      dispatch(createUser(newUser)).then(() => {
+        Swal.fire("Good job!", "Successfully register!", "success").then(() =>
+          navigate("/home")
+        );
+      });
     } catch (error) {
       Swal.fire({
         icon: "error",
