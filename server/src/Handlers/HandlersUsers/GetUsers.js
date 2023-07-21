@@ -33,15 +33,7 @@ const getHandlerUsers = async (req, res) => {
     return res.status(500).json({error: error.message});
   }
 };
-const getHandleUserID = async (req, res) => {
-  const {id} = req.params;
-  try {
-    const usuario = await getUserId(id);
-    return res.status(200).json(usuario);
-  } catch (error) {
-    return res.status(500).json({error: error.message});
-  }
-};
+
 const getHandleUserID = async (req, res) => {
   const {id} = req.params;
   try {

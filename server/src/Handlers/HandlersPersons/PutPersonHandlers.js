@@ -3,7 +3,7 @@ ubicado en el directorio `Controllers/ControllersPersons`. Está utilizando la a
 desestructuración para asignar la función importada a la constante `updatePersonDbController`. */
 const {
   updatePersonDbController,
-} = require("../../Controllers/ControllersPersons/PutPersonsControllers.js");
+} = require('../../Controllers/ControllersPersons/PutPersonsControllers.js');
 
 /**
  * La función `updatePersonHandler` es una función asíncrona que maneja la actualización de los datos
@@ -21,21 +21,32 @@ const {
  * estado 500 con un mensaje de error.
  */
 const updatePersonHandler = async (req, res) => {
-  const id_persons = req.params.id;
-  const dataToUpdate = req.body;
+  const {id} = req.params;
+  const {
+    person_type,
+    document_type,
+    document_number,
+    first_name,
+    last_name,
+    phone,
+    address,
+  } = req.body;
 
   try {
-    const result = await updatePersonDbController(id_persons, dataToUpdate);
-    if (result.error) {
-      return res.status(404).json({ error: result.error });
-    } else {
-      return res.status(200).json({ success: result.success });
-    }
+    const personData = {
+      ...(person_type !== undefined && {person_type}),
+      ...(document_type !== undefined && {document_type}),
+      ...(document_number !== undefined && {document_number}),
+      ...(first_name !== undefined && {first_name}),
+      ...(last_name !== undefined && {last_name}),
+      ...(phone !== undefined && {phone}),
+      ...(address !== undefined && {address}),
+    };
+    const result = await updatePersonDbController(id, personData);
+    return res.status(200).json(result);
   } catch (error) {
-    return res
-      .status(500)
-      .json({ error: "Ocurrió un error interno en el servidor." });
+    return res.status(500).json({error: error.message});
   }
 };
 
-module.exports = { updatePersonHandler };
+module.exports = {updatePersonHandler};

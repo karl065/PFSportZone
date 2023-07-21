@@ -1,7 +1,7 @@
 /* La línea `const { Personas } = require("../../DB.js");` está importando el objeto `Personas` del
 archivo `DB.js` ubicado en el archivo `DB.js` del directorio principal . Esto permite que el código
 acceda al objeto `Personas` y use sus métodos y propiedades. */
-const { Personas } = require("../../DB.js");
+const {Personas} = require('../../DB.js');
 
 /**
  * La función `getControllerAllPerson` recupera todos los registros de la tabla `Personas`.
@@ -9,6 +9,10 @@ const { Personas } = require("../../DB.js");
  */
 const getControllerAllPerson = async () => {
   return await Personas.findAll();
+};
+
+const getControllerPersonID = async (id) => {
+  return await Personas.findByPk(id);
 };
 
 /**
@@ -22,7 +26,7 @@ const getControllerAllPerson = async () => {
  */
 const getControllerPersonByNames = async (first_name, last_name) => {
   return await Personas.findOne({
-    where: { first_name: first_name, last_name: last_name },
+    where: {first_name: first_name, last_name: last_name},
   });
 };
 
@@ -43,7 +47,7 @@ const getControllerPersonByDocument = async (
 ) => {
   console.log(document_type, document_number);
   return await Personas.findOne({
-    where: { document_type: document_type, document_number: document_number },
+    where: {document_type: document_type, document_number: document_number},
   });
 };
 
@@ -51,4 +55,5 @@ module.exports = {
   getControllerAllPerson,
   getControllerPersonByNames,
   getControllerPersonByDocument,
+  getControllerPersonID,
 };

@@ -2,24 +2,24 @@
 de desestructuración. */
 const {
   postPersonDbHandler,
-} = require("../../Handlers/HandlersPersons/PostPersonsHandlers.js");
+} = require('../../Handlers/HandlersPersons/PostPersonsHandlers.js');
 const {
   getHandlerPersons,
-  getHandlerPersonsByDocument,
-} = require("../../Handlers/HandlersPersons/GetPersonsHandlers.js");
+  getHandlerPersonID,
+} = require('../../Handlers/HandlersPersons/GetPersonsHandlers.js');
 const {
   updatePersonHandler,
-} = require("../../Handlers/HandlersPersons/PutPersonHandlers.js");
+} = require('../../Handlers/HandlersPersons/PutPersonHandlers.js');
 const {
   deletePersonHandler,
-} = require("../../Handlers/HandlersPersons/DelPersonsHandlers.js");
+} = require('../../Handlers/HandlersPersons/DelPersonsHandlers.js');
 
-const router = require("express").Router();
+const router = require('express').Router();
 
-router.post("/", postPersonDbHandler);
-router.get("/", getHandlerPersons);
-router.get("/document", getHandlerPersonsByDocument);
-router.put("/:id", updatePersonHandler);
-router.delete("/:id", deletePersonHandler);
+router.post('/', postPersonDbHandler);
+router.get('/', getHandlerPersons);
+router.get('/:id', getHandlerPersonID);
+router.put('/:id', updatePersonHandler);
+router.delete('/:id', deletePersonHandler);
 
 module.exports = router;

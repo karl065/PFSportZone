@@ -2,7 +2,7 @@
 archivo `../../DB`. Está utilizando la desestructuración de objetos para extraer el modelo
 `Personas` del módulo requerido. Esto permite que el código acceda e interactúe con el modelo
 `Personas` en la base de datos. */
-const { Personas } = require("../../DB");
+const {Personas} = require('../../DB');
 
 /**
  * La función `updatePersonDbController` actualiza los datos de una persona en una base de datos en
@@ -18,20 +18,24 @@ const { Personas } = require("../../DB");
  * persona con el id_persons proporcionado". }`. Si hay
  */
 const updatePersonDbController = async (id_persons, dataToUpdate) => {
-  const person = await Personas.findOne({ where: { id_persons: id_persons } });
-
-  if (!person) {
-    return {
-      error: `No se encontró la persona con el id_persons proporcionado.`,
-    };
-  }
-
   try {
-    await person.update(dataToUpdate);
-    return { success: "La persona se actualizó correctamente." };
+    const person = await Personas.findByPk(id_persons);
+
+    if (!person) {
+      return {
+        error: `No se encontró la persona con el id_persons proporcionado.`,
+      };
+    }
+
+    await Personas.update(dataToUpdate, {
+      where: {id_persons},
+    });
+    const personUpdate = await Personas.findByPk(id_persons);
+
+    return personUpdate;
   } catch (error) {
-    return { error: "Ocurrió un error al intentar actualizar la persona." };
+    return error;
   }
 };
 
-module.exports = { updatePersonDbController };
+module.exports = {updatePersonDbController};
