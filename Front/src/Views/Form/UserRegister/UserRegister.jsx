@@ -70,7 +70,6 @@ export const UserRegister = () => {
 
   return (
     <div className={styles.form_wrapper}>
-      <h1 className={styles.title}>Register</h1>
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
@@ -85,6 +84,7 @@ export const UserRegister = () => {
                   Log in
                 </Link>
               </p>
+              <h1 className={styles.title}>Register</h1>
               <div className={styles.field}>
                 <label>Email</label>
                 <Field
@@ -149,7 +149,6 @@ export const UserRegister = () => {
               >
                 Submit
               </button>
-              <Link to={"/"}>Back</Link>
             </Form>
           </>
         )}
