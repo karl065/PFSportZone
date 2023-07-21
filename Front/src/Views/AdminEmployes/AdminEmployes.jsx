@@ -7,7 +7,7 @@ import { Form } from 'react-bootstrap';
 import {useEffect, useState } from 'react';
 
 library.add(fas);
-const AdminUsers = () => {
+const AdminEmployes = () => {
     
         const [isSwitchOn, setSwitchOn] = useState(false);
       
@@ -41,8 +41,8 @@ const AdminUsers = () => {
                 <div className="sidebar-brand-text mx-3"><span>    </span></div>
                 <ul className="navbar-nav text-light" id="accordionSidebar">
                     <li className="nav-item"><a className="nav-link" href="/adminProducts"><FontAwesomeIcon icon="shopping-cart" /><span> Productos</span></a></li>
-                    <li className="nav-item"><a className="nav-link active" href="/adminUsers"><FontAwesomeIcon icon="user" /><span> Usuarios</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/adminEmployes"><FontAwesomeIcon icon="user-circle"/><span> Empleados</span></a></li>
+                    <li className="nav-item"><a className="nav-link" href="/adminUsers"><FontAwesomeIcon icon="user" /><span> Usuarios</span></a></li>
+                    <li className="nav-item"><a className="nav-link active" href="/"><FontAwesomeIcon icon="user-circle"/><span> Empleados</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="unlock-alt"/><span> Pagos</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="cogs"/><span> Configuracion</span></a></li>
                 </ul>
@@ -54,7 +54,7 @@ const AdminUsers = () => {
         <div id="content">
         <div className="container-fluid" style={{"display": "block"}}>
             <div className="d-sm-flex justify-content-between align-items-center mb-4">
-                <h3 className="text-dark mb-0">Usuarios</h3>
+                <h3 className="text-dark mb-0">Empleados</h3>
                 <div><select style={{"height": "38px","marginTop": "10px"}} value={selectedOption} onChange={handleSelectChange}>
                         <option defaultValue="">Filtrar por</option>
                         <option value="Usuarios">Usuarios</option>
@@ -89,7 +89,7 @@ const AdminUsers = () => {
                                         <h6 className="mb-0"><strong>Tipo</strong></h6>
                                     </div>
                                     <div className="col-auto">
-                                    <h6 className="mb-0"><strong>Estado de Usuario</strong></h6>
+                                    <h6 className="mb-0"><strong>Estado de Empleado</strong></h6>
                                     </div>
                                 </div>
                             </li>
@@ -145,4 +145,4 @@ const AdminUsers = () => {
   )
 }
 
-export default AdminUsers;
+export default AdminEmployes;
