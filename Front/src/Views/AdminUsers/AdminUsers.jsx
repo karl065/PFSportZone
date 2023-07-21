@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -39,16 +40,8 @@ const AdminUsers = () => {
 
   return (
     <div>
-      <div id="wrapper" style={{display: 'flex'}}>
-        <nav
-          className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
-          style={{
-            background: '#749900',
-            overflow: 'visible',
-            position: 'relative',
-            height: '600px',
-          }}
-        >
+      <div id="wrapper" style={{"display": "flex"}}>
+        <nav className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style={{"background": "#749900","overflow": "visible","position": "relative","height": "600px"}}>
           <div className="container-fluid d-flex flex-column p-3">
             <a
               className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
@@ -66,41 +59,7 @@ const AdminUsers = () => {
               <span> </span>
             </div>
             <ul className="navbar-nav text-light" id="accordionSidebar">
-              <li className="nav-item">
-                <a className="nav-link" href="/adminProducts">
-                  <FontAwesomeIcon icon="shopping-cart" />
-                  <span> Productos</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link active" href="/adminUsers">
-                  <FontAwesomeIcon icon="user" />
-                  <span> Usuarios</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <Link to={'/adminEmployes'}>
-                  <FontAwesomeIcon icon="user-circle" />
-                  <span> Empleados</span>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">
-                  <FontAwesomeIcon icon="unlock-alt" />
-                  <span> Pagos</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/product/create">
-                  <FontAwesomeIcon icon="tshirt" />
-                  <span> Crear Producto</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">
-                  <FontAwesomeIcon icon="cogs" />
-                  <span> Configuración</span>
-                </a>
+             
                 <hr className="sidebar-divider my-0"/>
                 <div className="sidebar-brand-text mx-3"><span>    </span></div>
                 <ul className="navbar-nav text-light" id="accordionSidebar">
@@ -111,14 +70,12 @@ const AdminUsers = () => {
                     <li className="nav-item"><Link to="/adminNewProduct"><FontAwesomeIcon icon="tshirt"/><span> Crear Producto</span></Link></li>
                     <li className="nav-item"><Link to="/"><FontAwesomeIcon icon="cogs"/><span> Configuracion</span></Link></li>
                 </ul>
-               
-</div>
-            
+                </ul>
+                </div>
         </nav>
-        <div
-          className="d-flex flex-column"
+        <div  className="d-flex flex-column"
           id="content-wrapper"
-          style={{flex: '1', flexGrow: '1'}}
+          style={{"flex": "1", "flexGrow": "1"}}
         >
           <div id="content">
             <div className="container-fluid" style={{display: 'block'}}>
@@ -182,7 +139,7 @@ const AdminUsers = () => {
                         <ul className="list-group list-group-flush">
                             <li className="list-group-item">
                             {users.map((user) => (
-                                <div className="row align-items-center no-gutters">
+                                <div className="row align-items-center no-gutters" key={user.idUser}>
                                     <div className="col me-2">
                                         <p>{user.idUser}</p>
                                     </div>
@@ -225,7 +182,6 @@ const AdminUsers = () => {
         </a>
       </div>
     </div>
-  );
-};
-
+    )
+}
 export default AdminUsers;

@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+import {Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -9,22 +11,38 @@ import {useEffect, useState } from 'react';
 library.add(fas);
 const AdminEmployes = () => {
     
-        const [isSwitchOn, setSwitchOn] = useState(false);
-      
-        const handleSwitchChange = () => {
-          setSwitchOn(!isSwitchOn);
-          console.log(isSwitchOn);
-        };
+  const initialEmployeeState = {
+    idUser: '',
+    user: '',
+    email: '',
+    role: '',
+    isActive: false, // Add this property to track the switch status
+  };
+  const [employes, setEmployes] = useState([initialEmployeeState]);
 
-       
-            const [selectedOption, setSelectedOption] = useState('');
-          
-            const handleSelectChange = (event) => {
-             setSelectedOption(event.target.value);
-             console.log(selectedOption);
-            };
-
-            
+  useEffect(() => {
+    // Lógica para cargar los usuarios iniciales
+    axios
+      .get('https://backsportzone.onrender.com/users')
+      .then(({ data }) => {
+        const updatedEmployees = data.map(employee => ({
+          ...employee,
+          isActive: false,
+        }));
+        setEmployes(updatedEmployees);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+     
+  const handleSwitchChange = (event, employeeId) => {
+    const updatedEmployees = employes.map(employee =>
+      employee.idUser === employeeId ? { ...employee, isActive: !employee.isActive } : employee
+    );
+    setEmployes(updatedEmployees);
+  };
+  
           
   return (
    <div >
@@ -57,11 +75,7 @@ const AdminEmployes = () => {
             <div className="d-sm-flex justify-content-between align-items-center mb-4">
                 <h3 className="text-dark mb-0">Empleados</h3>
                 <div>
-                  <select
-                    style={{height: '38px', marginTop: '10px'}}
-                    value={selectedOption}
-                    onChange={handleSelectChange}
-                  >
+                  <select style={{"height": "38px", "marginTop": "10px"}} >
                     <option defaultValue="">Filtrar por</option>
                     <option value="Usuarios">Usuarios</option>
                     <option value="Empleados">Empleados</option>
@@ -113,7 +127,8 @@ const AdminEmployes = () => {
                         
                         <ul className="list-group list-group-flush">
                             <li className="list-group-item">
-                                <div className="row align-items-center no-gutters">
+                            {employes.map((employe) => (
+                                <div className="row align-items-center no-gutters" key={employe.idUser}>
                                     <div className="col me-2">
                                         <p>ID</p>
                                     </div>
@@ -131,17 +146,18 @@ const AdminEmployes = () => {
                                     </div>
                                     
                                     <div className="col-auto">
-                                            <Form>
-                                                <Form.Check
-                                                type="switch"
-                                                id="switchButton"
-                                                label="Activo/Inactivo"
-                                                checked={isSwitchOn}
-                                                onChange={handleSwitchChange}
-                                                />
-                                            </Form>
-                                            </div>   
+      <Form>
+        <Form.Check
+          type="switch"
+          id={employe.idUser}
+          label="Activo/Inactivo"
+          checked={employe.isActive}
+          onChange={(e) => handleSwitchChange(e, employe.idUser)}
+        />
+      </Form>
+    </div>  
                                 </div>
+                                  ))}
                             </li>
                         </ul>
                     </div>
