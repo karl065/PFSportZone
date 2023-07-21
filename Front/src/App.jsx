@@ -15,24 +15,18 @@ import {
   AdminEmployes,
   UserRegister,
   ProductCreation,
-  UserLogin,
-} from "./Views";
-import { getInventory, getUsers, setLoading } from "./redux/actions/actions";
+  AdminUsers,
+  AdminProducts,
+  AdminEmployes,
+} from './Views';
+import {useState} from 'react';
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
-
-  // * Carga inicial de los datos necesarios para la app.
-  useEffect(() => {
-    dispatch(setLoading(true));
-    dispatch(getUsers());
-    dispatch(getInventory()).then(() => dispatch(setLoading(false)));
-  }, [dispatch]);
-
   return (
     <div className="App">
-      {location.pathname !== "/" && <NavBar />}
+      {location.pathname !== '/' && <NavBar />}
 
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -48,7 +42,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/review" element={<Review />} />
         <Route path="/faq" element={<Faq />} />
-        <Route path="*" element={<Error />} />
+        <Route path="*" element={<Error setErrorPage={setErrorPage} />} />
       </Routes>
     </div>
   );
