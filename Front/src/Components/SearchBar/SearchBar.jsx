@@ -1,14 +1,17 @@
 import {useState} from 'react';
 import styles from './SearchBar.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { filterProductsByName, resetDisplayedProducts } from '../../redux/actions/actions';
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const inventory = useSelector(state => state.inventory);
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     setSearchQuery(event.target.value);
+    if(!event.target.value) dispatch(resetDisplayedProducts());
     setTimeout(filterProducts, 300);
   };
 
@@ -17,6 +20,7 @@ const SearchBar = () => {
     // ? Recordar hacerle trim() a la query antes de enviar
     setSearchQuery(query);
     setSearchResults([]);
+    dispatch(filterProductsByName(query.trim()));
     console.log(`Busco con el input ${query}`);
   };
 
@@ -38,7 +42,8 @@ const SearchBar = () => {
   };
 
   const handleClearSearch = () => {
-    setSearchQuery('');
+    setSearchQuery("");
+    dispatch(resetDisplayedProducts());
     setSearchResults([]);
   };
 
