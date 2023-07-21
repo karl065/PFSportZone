@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -8,7 +7,7 @@ import { Form } from 'react-bootstrap';
 import {useEffect, useState } from 'react';
 
 library.add(fas);
-const AdminUsers = () => {
+const AdminEmployes = () => {
     
         const [isSwitchOn, setSwitchOn] = useState(false);
       
@@ -18,27 +17,12 @@ const AdminUsers = () => {
         };
 
        
-        const [selectedOption, setSelectedOption] = useState('');
+            const [selectedOption, setSelectedOption] = useState('');
           
-        const handleSelectChange = (event) => {
+            const handleSelectChange = (event) => {
              setSelectedOption(event.target.value);
              console.log(selectedOption);
-       };
-
-       const [users, setusers] = useState([]);
-        useEffect(() => {
-        // Lógica para cargar los usuarios iniciales
-        axios.get('https://backsportzone.onrender.com/users')
-          .then(({ data }) => {
-            setusers(data);
-            console.log("useEffect(()  "+data);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      }, []);
-
-      
+            };
 
             
           
@@ -57,8 +41,8 @@ const AdminUsers = () => {
                 <div className="sidebar-brand-text mx-3"><span>    </span></div>
                 <ul className="navbar-nav text-light" id="accordionSidebar">
                     <li className="nav-item"><a className="nav-link" href="/adminProducts"><FontAwesomeIcon icon="shopping-cart" /><span> Productos</span></a></li>
-                    <li className="nav-item"><a className="nav-link active" href="/adminUsers"><FontAwesomeIcon icon="user" /><span> Usuarios</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/adminEmployes"><FontAwesomeIcon icon="user-circle"/><span> Empleados</span></a></li>
+                    <li className="nav-item"><a className="nav-link" href="/adminUsers"><FontAwesomeIcon icon="user" /><span> Usuarios</span></a></li>
+                    <li className="nav-item"><a className="nav-link active" href="/"><FontAwesomeIcon icon="user-circle"/><span> Empleados</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="unlock-alt"/><span> Pagos</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/product/create"><FontAwesomeIcon icon="tshirt"/><span> Crear Producto</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="cogs"/><span> Configuracion</span></a></li>
@@ -71,7 +55,7 @@ const AdminUsers = () => {
         <div id="content">
         <div className="container-fluid" style={{"display": "block"}}>
             <div className="d-sm-flex justify-content-between align-items-center mb-4">
-                <h3 className="text-dark mb-0">Usuarios</h3>
+                <h3 className="text-dark mb-0">Empleados</h3>
                 <div><select style={{"height": "38px","marginTop": "10px"}} value={selectedOption} onChange={handleSelectChange}>
                         <option defaultValue="">Filtrar por</option>
                         <option value="Usuarios">Usuarios</option>
@@ -106,7 +90,7 @@ const AdminUsers = () => {
                                         <h6 className="mb-0"><strong>Tipo</strong></h6>
                                     </div>
                                     <div className="col-auto">
-                                    <h6 className="mb-0"><strong>Estado de Usuario</strong></h6>
+                                    <h6 className="mb-0"><strong>Estado de Empleado</strong></h6>
                                     </div>
                                 </div>
                             </li>
@@ -114,22 +98,21 @@ const AdminUsers = () => {
                         
                         <ul className="list-group list-group-flush">
                             <li className="list-group-item">
-                            {users.map((user) => (
                                 <div className="row align-items-center no-gutters">
                                     <div className="col me-2">
-                                        <p>{user.idUser}</p>
+                                        <p>ID</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>{user.user}</p>
+                                        <p>Nombre</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>{user.apellido}</p>
+                                        <p>Apellido</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>{user.email}</p>
+                                        <p>Correo</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>{user.role}</p>
+                                        <p>Tipo</p>
                                     </div>
                                     
                                     <div className="col-auto">
@@ -144,7 +127,6 @@ const AdminUsers = () => {
                                             </Form>
                                             </div>   
                                 </div>
-                                 ))}
                             </li>
                         </ul>
                     </div>
@@ -164,4 +146,4 @@ const AdminUsers = () => {
   )
 }
 
-export default AdminUsers;
+export default AdminEmployes;
