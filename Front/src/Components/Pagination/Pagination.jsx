@@ -13,7 +13,7 @@ export default function Pagination(props) {
       <button disabled={props.page <= 1} onClick={PreviousPage}>
         previous
       </button>
-      <p>{`pagina ${props.page} de ${Math.ceil(props.pageCount)}`}</p>
+      <p>{`Pagina ${props.page} de ${Math.ceil(props.pageCount)}`}</p>
       <button
         disabled={props.page === Math.ceil(props.pageCount)}
         onClick={nextPage}

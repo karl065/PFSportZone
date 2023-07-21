@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
 import {useEffect} from 'react';
 import style from './Error.module.css';
 import {Link} from 'react-router-dom';
@@ -14,7 +15,7 @@ const Error = (props) => {
   }, []);
 
   return (
-    <main className={style.errorContainer}>
+    <main className={style.Errorcontainer}>
       <div className={style.Cimages}>
         <img
           src="https://res.cloudinary.com/dpjeltekx/image/upload/v1689947525/PF/Rocket_gvuj3a.png"
