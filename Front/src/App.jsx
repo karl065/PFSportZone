@@ -33,7 +33,7 @@ function App() {
 
   return (
     <div className="App">
-      {location.pathname !== "/" && <NavBar />}
+      {location.pathname !== '/' && <NavBar />}
 
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -50,10 +50,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/review" element={<Review />} />
         <Route path="/faq" element={<Faq />} />
-        <Route path="*" element={<Error />} />
+        <Route path="*" element={<Error setErrorPage={setErrorPage} />} />
       </Routes>
     </div>
   );
-}
+};
 
 export default App;
