@@ -1,7 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { NavBar } from "./Components";
-import {Routes, Route, useLocation} from 'react-router-dom';
-import {NavBar} from './Components';
 import {
   Landing,
   Home,
