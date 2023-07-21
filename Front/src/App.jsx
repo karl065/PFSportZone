@@ -10,7 +10,7 @@ import {
   About,
   UserRegister,
   ProductCreation,
-,AdminUsers,AdminProducts,AdminEmployes} from './Views';
+AdminUsers,AdminProducts,AdminEmployes} from './Views';
 
 function App() {
   const location = useLocation();
