@@ -1,42 +1,10 @@
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {Form} from 'react-bootstrap';
-import {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
 
 library.add(fas);
-const AdminUsers = () => {
-  const [isSwitchOn, setSwitchOn] = useState(false);
-
-  const handleSwitchChange = () => {
-    setSwitchOn(!isSwitchOn);
-    console.log(isSwitchOn);
-  };
-
-  const [selectedOption, setSelectedOption] = useState('');
-
-  const handleSelectChange = (event) => {
-    setSelectedOption(event.target.value);
-    console.log(selectedOption);
-  };
-
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    // Lógica para cargar los usuarios iniciales
-    axios
-      .get('https://backsportzone.onrender.com/users')
-      .then(({data}) => {
-        setUsers(data);
-        console.log('useEffect(()  ' + data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
+const AdminProducts = () => {
   return (
     <div>
       <div id="wrapper" style={{display: 'flex'}}>
@@ -44,8 +12,8 @@ const AdminUsers = () => {
           className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
           style={{
             background: '#749900',
-            overflow: 'visible',
             position: 'relative',
+            overflow: 'visible',
             height: '600px',
           }}
         >
@@ -67,22 +35,22 @@ const AdminUsers = () => {
             </div>
             <ul className="navbar-nav text-light" id="accordionSidebar">
               <li className="nav-item">
-                <a className="nav-link" href="/adminProducts">
+                <a className="nav-link active" href="/adminProducts">
                   <FontAwesomeIcon icon="shopping-cart" />
                   <span> Productos</span>
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link active" href="/adminUsers">
+                <a className="nav-link" href="/adminUsers">
                   <FontAwesomeIcon icon="user" />
                   <span> Usuarios</span>
                 </a>
               </li>
               <li className="nav-item">
-                <Link to={'/adminEmployes'}>
+                <a className="nav-link" href="/">
                   <FontAwesomeIcon icon="user-circle" />
                   <span> Empleados</span>
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/">
@@ -103,6 +71,13 @@ const AdminUsers = () => {
                 </a>
               </li>
             </ul>
+            <div className="text-center d-none d-md-inline">
+              <button
+                className="btn rounded-circle border-3"
+                id="sidebarToggle"
+                type="button"
+              ></button>
+            </div>
           </div>
         </nav>
         <div
@@ -113,16 +88,12 @@ const AdminUsers = () => {
           <div id="content">
             <div className="container-fluid" style={{display: 'block'}}>
               <div className="d-sm-flex justify-content-between align-items-center mb-4">
-                <h3 className="text-dark mb-0">Usuarios</h3>
+                <h3 className="text-dark mb-0">Productos</h3>
                 <div>
-                  <select
-                    style={{height: '38px', marginTop: '10px'}}
-                    value={selectedOption}
-                    onChange={handleSelectChange}
-                  >
-                    <option defaultValue="">Filtrar por</option>
-                    <option value="Usuarios">Usuarios</option>
-                    <option value="Empleados">Empleados</option>
+                  <select style={{height: '38px', marginTop: '10px'}}>
+                    <option defaultValue="12">Filtrar por</option>
+                    <option value="12">Usuarios</option>
+                    <option value="13">Empleados</option>
                   </select>
                 </div>
                 <div></div>
@@ -154,28 +125,48 @@ const AdminUsers = () => {
                           </div>
                           <div className="col me-2">
                             <h6 className="mb-0">
+                              <strong>Imagen</strong>
+                            </h6>
+                          </div>
+                          <div className="col me-2">
+                            <h6 className="mb-0">
                               <strong>Nombre</strong>
                             </h6>
                           </div>
                           <div className="col me-2">
                             <h6 className="mb-0">
-                              <strong>Apellido</strong>
+                              <strong>Referencia</strong>
                             </h6>
                           </div>
                           <div className="col me-2">
                             <h6 className="mb-0">
-                              <strong>Correo</strong>
+                              <strong>Categoria</strong>
                             </h6>
                           </div>
                           <div className="col me-2">
                             <h6 className="mb-0">
-                              <strong>Tipo</strong>
+                              <strong>Precio</strong>
+                            </h6>
+                          </div>
+                          <div className="col me-2">
+                            <h6 className="mb-0">
+                              <strong>Cantidad</strong>
                             </h6>
                           </div>
                           <div className="col-auto">
-                            <h6 className="mb-0">
-                              <strong>Estado de Usuario</strong>
-                            </h6>
+                            <div className="form-check">
+                              <input
+                                id="formCheck-1"
+                                className="form-check-input"
+                                type="checkbox"
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="formCheck-1"
+                              >
+                                Activo
+                              </label>
+                            </div>
                           </div>
                         </div>
                       </li>
@@ -183,40 +174,46 @@ const AdminUsers = () => {
 
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item">
-                        {users.map((user, index) => (
-                          <div
-                            key={index}
-                            className="row align-items-center no-gutters"
-                          >
-                            <div className="col me-2">
-                              <p>{user.idUser}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.user}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.apellido}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.email}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.role}</p>
-                            </div>
-
-                            <div className="col-auto">
-                              <Form>
-                                <Form.Check
-                                  type="switch"
-                                  id="switchButton"
-                                  label="Activo/Inactivo"
-                                  checked={isSwitchOn}
-                                  onChange={handleSwitchChange}
-                                />
-                              </Form>
+                        <div className="row align-items-center no-gutters">
+                          <div className="col me-2">
+                            <p>ID</p>
+                          </div>
+                          <div className="col">
+                            <picture>
+                              <img alt="imagen" />
+                            </picture>
+                          </div>
+                          <div className="col me-2">
+                            <p>Nombre</p>
+                          </div>
+                          <div className="col me-2">
+                            <p>Referencia</p>
+                          </div>
+                          <div className="col me-2">
+                            <p>Categoria</p>
+                          </div>
+                          <div className="col me-2">
+                            <p>Precio</p>
+                          </div>
+                          <div className="col me-2">
+                            <p>Cantidad</p>
+                          </div>
+                          <div className="col-auto">
+                            <div className="form-check">
+                              <input
+                                id="formCheck-1"
+                                className="form-check-input"
+                                type="checkbox"
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="formCheck-1"
+                              >
+                                Activo
+                              </label>
                             </div>
                           </div>
-                        ))}
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -233,4 +230,4 @@ const AdminUsers = () => {
   );
 };
 
-export default AdminUsers;
+export default AdminProducts;

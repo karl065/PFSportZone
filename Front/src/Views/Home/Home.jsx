@@ -10,7 +10,7 @@ const Home = (props) => {
   const pageCount = items.length / amountPerPage;
 
   return (
-    <div className={Styles.container}>
+     <div className={Styles.container}>
       <div className={Styles.cards}>
         {items
           .slice(
@@ -30,5 +30,6 @@ const Home = (props) => {
     </div>
   );
 };
+
 
 export default Home;
