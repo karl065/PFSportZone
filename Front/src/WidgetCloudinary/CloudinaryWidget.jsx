@@ -1,12 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // import React, { useEffect } from 'react';
 import axios from 'axios';
 import {Image} from 'cloudinary-react';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 
 const CloudinaryWidget = () => {
   const cloudName = 'dpjeltekx';
   const uploadPreset = 'PFSportZone';
-  const [uploadedImage, setUploadedImage] = useState(null);
+  const [uploadedImage, setUploadedImage] = useState([]);
 
   const handleUpload = async (event) => {
     const file = event.target.files[0];
@@ -27,23 +28,24 @@ const CloudinaryWidget = () => {
       //   console.log('Imagen subida:', response.data);
 
       // Guardar el public_id y la URL de la imagen subida en el estado del componente
-      setUploadedImage({
-        publicId: response.data.public_id,
-        secureUrl: response.data.secure_url,
-        url: response.data.url,
-      });
+      setUploadedImage([
+        ...uploadedImage,
+        {
+          publicId: response.data.public_id,
+          secureUrl: response.data.secure_url,
+          url: response.data.url,
+        },
+      ]);
     } catch (error) {
       console.error('Error al subir la imagen:', error);
     }
   };
-  useEffect(() => {
-    console.log(uploadedImage.url);
-  }, [uploadedImage]);
 
-  const handleDeleteImage = async () => {
-    if (uploadedImage) {
-      setUploadedImage(null);
-    }
+  const handleDeleteImage = (publicId) => {
+    const updatedImages = uploadedImage.filter(
+      (img) => img.publicId !== publicId
+    );
+    setUploadedImage(updatedImages);
   };
 
   return (
@@ -68,16 +70,15 @@ const CloudinaryWidget = () => {
         />
       </label>
       {/* Mostrar la imagen subida si existe */}
-      {uploadedImage && (
-        <div>
-          <Image
-            cloudName={cloudName}
-            publicId={uploadedImage.publicId}
-            width="300"
-          />
-          <button onClick={handleDeleteImage}>Eliminar</button>
-        </div>
-      )}
+      {uploadedImage.length !== 0 &&
+        uploadedImage.map((img, index) => (
+          <div key={index}>
+            <Image cloudName={cloudName} publicId={img.publicId} width="300" />
+            <button onClick={() => handleDeleteImage(img.publicId)}>
+              Eliminar
+            </button>
+          </div>
+        ))}
     </div>
   );
 };
