@@ -16,7 +16,7 @@
   width: 50%;
   margin: 2rem;
   /* 1150px aprox */
-  max-height: 72rem;
+  max-height: fit-content;
   /* 720px */
   max-width: 45rem;
 }

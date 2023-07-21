@@ -49,7 +49,7 @@ export const ProductCreation = () => {
     image: Yup.string().required("Image required").url("Not an URL"),
   });
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, { resetForm }) => {
     try {
       dispatch(
         createProduct({
@@ -58,6 +58,7 @@ export const ProductCreation = () => {
         })
       ).then(() => {
         Swal.fire("Good job!", "Product created!", "success");
+        resetForm();
       });
     } catch (error) {
       Swal.fire({
