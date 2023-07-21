@@ -48,6 +48,8 @@ const SearchBar = () => {
     // * Lógica para filtrar las cards en función de la búsqueda => Dispatch Redux
     // ! Esto seria con dispatch a la action post. No va a tener .results cambiarlo luego.
     // ? Recordar hacerle trim() a la query antes de enviar
+    setSearchQuery(query);
+    setSearchResults([]);
     console.log(`Busco con el input ${query}`);
   };
 
