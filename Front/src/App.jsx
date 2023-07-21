@@ -1,5 +1,5 @@
 import {Routes, Route, useLocation} from 'react-router-dom';
-import {NavBar, Login} from './Components';
+import {NavBar} from './Components';
 import {
   Landing,
   Home,
@@ -20,7 +20,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
+        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/register" element={<UserRegister />} />
         <Route path="/home" element={<Home />} />
         {/* <Route path="/favorites"/> */}
