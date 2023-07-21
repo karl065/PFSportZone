@@ -1,4 +1,4 @@
-import { EXAMPLE } from "../actions-types/action-types";
+import { EXAMPLE, SET_LOADING } from "../actions-types/action-types";
 
 export function example(value) {
   return {
@@ -6,3 +6,10 @@ export function example(value) {
     payload: value,
   };
 }
+
+export const setLoading = (isLoading) => {
+  return {
+    type: SET_LOADING,
+    payload: isLoading,
+  };
+};
