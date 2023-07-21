@@ -52,9 +52,9 @@
   border: transparent;
   display: flex;
   justify-content: space-around;
-  background-color: rgba(0, 0, 0, 0.920);
   padding: 1.2rem;
   font-size: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.920);
   color:whitesmoke
 }
 .barraSuperior p{

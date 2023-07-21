@@ -12,7 +12,7 @@ const Home = (props) => {
   const pageCount = displayInventory.length / amountPerPage;
 
   return (
-     <div className={Styles.container}>
+    <div className={Styles.container}>
       <div className={Styles.cards}>
         {displayInventory.length ? (
           displayInventory
@@ -36,6 +36,5 @@ const Home = (props) => {
     </div>
   );
 };
-
 
 export default Home;
