@@ -15,6 +15,7 @@ import {
   AdminUsers,
   AdminProducts,
   AdminEmployes,
+  AdminNewProduct,
   UserLogin,
 } from './Views';
 import {getInventory, getUsers, setLoading} from './redux/actions/actions';
@@ -42,6 +43,7 @@ function App() {
         <Route path="/adminUsers" element={<AdminUsers />} />
         <Route path="/adminProducts" element={<AdminProducts />} />
         <Route path="/adminEmployes" element={<AdminEmployes />} />
+        <Route path="/adminNewProduct" element={<AdminNewProduct />} />
         {/* <Route path="/favorites"/> */}
         <Route path="/product/:id" element={<Detail />} />
         <Route path="/product/create" element={<ProductCreation />} />
