@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { NavBar } from "./Components";
+import {Routes, Route, useLocation} from 'react-router-dom';
+import {NavBar} from './Components';
 import {
   Landing,
   Home,
@@ -10,23 +8,25 @@ import {
   Faq,
   Error,
   About,
-  AdminUsers,
-  AdminProducts,
-  AdminEmployes,
+  // AdminUsers,
+  // AdminProducts,
+  // AdminEmployes,
   UserRegister,
   ProductCreation,
   AdminUsers,
   AdminProducts,
   AdminEmployes,
+  UserLogin,
 } from './Views';
 import {useState} from 'react';
 
 function App() {
-  const dispatch = useDispatch();
   const location = useLocation();
+  //estado para no mostrar la nav en la pagina 404
+  const [errorPage, setErrorPage] = useState(true);
   return (
     <div className="App">
-      {location.pathname !== '/' && <NavBar />}
+      {location.pathname !== '/' && errorPage && <NavBar />}
 
       <Routes>
         <Route path="/" element={<Landing />} />
