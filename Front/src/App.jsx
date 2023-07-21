@@ -17,7 +17,7 @@ import {
   ProductCreation,
   UserLogin,
 } from "./Views";
-import { getInventory, setLoading } from "./redux/actions/actions";
+import { getInventory, getUsers, setLoading } from "./redux/actions/actions";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ function App() {
   // * Carga inicial de los datos necesarios para la app.
   useEffect(() => {
     dispatch(setLoading(true));
+    dispatch(getUsers());
     dispatch(getInventory()).then(() => dispatch(setLoading(false)));
   }, [dispatch]);
 
