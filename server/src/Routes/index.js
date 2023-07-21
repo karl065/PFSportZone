@@ -7,6 +7,7 @@ const filters = require('./FilterRoutes/FilterRoutes.js');
 const category = require('./CategoriesRoutes/CategoriesRoutes.js');
 const router = Router();
 
+/* El código utiliza el enrutador Express para definir rutas para diferentes partes de la aplicación. */
 router.use('/users', users);
 router.use('/auth', auth);
 router.use('/inventory', inventory);

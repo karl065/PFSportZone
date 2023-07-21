@@ -1,4 +1,17 @@
-.errorContainer {
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+.Errorcontainer {
   background-color: #0a0b16;
   color: aliceblue;
   position: fixed;
@@ -81,18 +94,4 @@
     color: aliceblue;
     font-size: 5cqw;
   }
-}
-
-p,
-span,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
 }
