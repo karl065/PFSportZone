@@ -1,7 +1,8 @@
 .form_wrapper {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
+  flex-direction: column;
   min-height: 100vh;
   background-color: #c4c6bd;
 }
@@ -11,7 +12,8 @@
   align-items: center;
   flex-direction: column;
   gap: 4rem;
-  width: 40%;
+  background-color: #f1f1f1;
+  width: 50%;
   margin: 2rem;
   /* 1150px aprox */
   max-height: 72rem;
@@ -19,9 +21,24 @@
   max-width: 45rem;
 }
 
-.header,
-.product_window {
-  background-color: #F1F1F1;
+.title {
+  font-size: 3rem;
+  letter-spacing: 5px;
+  margin-bottom: 0;
+  margin-top: 2rem;
+}
+
+.loginParagraph {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #858383;
+  font-size: 1.2rem;
+}
+
+.loginText {
+  color: blue;
+  text-decoration: underline;
 }
 
 .field {
@@ -29,7 +46,7 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
-  width: 70%;
+  width: 80%;
   gap: 1.4rem;
 }
 
