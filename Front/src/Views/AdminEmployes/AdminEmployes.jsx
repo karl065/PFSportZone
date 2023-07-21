@@ -1,14 +1,12 @@
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Form} from 'react-bootstrap';
-import {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {useState} from 'react';
 
 library.add(fas);
-const AdminUsers = () => {
+const AdminEmployes = () => {
   const [isSwitchOn, setSwitchOn] = useState(false);
 
   const handleSwitchChange = () => {
@@ -22,20 +20,6 @@ const AdminUsers = () => {
     setSelectedOption(event.target.value);
     console.log(selectedOption);
   };
-
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    // Lógica para cargar los usuarios iniciales
-    axios
-      .get('https://backsportzone.onrender.com/users')
-      .then(({data}) => {
-        setUsers(data);
-        console.log('useEffect(()  ' + data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
 
   return (
     <div>
@@ -73,16 +57,16 @@ const AdminUsers = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link active" href="/adminUsers">
+                <a className="nav-link" href="/adminUsers">
                   <FontAwesomeIcon icon="user" />
                   <span> Usuarios</span>
                 </a>
               </li>
               <li className="nav-item">
-                <Link to={'/adminEmployes'}>
+                <a className="nav-link active" href="/">
                   <FontAwesomeIcon icon="user-circle" />
                   <span> Empleados</span>
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/">
@@ -113,7 +97,7 @@ const AdminUsers = () => {
           <div id="content">
             <div className="container-fluid" style={{display: 'block'}}>
               <div className="d-sm-flex justify-content-between align-items-center mb-4">
-                <h3 className="text-dark mb-0">Usuarios</h3>
+                <h3 className="text-dark mb-0">Empleados</h3>
                 <div>
                   <select
                     style={{height: '38px', marginTop: '10px'}}
@@ -174,7 +158,7 @@ const AdminUsers = () => {
                           </div>
                           <div className="col-auto">
                             <h6 className="mb-0">
-                              <strong>Estado de Usuario</strong>
+                              <strong>Estado de Empleado</strong>
                             </h6>
                           </div>
                         </div>
@@ -183,40 +167,35 @@ const AdminUsers = () => {
 
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item">
-                        {users.map((user, index) => (
-                          <div
-                            key={index}
-                            className="row align-items-center no-gutters"
-                          >
-                            <div className="col me-2">
-                              <p>{user.idUser}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.user}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.apellido}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.email}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.role}</p>
-                            </div>
-
-                            <div className="col-auto">
-                              <Form>
-                                <Form.Check
-                                  type="switch"
-                                  id="switchButton"
-                                  label="Activo/Inactivo"
-                                  checked={isSwitchOn}
-                                  onChange={handleSwitchChange}
-                                />
-                              </Form>
-                            </div>
+                        <div className="row align-items-center no-gutters">
+                          <div className="col me-2">
+                            <p>ID</p>
                           </div>
-                        ))}
+                          <div className="col me-2">
+                            <p>Nombre</p>
+                          </div>
+                          <div className="col me-2">
+                            <p>Apellido</p>
+                          </div>
+                          <div className="col me-2">
+                            <p>Correo</p>
+                          </div>
+                          <div className="col me-2">
+                            <p>Tipo</p>
+                          </div>
+
+                          <div className="col-auto">
+                            <Form>
+                              <Form.Check
+                                type="switch"
+                                id="switchButton"
+                                label="Activo/Inactivo"
+                                checked={isSwitchOn}
+                                onChange={handleSwitchChange}
+                              />
+                            </Form>
+                          </div>
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -233,4 +212,4 @@ const AdminUsers = () => {
   );
 };
 
-export default AdminUsers;
+export default AdminEmployes;
