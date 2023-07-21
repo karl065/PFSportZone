@@ -1,4 +1,3 @@
-import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -7,14 +6,68 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 library.add(fas);
 const AdminProducts = () => {
   return (
-   <div >
-        <div id="wrapper" style={{"display" : "flex"}}>
-        <nav className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style={{"background" : "#749900","position" : "relative","overflow" : "visible","height" : "600px"}}>
-            <div className="container-fluid d-flex flex-column p-3"><a className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div className="sidebar-brand-icon rotate-n-15"><FontAwesomeIcon icon="passport" /></div>
-                    <div className="sidebar-brand-text mx-3"><span>SportZone</span></div>
-                  
-                    
+    <div>
+      <div id="wrapper" style={{display: 'flex'}}>
+        <nav
+          className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+          style={{
+            background: '#749900',
+            position: 'relative',
+            overflow: 'visible',
+            height: '600px',
+          }}
+        >
+          <div className="container-fluid d-flex flex-column p-3">
+            <a
+              className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
+              href="#"
+            >
+              <div className="sidebar-brand-icon rotate-n-15">
+                <FontAwesomeIcon icon="passport" />
+              </div>
+              <div className="sidebar-brand-text mx-3">
+                <span>SportZone</span>
+              </div>
+            </a>
+            <hr className="sidebar-divider my-0" />
+            <div className="sidebar-brand-text mx-3">
+              <span> </span>
+            </div>
+            <ul className="navbar-nav text-light" id="accordionSidebar">
+              <li className="nav-item">
+                <a className="nav-link active" href="/adminProducts">
+                  <FontAwesomeIcon icon="shopping-cart" />
+                  <span> Productos</span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/adminUsers">
+                  <FontAwesomeIcon icon="user" />
+                  <span> Usuarios</span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/">
+                  <FontAwesomeIcon icon="user-circle" />
+                  <span> Empleados</span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/">
+                  <FontAwesomeIcon icon="unlock-alt" />
+                  <span> Pagos</span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/product/create">
+                  <FontAwesomeIcon icon="tshirt" />
+                  <span> Crear Producto</span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/">
+                  <FontAwesomeIcon icon="cogs" />
+                  <span> Configuración</span>
                 </a>
                 <hr className="sidebar-divider my-0"/>
                 <div className="sidebar-brand-text mx-3"><span>    </span></div>

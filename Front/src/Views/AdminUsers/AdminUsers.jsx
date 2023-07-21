@@ -17,25 +17,89 @@ const AdminUsers = () => {
         };
 
        
-            const [selectedOption, setSelectedOption] = useState('');
+        const [selectedOption, setSelectedOption] = useState('');
           
-            const handleSelectChange = (event) => {
+        const handleSelectChange = (event) => {
              setSelectedOption(event.target.value);
              console.log(selectedOption);
-            };
+       };
 
-            
-          
+       const [users, setusers] = useState([]);
+        useEffect(() => {
+        // Lógica para cargar los usuarios iniciales
+        axios.get('https://backsportzone.onrender.com/users')
+          .then(({ data }) => {
+            setusers(data);
+            console.log("useEffect(()  "+data);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }, []);
+
   return (
-   <div >
-        <div id="wrapper" style={{"display" : "flex"}}>
-        <nav className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style={{"background" : "#749900","overflow": "visible","position" : "relative","height" : "600px"}}>
-            
-            <div className="container-fluid d-flex flex-column p-3"><a className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div className="sidebar-brand-icon rotate-n-15"><FontAwesomeIcon icon="passport" /></div>
-                    <div className="sidebar-brand-text mx-3"><span>SportZone</span></div>
-                  
-                    
+    <div>
+      <div id="wrapper" style={{display: 'flex'}}>
+        <nav
+          className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+          style={{
+            background: '#749900',
+            overflow: 'visible',
+            position: 'relative',
+            height: '600px',
+          }}
+        >
+          <div className="container-fluid d-flex flex-column p-3">
+            <a
+              className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
+              href="#"
+            >
+              <div className="sidebar-brand-icon rotate-n-15">
+                <FontAwesomeIcon icon="passport" />
+              </div>
+              <div className="sidebar-brand-text mx-3">
+                <span>SportZone</span>
+              </div>
+            </a>
+            <hr className="sidebar-divider my-0" />
+            <div className="sidebar-brand-text mx-3">
+              <span> </span>
+            </div>
+            <ul className="navbar-nav text-light" id="accordionSidebar">
+              <li className="nav-item">
+                <a className="nav-link" href="/adminProducts">
+                  <FontAwesomeIcon icon="shopping-cart" />
+                  <span> Productos</span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link active" href="/adminUsers">
+                  <FontAwesomeIcon icon="user" />
+                  <span> Usuarios</span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <Link to={'/adminEmployes'}>
+                  <FontAwesomeIcon icon="user-circle" />
+                  <span> Empleados</span>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/">
+                  <FontAwesomeIcon icon="unlock-alt" />
+                  <span> Pagos</span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/product/create">
+                  <FontAwesomeIcon icon="tshirt" />
+                  <span> Crear Producto</span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/">
+                  <FontAwesomeIcon icon="cogs" />
+                  <span> Configuración</span>
                 </a>
                 <hr className="sidebar-divider my-0"/>
                 <div className="sidebar-brand-text mx-3"><span>    </span></div>
@@ -55,21 +119,36 @@ const AdminUsers = () => {
         <div className="container-fluid" style={{"display": "block"}}>
             <div className="d-sm-flex justify-content-between align-items-center mb-4">
                 <h3 className="text-dark mb-0">Usuarios</h3>
-                <div><select style={{"height": "38px","marginTop": "10px"}} value={selectedOption} onChange={handleSelectChange}>
-                        <option defaultValue="">Filtrar por</option>
-                        <option value="Usuarios">Usuarios</option>
-                        <option value="Empleados">Empleados</option>
-                    </select></div>
+                <div>
+                  <select
+                    style={{height: '38px', marginTop: '10px'}}
+                    value={selectedOption}
+                    onChange={handleSelectChange}
+                  >
+                    <option defaultValue="">Filtrar por</option>
+                    <option value="Usuarios">Usuarios</option>
+                    <option value="Empleados">Empleados</option>
+                  </select>
+                </div>
                 <div></div>
-                <div><button className="btn btn-primary" type="button" style={{"marginTop": "10px","background": "#749900"}}>Eliminar</button></div>
-            </div>
-            <div></div>
-            <div className="row">
-                
-                <div className="col-lg-6 mb-4" style={{"display": "block","width": "100%"}}>
-                    <div className="card shadow mb-4"></div>
-                    <div className="card shadow mb-4" style={{"width": "100%"}}>
-                        
+                <div>
+                  <button
+                    className="btn btn-primary"
+                    type="button"
+                    style={{marginTop: '10px', background: '#749900'}}
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+              <div></div>
+              <div className="row">
+                <div
+                  className="col-lg-6 mb-4"
+                  style={{display: 'block', width: '100%'}}
+                >
+                  <div className="card shadow mb-4"></div>
+                  <div className="card shadow mb-4" style={{width: '100%'}}>
                     <ul className="list-group list-group-flush">
                             <li className="list-group-item">
                                 <div className="row align-items-center no-gutters">
@@ -97,21 +176,22 @@ const AdminUsers = () => {
                         
                         <ul className="list-group list-group-flush">
                             <li className="list-group-item">
+                            {users.map((user) => (
                                 <div className="row align-items-center no-gutters">
                                     <div className="col me-2">
-                                        <p>ID</p>
+                                        <p>{user.idUser}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>Nombre</p>
+                                        <p>{user.user}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>Apellido</p>
+                                        <p>{user.apellido}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>Correo</p>
+                                        <p>{user.email}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>Tipo</p>
+                                        <p>{user.role}</p>
                                     </div>
                                     
                                     <div className="col-auto">
@@ -126,6 +206,7 @@ const AdminUsers = () => {
                                             </Form>
                                             </div>   
                                 </div>
+                                 ))}
                             </li>
                         </ul>
                     </div>
