@@ -8,7 +8,7 @@ const {conn} = require('./src/DB');
 const server = require('./src/server');
 const PORT = 3000;
 
-conn.sync({force: true}).then(() => {
+conn.sync().then(() => {
   server.listen(PORT, () => {
     console.log(`Corriendo en el puerto: ${PORT}`);
   });
