@@ -3,8 +3,10 @@ import * as Yup from "yup";
 import styles from "./ProductCreation.module.css";
 import axios from "axios";
 import server from "../../../Connections/Server";
+import Swal from "sweetalert2";
 
 const initialValues = {
+  id_inventory: "",
   article_name: "",
   selling_price: "",
   purchase_price: "",
@@ -15,10 +17,18 @@ const initialValues = {
 
 export const ProductCreation = () => {
   const SignupSchema = Yup.object().shape({
+    id_inventory: Yup.string()
+      .required("Product Identifier required")
+      .min(3, "At least 3 digits"),
     article_name: Yup.string()
       .required("Required product name")
       .min(2, "Too Short!. At leas 2 characters.")
-      .max(80, "Too Long!. No more than 80 characters."),
+      .max(80, "Too Long!. No more than 80 characters.")
+      .test(
+        "has-3-letters",
+        "Must contain at least 3 letters",
+        (value) => /^(.*[a-zA-Z].*){3,}$/.test(value)
+      ),
     selling_price: Yup.number()
       .required("Required selling price")
       .min(0.1, "Minimum Price: 0.1")
@@ -43,14 +53,12 @@ export const ProductCreation = () => {
     // ! Aun no esta el endpoint del producto pero esta era la plantilla que tenia
     // a agregar status: "Available"
     try {
-      dispatch(setLoading(true));
       axios
-        .post(`${server.api.baseURL}users`, {
+        .post(`${server.api.baseURL}inventory`, {
           ...values,
           status: "Available",
         })
         .then(() => {
-          dispatch(setLoading(false));
           Swal.fire("Good job!", "Successfully register!", "success");
         });
     } catch (error) {
@@ -72,6 +80,19 @@ export const ProductCreation = () => {
         {({ errors }) => (
           <Form className={styles.form}>
             <h1 className={styles.title}>NEW PRODUCT</h1>
+            <div className={styles.field}>
+              <label>ID</label>
+              <Field
+                name="id_inventory"
+                placeholder="Product Code"
+                className={styles.input}
+              />
+              <ErrorMessage
+                name="id_inventory"
+                component="span"
+                className={styles.error}
+              />
+            </div>
             <div className={styles.field}>
               <label>Name</label>
               <Field
