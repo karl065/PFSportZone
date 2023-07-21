@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { NavBar } from "./Components";
 import {
   Landing,
@@ -15,9 +17,18 @@ import {
   ProductCreation,
   UserLogin,
 } from "./Views";
+import { getInventory, setLoading } from "./redux/actions/actions";
 
 function App() {
+  const dispatch = useDispatch();
   const location = useLocation();
+
+  // * Carga inicial de los datos necesarios para la app.
+  useEffect(() => {
+    dispatch(setLoading(true));
+    dispatch(getInventory()).then(() => dispatch(setLoading(false)));
+  }, [dispatch]);
+
   return (
     <div className="App">
       {location.pathname !== "/" && <NavBar />}
