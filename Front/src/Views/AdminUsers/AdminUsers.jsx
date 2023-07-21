@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -17,12 +18,27 @@ const AdminUsers = () => {
         };
 
        
-            const [selectedOption, setSelectedOption] = useState('');
+        const [selectedOption, setSelectedOption] = useState('');
           
-            const handleSelectChange = (event) => {
+        const handleSelectChange = (event) => {
              setSelectedOption(event.target.value);
              console.log(selectedOption);
-            };
+       };
+
+       const [users, setusers] = useState([]);
+        useEffect(() => {
+        // Lógica para cargar los usuarios iniciales
+        axios.get('https://backsportzone.onrender.com/users')
+          .then(({ data }) => {
+            setusers(data);
+            console.log("useEffect(()  "+data);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }, []);
+
+      
 
             
           
@@ -44,6 +60,7 @@ const AdminUsers = () => {
                     <li className="nav-item"><a className="nav-link active" href="/adminUsers"><FontAwesomeIcon icon="user" /><span> Usuarios</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/adminEmployes"><FontAwesomeIcon icon="user-circle"/><span> Empleados</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="unlock-alt"/><span> Pagos</span></a></li>
+                    <li className="nav-item"><a className="nav-link" href="/product/create"><FontAwesomeIcon icon="tshirt"/><span> Crear Producto</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="cogs"/><span> Configuracion</span></a></li>
                 </ul>
                
@@ -97,21 +114,22 @@ const AdminUsers = () => {
                         
                         <ul className="list-group list-group-flush">
                             <li className="list-group-item">
+                            {users.map((user) => (
                                 <div className="row align-items-center no-gutters">
                                     <div className="col me-2">
-                                        <p>ID</p>
+                                        <p>{user.idUser}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>Nombre</p>
+                                        <p>{user.user}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>Apellido</p>
+                                        <p>{user.apellido}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>Correo</p>
+                                        <p>{user.email}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>Tipo</p>
+                                        <p>{user.role}</p>
                                     </div>
                                     
                                     <div className="col-auto">
@@ -126,6 +144,7 @@ const AdminUsers = () => {
                                             </Form>
                                             </div>   
                                 </div>
+                                 ))}
                             </li>
                         </ul>
                     </div>

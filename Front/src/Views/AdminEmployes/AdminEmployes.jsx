@@ -44,6 +44,7 @@ const AdminEmployes = () => {
                     <li className="nav-item"><a className="nav-link" href="/adminUsers"><FontAwesomeIcon icon="user" /><span> Usuarios</span></a></li>
                     <li className="nav-item"><a className="nav-link active" href="/"><FontAwesomeIcon icon="user-circle"/><span> Empleados</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="unlock-alt"/><span> Pagos</span></a></li>
+                    <li className="nav-item"><a className="nav-link" href="/product/create"><FontAwesomeIcon icon="tshirt"/><span> Crear Producto</span></a></li>
                     <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="cogs"/><span> Configuracion</span></a></li>
                 </ul>
                
