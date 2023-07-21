@@ -1,5 +1,5 @@
-import {Routes, Route, useLocation} from 'react-router-dom';
-import {NavBar, Login} from './Components';
+import { Routes, Route, useLocation } from "react-router-dom";
+import { NavBar } from "./Components";
 import {
   Landing,
   Home,
@@ -10,17 +10,18 @@ import {
   About,
   UserRegister,
   ProductCreation,
-} from './Views';
+  UserLogin,
+} from "./Views";
 
 function App() {
   const location = useLocation();
   return (
     <div className="App">
-      {location.pathname !== '/' && <NavBar />}
+      {location.pathname !== "/" && <NavBar />}
 
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<UserLogin />} />
         <Route path="/register" element={<UserRegister />} />
         <Route path="/home" element={<Home />} />
         {/* <Route path="/favorites"/> */}
