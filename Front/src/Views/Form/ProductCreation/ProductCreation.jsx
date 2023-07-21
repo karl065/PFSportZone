@@ -144,9 +144,11 @@ export const ProductCreation = () => {
             <div className={styles.field}>
               <label>Description</label>
               <Field
+                as="textarea"
                 name="description"
                 placeholder="Product description"
                 className={styles.input}
+                rows="4"
               />
               <ErrorMessage
                 name="description"
