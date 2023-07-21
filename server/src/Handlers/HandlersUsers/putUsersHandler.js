@@ -10,20 +10,19 @@ const putHandlerUser = async (req, res) => {
   if (password) {
     passwordHash = await bcryptjs.hash(password, 10);
   }
-  if (email || user || password || role || userStatus) {
-    try {
-      const userData = {
-        ...(email !== undefined && {email}),
-        ...(user !== undefined && {user}),
-        ...(password !== undefined && {password: passwordHash}),
-        ...(role !== undefined && {role}),
-        ...(userStatus !== undefined && {userStatus}),
-      };
-      const user = await putUser(userData, id);
-      return res.status(200).json(user);
-    } catch (error) {
-      return res.status(500).json({error: error});
-    }
+
+  try {
+    const userData = {
+      ...(email !== undefined && {email}),
+      ...(user !== undefined && {user}),
+      ...(password !== undefined && {password: passwordHash}),
+      ...(role !== undefined && {role}),
+      ...(userStatus !== undefined && {userStatus}),
+    };
+    const userUpdate = await putUser(userData, id);
+    return res.status(200).json(userUpdate);
+  } catch (error) {
+    return res.status(500).json({error: error});
   }
 };
 
