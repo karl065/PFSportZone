@@ -5,6 +5,8 @@ import {
   GET_INVENTORY,
   CREATE_USER,
   CREATE_PRODUCT,
+  FILTER_PRODUCTS_BY_NAME,
+  RESET_DISPLAYED_PRODUCTS,
 } from "../actions-types/action-types";
 import server from "../../Connections/Server";
 import axios from "axios";
@@ -56,6 +58,19 @@ export const createProduct = (product) => {
       type: CREATE_PRODUCT,
       payload: data,
     });
+  };
+};
+
+export const filterProductsByName = (name) => {
+  return {
+    type: FILTER_PRODUCTS_BY_NAME,
+    payload: name,
+  };
+};
+
+export const resetDisplayedProducts = () => {
+  return {
+    type: RESET_DISPLAYED_PRODUCTS,
   };
 };
 
