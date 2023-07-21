@@ -34,7 +34,6 @@ function App() {
   return (
     <div className="App">
       {location.pathname !== '/' && errorPage && <NavBar />}
-
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<UserLogin />} />
