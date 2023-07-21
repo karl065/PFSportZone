@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { NavBar } from "./Components";
+import { setLoading,getUsers,getInventory } from "./redux/actions/actions";
 import {
   Landing,
   Home,
@@ -15,12 +16,8 @@ import {
   AdminEmployes,
   UserRegister,
   ProductCreation,
+  UserLogin
 } from './Views';
-=========
-import {Routes, Route} from 'react-router-dom';
-import {NavBar, Login, SignUp} from './Components';
-import {Landing, Home, Detail, Review, Faq, Error, About,AdminUsers,AdminProducts,AdminEmployes} from './Views';
->>>>>>>>> Temporary merge branch 2
 
 function App() {
   const dispatch = useDispatch();

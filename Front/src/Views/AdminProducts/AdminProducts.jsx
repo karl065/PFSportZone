@@ -1,8 +1,10 @@
 import React from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {Link} from "react-router-dom";
 
 library.add(fas);
 const AdminProducts = () => {
@@ -19,12 +21,12 @@ const AdminProducts = () => {
                 <hr className="sidebar-divider my-0"/>
                 <div className="sidebar-brand-text mx-3"><span>    </span></div>
                 <ul className="navbar-nav text-light" id="accordionSidebar">
-                    <li className="nav-item"><a className="nav-link active" href="/adminProducts"><FontAwesomeIcon icon="shopping-cart" /><span> Productos</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/adminUsers"><FontAwesomeIcon icon="user" /><span> Usuarios</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="user-circle"/><span> Empleados</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="unlock-alt"/><span> Pagos</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/product/create"><FontAwesomeIcon icon="tshirt"/><span> Crear Producto</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="cogs"/><span> Configuracion</span></a></li>
+                    <li className="nav-item"><Link to="/adminProducts"><FontAwesomeIcon icon="shopping-cart" /><span> Productos</span></Link></li>
+                    <li className="nav-item"><Link to="/adminUsers"><FontAwesomeIcon icon="user" /><span> Usuarios</span></Link></li>
+                    <li className="nav-item"><Link to="/adminEmployes"><FontAwesomeIcon icon="user-circle"/><span> Empleados</span></Link></li>
+                    <li className="nav-item"><Link to="/"><FontAwesomeIcon icon="unlock-alt"/><span> Pagos</span></Link></li>
+                    <li className="nav-item"><Link to="/product/create"><FontAwesomeIcon icon="tshirt"/><span> Crear Producto</span></Link></li>
+                    <li className="nav-item"><Link to="/"><FontAwesomeIcon icon="cogs"/><span> Configuracion</span></Link></li>
                 </ul>
                 <div className="text-center d-none d-md-inline"><button className="btn rounded-circle border-3" id="sidebarToggle" type="button"></button></div>
             </div>

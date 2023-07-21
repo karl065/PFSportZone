@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Link} from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,33 +11,51 @@ import {useEffect, useState } from 'react';
 library.add(fas);
 const AdminUsers = () => {
     
-        const [isSwitchOn, setSwitchOn] = useState(false);
+    const initialUserssState = {
+        id_persons: '',
+        person_type: '',
+        document_type: '',
+        document_number: '',
+        first_name: '',
+        last_name: '',
+        phone: '',
+        address: '',
+        isActive: false, // Add this property to track the switch status
+      };
+      const [users, setUsers] = useState([initialUserssState]);
+    
+        
       
-        const handleSwitchChange = () => {
-          setSwitchOn(!isSwitchOn);
-          console.log(isSwitchOn);
-        };
+        const handleSwitchChange = (event, userssId) => {
+            const updatedUserss = users.map(userss =>
+              userss.id_persons === userssId ? { ...userss, isActive: !userss.isActive } : userss
+            );
+            setUsers(updatedUserss);
+          };
 
        
-        const [selectedOption, setSelectedOption] = useState('');
+            const [selectedOption, setSelectedOption] = useState('');
           
-        const handleSelectChange = (event) => {
+            const handleSelectChange = (event) => {
              setSelectedOption(event.target.value);
              console.log(selectedOption);
-       };
+            };
 
-       const [users, setusers] = useState([]);
-        useEffect(() => {
-        // Lógica para cargar los usuarios iniciales
-        axios.get('https://backsportzone.onrender.com/users')
-          .then(({ data }) => {
-            setusers(data);
-            console.log("useEffect(()  "+data);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      }, []);
+            useEffect(() => {
+                // Lógica para cargar los usuarios iniciales
+                axios
+                  .get('https://backsportzone.onrender.com/persons')
+                  .then(({ data }) => {
+                    const updatedUserss = data.map(userss => ({
+                      ...userss,
+                      isActive: false,
+                    }));
+                    setUsers(updatedUserss);
+                  })
+                  .catch(error => {
+                    console.error(error);
+                  });
+              }, []);
 
       
 
@@ -56,12 +75,12 @@ const AdminUsers = () => {
                 <hr className="sidebar-divider my-0"/>
                 <div className="sidebar-brand-text mx-3"><span>    </span></div>
                 <ul className="navbar-nav text-light" id="accordionSidebar">
-                    <li className="nav-item"><a className="nav-link" href="/adminProducts"><FontAwesomeIcon icon="shopping-cart" /><span> Productos</span></a></li>
-                    <li className="nav-item"><a className="nav-link active" href="/adminUsers"><FontAwesomeIcon icon="user" /><span> Usuarios</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/adminEmployes"><FontAwesomeIcon icon="user-circle"/><span> Empleados</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="unlock-alt"/><span> Pagos</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/product/create"><FontAwesomeIcon icon="tshirt"/><span> Crear Producto</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="cogs"/><span> Configuracion</span></a></li>
+                    <li className="nav-item"><Link to="/adminProducts"><FontAwesomeIcon icon="shopping-cart" /><span> Productos</span></Link></li>
+                    <li className="nav-item"><Link to="/adminUsers"><FontAwesomeIcon icon="user" /><span> Usuarios</span></Link></li>
+                    <li className="nav-item"><Link to="/adminEmployes"><FontAwesomeIcon icon="user-circle"/><span> Empleados</span></Link></li>
+                    <li className="nav-item"><Link to="/"><FontAwesomeIcon icon="unlock-alt"/><span> Pagos</span></Link></li>
+                    <li className="nav-item"><Link to="/product/create"><FontAwesomeIcon icon="tshirt"/><span> Crear Producto</span></Link></li>
+                    <li className="nav-item"><Link to="/"><FontAwesomeIcon icon="cogs"/><span> Configuracion</span></Link></li>
                 </ul>
                
 </div>
@@ -100,7 +119,7 @@ const AdminUsers = () => {
                                         <h6 className="mb-0"><strong>Apellido</strong></h6>
                                     </div>
                                     <div className="col me-2">
-                                        <h6 className="mb-0"><strong>Correo</strong></h6>
+                                        <h6 className="mb-0"><strong>Origen</strong></h6>
                                     </div>
                                     <div className="col me-2">
                                         <h6 className="mb-0"><strong>Tipo</strong></h6>
@@ -115,34 +134,34 @@ const AdminUsers = () => {
                         <ul className="list-group list-group-flush">
                             <li className="list-group-item">
                             {users.map((user) => (
-                                <div className="row align-items-center no-gutters">
+                                <div className="row align-items-center no-gutters" key={user.id_persons}>
                                     <div className="col me-2">
-                                        <p>{user.idUser}</p>
+                                        <p>{user.id_persons}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>{user.user}</p>
+                                        <p>{user.first_name}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>{user.apellido}</p>
+                                        <p>{user.last_name}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>{user.email}</p>
+                                        <p>{user.address}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>{user.role}</p>
+                                        <p>{user.person_type}</p>
                                     </div>
                                     
                                     <div className="col-auto">
-                                            <Form>
-                                                <Form.Check
-                                                type="switch"
-                                                id="switchButton"
-                                                label="Activo/Inactivo"
-                                                checked={isSwitchOn}
-                                                onChange={handleSwitchChange}
-                                                />
-                                            </Form>
-                                            </div>   
+      <Form>
+        <Form.Check
+          type="switch"
+          id={user.idUser}
+          label="Activo/Inactivo"
+          checked={user.userStatus}
+          onChange={(e) => handleSwitchChange(e, user.idUser)}
+        />
+      </Form>
+    </div> 
                                 </div>
                                  ))}
                             </li>

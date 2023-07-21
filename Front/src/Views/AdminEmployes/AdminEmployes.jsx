@@ -1,5 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Link} from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,13 +10,24 @@ import {useEffect, useState } from 'react';
 
 library.add(fas);
 const AdminEmployes = () => {
+
+    const initialEmployeeState = {
+        idUser: '',
+        user: '',
+        email: '',
+        role: '',
+        isActive: false, // Add this property to track the switch status
+      };
+      const [employes, setEmployes] = useState([initialEmployeeState]);
     
-        const [isSwitchOn, setSwitchOn] = useState(false);
+        
       
-        const handleSwitchChange = () => {
-          setSwitchOn(!isSwitchOn);
-          console.log(isSwitchOn);
-        };
+        const handleSwitchChange = (event, employeeId) => {
+            const updatedEmployees = employes.map(employee =>
+              employee.idUser === employeeId ? { ...employee, isActive: !employee.isActive } : employee
+            );
+            setEmployes(updatedEmployees);
+          };
 
        
             const [selectedOption, setSelectedOption] = useState('');
@@ -24,7 +37,21 @@ const AdminEmployes = () => {
              console.log(selectedOption);
             };
 
-            
+            useEffect(() => {
+                // Lógica para cargar los usuarios iniciales
+                axios
+                  .get('https://backsportzone.onrender.com/users')
+                  .then(({ data }) => {
+                    const updatedEmployees = data.map(employee => ({
+                      ...employee,
+                      isActive: false,
+                    }));
+                    setEmployes(updatedEmployees);
+                  })
+                  .catch(error => {
+                    console.error(error);
+                  });
+              }, []); 
           
   return (
    <div >
@@ -40,12 +67,12 @@ const AdminEmployes = () => {
                 <hr className="sidebar-divider my-0"/>
                 <div className="sidebar-brand-text mx-3"><span>    </span></div>
                 <ul className="navbar-nav text-light" id="accordionSidebar">
-                    <li className="nav-item"><a className="nav-link" href="/adminProducts"><FontAwesomeIcon icon="shopping-cart" /><span> Productos</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/adminUsers"><FontAwesomeIcon icon="user" /><span> Usuarios</span></a></li>
-                    <li className="nav-item"><a className="nav-link active" href="/"><FontAwesomeIcon icon="user-circle"/><span> Empleados</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="unlock-alt"/><span> Pagos</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/product/create"><FontAwesomeIcon icon="tshirt"/><span> Crear Producto</span></a></li>
-                    <li className="nav-item"><a className="nav-link" href="/"><FontAwesomeIcon icon="cogs"/><span> Configuracion</span></a></li>
+                <li className="nav-item"><Link to="/adminProducts"><FontAwesomeIcon icon="shopping-cart" /><span> Productos</span></Link></li>
+                    <li className="nav-item"><Link to="/adminUsers"><FontAwesomeIcon icon="user" /><span> Usuarios</span></Link></li>
+                    <li className="nav-item"><Link to="/adminEmployes"><FontAwesomeIcon icon="user-circle"/><span> Empleados</span></Link></li>
+                    <li className="nav-item"><Link to="/"><FontAwesomeIcon icon="unlock-alt"/><span> Pagos</span></Link></li>
+                    <li className="nav-item"><Link to="/product/create"><FontAwesomeIcon icon="tshirt"/><span> Crear Producto</span></Link></li>
+                    <li className="nav-item"><Link to="/"><FontAwesomeIcon icon="cogs"/><span> Configuracion</span></Link></li>
                 </ul>
                
 </div>
@@ -98,35 +125,39 @@ const AdminEmployes = () => {
                         
                         <ul className="list-group list-group-flush">
                             <li className="list-group-item">
-                                <div className="row align-items-center no-gutters">
+                            {employes.map((employe) => (
+                                <div className="row align-items-center no-gutters" key={employe.idUser}>
+                                    <hr />
                                     <div className="col me-2">
-                                        <p>ID</p>
+                                        <p>{employe.idUser}</p>
+                                    </div>
+                                    
+                                    <div className="col me-2">
+                                        <p>{employe.user}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>Nombre</p>
+                                        <p>{employe.user}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>Apellido</p>
+                                        <p>{employe.email}</p>
                                     </div>
                                     <div className="col me-2">
-                                        <p>Correo</p>
-                                    </div>
-                                    <div className="col me-2">
-                                        <p>Tipo</p>
+                                        <p>{employe.role}</p>
                                     </div>
                                     
                                     <div className="col-auto">
-                                            <Form>
-                                                <Form.Check
-                                                type="switch"
-                                                id="switchButton"
-                                                label="Activo/Inactivo"
-                                                checked={isSwitchOn}
-                                                onChange={handleSwitchChange}
-                                                />
-                                            </Form>
-                                            </div>   
+      <Form>
+        <Form.Check
+          type="switch"
+          id={employe.idUser}
+          label="Activo/Inactivo"
+          checked={employe.userStatus}
+          onChange={(e) => handleSwitchChange(e, employe.idUser)}
+        />
+      </Form>
+    </div> 
                                 </div>
+                                    ))}
                             </li>
                         </ul>
                     </div>
