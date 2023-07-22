@@ -16,6 +16,7 @@ import {
   AdminEmployes,
   AdminNewProduct,
   UserLogin,
+  AdminNewUsers,
 } from './Views';
 import {getInventory, getUsers, setLoading} from './redux/actions/actions';
 import {useState} from 'react';
@@ -43,6 +44,7 @@ function App() {
         <Route path="/adminProducts" element={<AdminProducts />} />
         <Route path="/adminEmployes" element={<AdminEmployes />} />
         <Route path="/adminNewProduct" element={<AdminNewProduct />} />
+        <Route path="/adminNewUser" element={<AdminNewUsers />} />
         {/* <Route path="/favorites"/> */}
         <Route path="/product/:id" element={<Detail />} />
         <Route path="/about" element={<About />} />

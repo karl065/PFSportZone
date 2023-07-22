@@ -76,6 +76,12 @@ const AdminProducts = () => {
                     </Link>
                   </li>
                   <li className="nav-item">
+                    <Link to="/adminNewUser">
+                      <FontAwesomeIcon icon="tshirt" />
+                      <span> Crear Usuarios</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
                     <Link to="/">
                       <FontAwesomeIcon icon="cogs" />
                       <span> Configuracion</span>

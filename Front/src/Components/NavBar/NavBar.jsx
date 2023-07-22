@@ -6,7 +6,7 @@ const NavBar = () => {
   const location = useLocation();
 
   const token = localStorage.getItem('token');
-
+  const role = localStorage.getItem('role');
   const logout = () => {
     localStorage.removeItem('token');
   };
@@ -20,6 +20,9 @@ const NavBar = () => {
           <Link to="/">SPORTZONE</Link>
         </>
       )}
+      {role === 'SuperUser' || role === 'Admin' ? (
+        <Link to={'/adminProducts'}>Dashboard</Link>
+      ) : null}
       {location.pathname !== '/' && <SearchBar />}
       <ul className={styles.nav_list}>
         <li>

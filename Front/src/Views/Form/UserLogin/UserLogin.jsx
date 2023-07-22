@@ -34,6 +34,7 @@ const UserLogin = () => {
         });
       }
       localStorage.setItem('token', data.token.token);
+      localStorage.setItem('role', data.token.role);
       const role = data.token.role;
 
       if (role === 'SuperUser' || role === 'Admin') {

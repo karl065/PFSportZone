@@ -12,6 +12,7 @@ import Review from './Review/Review';
 import UserRegister from './Form/UserRegister/UserRegister.jsx';
 import ProductCreation from './Form/ProductCreation/ProductCreation.jsx';
 import UserLogin from './Form/UserLogin/UserLogin.jsx';
+import AdminNewUsers from './AdminNewUsers/AdminNewUsers.jsx';
 
 export {
   Landing,
@@ -28,4 +29,5 @@ export {
   ProductCreation,
   UserLogin,
   AdminNewProduct,
+  AdminNewUsers,
 };
