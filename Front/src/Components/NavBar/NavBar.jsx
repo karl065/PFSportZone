@@ -7,6 +7,9 @@ const NavBar = () => {
 
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
+  /**
+   * La función `logout` elimina el elemento 'token' del localStorage.
+   */
   const logout = () => {
     localStorage.removeItem('token');
   };
