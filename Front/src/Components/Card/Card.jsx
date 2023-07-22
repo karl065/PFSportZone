@@ -13,7 +13,7 @@ const Card = ({ product }) => {
     <div onClick={handleCardClick} className={styles.card}>
       <div className={styles.header_card}>
         <h2>{article_name}</h2>
-        <img src={image} alt={`${article_name} cover`} />
+        <img src={image[0]} alt={`${article_name} cover`} />
       </div>
       <div>
         <p>Price: {selling_price}</p>
