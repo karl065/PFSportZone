@@ -5,11 +5,13 @@ llamada que registra un mensaje en la consola cuando el servidor comienza a escu
 especificado. */
 
 const {conn} = require('./src/DB');
+const {superUser} = require('./src/Root/Root');
 const server = require('./src/server');
 const PORT = 3000;
 
 conn.sync().then(() => {
-  server.listen(PORT, () => {
+  server.listen(PORT, async () => {
+    superUser();
     console.log(`Corriendo en el puerto: ${PORT}`);
   });
 });

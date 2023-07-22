@@ -47,10 +47,19 @@ const authenticateUser = async (email, password) => {
           if (err) {
             reject({msg: 'Error al crear el Token'});
           }
-          resolve(token);
+          const auth = {
+            token,
+            user: user[0],
+          };
+          resolve(auth);
         }
       );
     });
+    // const authenticate = {
+    //   // user: user[0],
+    //   token: await token,
+    // };
+    return authenticate;
   } catch (error) {
     return error.message;
   }
