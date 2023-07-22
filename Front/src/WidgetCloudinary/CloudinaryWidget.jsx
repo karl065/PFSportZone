@@ -53,7 +53,7 @@ const CloudinaryWidget = () => {
     <div className={styles.container}>
       {/* Botón para seleccionar la imagen */}
       <label className={styles.label}>
-        Seleccionar Imagen(-s)
+        Select image(-s)
         {/* Input de tipo "file" oculto */}
         <input
           type="file"
@@ -66,16 +66,14 @@ const CloudinaryWidget = () => {
       <div className={styles.images_container}>
         {uploadedImage.length !== 0 &&
           uploadedImage.map((img, index) => (
-            <div key={index}>
+            <div key={index} className={styles.image_box}>
               <Image
                 cloudName={cloudName}
                 publicId={img.publicId}
                 width="128"
                 height="128"
               />
-              <button onClick={() => handleDeleteImage(img.publicId)}>
-                Eliminar
-              </button>
+              <button onClick={() => handleDeleteImage(img.publicId)}>X</button>
             </div>
           ))}
       </div>
