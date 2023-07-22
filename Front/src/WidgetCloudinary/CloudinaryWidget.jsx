@@ -1,12 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // import React, { useEffect } from 'react';
-import axios from 'axios';
-import {Image} from 'cloudinary-react';
-import {useEffect, useState} from 'react';
+import axios from "axios";
+import { Image } from "cloudinary-react";
+import { useState } from "react";
+import styles from "./CloudinaryWidget.module.css";
 
 const CloudinaryWidget = () => {
-  const cloudName = 'dpjeltekx';
-  const uploadPreset = 'PFSportZone';
-  const [uploadedImage, setUploadedImage] = useState(null);
+  const cloudName = "dpjeltekx";
+  const uploadPreset = "PFSportZone";
+  const [uploadedImage, setUploadedImage] = useState([]);
 
   const handleUpload = async (event) => {
     const file = event.target.files[0];
@@ -14,8 +16,8 @@ const CloudinaryWidget = () => {
     try {
       // Preparar el formulario para subir la imagen con Cloudinary
       const formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', uploadPreset);
+      formData.append("file", file);
+      formData.append("upload_preset", uploadPreset);
 
       // Realizar la solicitud POST a la API de Cloudinary
       const response = await axios.post(
@@ -27,57 +29,56 @@ const CloudinaryWidget = () => {
       //   console.log('Imagen subida:', response.data);
 
       // Guardar el public_id y la URL de la imagen subida en el estado del componente
-      setUploadedImage({
-        publicId: response.data.public_id,
-        secureUrl: response.data.secure_url,
-        url: response.data.url,
-      });
+      setUploadedImage([
+        ...uploadedImage,
+        {
+          publicId: response.data.public_id,
+          secureUrl: response.data.secure_url,
+          url: response.data.url,
+        },
+      ]);
     } catch (error) {
-      console.error('Error al subir la imagen:', error);
+      console.error("Error al subir la imagen:", error);
     }
   };
-  useEffect(() => {
-    console.log(uploadedImage.url);
-  }, [uploadedImage]);
 
-  const handleDeleteImage = async () => {
-    if (uploadedImage) {
-      setUploadedImage(null);
-    }
+  const handleDeleteImage = (publicId) => {
+    const updatedImages = uploadedImage.filter(
+      (img) => img.publicId !== publicId
+    );
+    setUploadedImage(updatedImages);
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       {/* Botón para seleccionar la imagen */}
-      <label
-        style={{
-          cursor: 'pointer',
-          backgroundColor: '#007bff',
-          color: 'white',
-          padding: '10px 20px',
-          borderRadius: '5px',
-        }}
-      >
-        Seleccionar Imagen
+      <label className={styles.label}>
+        Seleccionar Imagen(-s)
         {/* Input de tipo "file" oculto */}
         <input
           type="file"
           accept="image/*"
-          style={{display: 'none'}}
+          style={{ display: "none" }}
           onChange={handleUpload}
         />
       </label>
       {/* Mostrar la imagen subida si existe */}
-      {uploadedImage && (
-        <div>
-          <Image
-            cloudName={cloudName}
-            publicId={uploadedImage.publicId}
-            width="300"
-          />
-          <button onClick={handleDeleteImage}>Eliminar</button>
-        </div>
-      )}
+      <div className={styles.images_container}>
+        {uploadedImage.length !== 0 &&
+          uploadedImage.map((img, index) => (
+            <div key={index}>
+              <Image
+                cloudName={cloudName}
+                publicId={img.publicId}
+                width="128"
+                height="128"
+              />
+              <button onClick={() => handleDeleteImage(img.publicId)}>
+                Eliminar
+              </button>
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+}
+
+.label {
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  min-width: 100%;
+}
+
+.images_container {
+  max-width: 100%;
+  display: flex;
+  overflow: auto;
+}

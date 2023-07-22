@@ -14,7 +14,7 @@ const createUserDb = async (email, user, password, role, userStatus) => {
 
     return newUser;
   } catch (error) {
-    console.log(error.message);
+    return error;
   }
 };
 

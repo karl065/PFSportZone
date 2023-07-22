@@ -1,19 +1,24 @@
-import {Link, useLocation} from 'react-router-dom';
-import {SearchBar} from '../index';
-import styles from './NavBar.module.css';
+import { Link, useLocation } from "react-router-dom";
+import { SearchBar } from "../index";
+import styles from "./NavBar.module.css";
 
 const NavBar = () => {
   const location = useLocation();
 
   return (
     <nav className={styles.nav}>
-      {location.pathname === '/' ? (
+      {location.pathname === "/" ? (
         <Link to="/about">About us</Link>
       ) : (
-        <Link to="/home">Home</Link>
+        <>
+          <Link to="/">SPORTZONE</Link>
+        </>
       )}
-      {location.pathname !== '/' && <SearchBar />}
+      {location.pathname !== "/" && <SearchBar />}
       <ul className={styles.nav_list}>
+        <li>
+          <Link to="/home">Catalog</Link>
+        </li>
         <li>
           <Link to="/login">Log in</Link>
         </li>
