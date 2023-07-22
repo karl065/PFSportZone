@@ -1,9 +1,10 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from "react-redux";
+import { createProduct } from "../../../redux/actions/actions";
+import CloudinaryWidget from "../../../WidgetCloudinary/CloudinaryWidget";
 import * as Yup from "yup";
 import styles from "./ProductCreation.module.css";
 import Swal from "sweetalert2";
-import { createProduct } from "../../../redux/actions/actions";
 
 const initialValues = {
   id_inventory: "",
@@ -76,105 +77,116 @@ export const ProductCreation = () => {
         onSubmit={handleSubmit}
         validationSchema={SignupSchema}
       >
-        {({ errors }) => (
+        {({ errors, setFieldValue }) => (
           <Form className={styles.form}>
             <h1 className={styles.title}>NEW PRODUCT</h1>
-            <div className={styles.field}>
+            <div className={styles.field_container}>
               <label>ID</label>
-              <Field
-                name="id_inventory"
-                placeholder="Product Code"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="id_inventory"
-                component="span"
-                className={styles.error}
-              />
+              <div className={styles.input_box}>
+                <Field
+                  name="id_inventory"
+                  placeholder="Product Code"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="id_inventory"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
             </div>
-            <div className={styles.field}>
+            <div className={styles.field_container}>
               <label>Name</label>
-              <Field
-                name="article_name"
-                placeholder="Product name"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="article_name"
-                component="span"
-                className={styles.error}
-              />
+              <div className={styles.input_box}>
+                <Field
+                  name="article_name"
+                  placeholder="Product name"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="article_name"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
             </div>
-            <div className={styles.field}>
+            <div className={styles.field_container}>
               <label>Selling price</label>
-              <Field
-                name="selling_price"
-                placeholder="Selling price"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="selling_price"
-                component="span"
-                className={styles.error}
-              />
+              <div className={styles.input_box}>
+                <Field
+                  name="selling_price"
+                  placeholder="Selling price"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="selling_price"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
             </div>
 
-            <div className={styles.field}>
+            <div className={styles.field_container}>
               <label>Purchase price</label>
-              <Field
-                name="purchase_price"
-                placeholder="Min 0.1"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="purchase_price"
-                component="span"
-                className={styles.error}
-              />
+              <div className={styles.input_box}>
+                <Field
+                  name="purchase_price"
+                  placeholder="Min 0.1"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="purchase_price"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
             </div>
-            <div className={styles.field}>
+            <div className={styles.field_container}>
               <label>Stock</label>
-              <Field
-                name="stock"
-                placeholder="Stock"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="stock"
-                component="span"
-                className={styles.error}
-              />
+              <div className={styles.input_box}>
+                <Field
+                  name="stock"
+                  placeholder="Stock"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="stock"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
             </div>
 
-            <div className={styles.field}>
-              <label>Image(s)</label>
-              <Field
-                name="image"
-                type="url"
-                placeholder="URL"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="image"
-                component="span"
-                className={styles.error}
-              />
+            <div className={styles.cloudinary_field}>
+              <div className={styles.input_box}>
+                <CloudinaryWidget
+                  formField="image"
+                  setFieldValue={setFieldValue}
+                />
+                <ErrorMessage
+                  name="image"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
             </div>
 
-            <div className={styles.field}>
+            <div className={styles.field_container}>
               <label>Description</label>
-              <Field
-                as="textarea"
-                name="description"
-                placeholder="Product description"
-                className={styles.input}
-                rows="4"
-              />
-              <ErrorMessage
-                name="description"
-                component="span"
-                className={styles.error}
-              />
+              <div className={styles.input_box}>
+                <Field
+                  as="textarea"
+                  name="description"
+                  placeholder="Product description"
+                  className={styles.input}
+                  rows="4"
+                />
+                <ErrorMessage
+                  name="description"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
             </div>
 
             <button
