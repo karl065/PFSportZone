@@ -15,7 +15,6 @@ const {authenticateUser} = require('../../auth/authenticateUser');
  */
 const handlerAuthenticate = async (req, res) => {
   const {email, password} = req.body;
-  console.log(req.body);
   try {
     const token = await authenticateUser(email, password);
     res.status(200).json({token});
