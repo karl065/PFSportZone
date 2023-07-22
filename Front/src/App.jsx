@@ -11,7 +11,6 @@ import {
   Error,
   About,
   UserRegister,
-  ProductCreation,
   AdminUsers,
   AdminProducts,
   AdminEmployes,
@@ -46,7 +45,6 @@ function App() {
         <Route path="/adminNewProduct" element={<AdminNewProduct />} />
         {/* <Route path="/favorites"/> */}
         <Route path="/product/:id" element={<Detail />} />
-        <Route path="/product/create" element={<ProductCreation />} />
         <Route path="/about" element={<About />} />
         <Route path="/review" element={<Review />} />
         <Route path="/faq" element={<Faq />} />

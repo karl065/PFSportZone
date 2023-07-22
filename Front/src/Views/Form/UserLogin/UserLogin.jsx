@@ -1,52 +1,48 @@
 /* eslint-disable react/prop-types */
-import {useState} from 'react';
+import {useFormik} from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
+import server from '../../../Connections/Server';
+import {useNavigate} from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const UserLogin = () => {
-  const [userData, setUserData] = useState({
-    email: '',
-    password: '',
+  const navigate = useNavigate();
+  // Define el esquema de validación usando Yup
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('No es un email correcto')
+      .required('Campo requerido'),
+    password: Yup.string().required('Campo requerido'),
   });
 
-  const [errors, setErrors] = useState({
-    email: '',
-    password: '',
+  // Configura Formik y su estado inicial
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      const {data} = await axios.post(`${server.api.baseURL}auth`, values);
+
+      if (data.token.msg) {
+        return Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: data.token.msg,
+        });
+      }
+      localStorage.setItem('token', data.token.token);
+      const role = data.token.role;
+
+      if (role === 'SuperUser' || role === 'Admin') {
+        navigate('/adminProducts');
+      } else if (role === 'Cliente') {
+        navigate('/home');
+      }
+    },
   });
-
-  const handlerChange = (event) => {
-    setUserData({
-      ...userData,
-      [event.target.name]: event.target.value,
-    });
-
-    if (
-      event.target.name === 'email' &&
-      !/\S+@\S+\.\S+/.test(event.target.value)
-    ) {
-      setErrors({
-        ...errors,
-        email: 'No es un email correcto',
-      });
-    } else {
-      setErrors({
-        ...errors,
-        email: '',
-      });
-    }
-  };
-
-  // const handlerSubmit = (event) => {
-  //   event.preventDefault();
-
-  //   const {email, password} = userData;
-  //   //console.log("email:", email);
-  //   // console.log("password:", password);
-  //   setUserData({
-  //     ...userData,
-  //     email: email,
-  //     password: password,
-  //   });
-  //   login(userData);
-  // };
 
   return (
     <div>
@@ -81,31 +77,44 @@ const UserLogin = () => {
                             Bienvenido!
                           </h4>
                         </div>
-                        <form className="user">
+                        <form className="user" onSubmit={formik.handleSubmit}>
                           <div className="mb-3">
                             <input
                               id="correo"
                               className="form-control form-control-user"
                               type="text"
-                              value={userData.email}
-                              onChange={handlerChange}
+                              value={formik.values.email}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
                               aria-describedby="emailHelp"
                               placeholder="Usuario..."
-                              name="correo"
+                              name="email"
                               style={{borderRadius: '0px'}}
                             />
+                            {formik.touched.email && formik.errors.email ? (
+                              <div className="text-danger">
+                                {formik.errors.email}
+                              </div>
+                            ) : null}
                           </div>
                           <div className="mb-3">
                             <input
                               id="exampleInputPassword"
                               className="form-control form-control-user"
-                              value={userData.password}
-                              onChange={handlerChange}
-                              type="current-password"
+                              value={formik.values.password}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              type="password"
                               placeholder="Password"
                               name="password"
                               style={{borderRadius: '0px'}}
                             />
+                            {formik.touched.password &&
+                            formik.errors.password ? (
+                              <div className="text-danger">
+                                {formik.errors.password}
+                              </div>
+                            ) : null}
                           </div>
                           <div className="mb-3">
                             <div className="custom-control custom-checkbox small">
@@ -115,7 +124,7 @@ const UserLogin = () => {
                           <button
                             id="registrarse"
                             className="btn btn-success fs-5 link-light d-block btn-user w-100"
-                            disabled={errors.email || errors.password}
+                            disabled={!formik.isValid || formik.isSubmitting}
                             type="submit"
                             style={{background: '#42b73a', borderRadius: '0px'}}
                           >

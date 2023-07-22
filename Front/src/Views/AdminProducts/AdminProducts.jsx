@@ -36,14 +36,14 @@ const AdminProducts = () => {
             </div>
             <ul className="navbar-nav text-light" id="accordionSidebar">
               <li className="nav-item">
-                <a className="nav-link" href="/">
+                {/* <a className="nav-link" href="/">
                   <FontAwesomeIcon icon="cogs" />
                   <span> Configuración</span>
                 </a>
                 <hr className="sidebar-divider my-0" />
                 <div className="sidebar-brand-text mx-3">
                   <span> </span>
-                </div>
+                </div> */}
                 <ul className="navbar-nav text-light" id="accordionSidebar">
                   <li className="nav-item">
                     <Link to="/adminProducts">

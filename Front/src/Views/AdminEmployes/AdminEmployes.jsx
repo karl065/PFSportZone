@@ -63,10 +63,11 @@ const AdminEmployes = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link active" href="/">
-                  <FontAwesomeIcon icon="user-circle" />
-                  <span> Empleados</span>
-                </a>
+                <FontAwesomeIcon
+                  icon="user-circle"
+                  style={{color: 'rgba(59, 59, 59, 0.8)'}}
+                />
+                <span style={{color: 'rgba(59, 59, 59, 0.8)'}}> Empleados</span>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/">
@@ -77,7 +78,7 @@ const AdminEmployes = () => {
               <li className="nav-item">
                 <a className="nav-link" href="/">
                   <FontAwesomeIcon icon="cogs" />
-                  <span> Configuracion</span>
+                  <span>CONFIGURACION</span>
                 </a>
               </li>
             </ul>
