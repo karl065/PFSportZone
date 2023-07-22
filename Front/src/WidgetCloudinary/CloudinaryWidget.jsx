@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // import React, { useEffect } from 'react';
-import axios from "axios";
-import { Image } from "cloudinary-react";
-import { useState } from "react";
-import styles from "./CloudinaryWidget.module.css";
+import axios from 'axios';
+import {Image} from 'cloudinary-react';
+import {useState} from 'react';
+import styles from './CloudinaryWidget.module.css';
 
 const CloudinaryWidget = () => {
-  const cloudName = "dpjeltekx";
-  const uploadPreset = "PFSportZone";
+  const cloudName = 'dpjeltekx';
+  const uploadPreset = 'PFSportZone';
   const [uploadedImage, setUploadedImage] = useState([]);
+  const [dataImage, setDataImage] = useState([]);
 
   const handleUpload = async (event) => {
     const file = event.target.files[0];
@@ -16,8 +17,8 @@ const CloudinaryWidget = () => {
     try {
       // Preparar el formulario para subir la imagen con Cloudinary
       const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", uploadPreset);
+      formData.append('file', file);
+      formData.append('upload_preset', uploadPreset);
 
       // Realizar la solicitud POST a la API de Cloudinary
       const response = await axios.post(
@@ -37,8 +38,9 @@ const CloudinaryWidget = () => {
           url: response.data.url,
         },
       ]);
+      setDataImage([...dataImage, response.data.url]);
     } catch (error) {
-      console.error("Error al subir la imagen:", error);
+      console.error('Error al subir la imagen:', error);
     }
   };
 
@@ -48,7 +50,6 @@ const CloudinaryWidget = () => {
     );
     setUploadedImage(updatedImages);
   };
-
   return (
     <div className={styles.container}>
       {/* Botón para seleccionar la imagen */}
@@ -58,7 +59,7 @@ const CloudinaryWidget = () => {
         <input
           type="file"
           accept="image/*"
-          style={{ display: "none" }}
+          style={{display: 'none'}}
           onChange={handleUpload}
         />
       </label>
