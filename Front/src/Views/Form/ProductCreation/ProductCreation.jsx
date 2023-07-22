@@ -12,7 +12,7 @@ const initialValues = {
   selling_price: "",
   purchase_price: "",
   stock: "",
-  image: "",
+  image: [],
   description: "",
 };
 
@@ -47,7 +47,10 @@ export const ProductCreation = () => {
       .required("Description required")
       .min(20, "Too Short!. At least 20 characters")
       .max(10000, "Too Long!. No more than 10000 characters."),
-    image: Yup.string().required("Image required").url("Not an URL"),
+    image: Yup.array()
+      .of(Yup.string())
+      .min(1, "At least one image is required")
+      .max(5, "Maximum of 5 images per product"),
   });
 
   const handleSubmit = (values, { resetForm }) => {
@@ -160,7 +163,7 @@ export const ProductCreation = () => {
             <div className={styles.cloudinary_field}>
               <div className={styles.input_box}>
                 <CloudinaryWidget
-                  formField="image"
+                  fieldName="image"
                   setFieldValue={setFieldValue}
                 />
                 <ErrorMessage
