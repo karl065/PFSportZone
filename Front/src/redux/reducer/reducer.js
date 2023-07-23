@@ -11,6 +11,8 @@ import {
   RESET_DISPLAYED_PRODUCTS,
   GET_CATEGORY,
   CREATE_CATEGORY,
+  ORDER_PRODUCTS_BY_PRICE,
+  FILTER_PRODUCTS_BY_STATUS,
 } from '../actions-types/action-types';
 
 const initialState = {
@@ -22,32 +24,50 @@ const initialState = {
   isLoading: false,
 };
 
-export default function reducer(state = initialState, {type, payload}) {
+export default function reducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_USERS:
-      return {...state, users: payload};
+      return { ...state, users: payload };
     case GET_INVENTORY:
-      return {...state, inventory: payload, displayInventory: payload};
+      return { ...state, inventory: payload, displayInventory: payload };
     case GET_CATEGORY:
-      return {...state, category: payload};
+      return { ...state, category: payload };
     case CREATE_USER:
-      return {...state, users: [...state.users, payload]};
+      return { ...state, users: [...state.users, payload] };
     case CREATE_PRODUCT:
-      return {...state, inventory: [...state.inventory, payload]};
+      return {
+        ...state,
+        inventory: [...state.inventory, payload],
+        displayInventory: [...state.displayInventory, payload],
+      };
     case CREATE_CATEGORY:
-      return {...state, category: [...state.category, payload]};
+      return { ...state, category: [...state.category, payload] };
     case GET_PRODUCT_ID:
-      return {...state, product: payload};
+      return { ...state, product: payload };
     case FILTER_PRODUCTS_BY_NAME:
       const filteredInventory = state.inventory.filter((product) =>
         product.article_name.toLowerCase().includes(payload.toLowerCase())
       );
       return {...state, displayInventory: filteredInventory};
+    case ORDER_PRODUCTS_BY_PRICE:
+      let inventoryOrdered = [];
+      inventoryOrdered = payload === 'menor_precio_a_mayor_precio'
+      ? [...state.inventory].sort((a,b) => (a.selling_price - b.selling_price) )
+      : [...state.inventory].sort((a,b) => (b.selling_price - a.selling_price) )
+    return {
+      ...state,
+      displayInventory: inventoryOrdered
+    };
+    case FILTER_PRODUCTS_BY_STATUS:
+      return {
+        ...state,
+        displayInventory: payload
+      };
     case SET_LOADING:
-      return {...state, isLoading: payload};
+      return { ...state, isLoading: payload };
     case RESET_DISPLAYED_PRODUCTS:
-      return {...state, displayInventory: [...state.inventory]};
+      return { ...state, displayInventory: [...state.inventory] };
     default:
-      return {...state};
+      return { ...state };
   }
 }

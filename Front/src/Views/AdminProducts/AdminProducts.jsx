@@ -94,10 +94,9 @@ const AdminProducts = () => {
                     >
                       <table
                         id="dataTable"
-                        className="table my-0"
+                        className="table my-0 mx-0 "
                         style={{
                           fontSize: '16px',
-                          fontFamily: 'Assistant, sans-serif',
                         }}
                       >
                         <thead>
