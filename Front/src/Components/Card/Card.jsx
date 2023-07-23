@@ -1,8 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import styles from "./Card.module.css";
+/* eslint-disable react/prop-types */
+import {useNavigate} from 'react-router-dom';
+import styles from './Card.module.css';
 
-const Card = ({ product }) => {
-  const { id_inventory, article_name, selling_price, stock, image } = product;
+const Card = ({product}) => {
+  const {id_inventory, article_name, selling_price, stock, image} = product;
   const navigate = useNavigate();
 
   const handleCardClick = () => {
