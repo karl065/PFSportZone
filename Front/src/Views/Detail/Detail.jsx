@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getProductById, setLoading } from "../../redux/actions/actions";
-import { LoadingSpinner } from "../../Components/index";
-import styles from "./Detail.module.css";
+import {useEffect} from 'react';
+import {useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {getProductById, setLoading} from '../../redux/actions/actions';
+import {LoadingSpinner} from '../../Components/index';
+import styles from './Detail.module.css';
 
 const Detail = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const {id} = useParams();
   const product = useSelector((state) => state.product);
   let isLoading = useSelector((state) => state.isLoading);
 

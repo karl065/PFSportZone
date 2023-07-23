@@ -1,4 +1,5 @@
 /* eslint-disable no-case-declarations */
+/* eslint-disable no-case-declarations */
 import {
   GET_USERS,
   GET_INVENTORY,

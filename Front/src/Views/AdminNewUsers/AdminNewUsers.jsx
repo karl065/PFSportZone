@@ -41,46 +41,53 @@ const AdminNewUsers = () => {
                   <span> Productos</span>
                 </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
                 <Link to="/adminUsers">
                   <FontAwesomeIcon icon="user" />
                   <span> Usuarios</span>
                 </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item" style={{color: 'var(--bs-gray-dark)'}}>
+                <Link to="/adminNewUser">
+                  <FontAwesomeIcon icon="user" />
+                  <span> Crear Usuario</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
                 <Link to="/adminEmployes">
                   <FontAwesomeIcon icon="user-circle" />
                   <span> Empleados</span>
                 </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
                 <Link to="/">
-                  <FontAwesomeIcon icon="unlock-alt" />
+                  <FontAwesomeIcon icon="money-check-alt" />
                   <span> Pagos</span>
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/adminNewCategory">
-                  <FontAwesomeIcon icon="tshirt" />
-                  <span> Crear Categoria</span>
-                </Link>
-              </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
                 <Link to="/adminNewProduct">
                   <FontAwesomeIcon icon="tshirt" />
                   <span> Crear Producto</span>
                 </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
-                <Link to="/adminNewUser">
-                  <FontAwesomeIcon icon="tshirt" />
-                  <span> Crear Usuarios</span>
+                <Link to="/adminEditProd">
+                  <FontAwesomeIcon icon="fa-edit" />
+                  <span> Editar Producto</span>
                 </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
                 <Link to="/">
-                  <FontAwesomeIcon icon="cogs" />
-                  <span> Configuración</span>
+                  <FontAwesomeIcon icon="unlock-alt" />
+                  <span> Salir</span>
                 </Link>
               </li>
             </ul>

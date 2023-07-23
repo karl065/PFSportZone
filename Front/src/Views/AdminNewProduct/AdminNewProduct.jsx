@@ -30,7 +30,7 @@ const AdminNewProduct = () => {
                 <span>SportZone</span>
               </div>
             </a>
-            <hr className="sidebar-divider my-0" />
+            <hr className="sidebar-divider my-1" />
             <div className="sidebar-brand-text mx-3">
               <span> </span>
             </div>
@@ -41,56 +41,56 @@ const AdminNewProduct = () => {
                   <span> Productos</span>
                 </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
                 <Link to="/adminUsers">
                   <FontAwesomeIcon icon="user" />
                   <span> Usuarios</span>
                 </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item">
+                <Link to="/adminNewUser">
+                  <FontAwesomeIcon icon="user" />
+                  <span> Crear Usuario</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
                 <Link to="/adminEmployes">
                   <FontAwesomeIcon icon="user-circle" />
                   <span> Empleados</span>
                 </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
-                <Link to="/">
-                  <FontAwesomeIcon icon="unlock-alt" />
+                <Link to="/adminPagos">
+                  <FontAwesomeIcon icon="money-check-alt" />
                   <span> Pagos</span>
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/adminNewCategory">
-                  <FontAwesomeIcon icon="tshirt" />
-                  <span> Crear Categoria</span>
-                </Link>
-              </li>
-              <li className="nav-item">
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item" style={{color: 'var(--bs-gray-dark)'}}>
                 <Link to="/adminNewProduct">
                   <FontAwesomeIcon icon="tshirt" />
                   <span> Crear Producto</span>
                 </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
-                <Link to="/adminNewUser">
-                  <FontAwesomeIcon icon="tshirt" />
-                  <span> Crear Usuarios</span>
+                <Link to="/adminEditProd">
+                  <FontAwesomeIcon icon="fa-edit" />
+                  <span> Editar Producto</span>
                 </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
                 <Link to="/">
-                  <FontAwesomeIcon icon="cogs" />
-                  <span> Configuración</span>
+                  <FontAwesomeIcon icon="unlock-alt" />
+                  <span> Salir</span>
                 </Link>
               </li>
             </ul>
-            <div className="text-center d-none d-md-inline">
-              <button
-                className="btn rounded-circle border-3"
-                id="sidebarToggle"
-                type="button"
-              ></button>
-            </div>
           </div>
         </nav>
         <div

@@ -12,14 +12,14 @@ const AdminEmployes = () => {
 
   const handleSwitchChange = () => {
     setSwitchOn(!isSwitchOn);
-    console.log(isSwitchOn);
+    //console.log(isSwitchOn);
   };
 
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
-    console.log(selectedOption);
+    //console.log(selectedOption);
   };
 
   return (
@@ -46,59 +46,65 @@ const AdminEmployes = () => {
                 <span>SportZone</span>
               </div>
             </a>
-            <hr className="sidebar-divider my-0" />
+            <hr className="sidebar-divider my-1" />
             <div className="sidebar-brand-text mx-3">
               <span> </span>
             </div>
             <ul className="navbar-nav text-light" id="accordionSidebar">
               <li className="nav-item">
-                <Link to={'/adminProducts'}>
+                <Link to="/adminProducts">
                   <FontAwesomeIcon icon="shopping-cart" />
                   <span> Productos</span>
                 </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
-                <Link to={'/adminUsers'}>
+                <Link to="/adminUsers">
                   <FontAwesomeIcon icon="user" />
                   <span> Usuarios</span>
                 </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
-                <FontAwesomeIcon
-                  icon="user-circle"
-                  style={{color: 'rgba(59, 59, 59, 0.8)'}}
-                />
-                <span style={{color: 'rgba(59, 59, 59, 0.8)'}}> Empleados</span>
+                <Link to="/adminNewUser">
+                  <FontAwesomeIcon icon="user" />
+                  <span> Crear Usuario</span>
+                </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item" style={{color: 'var(--bs-gray-dark)'}}>
+                <Link to="/adminEmployes">
+                  <FontAwesomeIcon icon="user-circle" />
+                  <span> Empleados</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
-                <Link to={'/'}>
-                  <FontAwesomeIcon icon="unlock-alt" />
+                <Link to="/adminPagos">
+                  <FontAwesomeIcon icon="money-check-alt" />
                   <span> Pagos</span>
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/adminNewCategory">
-                  <FontAwesomeIcon icon="tshirt" />
-                  <span> Crear Categoria</span>
-                </Link>
-              </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
                 <Link to="/adminNewProduct">
                   <FontAwesomeIcon icon="tshirt" />
                   <span> Crear Producto</span>
                 </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
-                <Link to="/adminNewUser">
-                  <FontAwesomeIcon icon="tshirt" />
-                  <span> Crear Usuarios</span>
+                <Link to="/adminEditProd">
+                  <FontAwesomeIcon icon="fa-edit" />
+                  <span> Editar Producto</span>
                 </Link>
               </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
-                <a className="nav-link" href="/">
-                  <FontAwesomeIcon icon="cogs" />
-                  <span>CONFIGURACION</span>
-                </a>
+                <Link to="/">
+                  <FontAwesomeIcon icon="unlock-alt" />
+                  <span> Salir</span>
+                </Link>
               </li>
             </ul>
           </div>
@@ -110,8 +116,8 @@ const AdminEmployes = () => {
         >
           <div id="content">
             <div className="container-fluid" style={{display: 'block'}}>
-              <div className="d-sm-flex justify-content-between align-items-center mb-4">
-                <h3 className="text-dark mb-0">Empleados</h3>
+              <div className="d-sm-flex justify-content-between align-items-center mb-1">
+                <h3 className="text-dark mb-4">Empleados</h3>
                 <div>
                   <select
                     style={{height: '38px', marginTop: '10px'}}
@@ -144,7 +150,13 @@ const AdminEmployes = () => {
                   <div className="card shadow mb-4" style={{width: '100%'}}>
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item">
-                        <div className="row align-items-center no-gutters">
+                        <div
+                          className="row align-items-center no-gutters"
+                          style={{
+                            fontSize: '16px',
+                            fontFamily: 'Assistant, sans-serif',
+                          }}
+                        >
                           <div className="col me-2">
                             <h6 className="mb-0">
                               <strong>ID</strong>
@@ -181,7 +193,13 @@ const AdminEmployes = () => {
 
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item">
-                        <div className="row align-items-center no-gutters">
+                        <div
+                          className="row align-items-center no-gutters"
+                          style={{
+                            fontSize: '16px',
+                            fontFamily: 'Assistant, sans-serif',
+                          }}
+                        >
                           <div className="col me-2">
                             <p>ID</p>
                           </div>

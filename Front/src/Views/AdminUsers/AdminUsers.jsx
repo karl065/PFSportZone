@@ -1,6 +1,12 @@
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {fas} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {Form} from 'react-bootstrap';
+import {useEffect, useState} from 'react';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -59,65 +65,66 @@ const AdminUsers = () => {
                 <span>SportZone</span>
               </div>
             </a>
-            <hr className="sidebar-divider my-0" />
+            <hr className="sidebar-divider my-1" />
             <div className="sidebar-brand-text mx-3">
               <span> </span>
             </div>
             <ul className="navbar-nav text-light" id="accordionSidebar">
-              <hr className="sidebar-divider my-0" />
-              <div className="sidebar-brand-text mx-3">
-                <span> </span>
-              </div>
-              <ul className="navbar-nav text-light" id="accordionSidebar">
-                <li className="nav-item">
-                  <Link to="/adminProducts">
-                    <FontAwesomeIcon icon="shopping-cart" />
-                    <span> Productos</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/adminUsers">
-                    <FontAwesomeIcon icon="user" />
-                    <span> Usuarios</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/adminEmployes">
-                    <FontAwesomeIcon icon="user-circle" />
-                    <span> Empleados</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/">
-                    <FontAwesomeIcon icon="unlock-alt" />
-                    <span> Pagos</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/adminNewCategory">
-                    <FontAwesomeIcon icon="tshirt" />
-                    <span> Crear Categoria</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/adminNewProduct">
-                    <FontAwesomeIcon icon="tshirt" />
-                    <span> Crear Producto</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/adminNewUser">
-                    <FontAwesomeIcon icon="tshirt" />
-                    <span> Crear Usuarios</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/">
-                    <FontAwesomeIcon icon="cogs" />
-                    <span> Configuracion</span>
-                  </Link>
-                </li>
-              </ul>
+              <li className="nav-item">
+                <Link to="/adminProducts">
+                  <FontAwesomeIcon icon="shopping-cart" />
+                  <span> Productos</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item" style={{color: 'var(--bs-gray-dark)'}}>
+                <Link to="/adminUsers">
+                  <FontAwesomeIcon icon="user" />
+                  <span> Usuarios</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item">
+                <Link to="/adminNewUser">
+                  <FontAwesomeIcon icon="user" />
+                  <span> Crear Usuario</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item">
+                <Link to="/adminEmployes">
+                  <FontAwesomeIcon icon="user-circle" />
+                  <span> Empleados</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item">
+                <Link to="/adminPagos">
+                  <FontAwesomeIcon icon="money-check-alt" />
+                  <span> Pagos</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item">
+                <Link to="/adminNewProduct">
+                  <FontAwesomeIcon icon="tshirt" />
+                  <span> Crear Producto</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item">
+                <Link to="/adminEditProd">
+                  <FontAwesomeIcon icon="fa-edit" />
+                  <span> Editar Producto</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item">
+                <Link to="/">
+                  <FontAwesomeIcon icon="unlock-alt" />
+                  <span> Salir</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </nav>
@@ -162,7 +169,13 @@ const AdminUsers = () => {
                   <div className="card shadow mb-4" style={{width: '100%'}}>
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item">
-                        <div className="row align-items-center no-gutters">
+                        <div
+                          className="row align-items-center no-gutters"
+                          style={{
+                            fontSize: '18px',
+                            fontFamily: 'Assistant, sans-serif',
+                          }}
+                        >
                           <div className="col me-2">
                             <h6 className="mb-0">
                               <strong>ID</strong>
@@ -197,7 +210,13 @@ const AdminUsers = () => {
                       </li>
                     </ul>
 
-                    <ul className="list-group list-group-flush">
+                    <ul
+                      className="list-group list-group-flush"
+                      style={{
+                        fontSize: '16px',
+                        fontFamily: 'Assistant, sans-serif',
+                      }}
+                    >
                       <li className="list-group-item">
                         {users.map((user) => (
                           <div

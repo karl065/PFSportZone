@@ -5,6 +5,13 @@ import axios from 'axios';
 import server from '../../../Connections/Server';
 import {useNavigate} from 'react-router-dom';
 import Swal from 'sweetalert2';
+/* eslint-disable react/prop-types */
+import {useFormik} from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
+import server from '../../../Connections/Server';
+import {useNavigate} from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const UserLogin = () => {
   const navigate = useNavigate();
@@ -15,7 +22,36 @@ const UserLogin = () => {
       .required('Campo requerido'),
     password: Yup.string().required('Campo requerido'),
   });
+const UserLogin = () => {
+  const navigate = useNavigate();
+  // Define el esquema de validación usando Yup
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('No es un email correcto')
+      .required('Campo requerido'),
+    password: Yup.string().required('Campo requerido'),
+  });
 
+  // Configura Formik y su estado inicial
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      const {data} = await axios.post(`${server.api.baseURL}auth`, values);
+
+      if (data.token.msg) {
+        return Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: data.token.msg,
+        });
+      }
+      localStorage.setItem('token', data.token.token);
+      localStorage.setItem('role', data.token.role);
+      const role = data.token.role;
   // Configura Formik y su estado inicial
   const formik = useFormik({
     initialValues: {

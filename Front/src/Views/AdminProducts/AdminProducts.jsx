@@ -53,69 +53,58 @@ const AdminProducts = () => {
                 <span>SportZone</span>
               </div>
             </a>
-            <hr className="sidebar-divider my-0" />
+            <hr className="sidebar-divider my-1" />
             <div className="sidebar-brand-text mx-3">
               <span> </span>
             </div>
             <ul className="navbar-nav text-light" id="accordionSidebar">
+              <li className="nav-item" style={{color: 'var(--bs-gray-dark)'}}>
+                <Link to="/adminProducts">
+                  <FontAwesomeIcon icon="shopping-cart" />
+                  <span> Productos</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
-                <ul className="navbar-nav text-light" id="accordionSidebar">
-                  <li className="nav-item">
-                    <Link to="/adminProducts">
-                      <FontAwesomeIcon icon="shopping-cart" />
-                      <span> Productos</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/adminUsers">
-                      <FontAwesomeIcon icon="user" />
-                      <span> Usuarios</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/adminEmployes">
-                      <FontAwesomeIcon icon="user-circle" />
-                      <span> Empleados</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/">
-                      <FontAwesomeIcon icon="unlock-alt" />
-                      <span> Pagos</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/adminNewCategory">
-                      <FontAwesomeIcon icon="tshirt" />
-                      <span> Crear Categoria</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/adminNewProduct">
-                      <FontAwesomeIcon icon="tshirt" />
-                      <span> Crear Producto</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/adminNewUser">
-                      <FontAwesomeIcon icon="tshirt" />
-                      <span> Crear Usuarios</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/">
-                      <FontAwesomeIcon icon="cogs" />
-                      <span> Configuracion</span>
-                    </Link>
-                  </li>
-                </ul>
-                <div className="text-center d-none d-md-inline">
-                  <button
-                    className="btn rounded-circle border-3"
-                    id="sidebarToggle"
-                    type="button"
-                  ></button>
-                </div>
+                <Link to="/adminUsers">
+                  <FontAwesomeIcon icon="user" />
+                  <span> Usuarios</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item">
+                <Link to="/adminEmployes">
+                  <FontAwesomeIcon icon="user-circle" />
+                  <span> Empleados</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item">
+                <Link to="/adminPagos">
+                  <FontAwesomeIcon icon="money-check-alt" />
+                  <span> Pagos</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item">
+                <Link to="/adminNewProduct">
+                  <FontAwesomeIcon icon="tshirt" />
+                  <span> Crear Producto</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item">
+                <Link to="/adminEditProd">
+                  <FontAwesomeIcon icon="fa-edit" />
+                  <span> Editar Producto</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider my-2" />
+              <li className="nav-item">
+                <Link to="/">
+                  <FontAwesomeIcon icon="unlock-alt" />
+                  <span> Salir</span>
+                </Link>
               </li>
             </ul>
           </div>
@@ -148,7 +137,109 @@ const AdminProducts = () => {
                 </div>
               </div>
               <div></div>
-              <div className="row">
+              <div className="container-fluid">
+                <div className="card shadow">
+                  <div className="card-header py-3">
+                    <p
+                      className="text-primary m-0 fw-bold"
+                      style={{
+                        fontSize: '16px',
+                        fontFamily: 'Assistant, sans-serif',
+                        '--bs-primary-rgb': 'rgb(116,153,0)',
+                      }}
+                    >
+                      Informacion de pagos
+                    </p>
+                  </div>
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-md-6 text-nowrap">
+                        <div
+                          id="dataTable_length"
+                          className="dataTables_length"
+                          aria-controls="dataTable"
+                        >
+                          <label className="form-label">
+                            Show {' '}
+                            <select className="d-inline-block form-select form-select-sm">
+                              <option defaultValue="10">10</option>
+                              <option value="25">25</option>
+                              <option value="50">50</option>
+                              <option value="100">100</option>
+                            </select>
+                          </label>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div
+                          id="dataTable_filter"
+                          className="text-md-end dataTables_filter"
+                        >
+                          <label className="form-label">
+                            <input
+                              className="form-control form-control-sm"
+                              type="search"
+                              aria-controls="dataTable"
+                              placeholder="Search"
+                            />
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      id="dataTable"
+                      className="table-responsive table mt-2"
+                      role="grid"
+                      aria-describedby="dataTable_info"
+                    >
+                      <table
+                        id="dataTable"
+                        className="table my-0"
+                        style={{
+                          fontSize: '16px',
+                          fontFamily: 'Assistant, sans-serif',
+                        }}
+                      >
+                        <thead>
+                          <tr>
+                            <th>Codigo</th>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Venta P</th>
+                            <th>Compra P</th>
+                            <th>Stock</th>
+                            <th>Descripcion</th>
+                            <th>Estado</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {displayInventory.map((inventory) => (
+                            <tr key={inventory.id_inventory}>
+                              <td>{inventory.id_inventory}</td>
+                              <td>
+                                <picture>
+                                  <img
+                                    src={inventory.image[0]}
+                                    alt="imagen"
+                                    style={{width: '30%', height: 'auto'}}
+                                  />
+                                </picture>
+                              </td>
+                              <td>{inventory.article_name}</td>
+                              <td>{inventory.selling_price}</td>
+                              <td>{inventory.purchase_price}</td>
+                              <td>{inventory.stock}</td>
+                              <td>{inventory.description}</td>
+                              <td>{inventory.status}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* <div className="row">
                 <div
                   className="col-lg-6 mb-4"
                   style={{display: 'block', width: '100%'}}
@@ -156,7 +247,7 @@ const AdminProducts = () => {
                   <div className="card shadow mb-4"></div>
                   <div className="card shadow mb-4" style={{width: '100%'}}>
                     <ul className="list-group list-group-flush">
-                      <li className="list-group-item">
+                      <li className="list-group-item" style={{fontSize: "18px","fontFamily": "Assistant, sans-serif"}}>
                         <div className="row align-items-center no-gutters">
                           <div className="col me-2">
                             <h6 className="mb-0">
@@ -256,7 +347,7 @@ const AdminProducts = () => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

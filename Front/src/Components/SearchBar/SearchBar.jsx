@@ -1,14 +1,14 @@
-import { useState } from "react";
-import styles from "./SearchBar.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import {useState} from 'react';
+import styles from './SearchBar.module.css';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   filterProductsByName,
   resetDisplayedProducts,
-} from "../../redux/actions/actions";
-import { useNavigate } from "react-router-dom";
+} from '../../redux/actions/actions';
+import {useNavigate} from 'react-router-dom';
 
 const SearchBar = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [hideList, setHideList] = useState(false);
   const inventory = useSelector((state) => state.inventory);
@@ -25,11 +25,11 @@ const SearchBar = () => {
     setSearchQuery(query);
     setSearchResults([]);
     dispatch(filterProductsByName(query.trim()));
-    if(window.location.href !== "/home") navigate("/home");
+    if (window.location.href !== '/home') navigate('/home');
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       handleSearch(searchQuery);
     }
   };
@@ -55,7 +55,7 @@ const SearchBar = () => {
 
   const handleClearSearch = () => {
     dispatch(resetDisplayedProducts());
-    setSearchQuery("");
+    setSearchQuery('');
     setSearchResults([]);
   };
 
