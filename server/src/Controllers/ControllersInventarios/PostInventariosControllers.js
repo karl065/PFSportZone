@@ -24,8 +24,8 @@ const crearArticulo = async (
     await Inventarios.create({
       id_inventory,
       article_name,
-      selling_price,
-      purchase_price,
+      selling_price: Number(parseFloat(selling_price).toFixed(2)),
+      purchase_price: Number(parseFloat(purchase_price).toFixed(2)),
       stock,
       description,
       image,
