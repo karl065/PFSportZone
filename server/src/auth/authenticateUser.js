@@ -23,7 +23,7 @@ const authenticateUser = async (email, password) => {
       where: {email: email},
       raw: true,
     });
-    if (!user) {
+    if (user.length === 0) {
       return {msg: 'Usuario o Password incorrecto'};
     }
     const passwordValid = await bcryptjs.compare(password, user[0].password);
@@ -49,7 +49,8 @@ const authenticateUser = async (email, password) => {
           }
           const auth = {
             token,
-            user: user[0],
+            email: user[0].email,
+            role: user[0].role,
           };
           resolve(auth);
         }

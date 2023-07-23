@@ -4,6 +4,7 @@ import {fas} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Form} from 'react-bootstrap';
 import {useState} from 'react';
+import {Link} from 'react-router-dom';
 
 library.add(fas);
 const AdminEmployes = () => {
@@ -51,33 +52,46 @@ const AdminEmployes = () => {
             </div>
             <ul className="navbar-nav text-light" id="accordionSidebar">
               <li className="nav-item">
-                <a className="nav-link" href="/adminProducts">
+                <Link to={'/adminProducts'}>
                   <FontAwesomeIcon icon="shopping-cart" />
                   <span> Productos</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/adminUsers">
+                <Link to={'/adminUsers'}>
                   <FontAwesomeIcon icon="user" />
                   <span> Usuarios</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link active" href="/">
-                  <FontAwesomeIcon icon="user-circle" />
-                  <span> Empleados</span>
-                </a>
+                <FontAwesomeIcon
+                  icon="user-circle"
+                  style={{color: 'rgba(59, 59, 59, 0.8)'}}
+                />
+                <span style={{color: 'rgba(59, 59, 59, 0.8)'}}> Empleados</span>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">
+                <Link to={'/'}>
                   <FontAwesomeIcon icon="unlock-alt" />
                   <span> Pagos</span>
-                </a>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/adminNewProduct">
+                  <FontAwesomeIcon icon="tshirt" />
+                  <span> Crear Producto</span>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/adminNewUser">
+                  <FontAwesomeIcon icon="tshirt" />
+                  <span> Crear Usuarios</span>
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/">
                   <FontAwesomeIcon icon="cogs" />
-                  <span> Configuracion</span>
+                  <span>CONFIGURACION</span>
                 </a>
               </li>
             </ul>
