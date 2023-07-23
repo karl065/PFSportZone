@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import Styles from './SortAndFilters.module.css';
 import { orderProductsByPrice, resetDisplayedProducts } from '../../redux/actions/actions';
+import axios from 'axios';
+import  server from '../../Connections/Server';
 
 export default function SortAndFilters() {
+  const [menuView, setMenuView] = useState(false);
   const dispatch = useDispatch();
+
+const handleFilters = async(e) => {
+  if(e.target.checked) {
+    const response = await axios.get(`${server.api.baseURL}filters/?status=${e.target.value}`);
+    console.log(response.data);
+  } else {
+    dispatch(resetDisplayedProducts())
+  }
+}
 
   const handleOrders = (e) => {
     if(e.target.checked) {
@@ -14,15 +26,21 @@ export default function SortAndFilters() {
     }
   }
 
+  const handleViewFiltersAndOrdereds = () => {
+    setMenuView(true);
+    if(menuView) setMenuView(false);
+  };
+
   return (
     <div className={Styles.container}>
-      <button>FILTRAR Y ORDENAR</button>
-      <nav className={Styles.nav_filtersAndOrdereds}>
+      <button onClick={handleViewFiltersAndOrdereds}>FILTRAR Y ORDENAR</button>
+      <nav className={menuView ? Styles.nav_filtersAndOrdereds : Styles.nav_disabled}>
 
         <div className={Styles.filters}>
           <h4>filtrar por Disponibilidad: </h4>
           <div className={Styles.input_checkbox}>
             <input 
+            onChange={handleFilters}
             type="checkbox"
             name= "Disponibilidad"
             value= 'Available'
@@ -33,6 +51,7 @@ export default function SortAndFilters() {
 
           <div className={Styles.input_checkbox}>
             <input 
+            onChange={handleFilters}
             type="checkbox"
             name= "Disponibilidad"
             value= 'Not Available'
@@ -43,6 +62,7 @@ export default function SortAndFilters() {
 
           <div className={Styles.input_checkbox}>
           <input 
+            onChange={handleFilters}
             type="checkbox"
             name= "Disponibilidad"
             value= 'Discontinued'
