@@ -5,6 +5,7 @@ import {
   GET_INVENTORY,
   CREATE_USER,
   CREATE_PRODUCT,
+  GET_PRODUCT_ID,
   FILTER_PRODUCTS_BY_NAME,
   RESET_DISPLAYED_PRODUCTS,
 } from "../actions-types/action-types";
@@ -65,6 +66,20 @@ export const filterProductsByName = (name) => {
   return {
     type: FILTER_PRODUCTS_BY_NAME,
     payload: name,
+  };
+};
+
+export const getProductById = (id) => {
+  return async (dispatch) => {
+    console.log("Entro a get by id");
+    const { data } = await axios.get(`${server.api.baseURL}inventory/${id}`);
+
+    console.log("En data llego", data);
+
+    dispatch({
+      type: GET_PRODUCT_ID,
+      payload: data,
+    });
   };
 };
 
