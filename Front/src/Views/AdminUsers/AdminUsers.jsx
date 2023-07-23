@@ -1,11 +1,11 @@
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Form} from 'react-bootstrap';
 import {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
 
 library.add(fas);
 const AdminUsers = () => {
@@ -20,7 +20,6 @@ const AdminUsers = () => {
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
-    console.log(selectedOption);
   };
 
   const [users, setUsers] = useState([]);
@@ -30,7 +29,6 @@ const AdminUsers = () => {
       .get('https://backsportzone.onrender.com/users')
       .then(({data}) => {
         setUsers(data);
-        console.log('useEffect(()  ' + data);
       })
       .catch((error) => {
         console.error(error);
@@ -66,42 +64,54 @@ const AdminUsers = () => {
               <span> </span>
             </div>
             <ul className="navbar-nav text-light" id="accordionSidebar">
-              <li className="nav-item">
-                <a className="nav-link" href="/adminProducts">
-                  <FontAwesomeIcon icon="shopping-cart" />
-                  <span> Productos</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link active" href="/adminUsers">
-                  <FontAwesomeIcon icon="user" />
-                  <span> Usuarios</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <Link to={'/adminEmployes'}>
-                  <FontAwesomeIcon icon="user-circle" />
-                  <span> Empleados</span>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">
-                  <FontAwesomeIcon icon="unlock-alt" />
-                  <span> Pagos</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/product/create">
-                  <FontAwesomeIcon icon="tshirt" />
-                  <span> Crear Producto</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">
-                  <FontAwesomeIcon icon="cogs" />
-                  <span> Configuración</span>
-                </a>
-              </li>
+              <hr className="sidebar-divider my-0" />
+              <div className="sidebar-brand-text mx-3">
+                <span> </span>
+              </div>
+              <ul className="navbar-nav text-light" id="accordionSidebar">
+                <li className="nav-item">
+                  <Link to="/adminProducts">
+                    <FontAwesomeIcon icon="shopping-cart" />
+                    <span> Productos</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/adminUsers">
+                    <FontAwesomeIcon icon="user" />
+                    <span> Usuarios</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/adminEmployes">
+                    <FontAwesomeIcon icon="user-circle" />
+                    <span> Empleados</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/">
+                    <FontAwesomeIcon icon="unlock-alt" />
+                    <span> Pagos</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/adminNewProduct">
+                    <FontAwesomeIcon icon="tshirt" />
+                    <span> Crear Producto</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/adminNewUser">
+                    <FontAwesomeIcon icon="tshirt" />
+                    <span> Crear Usuarios</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/">
+                    <FontAwesomeIcon icon="cogs" />
+                    <span> Configuracion</span>
+                  </Link>
+                </li>
+              </ul>
             </ul>
           </div>
         </nav>
@@ -183,10 +193,10 @@ const AdminUsers = () => {
 
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item">
-                        {users.map((user, index) => (
+                        {users.map((user) => (
                           <div
-                            key={index}
                             className="row align-items-center no-gutters"
+                            key={user.idUser}
                           >
                             <div className="col me-2">
                               <p>{user.idUser}</p>
@@ -232,5 +242,4 @@ const AdminUsers = () => {
     </div>
   );
 };
-
 export default AdminUsers;

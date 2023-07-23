@@ -1,70 +1,49 @@
-import {useState} from 'react';
-import styles from './SearchBar.module.css';
-
-// ! Prueba funcionamiento => Borrar luego.
-const products = [
-  {id: 1, name: 'Balón de fútbol'},
-  {id: 2, name: 'Camiseta de baloncesto'},
-  {id: 3, name: 'Raqueta de tenis'},
-  {id: 4, name: 'Pelota de voleibol'},
-  {id: 5, name: 'Guantes de boxeo'},
-  {id: 6, name: 'Patines en línea'},
-  {id: 7, name: 'Saco de boxeo'},
-  {id: 8, name: 'Casco de ciclismo'},
-  {id: 9, name: 'Red de bádminton'},
-  {id: 10, name: 'Pesa rusa'},
-  {id: 11, name: 'Gorra de natación'},
-  {id: 12, name: 'Tabla de surf'},
-  {id: 13, name: 'Gafas de esquí'},
-  {id: 14, name: 'Cuerda de saltar'},
-  {id: 15, name: 'Bicicleta de montaña'},
-  {id: 16, name: 'Botas de fútbol'},
-  {id: 17, name: 'Tablero de ajedrez'},
-  {id: 18, name: 'Pelota de rugby'},
-  {id: 19, name: 'Gorro de waterpolo'},
-  {id: 20, name: 'Balón de béisbol'},
-  {id: 21, name: 'Tabla de snowboard'},
-  {id: 22, name: 'Pelota de golf'},
-  {id: 23, name: 'Cinta de correr'},
-  {id: 24, name: 'Máscara de buceo'},
-  {id: 25, name: 'Patines de hielo'},
-  {id: 26, name: 'Bolso de deporte'},
-  {id: 27, name: 'Muñequeras de tenis'},
-  {id: 28, name: 'Zapatillas de running'},
-  {id: 29, name: 'Balón de balonmano'},
-  {id: 30, name: 'Cuerdas de escalada'},
-];
+import { useState } from "react";
+import styles from "./SearchBar.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  filterProductsByName,
+  resetDisplayedProducts,
+} from "../../redux/actions/actions";
 
 const SearchBar = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [hideList, setHideList] = useState(false);
+  const inventory = useSelector((state) => state.inventory);
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     setSearchQuery(event.target.value);
-    setTimeout(filterProducts, 300);
+    if (!event.target.value) dispatch(resetDisplayedProducts());
+    setTimeout(handleListSuggestions, 300);
   };
 
   const handleSearch = async (query) => {
-    // * Lógica para filtrar las cards en función de la búsqueda => Dispatch Redux
-    // ! Esto seria con dispatch a la action post. No va a tener .results cambiarlo luego.
-    // ? Recordar hacerle trim() a la query antes de enviar
     setSearchQuery(query);
     setSearchResults([]);
-    console.log(`Busco con el input ${query}`);
+    dispatch(filterProductsByName(query.trim()));
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       handleSearch(searchQuery);
     }
   };
 
-  const filterProducts = () => {
-    // * Filtrando productos basados en la lista.
-    // ! Estos products vendrían del estado global [useSelector], faltaría el redux.
-    const filteredProducts = products.filter((product) =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase().trim())
-    );
+  const handleListSuggestions = () => {
+    const seen = {};
+
+    // * Filtrado para la lista de sugerencias que no repitan los nombres idénticos.
+    const filteredProducts = inventory.filter((product) => {
+      const articleName = product.article_name.toLowerCase();
+      const search = searchQuery.toLowerCase().trim();
+      return (
+        articleName.includes(search) &&
+        !seen[articleName] &&
+        (seen[articleName] = true)
+      );
+    });
 
     // * Solo quiero mostrar 6
     const limitedResults = filteredProducts.slice(0, 6);
@@ -72,13 +51,18 @@ const SearchBar = () => {
   };
 
   const handleClearSearch = () => {
-    setSearchQuery('');
+    dispatch(resetDisplayedProducts());
+    setSearchQuery("");
     setSearchResults([]);
+  };
+
+  const handleBlur = () => {
+    setTimeout(() => setHideList(true), 100);
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.bar}>
+      <div className={styles.bar} onBlur={handleBlur} onFocus={() => setHideList(false)}>
         <input
           type="text"
           value={searchQuery}
@@ -88,12 +72,15 @@ const SearchBar = () => {
         />
         <button onClick={handleClearSearch}>X</button>
 
-        {/* Mostrar resultados posibles según el input */}
-        {searchResults.length && (
+        {/* Mostrar resultados posibles/sugerencias según el input */}
+        {!hideList && searchResults.length && (
           <ul className={styles.resultsList}>
             {searchResults.map((item) => (
-              <li key={item.id} onClick={() => handleSearch(item.name)}>
-                {item.name}
+              <li
+                key={item.id_inventory}
+                onClick={() => handleSearch(item.article_name)}
+              >
+                {item.article_name}
               </li>
             ))}
           </ul>

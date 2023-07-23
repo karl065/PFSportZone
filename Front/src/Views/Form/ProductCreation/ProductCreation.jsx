@@ -1,8 +1,9 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useDispatch } from "react-redux";
+import { createProduct } from "../../../redux/actions/actions";
+import CloudinaryWidget from "../../../WidgetCloudinary/CloudinaryWidget";
 import * as Yup from "yup";
 import styles from "./ProductCreation.module.css";
-import axios from "axios";
-import server from "../../../Connections/Server";
 import Swal from "sweetalert2";
 
 const initialValues = {
@@ -11,11 +12,13 @@ const initialValues = {
   selling_price: "",
   purchase_price: "",
   stock: "",
-  image: "",
+  image: [],
   description: "",
 };
 
 export const ProductCreation = () => {
+  const dispatch = useDispatch();
+
   const SignupSchema = Yup.object().shape({
     id_inventory: Yup.string()
       .required("Product Identifier required")
@@ -24,10 +27,8 @@ export const ProductCreation = () => {
       .required("Required product name")
       .min(2, "Too Short!. At leas 2 characters.")
       .max(80, "Too Long!. No more than 80 characters.")
-      .test(
-        "has-3-letters",
-        "Must contain at least 3 letters",
-        (value) => /^(.*[a-zA-Z].*){3,}$/.test(value)
+      .test("has-3-letters", "Must contain at least 3 letters", (value) =>
+        /^(.*[a-zA-Z].*){3,}$/.test(value)
       ),
     selling_price: Yup.number()
       .required("Required selling price")
@@ -46,21 +47,23 @@ export const ProductCreation = () => {
       .required("Description required")
       .min(20, "Too Short!. At least 20 characters")
       .max(10000, "Too Long!. No more than 10000 characters."),
-    image: Yup.string().required("Image required").url("Not an URL"),
+    image: Yup.array()
+      .of(Yup.string())
+      .min(1, "At least one image is required")
+      .max(5, "Maximum of 5 images per product"),
   });
 
-  const handleSubmit = (values) => {
-    // ! Aun no esta el endpoint del producto pero esta era la plantilla que tenia
-    // a agregar status: "Available"
+  const handleSubmit = (values, { resetForm }) => {
     try {
-      axios
-        .post(`${server.api.baseURL}inventory`, {
+      dispatch(
+        createProduct({
           ...values,
           status: "Available",
         })
-        .then(() => {
-          Swal.fire("Good job!", "Successfully register!", "success");
-        });
+      ).then(() => {
+        Swal.fire("Good job!", "Product created!", "success");
+        resetForm();
+      });
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -77,105 +80,116 @@ export const ProductCreation = () => {
         onSubmit={handleSubmit}
         validationSchema={SignupSchema}
       >
-        {({ errors }) => (
+        {({ errors, setFieldValue }) => (
           <Form className={styles.form}>
             <h1 className={styles.title}>NEW PRODUCT</h1>
-            <div className={styles.field}>
+            <div className={styles.field_container}>
               <label>ID</label>
-              <Field
-                name="id_inventory"
-                placeholder="Product Code"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="id_inventory"
-                component="span"
-                className={styles.error}
-              />
+              <div className={styles.input_box}>
+                <Field
+                  name="id_inventory"
+                  placeholder="Product Code"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="id_inventory"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
             </div>
-            <div className={styles.field}>
+            <div className={styles.field_container}>
               <label>Name</label>
-              <Field
-                name="article_name"
-                placeholder="Product name"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="article_name"
-                component="span"
-                className={styles.error}
-              />
+              <div className={styles.input_box}>
+                <Field
+                  name="article_name"
+                  placeholder="Product name"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="article_name"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
             </div>
-            <div className={styles.field}>
+            <div className={styles.field_container}>
               <label>Selling price</label>
-              <Field
-                name="selling_price"
-                placeholder="Selling price"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="selling_price"
-                component="span"
-                className={styles.error}
-              />
+              <div className={styles.input_box}>
+                <Field
+                  name="selling_price"
+                  placeholder="Selling price"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="selling_price"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
             </div>
 
-            <div className={styles.field}>
+            <div className={styles.field_container}>
               <label>Purchase price</label>
-              <Field
-                name="purchase_price"
-                placeholder="Min 0.1"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="purchase_price"
-                component="span"
-                className={styles.error}
-              />
+              <div className={styles.input_box}>
+                <Field
+                  name="purchase_price"
+                  placeholder="Min 0.1"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="purchase_price"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
             </div>
-            <div className={styles.field}>
+            <div className={styles.field_container}>
               <label>Stock</label>
-              <Field
-                name="stock"
-                placeholder="Stock"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="stock"
-                component="span"
-                className={styles.error}
-              />
+              <div className={styles.input_box}>
+                <Field
+                  name="stock"
+                  placeholder="Stock"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="stock"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
             </div>
 
-            <div className={styles.field}>
-              <label>Image(s)</label>
-              <Field
-                name="image"
-                type="url"
-                placeholder="URL"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="image"
-                component="span"
-                className={styles.error}
-              />
+            <div className={styles.cloudinary_field}>
+              <div className={styles.input_box}>
+                <CloudinaryWidget
+                  fieldName="image"
+                  setFieldValue={setFieldValue}
+                />
+                <ErrorMessage
+                  name="image"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
             </div>
 
-            <div className={styles.field}>
+            <div className={styles.field_container}>
               <label>Description</label>
-              <Field
-                as="textarea"
-                name="description"
-                placeholder="Product description"
-                className={styles.input}
-                rows="4"
-              />
-              <ErrorMessage
-                name="description"
-                component="span"
-                className={styles.error}
-              />
+              <div className={styles.input_box}>
+                <Field
+                  as="textarea"
+                  name="description"
+                  placeholder="Product description"
+                  className={styles.input}
+                  rows="4"
+                />
+                <ErrorMessage
+                  name="description"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
             </div>
 
             <button

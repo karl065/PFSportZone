@@ -1,10 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-undef */
+/* eslint-disable react-hooks/rules-of-hooks */
+import {Link} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {useEffect, useState} from 'react';
+
+import {useSelector} from 'react-redux';
 
 library.add(fas);
+
 const AdminProducts = () => {
+  const inventario = useSelector((state) => state.inventory);
+  const [statusOption, setStatusOption] = useState([
+    'Available',
+    'Not Available',
+    'Discontinued',
+  ]);
+
+  useEffect(() => {
+    const statusToRemove = inventario.map((item) => item.status);
+    setStatusOption((prevStatusOption) =>
+      prevStatusOption.filter((status) => !statusToRemove.includes(status))
+    );
+  }, [inventario]);
+
   return (
     <div>
       <div id="wrapper" style={{display: 'flex'}}>
@@ -35,49 +57,67 @@ const AdminProducts = () => {
             </div>
             <ul className="navbar-nav text-light" id="accordionSidebar">
               <li className="nav-item">
-                <a className="nav-link active" href="/adminProducts">
-                  <FontAwesomeIcon icon="shopping-cart" />
-                  <span> Productos</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/adminUsers">
-                  <FontAwesomeIcon icon="user" />
-                  <span> Usuarios</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">
-                  <FontAwesomeIcon icon="user-circle" />
-                  <span> Empleados</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">
-                  <FontAwesomeIcon icon="unlock-alt" />
-                  <span> Pagos</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/product/create">
-                  <FontAwesomeIcon icon="tshirt" />
-                  <span> Crear Producto</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">
+                {/* <a className="nav-link" href="/">
                   <FontAwesomeIcon icon="cogs" />
                   <span> Configuración</span>
                 </a>
+                <hr className="sidebar-divider my-0" />
+                <div className="sidebar-brand-text mx-3">
+                  <span> </span>
+                </div> */}
+                <ul className="navbar-nav text-light" id="accordionSidebar">
+                  <li className="nav-item">
+                    <Link to="/adminProducts">
+                      <FontAwesomeIcon icon="shopping-cart" />
+                      <span> Productos</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/adminUsers">
+                      <FontAwesomeIcon icon="user" />
+                      <span> Usuarios</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/adminEmployes">
+                      <FontAwesomeIcon icon="user-circle" />
+                      <span> Empleados</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/">
+                      <FontAwesomeIcon icon="unlock-alt" />
+                      <span> Pagos</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/adminNewProduct">
+                      <FontAwesomeIcon icon="tshirt" />
+                      <span> Crear Producto</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/adminNewUser">
+                      <FontAwesomeIcon icon="tshirt" />
+                      <span> Crear Usuarios</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/">
+                      <FontAwesomeIcon icon="cogs" />
+                      <span> Configuracion</span>
+                    </Link>
+                  </li>
+                </ul>
+                <div className="text-center d-none d-md-inline">
+                  <button
+                    className="btn rounded-circle border-3"
+                    id="sidebarToggle"
+                    type="button"
+                  ></button>
+                </div>
               </li>
             </ul>
-            <div className="text-center d-none d-md-inline">
-              <button
-                className="btn rounded-circle border-3"
-                id="sidebarToggle"
-                type="button"
-              ></button>
-            </div>
           </div>
         </nav>
         <div
@@ -153,69 +193,63 @@ const AdminProducts = () => {
                               <strong>Cantidad</strong>
                             </h6>
                           </div>
-                          <div className="col-auto">
-                            <div className="form-check">
-                              <input
-                                id="formCheck-1"
-                                className="form-check-input"
-                                type="checkbox"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="formCheck-1"
-                              >
-                                Activo
-                              </label>
-                            </div>
+                          <div className="col me-2">
+                            <h6 className="mb-0">
+                              <strong>Status</strong>
+                            </h6>
                           </div>
                         </div>
                       </li>
                     </ul>
-
-                    <ul className="list-group list-group-flush">
-                      <li className="list-group-item">
-                        <div className="row align-items-center no-gutters">
-                          <div className="col me-2">
-                            <p>ID</p>
-                          </div>
-                          <div className="col">
-                            <picture>
-                              <img alt="imagen" />
-                            </picture>
-                          </div>
-                          <div className="col me-2">
-                            <p>Nombre</p>
-                          </div>
-                          <div className="col me-2">
-                            <p>Referencia</p>
-                          </div>
-                          <div className="col me-2">
-                            <p>Categoria</p>
-                          </div>
-                          <div className="col me-2">
-                            <p>Precio</p>
-                          </div>
-                          <div className="col me-2">
-                            <p>Cantidad</p>
-                          </div>
-                          <div className="col-auto">
-                            <div className="form-check">
-                              <input
-                                id="formCheck-1"
-                                className="form-check-input"
-                                type="checkbox"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="formCheck-1"
+                    {inventario.map((prod, index) => (
+                      <ul key={index} className="list-group list-group-flush">
+                        <li className="list-group-item">
+                          <div className="row align-items-center no-gutters">
+                            <div className="col me-2">
+                              <p>{prod.id_inventory}</p>
+                            </div>
+                            <div className="col">
+                              <picture>
+                                <img
+                                  width={100}
+                                  src={prod.image[0]}
+                                  alt={prod.article_name}
+                                />
+                              </picture>
+                            </div>
+                            <div className="col me-2">
+                              <p>{prod.article_name}</p>
+                            </div>
+                            <div className="col me-2">
+                              <p>{prod.description}</p>
+                            </div>
+                            <div className="col me-2">
+                              <p>Categoria</p>
+                            </div>
+                            <div className="col me-2">
+                              <p>{prod.selling_price}</p>
+                            </div>
+                            <div className="col me-2">
+                              <p>{prod.stock}</p>
+                            </div>
+                            <div className="col me-2">
+                              <select
+                                style={{width: 'auto', minWidth: '100px'}}
                               >
-                                Activo
-                              </label>
+                                <option value={prod.status}>
+                                  {prod.status}
+                                </option>
+                                {statusOption.map((option, index) => (
+                                  <option value={option} key={index}>
+                                    {option}
+                                  </option>
+                                ))}
+                              </select>
                             </div>
                           </div>
-                        </div>
-                      </li>
-                    </ul>
+                        </li>
+                      </ul>
+                    ))}
                   </div>
                 </div>
               </div>
