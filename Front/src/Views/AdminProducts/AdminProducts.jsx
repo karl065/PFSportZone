@@ -209,13 +209,11 @@ const AdminProducts = () => {
                               <p>{prod.id_inventory}</p>
                             </div>
                             <div className="col">
-                              <picture>
-                                <img
-                                  width={100}
-                                  src={prod.image[0]}
-                                  alt={prod.article_name}
-                                />
-                              </picture>
+                              <img
+                                width={100}
+                                src={prod.image[0]}
+                                alt={prod.article_name}
+                              />
                             </div>
                             <div className="col me-2">
                               <p>{prod.article_name}</p>
