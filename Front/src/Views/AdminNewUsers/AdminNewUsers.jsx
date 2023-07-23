@@ -3,9 +3,9 @@ import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Link} from 'react-router-dom';
-import ProductCreation from '../Form/ProductCreation/ProductCreation';
+import UserRegister from '../Form/UserRegister/UserRegister';
 library.add(fas);
-const AdminNewProduct = () => {
+const AdminNewUsers = () => {
   return (
     <div>
       <div id="wrapper" style={{display: 'flex'}}>
@@ -72,6 +72,12 @@ const AdminNewProduct = () => {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link to="/adminNewUser">
+                  <FontAwesomeIcon icon="tshirt" />
+                  <span> Crear Usuarios</span>
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link to="/">
                   <FontAwesomeIcon icon="cogs" />
                   <span> Configuración</span>
@@ -115,7 +121,7 @@ const AdminNewProduct = () => {
                 </div>
               </div>
               <div></div>
-              <ProductCreation />
+              <UserRegister />
             </div>
           </div>
         </div>
@@ -127,4 +133,4 @@ const AdminNewProduct = () => {
   );
 };
 
-export default AdminNewProduct;
+export default AdminNewUsers;

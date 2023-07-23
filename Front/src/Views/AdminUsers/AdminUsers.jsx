@@ -20,7 +20,6 @@ const AdminUsers = () => {
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
-    console.log(selectedOption);
   };
 
   const [users, setUsers] = useState([]);
@@ -30,7 +29,6 @@ const AdminUsers = () => {
       .get('https://backsportzone.onrender.com/users')
       .then(({data}) => {
         setUsers(data);
-        console.log('useEffect(()  ' + data);
       })
       .catch((error) => {
         console.error(error);
@@ -99,6 +97,12 @@ const AdminUsers = () => {
                   <Link to="/adminNewProduct">
                     <FontAwesomeIcon icon="tshirt" />
                     <span> Crear Producto</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/adminNewUser">
+                    <FontAwesomeIcon icon="tshirt" />
+                    <span> Crear Usuarios</span>
                   </Link>
                 </li>
                 <li className="nav-item">

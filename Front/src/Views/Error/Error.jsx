@@ -19,19 +19,17 @@ const Error = (props) => {
       <div className={style.Cimages}>
         <img
           src="https://res.cloudinary.com/dpjeltekx/image/upload/v1689947525/PF/Rocket_gvuj3a.png"
-          alt="rocket"
+          className={style.Rocket}
         />
-        <img
-          src="https://res.cloudinary.com/dpjeltekx/image/upload/v1689947525/PF/planet_brnqfv.png"
-          alt="planet"
-        />
+        <div className={style.planetContainer}>
+          <img
+            src="https://res.cloudinary.com/dpjeltekx/image/upload/v1689947525/PF/planet_brnqfv.png"
+            className={style.planet}
+          />
+        </div>
         <img
           src="https://res.cloudinary.com/dpjeltekx/image/upload/v1689947525/PF/spaceman_t14km3.png"
-          alt="spaceman"
-        />
-        <img
-          src="https://res.cloudinary.com/dpjeltekx/image/upload/v1689947525/PF/stars_gvo9in.png"
-          alt="starts"
+          className={style.spaceman}
         />
       </div>
       <div className={style.TBcontainer}>
