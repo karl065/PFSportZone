@@ -64,7 +64,7 @@ const SearchBar = () => {
         return newIndex;
       });
     } else if (event.key === "Enter") {
-      if (highlightedIndex > -1) {
+      if (highlightedIndex > -1 && searchResults[highlightedIndex]) {
         handleSearch(searchResults[highlightedIndex].article_name);
         setHighlightedIndex(-1);
       } else {
