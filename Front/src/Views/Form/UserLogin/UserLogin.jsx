@@ -1,46 +1,36 @@
 /* eslint-disable react/prop-types */
-import {useFormik} from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
-import server from '../../../Connections/Server';
-import {useNavigate} from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../../helpers";
+import Swal from "sweetalert2";
 
 const UserLogin = () => {
   const navigate = useNavigate();
   // Define el esquema de validación usando Yup
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .email('No es un email correcto')
-      .required('Campo requerido'),
-    password: Yup.string().required('Campo requerido'),
+      .email("No es un email correcto")
+      .required("Campo requerido"),
+    password: Yup.string().required("Campo requerido"),
   });
 
   // Configura Formik y su estado inicial
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     validationSchema,
     onSubmit: async (values) => {
-      const {data} = await axios.post(`${server.api.baseURL}auth`, values);
-
-      if (data.token.msg) {
-        return Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: data.token.msg,
+      try {
+        await login(values.email, values.password, navigate);
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Login failed. Please try again later.",
         });
-      }
-      localStorage.setItem('token', data.token.token);
-      localStorage.setItem('role', data.token.role);
-      const role = data.token.role;
-
-      if (role === 'SuperUser' || role === 'Admin') {
-        navigate('/adminProducts');
-      } else if (role === 'Cliente') {
-        navigate('/home');
       }
     },
   });
@@ -50,13 +40,13 @@ const UserLogin = () => {
       <div
         id="ng-login"
         className="bg-gradient-primary"
-        style={{background: '#42b73a', '--bs-success': '#42b73a'}}
+        style={{ background: "#42b73a", "--bs-success": "#42b73a" }}
       >
         <div className="container">
           <div className="row justify-content-center">
             <div
               className="col-md-9 col-lg-12 col-xl-10"
-              style={{width: '400px'}}
+              style={{ width: "400px" }}
             >
               <div className="card shadow-lg o-hidden border-0 my-5">
                 <div className="card-body p-0">
@@ -64,16 +54,16 @@ const UserLogin = () => {
                     <div
                       className="col-lg-6"
                       style={{
-                        borderRadius: '10px',
-                        borderColor: 'rgba(133,135,150,0)',
-                        width: '400px',
+                        borderRadius: "10px",
+                        borderColor: "rgba(133,135,150,0)",
+                        width: "400px",
                       }}
                     >
-                      <div className="p-5" style={{width: '100%'}}>
+                      <div className="p-5" style={{ width: "100%" }}>
                         <div className="text-center">
                           <h4
                             className="text-dark mb-4"
-                            style={{fontSize: '30px'}}
+                            style={{ fontSize: "30px" }}
                           >
                             Bienvenido!
                           </h4>
@@ -90,7 +80,7 @@ const UserLogin = () => {
                               aria-describedby="emailHelp"
                               placeholder="Usuario..."
                               name="email"
-                              style={{borderRadius: '0px'}}
+                              style={{ borderRadius: "0px" }}
                             />
                             {formik.touched.email && formik.errors.email ? (
                               <div className="text-danger">
@@ -108,7 +98,7 @@ const UserLogin = () => {
                               type="password"
                               placeholder="Password"
                               name="password"
-                              style={{borderRadius: '0px'}}
+                              style={{ borderRadius: "0px" }}
                             />
                             {formik.touched.password &&
                             formik.errors.password ? (
@@ -127,7 +117,10 @@ const UserLogin = () => {
                             className="btn btn-success fs-5 link-light d-block btn-user w-100"
                             disabled={!formik.isValid || formik.isSubmitting}
                             type="submit"
-                            style={{background: '#42b73a', borderRadius: '0px'}}
+                            style={{
+                              background: "#42b73a",
+                              borderRadius: "0px",
+                            }}
                           >
                             Login
                           </button>

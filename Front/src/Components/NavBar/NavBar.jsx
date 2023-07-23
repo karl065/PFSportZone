@@ -1,40 +1,42 @@
-import {Link, useLocation} from 'react-router-dom';
-import {SearchBar} from '../index';
-import styles from './NavBar.module.css';
+import { Link, useLocation } from "react-router-dom";
+import { SearchBar } from "../index";
+import styles from "./NavBar.module.css";
 
 const NavBar = () => {
   const location = useLocation();
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
-  const token = localStorage.getItem('token');
-  const role = localStorage.getItem('role');
-  /**
-   * La función `logout` elimina el elemento 'token' del localStorage.
-   */
+  const shouldRenderSearchBar =
+    (location.pathname !== "/" && role === "Cliente") ||
+    location.pathname === "/home";
+
+  // * La función `logout` elimina el elemento 'token' del localStorage.
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
   };
 
   return (
     <nav className={styles.nav}>
-      {location.pathname === '/' ? (
+      {location.pathname === "/" ? (
         <Link to="/about">About us</Link>
       ) : (
         <>
           <Link to="/">SPORTZONE</Link>
         </>
       )}
-      {role === 'SuperUser' || role === 'Admin' ? (
-        <Link to={'/adminProducts'}>Dashboard</Link>
+      {role === "SuperUser" || role === "Admin" ? (
+        <Link to={"/adminProducts"}>Dashboard</Link>
       ) : null}
-      {location.pathname !== '/' && <SearchBar />}
+      {shouldRenderSearchBar && <SearchBar/>}
       <ul className={styles.nav_list}>
         <li>
           <Link to="/home">Catalog</Link>
         </li>
         {token ? (
           <li>
-            <Link onClick={logout} to={'/'}>
+            <Link onClick={logout} to={"/"}>
               Logout
             </Link>
           </li>
