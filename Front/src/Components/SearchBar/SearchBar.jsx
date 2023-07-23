@@ -49,6 +49,10 @@ const SearchBar = () => {
   };
 
   const handleKeyDown = (event) => {
+    if (searchQuery === '') {
+      // Si el input está vacío, no realizar ninguna acción con las teclas de flecha
+      return;
+    }
     if (event.key === 'ArrowDown') {
       event.preventDefault();
       setHighlightedIndex((prevIndex) => {
