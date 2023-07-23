@@ -17,21 +17,30 @@ import {
   AdminNewProduct,
   UserLogin,
   AdminNewUsers,
+  AdminNewCategory,
 } from './Views';
-import {getInventory, getUsers, setLoading} from './redux/actions/actions';
+import {
+  getCategory,
+  getInventory,
+  getUsers,
+  setLoading,
+} from './redux/actions/actions';
 import {useState} from 'react';
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
-  //estado para no mostrar la nav en la pagina 404
+  // * Estado para no mostrar la nav en la pagina 404
   const [errorPage, setErrorPage] = useState(true);
+
   // * Carga inicial de los datos necesarios para la app.
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(getUsers());
     dispatch(getInventory()).then(() => dispatch(setLoading(false)));
+    dispatch(getCategory()).then(() => dispatch(setLoading(false)));
   }, [dispatch]);
+
   return (
     <div className="App">
       {location.pathname !== '/' && errorPage && <NavBar />}
@@ -45,6 +54,7 @@ function App() {
         <Route path="/adminEmployes" element={<AdminEmployes />} />
         <Route path="/adminNewProduct" element={<AdminNewProduct />} />
         <Route path="/adminNewUser" element={<AdminNewUsers />} />
+        <Route path="/adminNewCategory" element={<AdminNewCategory />} />
         {/* <Route path="/favorites"/> */}
         <Route path="/product/:id" element={<Detail />} />
         <Route path="/about" element={<About />} />

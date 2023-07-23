@@ -4,12 +4,12 @@
   justify-content: center;
   min-height: 100vh;
   padding: 2rem;
-  background-color: #C4C6BD;
+  background-color: #c4c6bd;
 }
 
 .detail {
   width: 90%;
-  max-width: 120rem;
+  max-width: 110rem;
   max-height: 800px;
   display: grid;
   column-gap: 2rem;
@@ -19,10 +19,11 @@
 .img {
   object-fit: cover;
   object-position: center;
+  border: 1px solid grey;
   height: 100%;
   width: 100%;
   transition: all 0.2s;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 .img:hover {
@@ -34,9 +35,9 @@
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
-  padding: 2rem 0;
+  padding: 2rem;
   gap: 2rem;
-  background-color: #F2F1F1;
+  background-color: #f2f1f1;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.336);
 }
 
@@ -71,7 +72,8 @@
 .buttons_box button {
   border-radius: 0.3125rem;
   border: 3px solid #000;
-  font-size: 1.2rem;
+  padding: 0.2rem 0.4rem;
+  font-size: 1rem;
   width: fit-content;
 }
 
@@ -80,5 +82,5 @@
 }
 
 .btn_favorites {
-  background-color: grey;
+  background-color: #D9D9D9;
 }
