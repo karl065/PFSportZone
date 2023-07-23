@@ -3,9 +3,9 @@ import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Link} from 'react-router-dom';
-import ProductCreation from '../Form/ProductCreation/ProductCreation';
+import UserRegister from '../Form/UserRegister/UserRegister';
 library.add(fas);
-const AdminNewProduct = () => {
+const AdminNewUsers = () => {
   return (
     <div>
       <div id="wrapper" style={{display: 'flex'}}>
@@ -30,7 +30,7 @@ const AdminNewProduct = () => {
                 <span>SportZone</span>
               </div>
             </a>
-            <hr className="sidebar-divider my-1" />
+            <hr className="sidebar-divider my-0" />
             <div className="sidebar-brand-text mx-3">
               <span> </span>
             </div>
@@ -49,13 +49,13 @@ const AdminNewProduct = () => {
                 </Link>
               </li>
               <hr className="sidebar-divider my-2" />
-              <li className="nav-item">
+              <li className="nav-item"  style={{"color": "var(--bs-gray-dark)"}}>
                 <Link to="/adminNewUser">
                   <FontAwesomeIcon icon="user" />
                   <span> Crear Usuario</span>
                 </Link>
               </li>
-                <hr className="sidebar-divider my-2" />
+              <hr className="sidebar-divider my-2" />
               <li className="nav-item">
                 <Link to="/adminEmployes">
                   <FontAwesomeIcon icon="user-circle" />
@@ -64,33 +64,40 @@ const AdminNewProduct = () => {
               </li>
               <hr className="sidebar-divider my-2" />
               <li className="nav-item">
-                <Link to="/adminPagos">
+                <Link to="/">
                   <FontAwesomeIcon icon="money-check-alt" />
                   <span> Pagos</span>
                 </Link>
               </li>
               <hr className="sidebar-divider my-2" />
-              <li className="nav-item" style={{"color": "var(--bs-gray-dark)"}}>
-                <Link to="/adminNewProduct">
-                  <FontAwesomeIcon icon="tshirt" />
-                  <span> Crear Producto</span>
-                </Link>
-              </li>
-              <hr className="sidebar-divider my-2" />
-              <li className="nav-item">
+                <li className="nav-item">
+                  <Link to="/adminNewProduct">
+                    <FontAwesomeIcon icon="tshirt" />
+                    <span> Crear Producto</span>
+                  </Link>
+                </li>
+                <hr className="sidebar-divider my-2" />
+                <li className="nav-item">
                     <Link to="/adminEditProd">
                       <FontAwesomeIcon icon="fa-edit" />
                       <span> Editar Producto</span>
                     </Link>
                   </li>
               <hr className="sidebar-divider my-2" />
-              <li className="nav-item">
-              <Link to="/">
+                <li className="nav-item">
+                <Link to="/">
                   <FontAwesomeIcon icon="unlock-alt" />
                   <span> Salir</span>
                 </Link>
-              </li>
+                </li>             
             </ul>
+            <div className="text-center d-none d-md-inline">
+              <button
+                className="btn rounded-circle border-3"
+                id="sidebarToggle"
+                type="button"
+              ></button>
+            </div>
           </div>
         </nav>
         <div
@@ -121,7 +128,7 @@ const AdminNewProduct = () => {
                 </div>
               </div>
               <div></div>
-              <ProductCreation />
+              <UserRegister />
             </div>
           </div>
         </div>
@@ -133,4 +140,4 @@ const AdminNewProduct = () => {
   );
 };
 
-export default AdminNewProduct;
+export default AdminNewUsers;

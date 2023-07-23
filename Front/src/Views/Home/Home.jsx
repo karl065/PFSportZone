@@ -1,25 +1,38 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Styles from './Home.module.css';
 import Pagination from '../../Components/Pagination/Pagination';
+import {Card} from '../../Components';
+import {useDispatch, useSelector} from 'react-redux';
+import {getInventory} from '../../redux/actions/actions';
 
 const Home = (props) => {
-  const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+  const dispatch = useDispatch();
+  const displayInventory = useSelector((state) => state.displayInventory);
   const [page, setPage] = useState(1);
   const [amountPerPage, setAmountPerPage] = useState(3);
-  const pageCount = items.length / amountPerPage;
-
+  const pageCount = displayInventory.length / amountPerPage;
+  useEffect(() => {
+    dispatch(getInventory());
+  }, []);
   return (
     <div className={Styles.container}>
       <div className={Styles.cards}>
-        {items
-          .slice(
-            (page - 1) * amountPerPage,
-            (page - 1) * amountPerPage + amountPerPage
-          )
-          .map((item, index) => {
-            return <h3 key={index}>{item}</h3>;
-          })}
+        {displayInventory.length ? (
+          displayInventory
+            .slice(
+              (page - 1) * amountPerPage,
+              (page - 1) * amountPerPage + amountPerPage
+            )
+            .map((item, index) => (
+              <div key={index}>
+                <Card product={item} />
+              </div>
+            ))
+        ) : (
+          <h3 className={Styles.no_matches}>No results found... ☹️</h3>
+        )}
       </div>
 
       <Pagination page={page} setPage={setPage} pageCount={pageCount} />
@@ -30,6 +43,5 @@ const Home = (props) => {
     </div>
   );
 };
-
 
 export default Home;
