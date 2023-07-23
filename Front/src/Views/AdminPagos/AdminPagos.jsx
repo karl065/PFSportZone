@@ -1,304 +1,319 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {Link} from 'react-router-dom';
+import Sidebar from '../../Components/SideBar/Sidebar';
 
 library.add(fas);
 const AdminPagos = () => {
-
-
   return (
     <div>
       <div id="wrapper" style={{display: 'flex'}}>
-        <nav
-          className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
-          style={{
-            background: '#749900',
-            overflow: 'visible',
-            position: 'relative',
-            height: '600px',
-          }}
+        <Sidebar />
+        <div
+          className="d-flex flex-column"
+          id="content-wrapper"
+          style={{flex: '1', flexGrow: '1'}}
         >
-          <div className="container-fluid d-flex flex-column p-3">
-            <a
-              className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
-              href="#"
-            >
-              <div className="sidebar-brand-icon rotate-n-15">
-                <FontAwesomeIcon icon="passport" />
-              </div>
-              <div className="sidebar-brand-text mx-3">
-                <span>SportZone</span>
-              </div>
-            </a>
-            <hr className="sidebar-divider my-1" />
-            <div className="sidebar-brand-text mx-3">
-              <span> </span>
-            </div>
-            <ul className="navbar-nav text-light" id="accordionSidebar">
-              <li className="nav-item">
-              <Link to="/adminProducts">
-                  <FontAwesomeIcon icon="shopping-cart" />
-                  <span> Productos</span>
-                </Link>
-              </li>
-              <hr className="sidebar-divider my-2" />
-              <li className="nav-item">
-              <Link to="/adminUsers">
-                  <FontAwesomeIcon icon="user" />
-                  <span> Usuarios</span>
-                </Link>
-              </li>
-              <hr className="sidebar-divider my-2" />
-              <li className="nav-item">
-                <Link to="/adminNewUser">
-                  <FontAwesomeIcon icon="user" />
-                  <span> Crear Usuario</span>
-                </Link>
-              </li>
-                <hr className="sidebar-divider my-2" />
-              <li className="nav-item">
-                <Link to="/adminEmployes">
-                  <FontAwesomeIcon icon="user-circle" />
-                  <span> Empleados</span>
-                </Link>
-              </li>
-              <hr className="sidebar-divider my-2" />
-              <li className="nav-item" style={{"color": "var(--bs-gray-dark)"}}>
-              <Link to="/adminPagos">
-                  <FontAwesomeIcon icon="money-check-alt" />
-                  <span> Pagos</span>
-                </Link>
-              </li>
-              <hr className="sidebar-divider my-2" />
-              <li className="nav-item">
-                    <Link to="/adminNewProduct">
-                      <FontAwesomeIcon icon="tshirt" />
-                      <span> Crear Producto</span>
-                    </Link>
-                  </li>
-              <hr className="sidebar-divider my-2" />
-              <li className="nav-item">
-                    <Link to="/adminEditProd">
-                      <FontAwesomeIcon icon="fa-edit" />
-                      <span> Editar Producto</span>
-                    </Link>
-                  </li>
-              <hr className="sidebar-divider my-2" />
-              <li className="nav-item">
-              <Link to="/">
-                  <FontAwesomeIcon icon="unlock-alt" />
-                  <span> Salir</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <div className="d-flex flex-column" id="content-wrapper" style={{flex: '1', flexGrow: '1'}}>
-        
-        
-      <div className="container-fluid">
+          <div className="container-fluid">
             <h3 className="text-dark mb-4">Pagos</h3>
             <div className="card shadow">
-            <div className="card-header py-3">
-                <p className="text-primary m-0 fw-bold" style={{fontSize: "16px","fontFamily": "Assistant, sans-serif","--bs-primary-rgb": "rgb(116,153,0)" }}>Informacion de pagos</p>
-            </div>
-            <div className="card-body">
-            <div className="row">
-                <div className="col-md-6 text-nowrap">
-                    <div id="dataTable_length" className="dataTables_length" aria-controls="dataTable"><label className="form-label">Show   <select className="d-inline-block form-select form-select-sm">
-                                <option defaultValue="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select></label></div>
+              <div className="card-header py-3">
+                <p
+                  className="text-primary m-0 fw-bold"
+                  style={{
+                    fontSize: '16px',
+                    fontFamily: 'Assistant, sans-serif',
+                    '--bs-primary-rgb': 'rgb(116,153,0)',
+                  }}
+                >
+                  Informacion de pagos
+                </p>
+              </div>
+              <div className="card-body">
+                <div className="row">
+                  <div className="col-md-6 text-nowrap">
+                    <div
+                      id="dataTable_length"
+                      className="dataTables_length"
+                      aria-controls="dataTable"
+                    >
+                      <label className="form-label">
+                        <select className="d-inline-block form-select form-select-sm">
+                          <option defaultValue="10">10</option>
+                          <option value="25">25</option>
+                          <option value="50">50</option>
+                          <option value="100">100</option>
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div
+                      id="dataTable_filter"
+                      className="text-md-end dataTables_filter"
+                    >
+                      <label className="form-label">
+                        <input
+                          className="form-control form-control-sm"
+                          type="search"
+                          aria-controls="dataTable"
+                          placeholder="Search"
+                        />
+                      </label>
+                    </div>
+                  </div>
                 </div>
-                <div className="col-md-6">
-                    <div id="dataTable_filter" className="text-md-end dataTables_filter"><label className="form-label"><input className="form-control form-control-sm" type="search" aria-controls="dataTable" placeholder="Search" /></label></div>
-                </div>
-            </div>
-            <div id="dataTable" className="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
-                <table id="dataTable" className="table my-0" style={{fontSize: "16px","fontFamily": "Assistant, sans-serif"}}>
+                <div
+                  id="dataTable"
+                  className="table-responsive table mt-2"
+                  role="grid"
+                  aria-describedby="dataTable_info"
+                >
+                  <table
+                    id="dataTable"
+                    className="table my-0"
+                    style={{
+                      fontSize: '16px',
+                      fontFamily: 'Assistant, sans-serif',
+                    }}
+                  >
                     <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Value</th>
-                        </tr>
+                      <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th>Age</th>
+                        <th>Start date</th>
+                        <th>Value</th>
+                      </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                            <td>2008/11/28</td>
-                            <td>$162,700</td>
-                        </tr>
-                        <tr>
-                            <td>Angelica Ramos</td>
-                            <td>Chief Executive Officer(CEO)</td>
-                            <td>London</td>
-                            <td>47</td>
-                            <td>2009/10/09<br /></td>
-                            <td>$1,200,000</td>
-                        </tr>
-                        <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                            <td>2009/01/12<br /></td>
-                            <td>$86,000</td>
-                        </tr>
-                        <tr>
-                            <td>Bradley Greer</td>
-                            <td>Software Engineer</td>
-                            <td>London</td>
-                            <td>41</td>
-                            <td>2012/10/13<br /></td>
-                            <td>$132,000</td>
-                        </tr>
-                        <tr>
-                            <td>Brenden Wagner</td>
-                            <td>Software Engineer</td>
-                            <td>San Francisco</td>
-                            <td>28</td>
-                            <td>2011/06/07<br /></td>
-                            <td>$206,850</td>
-                        </tr>
-                        <tr>
-                            <td>Brielle Williamson</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
-                            <td>61</td>
-                            <td>2012/12/02<br /></td>
-                            <td>$372,000</td>
-                        </tr>
-                        <tr>
-                            <td>Bruno Nash<br /></td>
-                            <td>Software Engineer</td>
-                            <td>London</td>
-                            <td>38</td>
-                            <td>2011/05/03<br /></td>
-                            <td>$163,500</td>
-                        </tr>
-                        <tr>
-                            <td>Caesar Vance</td>
-                            <td>Pre-Sales Support</td>
-                            <td>New York</td>
-                            <td>21</td>
-                            <td>2011/12/12<br /></td>
-                            <td>$106,450</td>
-                        </tr>
-                        <tr>
-                            <td>Cara Stevens</td>
-                            <td>Sales Assistant</td>
-                            <td>New York</td>
-                            <td>46</td>
-                            <td>2011/12/06<br /></td>
-                            <td>$145,600</td>
-                        </tr>
-                        <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior JavaScript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                            <td>2012/03/29<br /></td>
-                            <td>$433,060</td>
-                        </tr>
-                        <tr>
-                            <td>Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                            <td>2008/11/28</td>
-                            <td>$162,700</td>
-                        </tr>
-                        <tr>
-                            <td>Angelica Ramos</td>
-                            <td>Chief Executive Officer(CEO)</td>
-                            <td>London</td>
-                            <td>47</td>
-                            <td>2009/10/09<br /></td>
-                            <td>$1,200,000</td>
-                        </tr>
-                        <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                            <td>2009/01/12<br /></td>
-                            <td>$86,000</td>
-                        </tr>
-                        <tr>
-                            <td>Bradley Greer</td>
-                            <td>Software Engineer</td>
-                            <td>London</td>
-                            <td>41</td>
-                            <td>2012/10/13<br /></td>
-                            <td>$132,000</td>
-                        </tr>
-                        <tr>
-                            <td>Brenden Wagner</td>
-                            <td>Software Engineer</td>
-                            <td>San Francisco</td>
-                            <td>28</td>
-                            <td>2011/06/07<br /></td>
-                            <td>$206,850</td>
-                        </tr>
-                        <tr>
-                            <td>Brielle Williamson</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
-                            <td>61</td>
-                            <td>2012/12/02<br /></td>
-                            <td>$372,000</td>
-                        </tr>
-                        <tr>
-                            <td>Bruno Nash<br /></td>
-                            <td>Software Engineer</td>
-                            <td>London</td>
-                            <td>38</td>
-                            <td>2011/05/03<br /></td>
-                            <td>$163,500</td>
-                        </tr>
-                        <tr>
-                            <td>Caesar Vance</td>
-                            <td>Pre-Sales Support</td>
-                            <td>New York</td>
-                            <td>21</td>
-                            <td>2011/12/12<br /></td>
-                            <td>$106,450</td>
-                        </tr>
-                        <tr>
-                            <td>Cara Stevens</td>
-                            <td>Sales Assistant</td>
-                            <td>New York</td>
-                            <td>46</td>
-                            <td>2011/12/06<br /></td>
-                            <td>$145,600</td>
-                        </tr>
-                        <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior JavaScript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                            <td>2012/03/29<br /></td>
-                            <td>$433,060</td>
-                        </tr>
-                        </tbody>
-                </table>
+                      <tr>
+                        <td>Airi Satou</td>
+                        <td>Accountant</td>
+                        <td>Tokyo</td>
+                        <td>33</td>
+                        <td>2008/11/28</td>
+                        <td>$162,700</td>
+                      </tr>
+                      <tr>
+                        <td>Angelica Ramos</td>
+                        <td>Chief Executive Officer(CEO)</td>
+                        <td>London</td>
+                        <td>47</td>
+                        <td>
+                          2009/10/09
+                          <br />
+                        </td>
+                        <td>$1,200,000</td>
+                      </tr>
+                      <tr>
+                        <td>Ashton Cox</td>
+                        <td>Junior Technical Author</td>
+                        <td>San Francisco</td>
+                        <td>66</td>
+                        <td>
+                          2009/01/12
+                          <br />
+                        </td>
+                        <td>$86,000</td>
+                      </tr>
+                      <tr>
+                        <td>Bradley Greer</td>
+                        <td>Software Engineer</td>
+                        <td>London</td>
+                        <td>41</td>
+                        <td>
+                          2012/10/13
+                          <br />
+                        </td>
+                        <td>$132,000</td>
+                      </tr>
+                      <tr>
+                        <td>Brenden Wagner</td>
+                        <td>Software Engineer</td>
+                        <td>San Francisco</td>
+                        <td>28</td>
+                        <td>
+                          2011/06/07
+                          <br />
+                        </td>
+                        <td>$206,850</td>
+                      </tr>
+                      <tr>
+                        <td>Brielle Williamson</td>
+                        <td>Integration Specialist</td>
+                        <td>New York</td>
+                        <td>61</td>
+                        <td>
+                          2012/12/02
+                          <br />
+                        </td>
+                        <td>$372,000</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Bruno Nash
+                          <br />
+                        </td>
+                        <td>Software Engineer</td>
+                        <td>London</td>
+                        <td>38</td>
+                        <td>
+                          2011/05/03
+                          <br />
+                        </td>
+                        <td>$163,500</td>
+                      </tr>
+                      <tr>
+                        <td>Caesar Vance</td>
+                        <td>Pre-Sales Support</td>
+                        <td>New York</td>
+                        <td>21</td>
+                        <td>
+                          2011/12/12
+                          <br />
+                        </td>
+                        <td>$106,450</td>
+                      </tr>
+                      <tr>
+                        <td>Cara Stevens</td>
+                        <td>Sales Assistant</td>
+                        <td>New York</td>
+                        <td>46</td>
+                        <td>
+                          2011/12/06
+                          <br />
+                        </td>
+                        <td>$145,600</td>
+                      </tr>
+                      <tr>
+                        <td>Cedric Kelly</td>
+                        <td>Senior JavaScript Developer</td>
+                        <td>Edinburgh</td>
+                        <td>22</td>
+                        <td>
+                          2012/03/29
+                          <br />
+                        </td>
+                        <td>$433,060</td>
+                      </tr>
+                      <tr>
+                        <td>Airi Satou</td>
+                        <td>Accountant</td>
+                        <td>Tokyo</td>
+                        <td>33</td>
+                        <td>2008/11/28</td>
+                        <td>$162,700</td>
+                      </tr>
+                      <tr>
+                        <td>Angelica Ramos</td>
+                        <td>Chief Executive Officer(CEO)</td>
+                        <td>London</td>
+                        <td>47</td>
+                        <td>
+                          2009/10/09
+                          <br />
+                        </td>
+                        <td>$1,200,000</td>
+                      </tr>
+                      <tr>
+                        <td>Ashton Cox</td>
+                        <td>Junior Technical Author</td>
+                        <td>San Francisco</td>
+                        <td>66</td>
+                        <td>
+                          2009/01/12
+                          <br />
+                        </td>
+                        <td>$86,000</td>
+                      </tr>
+                      <tr>
+                        <td>Bradley Greer</td>
+                        <td>Software Engineer</td>
+                        <td>London</td>
+                        <td>41</td>
+                        <td>
+                          2012/10/13
+                          <br />
+                        </td>
+                        <td>$132,000</td>
+                      </tr>
+                      <tr>
+                        <td>Brenden Wagner</td>
+                        <td>Software Engineer</td>
+                        <td>San Francisco</td>
+                        <td>28</td>
+                        <td>
+                          2011/06/07
+                          <br />
+                        </td>
+                        <td>$206,850</td>
+                      </tr>
+                      <tr>
+                        <td>Brielle Williamson</td>
+                        <td>Integration Specialist</td>
+                        <td>New York</td>
+                        <td>61</td>
+                        <td>
+                          2012/12/02
+                          <br />
+                        </td>
+                        <td>$372,000</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Bruno Nash
+                          <br />
+                        </td>
+                        <td>Software Engineer</td>
+                        <td>London</td>
+                        <td>38</td>
+                        <td>
+                          2011/05/03
+                          <br />
+                        </td>
+                        <td>$163,500</td>
+                      </tr>
+                      <tr>
+                        <td>Caesar Vance</td>
+                        <td>Pre-Sales Support</td>
+                        <td>New York</td>
+                        <td>21</td>
+                        <td>
+                          2011/12/12
+                          <br />
+                        </td>
+                        <td>$106,450</td>
+                      </tr>
+                      <tr>
+                        <td>Cara Stevens</td>
+                        <td>Sales Assistant</td>
+                        <td>New York</td>
+                        <td>46</td>
+                        <td>
+                          2011/12/06
+                          <br />
+                        </td>
+                        <td>$145,600</td>
+                      </tr>
+                      <tr>
+                        <td>Cedric Kelly</td>
+                        <td>Senior JavaScript Developer</td>
+                        <td>Edinburgh</td>
+                        <td>22</td>
+                        <td>
+                          2012/03/29
+                          <br />
+                        </td>
+                        <td>$433,060</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-           
-        </div>
-        
-    </div>
-</div>
+          </div>
           {/* <div id="content">
             <div className="container-fluid" style={{display: 'block'}}>
               <div className="d-sm-flex justify-content-between align-items-center mb-4">

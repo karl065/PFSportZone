@@ -62,22 +62,6 @@ export const UserRegister = () => {
           ...values,
           userStatus: true,
         };
-      if (urlCurrent === '/adminNewUser') {
-        const newUser = {
-          ...values,
-          userStatus: true,
-        };
-        console.log(newUser);
-        dispatch(createUser(newUser)).then(() => {
-          Swal.fire('Good job!', 'Successfully register!', 'success').then(() =>
-            navigate('/adminUsers')
-          );
-        });
-      } else {
-        const newUser = {
-          ...values,
-          userStatus: true,
-        };
 
         dispatch(createUser(newUser)).then(() => {
           Swal.fire('Good job!', 'Successfully register!', 'success').then(() =>

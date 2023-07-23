@@ -130,34 +130,7 @@ export const ProductCreation = () => {
               </div>
             </div>
             <div className={styles.field_container}>
-              <div className={styles.input_box}>
-                <Field
-                  name="article_name"
-                  placeholder="Product name"
-                  className={styles.input}
-                />
-                <ErrorMessage
-                  name="article_name"
-                  component="span"
-                  className={styles.error}
-                />
-              </div>
-            </div>
-            <div className={styles.field_container}>
               <label>Selling price</label>
-              <div className={styles.input_box}>
-                <Field
-                  name="selling_price"
-                  placeholder="Selling price"
-                  className={styles.input}
-                />
-                <ErrorMessage
-                  name="selling_price"
-                  component="span"
-                  className={styles.error}
-                />
-              </div>
-            </div>
               <div className={styles.input_box}>
                 <Field
                   name="selling_price"
@@ -173,22 +146,7 @@ export const ProductCreation = () => {
             </div>
 
             <div className={styles.field_container}>
-            <div className={styles.field_container}>
               <label>Purchase price</label>
-              <div className={styles.input_box}>
-                <Field
-                  name="purchase_price"
-                  placeholder="Min 0.1"
-                  className={styles.input}
-                />
-                <ErrorMessage
-                  name="purchase_price"
-                  component="span"
-                  className={styles.error}
-                />
-              </div>
-            </div>
-            <div className={styles.field_container}>
               <div className={styles.input_box}>
                 <Field
                   name="purchase_price"
@@ -217,19 +175,6 @@ export const ProductCreation = () => {
                 />
               </div>
             </div>
-              <div className={styles.input_box}>
-                <Field
-                  name="stock"
-                  placeholder="Stock"
-                  className={styles.input}
-                />
-                <ErrorMessage
-                  name="stock"
-                  component="span"
-                  className={styles.error}
-                />
-              </div>
-            </div>
 
             <div className={styles.cloudinary_field}>
               <div className={styles.input_box}>
@@ -244,38 +189,9 @@ export const ProductCreation = () => {
                 />
               </div>
             </div>
-            <div className={styles.cloudinary_field}>
-              <div className={styles.input_box}>
-                <CloudinaryWidget
-                  fieldName="image"
-                  setFieldValue={setFieldValue}
-                />
-                <ErrorMessage
-                  name="image"
-                  component="span"
-                  className={styles.error}
-                />
-              </div>
-            </div>
 
-            <div className={styles.field_container}>
             <div className={styles.field_container}>
               <label>Description</label>
-              <div className={styles.input_box}>
-                <Field
-                  as="textarea"
-                  name="description"
-                  placeholder="Product description"
-                  className={styles.input}
-                  rows="4"
-                />
-                <ErrorMessage
-                  name="description"
-                  component="span"
-                  className={styles.error}
-                />
-              </div>
-            </div>
               <div className={styles.input_box}>
                 <Field
                   as="textarea"
