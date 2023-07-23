@@ -1,0 +1,92 @@
+.form_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #c4c6bd;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 4rem;
+  background-color: #f1f1f1;
+  margin: 2rem;
+  width: 70%;
+  /* 1150px aprox */
+  max-height: fit-content;
+  /* 720px */
+  max-width: 45rem;
+}
+
+.title {
+  font-size: 3rem;
+  letter-spacing: 5px;
+  margin-bottom: 0;
+  margin-top: 2rem;
+}
+
+.loginParagraph {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #858383;
+  font-size: 1.2rem;
+}
+
+.field_container {
+  display: grid;
+  grid-template-columns: auto;
+  width: 80%;
+  gap: 0.2rem;
+}
+
+.field_container label {
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+}
+
+.input_box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.error {
+  font-size: 1.3rem;
+  color: red;
+}
+
+.cloudinary_field {
+  width: 80%;
+  margin: auto;
+  position: relative;
+}
+
+.input {
+  flex: 1;
+  font-size: 1.2rem;
+  padding: 0.8rem;
+  background-color: #d9d9d9;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border: none;
+  outline: none;
+}
+
+.btnSubmit {
+  background-color: #393939;
+  font-family: inherit;
+  color: white;
+  font-size: 1.5rem;
+  width: 15.4375rem;
+  height: 3.875rem;
+  border: none;
+  margin: 1rem 0 2rem 0;
+}
+
+.btnSubmit:disabled {
+  background-color: #3939398e;
+  cursor: not-allowed;
+}
