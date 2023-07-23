@@ -5,10 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import styles from "./UserRegister.module.css";
 import Swal from "sweetalert2";
-import axios from "axios";
 import { createUser } from "../../../redux/actions/actions";
 import { login } from "../../../helpers";
-import server from "../../../Connections/Server";
 
 const initialValues = {
   email: "",
