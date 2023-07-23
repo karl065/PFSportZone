@@ -14,6 +14,7 @@ library.add(fas);
 
 const AdminProducts = () => {
   const inventario = useSelector((state) => state.inventory);
+  // const category = useSelector((state) => state.category);
   const [statusOption, setStatusOption] = useState([
     'Available',
     'Not Available',
@@ -21,6 +22,7 @@ const AdminProducts = () => {
   ]);
 
   useEffect(() => {
+    console.log(inventario);
     const statusToRemove = inventario.map((item) => item.status);
     setStatusOption((prevStatusOption) =>
       prevStatusOption.filter((status) => !statusToRemove.includes(status))
@@ -57,14 +59,6 @@ const AdminProducts = () => {
             </div>
             <ul className="navbar-nav text-light" id="accordionSidebar">
               <li className="nav-item">
-                {/* <a className="nav-link" href="/">
-                  <FontAwesomeIcon icon="cogs" />
-                  <span> Configuración</span>
-                </a>
-                <hr className="sidebar-divider my-0" />
-                <div className="sidebar-brand-text mx-3">
-                  <span> </span>
-                </div> */}
                 <ul className="navbar-nav text-light" id="accordionSidebar">
                   <li className="nav-item">
                     <Link to="/adminProducts">
@@ -88,6 +82,12 @@ const AdminProducts = () => {
                     <Link to="/">
                       <FontAwesomeIcon icon="unlock-alt" />
                       <span> Pagos</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/adminNewCategory">
+                      <FontAwesomeIcon icon="tshirt" />
+                      <span> Crear Categoria</span>
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -209,11 +209,13 @@ const AdminProducts = () => {
                               <p>{prod.id_inventory}</p>
                             </div>
                             <div className="col">
-                              <img
-                                width={100}
-                                src={prod.image[0]}
-                                alt={prod.article_name}
-                              />
+                              {prod.image[0] && (
+                                <img
+                                  width={100}
+                                  src={prod.image[0]}
+                                  alt={prod.article_name}
+                                />
+                              )}
                             </div>
                             <div className="col me-2">
                               <p>{prod.article_name}</p>
@@ -222,7 +224,11 @@ const AdminProducts = () => {
                               <p>{prod.description}</p>
                             </div>
                             <div className="col me-2">
-                              <p>Categoria</p>
+                              {prod.categorias ? (
+                                <p>{prod.categorias.categoryName}</p>
+                              ) : (
+                                'categoria'
+                              )}
                             </div>
                             <div className="col me-2">
                               <p>{prod.selling_price}</p>

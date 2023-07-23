@@ -19,25 +19,14 @@ const relaciones = (models) => {
     IngresoProducto,
   } = models;
 
-  // Relaciones entre Personas y Usuarios
-  Personas.hasOne(Usuarios, { foreignKey: "id_persons" });
-  Usuarios.belongsTo(Personas, { foreignKey: "id_persons" });
-
-  // Relaciones entre Inventarios y Categorias
-  Inventarios.belongsTo(Categorias, { foreignKey: "id_categories" });
-  Categorias.hasMany(Inventarios, { foreignKey: "id_categories" });
-
-  // Relaciones entre Usuarios y Ventas
-  Usuarios.hasMany(Ventas, { foreignKey: "idUser" });
-  Ventas.belongsTo(Usuarios, { foreignKey: "idUser" });
-
-  // Relaciones entre Usuarios y Favoritos
-  Usuarios.hasMany(Favoritos, { foreignKey: "idUser" });
-  Favoritos.belongsTo(Usuarios, { foreignKey: "idUser" });
-
-  // Relaciones entre Inventarios y Favoritos
-  Inventarios.hasMany(Favoritos, { foreignKey: "id_inventory" });
-  Favoritos.belongsTo(Inventarios, { foreignKey: "id_inventory" });
+  Categorias.hasMany(Inventarios, {
+    foreignKey: 'id_categories',
+    as: 'inventarios',
+  });
+  Inventarios.belongsTo(Categorias, {
+    foreignKey: 'id_categories',
+    as: 'categorias',
+  });
 
   return {
     Personas,
@@ -51,4 +40,4 @@ const relaciones = (models) => {
     IngresoProducto,
   };
 };
-module.exports = { relaciones };
+module.exports = {relaciones};

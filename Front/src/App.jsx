@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { NavBar } from "./Components";
+import {useEffect} from 'react';
+import {Routes, Route, useLocation} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {NavBar} from './Components';
 import {
   Landing,
   Home,
@@ -17,9 +17,15 @@ import {
   AdminNewProduct,
   UserLogin,
   AdminNewUsers,
-} from "./Views";
-import { getInventory, getUsers, setLoading } from "./redux/actions/actions";
-import { useState } from "react";
+  AdminNewCategory,
+} from './Views';
+import {
+  getCategory,
+  getInventory,
+  getUsers,
+  setLoading,
+} from './redux/actions/actions';
+import {useState} from 'react';
 
 function App() {
   const dispatch = useDispatch();
@@ -32,11 +38,12 @@ function App() {
     dispatch(setLoading(true));
     dispatch(getUsers());
     dispatch(getInventory()).then(() => dispatch(setLoading(false)));
+    dispatch(getCategory()).then(() => dispatch(setLoading(false)));
   }, [dispatch]);
 
   return (
     <div className="App">
-      {location.pathname !== "/" && errorPage && <NavBar />}
+      {location.pathname !== '/' && errorPage && <NavBar />}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<UserLogin />} />
@@ -47,6 +54,7 @@ function App() {
         <Route path="/adminEmployes" element={<AdminEmployes />} />
         <Route path="/adminNewProduct" element={<AdminNewProduct />} />
         <Route path="/adminNewUser" element={<AdminNewUsers />} />
+        <Route path="/adminNewCategory" element={<AdminNewCategory />} />
         {/* <Route path="/favorites"/> */}
         <Route path="/product/:id" element={<Detail />} />
         <Route path="/about" element={<About />} />
