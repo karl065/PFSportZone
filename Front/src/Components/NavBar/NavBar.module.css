@@ -8,6 +8,7 @@
   font-size: 1.5rem;
   text-transform: uppercase;
   background: rgba(0, 0, 0, 0.92);
+  width: 100%;
 }
 
 .nav_list {
@@ -16,6 +17,7 @@
   align-items: center;
   text-decoration: none;
   list-style: none;
+  margin: 0;
   padding: 0;
   gap: 2.875rem;
 }

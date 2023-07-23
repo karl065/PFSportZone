@@ -1,18 +1,19 @@
-import {Formik, Form, Field, ErrorMessage} from 'formik';
-import {Link, useLocation, useNavigate} from 'react-router-dom';
-import {LoadingSpinner} from '../../../Components';
-import {useDispatch, useSelector} from 'react-redux';
-import * as Yup from 'yup';
-import styles from './UserRegister.module.css';
-import Swal from 'sweetalert2';
-import {createUser} from '../../../redux/actions/actions';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { LoadingSpinner } from "../../../Components";
+import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
+import styles from "./UserRegister.module.css";
+import Swal from "sweetalert2";
+import { createUser } from "../../../redux/actions/actions";
+import { login } from "../../../helpers";
 
 const initialValues = {
-  email: '',
-  user: '',
-  password: '',
-  passwordConfirmation: '',
-  role: 'Cliente',
+  email: "",
+  user: "",
+  password: "",
+  passwordConfirmation: "",
+  role: "Cliente",
 };
 
 export const UserRegister = () => {
@@ -26,54 +27,39 @@ export const UserRegister = () => {
   const SignupSchema = Yup.object().shape({
     email: Yup.string()
       .trim()
-      .required('Email is required')
-      .email('Not an email'),
+      .required("Email is required")
+      .email("Not an email"),
     user: Yup.string()
       .trim()
-      .required('Username is required')
-      .min(5, 'Too Short! At least 5 characters')
-      .max(30, 'Too Long! 30 characters maximum'),
+      .required("Username is required")
+      .min(5, "Too Short! At least 5 characters")
+      .max(30, "Too Long! 30 characters maximum"),
     password: Yup.string()
       .trim()
-      .required('Password is required')
-      .matches(/^\S*$/, 'Cannot have spaces')
-      .min(5, 'At least 5 characters'),
+      .required("Password is required")
+      .matches(/^\S*$/, "Cannot have spaces")
+      .min(5, "At least 5 characters"),
     passwordConfirmation: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords must match')
-      .required('Required confirmation'),
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .required("Required confirmation"),
   });
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     // ? Implementar como un componente loading que tenga un fondo tipo swal, centrado en la pantalla y cargue un spinner.
     try {
-      if (urlCurrent === '/adminNewUser') {
-        const newUser = {
-          ...values,
-          userStatus: true,
-        };
-        console.log(newUser);
-        dispatch(createUser(newUser)).then(() => {
-          Swal.fire('Good job!', 'Successfully register!', 'success').then(() =>
-            navigate('/adminUsers')
-          );
-        });
-      } else {
-        const newUser = {
-          ...values,
-          userStatus: true,
-        };
+      const newUser = {
+        ...values,
+        userStatus: true,
+      };
 
-        dispatch(createUser(newUser)).then(() => {
-          Swal.fire('Good job!', 'Successfully register!', 'success').then(() =>
-            navigate('/home')
-          );
-        });
-      }
+      await dispatch(createUser(newUser));
+      Swal.fire("Good job!", "Successfully register!", "success");
+      await login(values.email, values.password, navigate);
     } catch (error) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Registration failed. Please try again later.',
+        icon: "error",
+        title: "Oops...",
+        text: "Registration failed. Please try again later.",
       });
     }
   };
@@ -85,7 +71,7 @@ export const UserRegister = () => {
         onSubmit={handleSubmit}
         validationSchema={SignupSchema}
       >
-        {({errors}) => (
+        {({ errors }) => (
           <>
             <Form className={styles.form}>
               <p className={styles.loginParagraph}>
@@ -151,7 +137,7 @@ export const UserRegister = () => {
                   className={styles.error}
                 />
               </div>
-              {urlCurrent === '/adminNewUser' ? (
+              {urlCurrent === "/adminNewUser" ? (
                 <Field as="select" name="role">
                   <option value="Admin">Admin</option>
                   <option value="Empleados">Empleado</option>

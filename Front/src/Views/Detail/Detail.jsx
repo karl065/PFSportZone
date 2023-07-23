@@ -23,7 +23,7 @@ const Detail = () => {
       ) : (
         <div className={styles.detail}>
           {product.image && (
-            <img src={product.image[0]} alt="" className={styles.img} />
+            <img src={product.image[0]} alt={product.article_name} className={styles.img} />
           )}
           <div className={styles.info_container}>
             <h1>{product.article_name}</h1>
