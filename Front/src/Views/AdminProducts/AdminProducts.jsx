@@ -1,11 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-undef */
+/* eslint-disable react-hooks/rules-of-hooks */
 import {Link} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {useEffect, useState} from 'react';
+
+import {useSelector} from 'react-redux';
 
 library.add(fas);
+
 const AdminProducts = () => {
+  const inventario = useSelector((state) => state.inventory);
+  const [statusOption, setStatusOption] = useState([
+    'Available',
+    'Not Available',
+    'Discontinued',
+  ]);
+
+  useEffect(() => {
+    const statusToRemove = inventario.map((item) => item.status);
+    setStatusOption((prevStatusOption) =>
+      prevStatusOption.filter((status) => !statusToRemove.includes(status))
+    );
+  }, [inventario]);
+
   return (
     <div>
       <div id="wrapper" style={{display: 'flex'}}>
@@ -172,69 +193,63 @@ const AdminProducts = () => {
                               <strong>Cantidad</strong>
                             </h6>
                           </div>
-                          <div className="col-auto">
-                            <div className="form-check">
-                              <input
-                                id="formCheck-1"
-                                className="form-check-input"
-                                type="checkbox"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="formCheck-1"
-                              >
-                                Activo
-                              </label>
-                            </div>
+                          <div className="col me-2">
+                            <h6 className="mb-0">
+                              <strong>Status</strong>
+                            </h6>
                           </div>
                         </div>
                       </li>
                     </ul>
-
-                    <ul className="list-group list-group-flush">
-                      <li className="list-group-item">
-                        <div className="row align-items-center no-gutters">
-                          <div className="col me-2">
-                            <p>ID</p>
-                          </div>
-                          <div className="col">
-                            <picture>
-                              <img alt="imagen" />
-                            </picture>
-                          </div>
-                          <div className="col me-2">
-                            <p>Nombre</p>
-                          </div>
-                          <div className="col me-2">
-                            <p>Referencia</p>
-                          </div>
-                          <div className="col me-2">
-                            <p>Categoria</p>
-                          </div>
-                          <div className="col me-2">
-                            <p>Precio</p>
-                          </div>
-                          <div className="col me-2">
-                            <p>Cantidad</p>
-                          </div>
-                          <div className="col-auto">
-                            <div className="form-check">
-                              <input
-                                id="formCheck-1"
-                                className="form-check-input"
-                                type="checkbox"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="formCheck-1"
+                    {inventario.map((prod, index) => (
+                      <ul key={index} className="list-group list-group-flush">
+                        <li className="list-group-item">
+                          <div className="row align-items-center no-gutters">
+                            <div className="col me-2">
+                              <p>{prod.id_inventory}</p>
+                            </div>
+                            <div className="col">
+                              <picture>
+                                <img
+                                  width={100}
+                                  src={prod.image[0]}
+                                  alt={prod.article_name}
+                                />
+                              </picture>
+                            </div>
+                            <div className="col me-2">
+                              <p>{prod.article_name}</p>
+                            </div>
+                            <div className="col me-2">
+                              <p>{prod.description}</p>
+                            </div>
+                            <div className="col me-2">
+                              <p>Categoria</p>
+                            </div>
+                            <div className="col me-2">
+                              <p>{prod.selling_price}</p>
+                            </div>
+                            <div className="col me-2">
+                              <p>{prod.stock}</p>
+                            </div>
+                            <div className="col me-2">
+                              <select
+                                style={{width: 'auto', minWidth: '100px'}}
                               >
-                                Activo
-                              </label>
+                                <option value={prod.status}>
+                                  {prod.status}
+                                </option>
+                                {statusOption.map((option, index) => (
+                                  <option value={option} key={index}>
+                                    {option}
+                                  </option>
+                                ))}
+                              </select>
                             </div>
                           </div>
-                        </div>
-                      </li>
-                    </ul>
+                        </li>
+                      </ul>
+                    ))}
                   </div>
                 </div>
               </div>

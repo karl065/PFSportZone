@@ -1,63 +1,79 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Link, useNavigate } from "react-router-dom";
-import { LoadingSpinner } from "../../../Components";
-import { useDispatch, useSelector } from "react-redux";
-import * as Yup from "yup";
-import styles from "./UserRegister.module.css";
-import Swal from "sweetalert2";
-import { createUser } from "../../../redux/actions/actions";
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {LoadingSpinner} from '../../../Components';
+import {useDispatch, useSelector} from 'react-redux';
+import * as Yup from 'yup';
+import styles from './UserRegister.module.css';
+import Swal from 'sweetalert2';
+import {createUser} from '../../../redux/actions/actions';
 
 const initialValues = {
-  email: "",
-  user: "",
-  password: "",
-  passwordConfirmation: "",
+  email: '',
+  user: '',
+  password: '',
+  passwordConfirmation: '',
+  role: 'Cliente',
 };
 
 export const UserRegister = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoading = useSelector((state) => state.isLoading);
+  const location = useLocation();
+
+  const urlCurrent = location.pathname;
 
   const SignupSchema = Yup.object().shape({
     email: Yup.string()
       .trim()
-      .required("Email is required")
-      .email("Not an email"),
+      .required('Email is required')
+      .email('Not an email'),
     user: Yup.string()
       .trim()
-      .required("Username is required")
-      .min(5, "Too Short! At least 5 characters")
-      .max(30, "Too Long! 30 characters maximum"),
+      .required('Username is required')
+      .min(5, 'Too Short! At least 5 characters')
+      .max(30, 'Too Long! 30 characters maximum'),
     password: Yup.string()
       .trim()
-      .required("Password is required")
-      .matches(/^\S*$/, "Cannot have spaces")
-      .min(5, "At least 5 characters"),
+      .required('Password is required')
+      .matches(/^\S*$/, 'Cannot have spaces')
+      .min(5, 'At least 5 characters'),
     passwordConfirmation: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Required confirmation"),
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+      .required('Required confirmation'),
   });
 
   const handleSubmit = (values) => {
     // ? Implementar como un componente loading que tenga un fondo tipo swal, centrado en la pantalla y cargue un spinner.
     try {
-      const newUser = {
-        ...values,
-        role: "Cliente",
-        userStatus: true,
-      };
+      if (urlCurrent === '/adminNewUser') {
+        const newUser = {
+          ...values,
+          userStatus: true,
+        };
+        console.log(newUser);
+        dispatch(createUser(newUser)).then(() => {
+          Swal.fire('Good job!', 'Successfully register!', 'success').then(() =>
+            navigate('/adminUsers')
+          );
+        });
+      } else {
+        const newUser = {
+          ...values,
+          userStatus: true,
+        };
 
-      dispatch(createUser(newUser)).then(() => {
-        Swal.fire("Good job!", "Successfully register!", "success").then(() =>
-          navigate("/home")
-        );
-      });
+        dispatch(createUser(newUser)).then(() => {
+          Swal.fire('Good job!', 'Successfully register!', 'success').then(() =>
+            navigate('/home')
+          );
+        });
+      }
     } catch (error) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Registration failed. Please try again later.",
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Registration failed. Please try again later.',
       });
     }
   };
@@ -69,7 +85,7 @@ export const UserRegister = () => {
         onSubmit={handleSubmit}
         validationSchema={SignupSchema}
       >
-        {({ errors }) => (
+        {({errors}) => (
           <>
             <Form className={styles.form}>
               <p className={styles.loginParagraph}>
@@ -135,7 +151,13 @@ export const UserRegister = () => {
                   className={styles.error}
                 />
               </div>
-
+              {urlCurrent === '/adminNewUser' ? (
+                <Field as="select" name="role">
+                  <option value="Admin">Admin</option>
+                  <option value="Empleado">Empleado</option>
+                  <option value="Cliente">Cliente</option>
+                </Field>
+              ) : null}
               <button
                 type="submit"
                 className={styles.btnSubmit}
