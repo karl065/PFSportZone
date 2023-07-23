@@ -94,6 +94,12 @@ const AdminUsers = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
+                  <Link to="/adminNewCategory">
+                    <FontAwesomeIcon icon="tshirt" />
+                    <span> Crear Categoria</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link to="/adminNewProduct">
                     <FontAwesomeIcon icon="tshirt" />
                     <span> Crear Producto</span>

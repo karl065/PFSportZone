@@ -7,20 +7,15 @@ import {
   GET_PRODUCT_ID,
   FILTER_PRODUCTS_BY_NAME,
   RESET_DISPLAYED_PRODUCTS,
-} from "../actions-types/action-types";
-import server from "../../Connections/Server";
-import axios from "axios";
-
-export function example(value) {
-  return {
-    type: EXAMPLE,
-    payload: value,
-  };
-}
+  GET_CATEGORY,
+  CREATE_CATEGORY,
+} from '../actions-types/action-types';
+import server from '../../Connections/Server';
+import axios from 'axios';
 
 export const getUsers = () => {
   return async (dispatch) => {
-    const { data } = await axios.get(`${server.api.baseURL}users`);
+    const {data} = await axios.get(`${server.api.baseURL}users`);
     dispatch({
       type: GET_USERS,
       payload: data,
@@ -30,9 +25,18 @@ export const getUsers = () => {
 
 export const getInventory = () => {
   return async (dispatch) => {
-    const { data } = await axios.get(`${server.api.baseURL}inventory`);
+    const {data} = await axios.get(`${server.api.baseURL}inventory`);
     dispatch({
       type: GET_INVENTORY,
+      payload: data,
+    });
+  };
+};
+export const getCategory = () => {
+  return async (dispatch) => {
+    const {data} = await axios.get(`${server.api.baseURL}category `);
+    dispatch({
+      type: GET_CATEGORY,
       payload: data,
     });
   };
@@ -40,7 +44,7 @@ export const getInventory = () => {
 
 export const createUser = (user) => {
   return async (dispatch) => {
-    const { data } = await axios.post(`${server.api.baseURL}users`, user);
+    const {data} = await axios.post(`${server.api.baseURL}users`, user);
     dispatch({
       type: CREATE_USER,
       payload: data,
@@ -50,12 +54,18 @@ export const createUser = (user) => {
 
 export const createProduct = (product) => {
   return async (dispatch) => {
-    const { data } = await axios.post(
-      `${server.api.baseURL}inventory`,
-      product
-    );
+    const {data} = await axios.post(`${server.api.baseURL}inventory`, product);
     dispatch({
       type: CREATE_PRODUCT,
+      payload: data,
+    });
+  };
+};
+export const createCategory = (category) => {
+  return async (dispatch) => {
+    const {data} = await axios.post(`${server.api.baseURL}category`, category);
+    dispatch({
+      type: CREATE_CATEGORY,
       payload: data,
     });
   };
@@ -70,7 +80,7 @@ export const filterProductsByName = (name) => {
 
 export const getProductById = (id) => {
   return async (dispatch) => {
-    const { data } = await axios.get(`${server.api.baseURL}inventory/${id}`);
+    const {data} = await axios.get(`${server.api.baseURL}inventory/${id}`);
     dispatch({
       type: GET_PRODUCT_ID,
       payload: data,

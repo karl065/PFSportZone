@@ -1,4 +1,7 @@
-const { Inventarios } = require("../../DB");
+const {Inventarios, Categorias} = require('../../DB');
+const {
+  getCategoryID,
+} = require('../ControllersCategorias/GetControllerCategory');
 
 const crearArticulo = async (
   id_inventory,
@@ -8,10 +11,17 @@ const crearArticulo = async (
   stock,
   description,
   image,
-  status
+  status,
+  id_categories
 ) => {
   try {
-    const nuevoArticulo = await Inventarios.create({
+    console.log(id_categories);
+    const categoria = await getCategoryID(id_categories);
+    console.log(categoria);
+    if (!categoria) {
+      return 'No existe la categoria';
+    }
+    await Inventarios.create({
       id_inventory,
       article_name,
       selling_price,
@@ -20,8 +30,17 @@ const crearArticulo = async (
       description,
       image,
       status,
+      id_categories,
     });
 
+    const nuevoArticulo = await Inventarios.findByPk(id_inventory, {
+      include: [
+        {
+          model: Categorias,
+          as: 'categorias',
+        },
+      ],
+    });
     return nuevoArticulo;
   } catch (error) {
     console.log(error);
