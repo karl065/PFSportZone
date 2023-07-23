@@ -1,74 +1,79 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch } from "react-redux";
-import { createProduct } from "../../../redux/actions/actions";
-import CloudinaryWidget from "../../../WidgetCloudinary/CloudinaryWidget";
-import * as Yup from "yup";
-import styles from "./ProductCreation.module.css";
-import Swal from "sweetalert2";
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import {useDispatch, useSelector} from 'react-redux';
+import {createProduct} from '../../../redux/actions/actions';
+import CloudinaryWidget from '../../../WidgetCloudinary/CloudinaryWidget';
+import * as Yup from 'yup';
+import styles from './ProductCreation.module.css';
+import Swal from 'sweetalert2';
+import {useNavigate} from 'react-router-dom';
 
 const initialValues = {
-  id_inventory: "",
-  article_name: "",
-  selling_price: "",
-  purchase_price: "",
-  stock: "",
+  id_inventory: '',
+  article_name: '',
+  selling_price: '',
+  purchase_price: '',
+  stock: '',
   image: [],
-  description: "",
+  description: '',
+  id_categories: '',
 };
 
 export const ProductCreation = () => {
   const dispatch = useDispatch();
+  const category = useSelector((state) => state.category);
+  const navigate = useNavigate();
 
   const SignupSchema = Yup.object().shape({
     id_inventory: Yup.string()
-      .required("Product Identifier required")
-      .min(3, "At least 3 digits"),
+      .required('Product Identifier required')
+      .min(3, 'At least 3 digits'),
     article_name: Yup.string()
-      .required("Required product name")
-      .min(2, "Too Short!. At leas 2 characters.")
-      .max(80, "Too Long!. No more than 80 characters.")
-      .test("has-3-letters", "Must contain at least 3 letters", (value) =>
+      .required('Required product name')
+      .min(2, 'Too Short!. At leas 2 characters.')
+      .max(80, 'Too Long!. No more than 80 characters.')
+      .test('has-3-letters', 'Must contain at least 3 letters', (value) =>
         /^(.*[a-zA-Z].*){3,}$/.test(value)
       ),
     selling_price: Yup.number()
-      .required("Required selling price")
-      .min(0.1, "Minimum Price: 0.1")
+      .required('Required selling price')
+      .min(0.1, 'Minimum Price: 0.1')
       .transform((value) => (isNaN(value) ? undefined : Number(value))),
     purchase_price: Yup.number()
-      .required("Required purchase price")
-      .min(0.1, "Minimum Price: 0.1")
+      .required('Required purchase price')
+      .min(0.1, 'Minimum Price: 0.1')
       .transform((value) => (isNaN(value) ? undefined : Number(value))),
     stock: Yup.number()
-      .integer("Must be an integer")
-      .required("Required stock")
-      .min(0, "Stock must be positive")
+      .integer('Must be an integer')
+      .required('Required stock')
+      .min(0, 'Stock must be positive')
       .transform((value) => (isNaN(value) ? undefined : Number(value))),
     description: Yup.string()
-      .required("Description required")
-      .min(20, "Too Short!. At least 20 characters")
-      .max(10000, "Too Long!. No more than 10000 characters."),
+      .required('Description required')
+      .min(20, 'Too Short!. At least 20 characters')
+      .max(10000, 'Too Long!. No more than 10000 characters.'),
     image: Yup.array()
       .of(Yup.string())
-      .min(1, "At least one image is required")
-      .max(5, "Maximum of 5 images per product"),
+      .min(1, 'At least one image is required')
+      .max(5, 'Maximum of 5 images per product'),
   });
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = (values, {resetForm}) => {
     try {
       dispatch(
         createProduct({
           ...values,
-          status: "Available",
+          status: 'Available',
         })
       ).then(() => {
-        Swal.fire("Good job!", "Product created!", "success");
+        Swal.fire('Good job!', 'Product created!', 'success');
         resetForm();
+        navigate('/adminProducts');
       });
     } catch (error) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Fail creating a product. Please try again later.",
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Fail creating a product. Please try again later.',
       });
     }
   };
@@ -80,10 +85,21 @@ export const ProductCreation = () => {
         onSubmit={handleSubmit}
         validationSchema={SignupSchema}
       >
-        {({ errors, setFieldValue }) => (
+        {({errors, setFieldValue}) => (
           <Form className={styles.form}>
             <h1 className={styles.title}>NEW PRODUCT</h1>
             <div className={styles.field_container}>
+              <div>
+                <label>Category</label>
+                <Field as="select" name="id_categories">
+                  <option value="">seleccione una categoria</option>
+                  {category.map((cat, index) => (
+                    <option value={cat.id_categories} key={index}>
+                      {cat.categoryName}
+                    </option>
+                  ))}
+                </Field>
+              </div>
               <label>ID</label>
               <div className={styles.input_box}>
                 <Field
