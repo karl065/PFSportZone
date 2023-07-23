@@ -13,6 +13,9 @@ h6 {
 }
 .Errorcontainer {
   background-color: #0a0b16;
+  background-image: url(https://res.cloudinary.com/dpjeltekx/image/upload/v1689947525/PF/stars_gvo9in.png);
+  background-repeat: no-repeat;
+  background-size: cover;
   color: aliceblue;
   position: fixed;
   width: 100%;
@@ -67,9 +70,52 @@ h6 {
 .Cimages {
   width: 60%;
   height: 60%;
-  background-color: aquamarine;
+  position: relative;
 }
-
+.Rocket {
+  position: absolute;
+  left: 100%;
+  bottom: 70%;
+  height: 30%;
+}
+.planetContainer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -10%);
+}
+.planetContainer::after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background-image: url(https://res.cloudinary.com/dpjeltekx/image/upload/v1690059992/PF/4_bu4bwu.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  right: 80%;
+}
+.planetContainer::before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background-image: url(https://res.cloudinary.com/dpjeltekx/image/upload/v1690059992/PF/4_bu4bwu.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  left: 80%;
+}
+.planet {
+}
+.spaceman {
+  position: relative;
+  left: 50%;
+  top: 20%;
+  transform: translate(-50%, 0%);
+  z-index: 2;
+  height: 50%;
+}
 /* <------------------------------------------> */
 
 @media only screen and (max-width: 768px) {
@@ -93,5 +139,13 @@ h6 {
     border-radius: 10px;
     color: aliceblue;
     font-size: 5cqw;
+  }
+}
+
+/* <--------------------------------------------------> */
+
+@media screen and (max-width: 1199px) {
+  .Cimages {
+    transform: scale(50%);
   }
 }
