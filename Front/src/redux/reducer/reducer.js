@@ -1,6 +1,5 @@
 /* eslint-disable no-case-declarations */
 import {
-  EXAMPLE,
   GET_USERS,
   GET_INVENTORY,
   SET_LOADING,
@@ -16,16 +15,11 @@ const initialState = {
   inventory: [],
   displayInventory: [],
   product: {},
-  anyData: ["valueExample1", "valueExample2"],
   isLoading: false,
 };
 
 export default function reducer(state = initialState, { type, payload }) {
   switch (type) {
-    case EXAMPLE:
-      return {
-        ...state,
-      };
     case GET_USERS:
       return { ...state, users: payload };
     case GET_INVENTORY:
