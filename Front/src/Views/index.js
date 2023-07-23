@@ -13,6 +13,7 @@ import UserRegister from './Form/UserRegister/UserRegister.jsx';
 import ProductCreation from './Form/ProductCreation/ProductCreation.jsx';
 import UserLogin from './Form/UserLogin/UserLogin.jsx';
 import AdminNewUsers from './AdminNewUsers/AdminNewUsers.jsx';
+import AdminNewCategory from './AdminNewCategories/AdminNewCategories.jsx';
 
 export {
   Landing,
@@ -30,4 +31,5 @@ export {
   UserLogin,
   AdminNewProduct,
   AdminNewUsers,
+  AdminNewCategory,
 };

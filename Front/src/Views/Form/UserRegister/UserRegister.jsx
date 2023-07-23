@@ -154,7 +154,7 @@ export const UserRegister = () => {
               {urlCurrent === '/adminNewUser' ? (
                 <Field as="select" name="role">
                   <option value="Admin">Admin</option>
-                  <option value="Empleado">Empleado</option>
+                  <option value="Empleados">Empleado</option>
                   <option value="Cliente">Cliente</option>
                 </Field>
               ) : null}

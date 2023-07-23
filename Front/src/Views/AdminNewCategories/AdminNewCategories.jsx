@@ -3,9 +3,9 @@ import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Link} from 'react-router-dom';
-import UserRegister from '../Form/UserRegister/UserRegister';
+import CategoryCreation from '../Form/CategoryCreation/CategoryCreation';
 library.add(fas);
-const AdminNewUsers = () => {
+const AdminNewCategory = () => {
   return (
     <div>
       <div id="wrapper" style={{display: 'flex'}}>
@@ -60,12 +60,6 @@ const AdminNewUsers = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/adminNewCategory">
-                  <FontAwesomeIcon icon="tshirt" />
-                  <span> Crear Categoria</span>
-                </Link>
-              </li>
-              <li className="nav-item">
                 <Link to="/adminNewProduct">
                   <FontAwesomeIcon icon="tshirt" />
                   <span> Crear Producto</span>
@@ -101,7 +95,7 @@ const AdminNewUsers = () => {
           <div id="content">
             <div className="container-fluid" style={{display: 'block'}}>
               <div className="d-sm-flex justify-content-between align-items-center mb-4">
-                <h3 className="text-dark mb-0">Nuevo Producto</h3>
+                <h3 className="text-dark mb-0">Nueva Categoria</h3>
                 <div>
                   <select style={{height: '38px', marginTop: '10px'}}>
                     <option defaultValue="12">Filtrar por</option>
@@ -121,7 +115,7 @@ const AdminNewUsers = () => {
                 </div>
               </div>
               <div></div>
-              <UserRegister />
+              <CategoryCreation />
             </div>
           </div>
         </div>
@@ -133,4 +127,4 @@ const AdminNewUsers = () => {
   );
 };
 
-export default AdminNewUsers;
+export default AdminNewCategory;
