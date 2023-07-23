@@ -5,12 +5,14 @@ import {
   filterProductsByName,
   resetDisplayedProducts,
 } from "../../redux/actions/actions";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [hideList, setHideList] = useState(false);
   const inventory = useSelector((state) => state.inventory);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
@@ -19,10 +21,11 @@ const SearchBar = () => {
     setTimeout(handleListSuggestions, 300);
   };
 
-  const handleSearch = async (query) => {
+  const handleSearch = (query) => {
     setSearchQuery(query);
     setSearchResults([]);
     dispatch(filterProductsByName(query.trim()));
+    if(window.location.href !== "/home") navigate("/home");
   };
 
   const handleKeyDown = (event) => {
@@ -62,7 +65,11 @@ const SearchBar = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.bar} onBlur={handleBlur} onFocus={() => setHideList(false)}>
+      <div
+        className={styles.bar}
+        onBlur={handleBlur}
+        onFocus={() => setHideList(false)}
+      >
         <input
           type="text"
           value={searchQuery}
