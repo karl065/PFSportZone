@@ -1,10 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Form} from 'react-bootstrap';
 import {useState} from 'react';
-import {Link} from 'react-router-dom';
+import Sidebar from '../../Components/SideBar/Sidebar';
 
 library.add(fas);
 const AdminEmployes = () => {
@@ -12,97 +11,20 @@ const AdminEmployes = () => {
 
   const handleSwitchChange = () => {
     setSwitchOn(!isSwitchOn);
-    console.log(isSwitchOn);
+    //console.log(isSwitchOn);
   };
 
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
-    console.log(selectedOption);
+    //console.log(selectedOption);
   };
 
   return (
     <div>
       <div id="wrapper" style={{display: 'flex'}}>
-        <nav
-          className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
-          style={{
-            background: '#749900',
-            overflow: 'visible',
-            position: 'relative',
-            height: '600px',
-          }}
-        >
-          <div className="container-fluid d-flex flex-column p-3">
-            <a
-              className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
-              href="#"
-            >
-              <div className="sidebar-brand-icon rotate-n-15">
-                <FontAwesomeIcon icon="passport" />
-              </div>
-              <div className="sidebar-brand-text mx-3">
-                <span>SportZone</span>
-              </div>
-            </a>
-            <hr className="sidebar-divider my-0" />
-            <div className="sidebar-brand-text mx-3">
-              <span> </span>
-            </div>
-            <ul className="navbar-nav text-light" id="accordionSidebar">
-              <li className="nav-item">
-                <Link to={'/adminProducts'}>
-                  <FontAwesomeIcon icon="shopping-cart" />
-                  <span> Productos</span>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={'/adminUsers'}>
-                  <FontAwesomeIcon icon="user" />
-                  <span> Usuarios</span>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <FontAwesomeIcon
-                  icon="user-circle"
-                  style={{color: 'rgba(59, 59, 59, 0.8)'}}
-                />
-                <span style={{color: 'rgba(59, 59, 59, 0.8)'}}> Empleados</span>
-              </li>
-              <li className="nav-item">
-                <Link to={'/'}>
-                  <FontAwesomeIcon icon="unlock-alt" />
-                  <span> Pagos</span>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/adminNewCategory">
-                  <FontAwesomeIcon icon="tshirt" />
-                  <span> Crear Categoria</span>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/adminNewProduct">
-                  <FontAwesomeIcon icon="tshirt" />
-                  <span> Crear Producto</span>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/adminNewUser">
-                  <FontAwesomeIcon icon="tshirt" />
-                  <span> Crear Usuarios</span>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">
-                  <FontAwesomeIcon icon="cogs" />
-                  <span>CONFIGURACION</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        <Sidebar />
         <div
           className="d-flex flex-column"
           id="content-wrapper"
@@ -110,8 +32,8 @@ const AdminEmployes = () => {
         >
           <div id="content">
             <div className="container-fluid" style={{display: 'block'}}>
-              <div className="d-sm-flex justify-content-between align-items-center mb-4">
-                <h3 className="text-dark mb-0">Empleados</h3>
+              <div className="d-sm-flex justify-content-between align-items-center mb-1">
+                <h3 className="text-dark mb-4">Empleados</h3>
                 <div>
                   <select
                     style={{height: '38px', marginTop: '10px'}}
@@ -144,7 +66,13 @@ const AdminEmployes = () => {
                   <div className="card shadow mb-4" style={{width: '100%'}}>
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item">
-                        <div className="row align-items-center no-gutters">
+                        <div
+                          className="row align-items-center no-gutters"
+                          style={{
+                            fontSize: '16px',
+                            fontFamily: 'Assistant, sans-serif',
+                          }}
+                        >
                           <div className="col me-2">
                             <h6 className="mb-0">
                               <strong>ID</strong>
@@ -181,7 +109,13 @@ const AdminEmployes = () => {
 
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item">
-                        <div className="row align-items-center no-gutters">
+                        <div
+                          className="row align-items-center no-gutters"
+                          style={{
+                            fontSize: '16px',
+                            fontFamily: 'Assistant, sans-serif',
+                          }}
+                        >
                           <div className="col me-2">
                             <p>ID</p>
                           </div>
