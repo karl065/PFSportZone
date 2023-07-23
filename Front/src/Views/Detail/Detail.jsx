@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getProductById, setLoading } from "../../redux/actions/actions";
-import { LoadingSpinner } from "../../Components/index";
-import styles from "./Detail.module.css";
+import {useEffect} from 'react';
+import {useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {getProductById, setLoading} from '../../redux/actions/actions';
+import {LoadingSpinner} from '../../Components/index';
+import styles from './Detail.module.css';
 
 const Detail = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const {id} = useParams();
   const product = useSelector((state) => state.product);
   let isLoading = useSelector((state) => state.isLoading);
 
@@ -22,7 +22,9 @@ const Detail = () => {
         <LoadingSpinner />
       ) : (
         <div className={styles.detail}>
-          {product.image && <img src={product.image[0]} alt="" className={styles.img} />}
+          {product.image && (
+            <img src={product.image[0]} alt="" className={styles.img} />
+          )}
           <div className={styles.info_container}>
             <h1>{product.article_name}</h1>
             <h2>${product.selling_price}</h2>
