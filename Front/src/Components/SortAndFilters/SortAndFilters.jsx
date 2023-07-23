@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import Styles from './SortAndFilters.module.css';
-import { orderProductsByPrice, resetDisplayedProducts } from '../../redux/actions/actions';
+import { filterProductsByStatus, orderProductsByPrice, resetDisplayedProducts } from '../../redux/actions/actions';
 import axios from 'axios';
 import  server from '../../Connections/Server';
 
@@ -12,6 +12,7 @@ export default function SortAndFilters() {
 const handleFilters = async(e) => {
   if(e.target.checked) {
     const response = await axios.get(`${server.api.baseURL}filters/?status=${e.target.value}`);
+    dispatch(filterProductsByStatus(response.data));
     console.log(response.data);
   } else {
     dispatch(resetDisplayedProducts())

@@ -11,6 +11,7 @@ import {
   GET_CATEGORY,
   CREATE_CATEGORY,
   ORDER_PRODUCTS_BY_PRICE,
+  FILTER_PRODUCTS_BY_STATUS,
 } from '../actions-types/action-types';
 
 const initialState = {
@@ -52,6 +53,11 @@ export default function reducer(state = initialState, {type, payload}) {
       ...state,
       displayInventory: inventoryOrdered
     };
+    case FILTER_PRODUCTS_BY_STATUS:
+      return {
+        ...state,
+        displayInventory: payload
+      };
     case SET_LOADING:
       return {...state, isLoading: payload};
     case RESET_DISPLAYED_PRODUCTS:
