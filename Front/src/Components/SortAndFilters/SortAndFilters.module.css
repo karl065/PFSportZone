@@ -25,3 +25,6 @@
 .input_checkbox input{
     cursor: pointer
 }
+.input_checkbox input:disabled{
+    cursor:no-drop;
+}

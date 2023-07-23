@@ -15,7 +15,7 @@ const Home = (props) => {
 
   return (
     <div className={Styles.container}>
-      <SortAndFilters/>
+      <SortAndFilters setPage={setPage}/>
       <div className={Styles.cards}>
         {displayInventory.length ? (
           displayInventory
