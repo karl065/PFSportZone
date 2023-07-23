@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
-import Styles from "./Home.module.css";
-import Pagination from "../../Components/Pagination/Pagination";
-import { Card } from "../../Components";
-import { useSelector } from "react-redux";
+import {useState} from 'react';
+import Styles from './Home.module.css';
+import Pagination from '../../Components/Pagination/Pagination';
+import {Card} from '../../Components';
+import {useSelector} from 'react-redux';
 
 const Home = (props) => {
   const displayInventory = useSelector((state) => state.displayInventory);

@@ -14,6 +14,8 @@ import ProductCreation from './Form/ProductCreation/ProductCreation.jsx';
 import UserLogin from './Form/UserLogin/UserLogin.jsx';
 import AdminNewUsers from './AdminNewUsers/AdminNewUsers.jsx';
 import AdminNewCategory from './AdminNewCategories/AdminNewCategories.jsx';
+import AdminEditProd from './AdminEditProd/AdminEditProd.jsx';
+import AdminPagos from './AdminPagos/AdminPagos.jsx';
 
 export {
   Landing,
@@ -23,13 +25,15 @@ export {
   About,
   Review,
   Error,
-  AdminProducts,
-  AdminEmployes,
-  AdminUsers,
   UserRegister,
   ProductCreation,
   UserLogin,
+  AdminUsers,
+  AdminProducts,
+  AdminEmployes,
   AdminNewProduct,
   AdminNewUsers,
   AdminNewCategory,
+  AdminEditProd,
+  AdminPagos,
 };

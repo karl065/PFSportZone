@@ -18,6 +18,8 @@ import {
   UserLogin,
   AdminNewUsers,
   AdminNewCategory,
+  AdminEditProd,
+  AdminPagos,
 } from './Views';
 import {
   getCategory,
@@ -40,7 +42,6 @@ function App() {
     dispatch(getInventory()).then(() => dispatch(setLoading(false)));
     dispatch(getCategory()).then(() => dispatch(setLoading(false)));
   }, [dispatch]);
-
   return (
     <div className="App">
       {location.pathname !== '/' && errorPage && <NavBar />}
@@ -55,6 +56,8 @@ function App() {
         <Route path="/adminNewProduct" element={<AdminNewProduct />} />
         <Route path="/adminNewUser" element={<AdminNewUsers />} />
         <Route path="/adminNewCategory" element={<AdminNewCategory />} />
+        <Route path="/adminEditProd" element={<AdminEditProd />} />
+        <Route path="/adminPagos" element={<AdminPagos />} />
         {/* <Route path="/favorites"/> */}
         <Route path="/product/:id" element={<Detail />} />
         <Route path="/about" element={<About />} />
