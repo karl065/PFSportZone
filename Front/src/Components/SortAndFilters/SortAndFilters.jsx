@@ -1,8 +1,19 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
 import Styles from './SortAndFilters.module.css';
+import { orderProductsByPrice, resetDisplayedProducts } from '../../redux/actions/actions';
 
 export default function SortAndFilters() {
-  
+  const dispatch = useDispatch();
+
+  const handleOrders = (e) => {
+    if(e.target.checked) {
+      dispatch(orderProductsByPrice(e.target.value))
+    } else {
+      dispatch(resetDisplayedProducts())
+    }
+  }
+
   return (
     <div className={Styles.container}>
       <button>FILTRAR Y ORDENAR</button>
@@ -46,7 +57,8 @@ export default function SortAndFilters() {
         <h4>ordenar por precio: </h4>
 
         <div className={Styles.input_checkbox}>
-            <input 
+            <input
+            onChange={handleOrders} 
             type="checkbox"
             name= "Precio"
             value= 'menor_precio_a_mayor_precio'
@@ -57,6 +69,7 @@ export default function SortAndFilters() {
 
         <div className={Styles.input_checkbox}>
             <input 
+            onChange={handleOrders}
             type="checkbox"
             name= "Precio"
             value= 'mayor_precio_a_menor_precio'

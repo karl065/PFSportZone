@@ -9,6 +9,7 @@ import {
   RESET_DISPLAYED_PRODUCTS,
   GET_CATEGORY,
   CREATE_CATEGORY,
+  ORDER_PRODUCTS_BY_PRICE,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
@@ -98,5 +99,12 @@ export const setLoading = (isLoading) => {
   return {
     type: SET_LOADING,
     payload: isLoading,
+  };
+};
+
+export const orderProductsByPrice = (order) => {
+  return {
+    type: ORDER_PRODUCTS_BY_PRICE,
+    payload: order
   };
 };

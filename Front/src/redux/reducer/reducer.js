@@ -10,6 +10,7 @@ import {
   RESET_DISPLAYED_PRODUCTS,
   GET_CATEGORY,
   CREATE_CATEGORY,
+  ORDER_PRODUCTS_BY_PRICE,
 } from '../actions-types/action-types';
 
 const initialState = {
@@ -42,6 +43,15 @@ export default function reducer(state = initialState, {type, payload}) {
         product.article_name.toLowerCase().includes(payload.toLowerCase())
       );
       return {...state, displayInventory: filteredInventory};
+    case ORDER_PRODUCTS_BY_PRICE:
+      let inventoryOrdered = [];
+      inventoryOrdered = payload === 'menor_precio_a_mayor_precio'
+      ? [...state.inventory].sort((a,b) => (a.selling_price - b.selling_price) )
+      : [...state.inventory].sort((a,b) => (b.selling_price - a.selling_price) )
+    return {
+      ...state,
+      displayInventory: inventoryOrdered
+    };
     case SET_LOADING:
       return {...state, isLoading: payload};
     case RESET_DISPLAYED_PRODUCTS:
