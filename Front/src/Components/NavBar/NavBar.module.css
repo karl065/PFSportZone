@@ -11,6 +11,10 @@
   width: 100%;
 }
 
+.site_title {
+  font-size: 2.4rem;
+}
+
 .nav_list {
   justify-self: end;
   display: flex;
@@ -18,11 +22,30 @@
   text-decoration: none;
   list-style: none;
   margin: 0;
+  letter-spacing: 3px;
   padding: 0;
   gap: 2.875rem;
+}
+
+.nav li {
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+}
+
+.nav li:hover {
+  transition: all 0.2s;
+  background-color: rgba(128, 128, 128, 0.342);
 }
 
 .nav a {
   text-decoration: none;
   color: inherit;
+}
+
+.logout {
+  background-color: red;
+}
+
+.logout:hover{
+  background-color: aqua;
 }
