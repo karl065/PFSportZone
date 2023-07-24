@@ -56,11 +56,6 @@ const authenticateUser = async (email, password) => {
         }
       );
     });
-    // const authenticate = {
-    //   // user: user[0],
-    //   token: await token,
-    // };
-    return authenticate;
   } catch (error) {
     return error.message;
   }
