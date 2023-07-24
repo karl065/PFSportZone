@@ -1,38 +1,27 @@
 /* eslint-disable react/prop-types */
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
-import { login } from "../../../helpers";
-import Swal from "sweetalert2";
-import styles from "./UserLogin.module.css";
+import {useFormik} from 'formik';
+import * as Yup from 'yup';
+import styles from './UserLogin.module.css';
+import {login} from '../../../helpers/helperLogin';
+import {useNavigate} from 'react-router-dom';
 
 const UserLogin = () => {
   const navigate = useNavigate();
   // Define el esquema de validación usando Yup
   const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Not an email")
-      .required("Email required"),
-    password: Yup.string().required("Password required"),
+    email: Yup.string().email('Not an email').required('Email required'),
+    password: Yup.string().required('Password required'),
   });
 
   // Configura Formik y su estado inicial
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     validationSchema,
     onSubmit: async (values) => {
-      try {
-        await login(values.email, values.password, navigate);
-      } catch (error) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Login failed. Please try again later.",
-        });
-      }
+      await login(values.email, values.password, navigate);
     },
   });
 
@@ -41,13 +30,13 @@ const UserLogin = () => {
       <div
         id="ng-login"
         className={`${styles.login_container} bg-gradient-primary`}
-        style={{ background: "#42b73a", "--bs-success": "#42b73a" }}
+        style={{background: '#42b73a', '--bs-success': '#42b73a'}}
       >
         <div className="container">
           <div className="row justify-content-center">
             <div
               className="col-md-9 col-lg-12 col-xl-10"
-              style={{ width: "400px" }}
+              style={{width: '400px'}}
             >
               <div className="card shadow-lg o-hidden border-0 my-5">
                 <div className="card-body p-0">
@@ -55,16 +44,16 @@ const UserLogin = () => {
                     <div
                       className="col-lg-6"
                       style={{
-                        borderRadius: "10px",
-                        borderColor: "rgba(133,135,150,0)",
-                        width: "400px",
+                        borderRadius: '10px',
+                        borderColor: 'rgba(133,135,150,0)',
+                        width: '400px',
                       }}
                     >
-                      <div className="p-5" style={{ width: "100%" }}>
+                      <div className="p-5" style={{width: '100%'}}>
                         <div className="text-center">
                           <h4
                             className="text-dark mb-4"
-                            style={{ fontSize: "2.4rem" }}
+                            style={{fontSize: '2.4rem'}}
                           >
                             WELCOME!
                           </h4>
@@ -81,7 +70,7 @@ const UserLogin = () => {
                               aria-describedby="emailHelp"
                               placeholder="Email"
                               name="email"
-                              style={{ borderRadius: "0px" }}
+                              style={{borderRadius: '0px'}}
                             />
                             {formik.touched.email && formik.errors.email ? (
                               <div className="text-danger">
@@ -99,7 +88,7 @@ const UserLogin = () => {
                               type="password"
                               placeholder="Password"
                               name="password"
-                              style={{ borderRadius: "0px" }}
+                              style={{borderRadius: '0px'}}
                             />
                             {formik.touched.password &&
                             formik.errors.password ? (
@@ -119,8 +108,8 @@ const UserLogin = () => {
                             disabled={!formik.isValid || formik.isSubmitting}
                             type="submit"
                             style={{
-                              background: "#42b73a",
-                              borderRadius: "0px",
+                              background: '#42b73a',
+                              borderRadius: '0px',
                             }}
                           >
                             Login
