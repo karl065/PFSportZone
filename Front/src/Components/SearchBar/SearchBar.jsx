@@ -99,7 +99,7 @@ const SearchBar = () => {
 
         {/* Mostrar resultados posibles/sugerencias según el input */}
         {!hideList && searchResults.length && (
-          <ul className={styles.resultsList}>
+          <ul className={styles.resultsList} onMouseDown={(e) => e.preventDefault()}>
             {searchResults.map((item, index) => (
               <li
                 key={item.id_inventory}
