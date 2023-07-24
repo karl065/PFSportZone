@@ -11,7 +11,7 @@ const UserLogin = () => {
   // Define el esquema de validación usando Yup
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .email("No es un email correcto")
+      .email("Not an email")
       .required("Email required"),
     password: Yup.string().required("Password required"),
   });
