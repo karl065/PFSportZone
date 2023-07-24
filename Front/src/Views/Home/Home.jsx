@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
-import Styles from "./Home.module.css";
-import Pagination from "../../Components/Pagination/Pagination";
-import { Card } from "../../Components";
-import { useSelector } from "react-redux";
+import {useEffect, useState} from 'react';
+import Styles from './Home.module.css';
+import Pagination from '../../Components/Pagination/Pagination';
+import {Card} from '../../Components';
+import {useSelector} from 'react-redux';
 import SortAndFilters from '../../Components/SortAndFilters/SortAndFilters';
 
 const Home = (props) => {
@@ -12,10 +13,12 @@ const Home = (props) => {
   const [page, setPage] = useState(1);
   const [amountPerPage, setAmountPerPage] = useState(8);
   const pageCount = displayInventory.length / amountPerPage;
-
+  useEffect(() => {
+    setPage(1);
+  }, [pageCount]);
   return (
     <div className={Styles.container}>
-      <SortAndFilters setPage={setPage}/>
+      <SortAndFilters setPage={setPage} />
       <div className={Styles.cards}>
         {displayInventory.length ? (
           displayInventory
