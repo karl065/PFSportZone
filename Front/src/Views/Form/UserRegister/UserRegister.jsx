@@ -1,7 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LoadingSpinner } from "../../../Components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import styles from "./UserRegister.module.css";
 import Swal from "sweetalert2";
@@ -19,7 +18,6 @@ const initialValues = {
 export const UserRegister = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isLoading = useSelector((state) => state.isLoading);
   const location = useLocation();
 
   const urlCurrent = location.pathname;
@@ -138,7 +136,7 @@ export const UserRegister = () => {
                 />
               </div>
               {urlCurrent === "/adminNewUser" ? (
-                <Field as="select" name="role">
+                <Field as="select" name="role" className={styles.role_select}>
                   <option value="Admin">Admin</option>
                   <option value="Empleados">Empleado</option>
                   <option value="Cliente">Cliente</option>
@@ -155,7 +153,6 @@ export const UserRegister = () => {
           </>
         )}
       </Formik>
-      {isLoading && <LoadingSpinner />}
     </div>
   );
 };
