@@ -22,9 +22,7 @@ const NavBar = () => {
       {location.pathname === "/" ? (
         <Link to="/about">About us</Link>
       ) : (
-        <>
-          <Link to="/">SPORTZONE</Link>
-        </>
+        <Link to="/" className={styles.site_title}>SPORTZONE</Link>
       )}
       {role === "SuperUser" || role === "Admin" ? (
         <Link to={"/adminProducts"}>Dashboard</Link>
@@ -35,7 +33,7 @@ const NavBar = () => {
           <Link to="/home">Catalog</Link>
         </li>
         {token ? (
-          <li>
+          <li className={styles.logout}>
             <Link onClick={logout} to={"/"}>
               Logout
             </Link>

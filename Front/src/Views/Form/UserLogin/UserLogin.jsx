@@ -4,15 +4,16 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../helpers";
 import Swal from "sweetalert2";
+import styles from "./UserLogin.module.css";
 
 const UserLogin = () => {
   const navigate = useNavigate();
   // Define el esquema de validación usando Yup
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .email("No es un email correcto")
-      .required("Campo requerido"),
-    password: Yup.string().required("Campo requerido"),
+      .email("Not an email")
+      .required("Email required"),
+    password: Yup.string().required("Password required"),
   });
 
   // Configura Formik y su estado inicial
@@ -36,10 +37,10 @@ const UserLogin = () => {
   });
 
   return (
-    <div>
+    <section>
       <div
         id="ng-login"
-        className="bg-gradient-primary"
+        className={`${styles.login_container} bg-gradient-primary`}
         style={{ background: "#42b73a", "--bs-success": "#42b73a" }}
       >
         <div className="container">
@@ -63,9 +64,9 @@ const UserLogin = () => {
                         <div className="text-center">
                           <h4
                             className="text-dark mb-4"
-                            style={{ fontSize: "30px" }}
+                            style={{ fontSize: "2.4rem" }}
                           >
-                            Bienvenido!
+                            WELCOME!
                           </h4>
                         </div>
                         <form className="user" onSubmit={formik.handleSubmit}>
@@ -78,7 +79,7 @@ const UserLogin = () => {
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               aria-describedby="emailHelp"
-                              placeholder="Usuario..."
+                              placeholder="Email"
                               name="email"
                               style={{ borderRadius: "0px" }}
                             />
@@ -135,7 +136,7 @@ const UserLogin = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

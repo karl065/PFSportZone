@@ -49,6 +49,19 @@
   border-bottom: 2px solid grey;
 }
 
-.highlighted{
+.highlighted {
   background-color: grey;
+}
+
+.btnSearch {
+  background-color: transparent;
+}
+
+.btnClear {
+  background-color: rgb(119, 3, 3);
+  color: white;
+  height: 24px;
+  width: 24px;
+  border-radius: 999px;
+  margin-left: auto;
 }

@@ -5,6 +5,15 @@
   min-height: 100vh;
   padding: 2rem;
   background-color: #c4c6bd;
+  position: relative;
+}
+
+.arrow_left{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5rem;
+  height: 5rem;
 }
 
 .detail {

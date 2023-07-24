@@ -42,7 +42,7 @@ const handleFilters = async(e) => {
 
   return (
     <div className={Styles.container}>
-      <button onClick={handleViewFiltersAndOrdereds}>FILTRAR Y ORDENAR</button>
+      <button onClick={handleViewFiltersAndOrdereds} className={Styles.menuBtn}>FILTRAR Y ORDENAR</button>
       <nav className={menuView ? Styles.nav_filtersAndOrdereds : Styles.nav_disabled}>
 
         <div className={Styles.filters}>
@@ -110,7 +110,7 @@ const handleFilters = async(e) => {
           </div>
 
         </div>
-
+        <button onClick={() => dispatch(resetDisplayedProducts())} className={Styles.clearBtn}>LIMPIAR FILTROS</button>
       </nav>
     </div>
   );
