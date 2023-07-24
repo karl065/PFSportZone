@@ -12,7 +12,8 @@ const Detail = () => {
   const {id} = useParams();
   const product = useSelector((state) => state.product);
   let isLoading = useSelector((state) => state.isLoading);
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
+  const role = localStorage.getItem('role');
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(getProductById(id)).then(() => dispatch(setLoading(false)));
@@ -46,7 +47,7 @@ const Detail = () => {
                 <h3>Description</h3>
                 <p>{product.description}</p>
               </div>
-              {token && (
+              {role === 'Cliente' && (
                 <div className={styles.buttons_box}>
                   <button className={styles.btn_cart}>Add to cart</button>
                   <button className={styles.btn_favorites}>
