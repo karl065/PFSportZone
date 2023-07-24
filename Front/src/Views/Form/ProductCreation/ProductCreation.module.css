@@ -36,6 +36,18 @@
   font-size: 1.2rem;
 }
 
+.category_container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.category_container select {
+  overflow: scroll;
+  max-height: 80px;
+}
+
 .field_container {
   display: grid;
   grid-template-columns: auto;
