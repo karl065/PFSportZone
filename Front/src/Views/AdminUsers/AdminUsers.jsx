@@ -1,11 +1,10 @@
 import axios from 'axios';
-import {Link} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Form} from 'react-bootstrap';
 import {useEffect, useState} from 'react';
+import Sidebar from '../../Components/SideBar/Sidebar';
 
 library.add(fas);
 const AdminUsers = () => {
@@ -38,89 +37,7 @@ const AdminUsers = () => {
   return (
     <div>
       <div id="wrapper" style={{display: 'flex'}}>
-        <nav
-          className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
-          style={{
-            background: '#749900',
-            overflow: 'visible',
-            position: 'relative',
-            height: '600px',
-          }}
-        >
-          <div className="container-fluid d-flex flex-column p-3">
-            <a
-              className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
-              href="#"
-            >
-              <div className="sidebar-brand-icon rotate-n-15">
-                <FontAwesomeIcon icon="passport" />
-              </div>
-              <div className="sidebar-brand-text mx-3">
-                <span>SportZone</span>
-              </div>
-            </a>
-            <hr className="sidebar-divider my-0" />
-            <div className="sidebar-brand-text mx-3">
-              <span> </span>
-            </div>
-            <ul className="navbar-nav text-light" id="accordionSidebar">
-              <hr className="sidebar-divider my-0" />
-              <div className="sidebar-brand-text mx-3">
-                <span> </span>
-              </div>
-              <ul className="navbar-nav text-light" id="accordionSidebar">
-                <li className="nav-item">
-                  <Link to="/adminProducts">
-                    <FontAwesomeIcon icon="shopping-cart" />
-                    <span> Productos</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/adminUsers">
-                    <FontAwesomeIcon icon="user" />
-                    <span> Usuarios</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/adminEmployes">
-                    <FontAwesomeIcon icon="user-circle" />
-                    <span> Empleados</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/">
-                    <FontAwesomeIcon icon="unlock-alt" />
-                    <span> Pagos</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/adminNewCategory">
-                    <FontAwesomeIcon icon="tshirt" />
-                    <span> Crear Categoria</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/adminNewProduct">
-                    <FontAwesomeIcon icon="tshirt" />
-                    <span> Crear Producto</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/adminNewUser">
-                    <FontAwesomeIcon icon="tshirt" />
-                    <span> Crear Usuarios</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/">
-                    <FontAwesomeIcon icon="cogs" />
-                    <span> Configuracion</span>
-                  </Link>
-                </li>
-              </ul>
-            </ul>
-          </div>
-        </nav>
+        <Sidebar />
         <div
           className="d-flex flex-column"
           id="content-wrapper"
@@ -162,7 +79,12 @@ const AdminUsers = () => {
                   <div className="card shadow mb-4" style={{width: '100%'}}>
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item">
-                        <div className="row align-items-center no-gutters">
+                        <div
+                          className="row align-items-center no-gutters"
+                          style={{
+                            fontSize: '18px',
+                          }}
+                        >
                           <div className="col me-2">
                             <h6 className="mb-0">
                               <strong>ID</strong>
@@ -197,7 +119,12 @@ const AdminUsers = () => {
                       </li>
                     </ul>
 
-                    <ul className="list-group list-group-flush">
+                    <ul
+                      className="list-group list-group-flush"
+                      style={{
+                        fontSize: '16px',
+                      }}
+                    >
                       <li className="list-group-item">
                         {users.map((user) => (
                           <div

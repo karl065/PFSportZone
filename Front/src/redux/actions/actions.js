@@ -9,13 +9,15 @@ import {
   RESET_DISPLAYED_PRODUCTS,
   GET_CATEGORY,
   CREATE_CATEGORY,
+  ORDER_PRODUCTS_BY_PRICE,
+  FILTER_PRODUCTS_BY_STATUS,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
 
 export const getUsers = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}users`);
+    const { data } = await axios.get(`${server.api.baseURL}users`);
     dispatch({
       type: GET_USERS,
       payload: data,
@@ -25,7 +27,7 @@ export const getUsers = () => {
 
 export const getInventory = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}inventory`);
+    const { data } = await axios.get(`${server.api.baseURL}inventory`);
     dispatch({
       type: GET_INVENTORY,
       payload: data,
@@ -34,7 +36,7 @@ export const getInventory = () => {
 };
 export const getCategory = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}category `);
+    const { data } = await axios.get(`${server.api.baseURL}category `);
     dispatch({
       type: GET_CATEGORY,
       payload: data,
@@ -44,7 +46,7 @@ export const getCategory = () => {
 
 export const createUser = (user) => {
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}users`, user);
+    const { data } = await axios.post(`${server.api.baseURL}users`, user);
     dispatch({
       type: CREATE_USER,
       payload: data,
@@ -54,16 +56,23 @@ export const createUser = (user) => {
 
 export const createProduct = (product) => {
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}inventory`, product);
+    const { data } = await axios.post(
+      `${server.api.baseURL}inventory`,
+      product
+    );
     dispatch({
       type: CREATE_PRODUCT,
       payload: data,
     });
   };
 };
+
 export const createCategory = (category) => {
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}category`, category);
+    const { data } = await axios.post(
+      `${server.api.baseURL}category`,
+      category
+    );
     dispatch({
       type: CREATE_CATEGORY,
       payload: data,
@@ -80,7 +89,7 @@ export const filterProductsByName = (name) => {
 
 export const getProductById = (id) => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}inventory/${id}`);
+    const { data } = await axios.get(`${server.api.baseURL}inventory/${id}`);
     dispatch({
       type: GET_PRODUCT_ID,
       payload: data,
@@ -98,5 +107,19 @@ export const setLoading = (isLoading) => {
   return {
     type: SET_LOADING,
     payload: isLoading,
+  };
+};
+
+export const orderProductsByPrice = (order) => {
+  return {
+    type: ORDER_PRODUCTS_BY_PRICE,
+    payload: order
+  };
+};
+
+export const filterProductsByStatus = (status) => {
+  return {
+    type: FILTER_PRODUCTS_BY_STATUS,
+    payload: status
   };
 };

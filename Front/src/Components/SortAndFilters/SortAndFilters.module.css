@@ -1,0 +1,48 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.nav_filtersAndOrdereds {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  gap: 20px;
+}
+.nav_disabled {
+  display: none;
+  transition: all 1s ease;
+}
+
+.input_checkbox {
+  padding: 5px;
+  font-size: 17px;
+}
+.input_checkbox input {
+  cursor: pointer;
+}
+.input_checkbox input:disabled {
+  cursor: no-drop;
+}
+
+.menuBtn {
+  margin: 0.5rem 0;
+  background-color: yellow;
+}
+
+.clearBtn,
+.menuBtn {
+  padding: 1rem;
+  height: fit-content;
+  border: 1px solid grey;
+}
+
+.clearBtn {
+  background-color: #42b73a;
+  color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
