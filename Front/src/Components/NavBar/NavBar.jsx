@@ -1,9 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import { SearchBar } from "../index";
 import styles from "./NavBar.module.css";
+import { resetDisplayedProducts } from "../../redux/actions/actions";
+import { useDispatch } from "react-redux";
 
 const NavBar = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
@@ -30,7 +33,7 @@ const NavBar = () => {
       {shouldRenderSearchBar && <SearchBar/>}
       <ul className={styles.nav_list}>
         <li>
-          <Link to="/home">Catalog</Link>
+          <Link to="/home" onClick={() => dispatch(resetDisplayedProducts())}>Catalog</Link>
         </li>
         {token ? (
           <li className={styles.logout}>
@@ -54,13 +57,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
-// import React from 'react'
-
-// const NavBar = () => {
-//   return (
-//     <div>NavBar</div>
-//   )
-// }
-
-// export default NavBar;
