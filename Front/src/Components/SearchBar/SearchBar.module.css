@@ -52,3 +52,7 @@
 .highlighted{
   background-color: grey;
 }
+
+.btnSearch, .btnClear{
+  background-color: transparent;
+}

@@ -49,6 +49,8 @@ const SearchBar = () => {
   };
 
   const handleKeyDown = (event) => {
+    if(!searchResults.length) return;
+
     if (event.key === "ArrowDown") {
       event.preventDefault();
       setHighlightedIndex((prevIndex) => {
@@ -97,7 +99,7 @@ const SearchBar = () => {
           onKeyDown={handleKeyDown}
           placeholder="Busca entre nuestros productos..."
         />
-        <button onClick={handleClearSearch}>X</button>
+        <button onClick={handleClearSearch} className={styles.btnClear}>X</button>
 
         {/* Mostrar resultados posibles/sugerencias según el input */}
         {!hideList && searchResults.length && (
@@ -115,7 +117,9 @@ const SearchBar = () => {
           </ul>
         )}
       </div>
-      <button onClick={() => handleSearch(searchQuery)}>Lupa</button>
+      <button onClick={() => handleSearch(searchQuery)} className={styles.btnSearch}>
+        <img src="https://res.cloudinary.com/dpjeltekx/image/upload/v1690157479/PF/dsbscy8syldhvnr9ppsx.png" alt="Lupa busqueda"/>
+      </button>
     </div>
   );
 };
