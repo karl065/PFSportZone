@@ -40,6 +40,10 @@ export const UserRegister = () => {
     passwordConfirmation: Yup.string()
       .oneOf([Yup.ref("password"), null], "Passwords must match")
       .required("Required confirmation"),
+    role: Yup.string()
+      .trim()
+      .required()
+      .oneOf(["Cliente", "Empleados", "Admin"], "Eliga un rol"),
   });
 
   const handleSubmit = async (values) => {
@@ -136,11 +140,20 @@ export const UserRegister = () => {
                 />
               </div>
               {urlCurrent === "/adminNewUser" ? (
-                <Field as="select" name="role" className={styles.role_select}>
-                  <option value="Admin">Admin</option>
-                  <option value="Empleados">Empleado</option>
-                  <option value="Cliente">Cliente</option>
-                </Field>
+                <div className={styles.field}>
+                  <label>Role</label>
+                  <Field as="select" name="role" className={styles.role_select}>
+                    <option value="">Select a role</option>
+                    <option value="Cliente">Cliente</option>
+                    <option value="Empleados">Empleado</option>
+                    <option value="Admin">Admin</option>
+                  </Field>
+                  <ErrorMessage
+                    name="role"
+                    component="span"
+                    className={styles.error}
+                  />
+                </div>
               ) : null}
               <button
                 type="submit"
