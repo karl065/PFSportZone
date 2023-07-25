@@ -20,7 +20,7 @@ const login = async (email, password, navigate) => {
     localStorage.setItem('token', data.token);
     localStorage.setItem('role', data.role);
     const role = data.role;
-    if (role === 'SuperUser' || role === 'Admin') {
+    if (role === 'SuperUser' || role === 'Admin' || role === 'Empleados') {
       navigate('/adminProducts');
     } else if (role === 'Cliente') {
       navigate('/home');
