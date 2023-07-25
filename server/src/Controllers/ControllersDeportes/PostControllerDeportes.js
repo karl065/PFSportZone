@@ -15,7 +15,11 @@ const crearDeporte = async (deporteName, status) => {
 
 const inicializarDeportes = async () => {
   try {
-    await Deportes.bulkCreate(deportesApi);
+    const deportes = await Deportes.findAll();
+    if (deportes.length === 0) {
+      await Deportes.bulkCreate(deportesApi);
+    }
+    return;
   } catch (error) {
     console.log(error.message);
   }
