@@ -16,7 +16,7 @@ const initialValues = {
   image: [],
   description: "",
   id_categories: "",
-  // id_sport: "",
+  idDeportes: "",
 };
 
 export const ProductCreation = () => {
@@ -63,12 +63,12 @@ export const ProductCreation = () => {
         "Not a valid category"
       )
       .required("Select one category"),
-    // idDeportes: Yup.number()
-    //   .oneOf(
-    //     sports.map((sport) => sport.idDeportes),
-    //     "Not a valid category"
-    //   )
-    //   .required("Select one sport"),
+    idDeportes: Yup.number()
+      .oneOf(
+        sports.map((sport) => sport.idDeportes),
+        "Not a valid category"
+      )
+      .required("Select one sport"),
   });
 
   const handleSubmit = (values, { resetForm }) => {
@@ -119,22 +119,22 @@ export const ProductCreation = () => {
                   className={styles.error}
                 />
               </div>
-              {/* <div className={styles.select_container}>
+              <div className={styles.select_container}>
                 <label>Sport</label>
-                <Field as="select" name="id_sport">
+                <Field as="select" name="idDeportes">
                   <option value="">Select a sport</option>
                   {sports.map((sport, index) => (
                     <option value={sport.idDeportes} key={index}>
-                      {sport.name}
+                      {sport.deporteName}
                     </option>
                   ))}
                 </Field>
                 <ErrorMessage
-                  name="id_sport"
+                  name="idDeportes"
                   component="span"
                   className={styles.error}
                 />
-              </div> */}
+              </div>
               <div className={styles.input_box}>
                 <label>ID</label>
                 <Field
