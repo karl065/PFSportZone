@@ -12,7 +12,7 @@ const SearchBar = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [hideList, setHideList] = useState(false);
-  const inventory = useSelector((state) => state.inventory);
+  const inventory = useSelector((state) => state.app.inventory);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
