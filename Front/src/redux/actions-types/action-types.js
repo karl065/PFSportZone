@@ -1,6 +1,7 @@
 export const SET_LOADING = 'SET_LOADING';
 export const GET_INVENTORY = 'GET_INVENTORY';
 export const GET_CATEGORY = 'GET_CATEGORY';
+export const GET_SPORTS = 'GET_SPORTS';
 export const CREATE_CATEGORY = 'CREATE_CATEGORY';
 export const GET_USERS = 'GET_USERS';
 export const CREATE_USER = 'CREATE_USER';

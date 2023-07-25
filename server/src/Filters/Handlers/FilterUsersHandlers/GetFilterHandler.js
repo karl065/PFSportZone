@@ -6,7 +6,7 @@ const {
 } = require("../../Controllers/FilterUsersControllers/GetPriceRangeFilterController.js");
 const {
   filterUsersControllers,
-} = require("../../Controllers/FilterUsersControllers/GetUsersFilterController.js");
+} = require("../../Controllers/FilterUsersControllers/GetUsersFilterController");
 
 /**
  * El código define dos funciones asíncronas, getFilterHandler y getFilterStockPriceRange, que manejan
