@@ -1,14 +1,13 @@
 const {
   filterStockAvailableController,
-} = require("../../Controllers/FilterUsersControllers/GetStockFilterController");
+} = require('../../Controllers/FilterUsersControllers/GetStockFilterController');
 const {
   filterUsersControllers,
-} = require("../../Controllers/FilterUsersControllers/GetUsersFilterController");
+} = require('../../Controllers/FilterUsersControllers/GetUsersFilterController');
 
 const getFilterHandler = async (req, res) => {
-  const { role, userStatus, status } = req.query;
+  const {role, userStatus, status} = req.query;
 
-  console.log(status);
   try {
     if (status) {
       const queryResult = await filterStockAvailableController(status);
@@ -17,7 +16,7 @@ const getFilterHandler = async (req, res) => {
     const queryResult = await filterUsersControllers(role, userStatus);
     return res.status(200).json(queryResult);
   } catch (error) {
-    return res.status(400).json({ error: error.message });
+    return res.status(400).json({error: error.message});
   }
 };
 
