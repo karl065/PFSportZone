@@ -20,6 +20,7 @@ import {
   AdminNewCategory,
   AdminEditProd,
   AdminPagos,
+  Cart,
 } from './Views';
 import {
   getCategory,
@@ -61,6 +62,7 @@ function App() {
         {/* <Route path="/favorites"/> */}
         <Route path="/product/:id" element={<Detail />} />
         <Route path="/about" element={<About />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/review" element={<Review />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="*" element={<Error setErrorPage={setErrorPage} />} />
