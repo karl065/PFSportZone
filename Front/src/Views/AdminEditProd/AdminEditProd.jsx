@@ -298,7 +298,7 @@ const AdminEditProd = () => {
                                 <Form.Check
                                   type="switch"
                                   id="switchButton"
-                                  label="Visivilidad"
+                                  label="Visibilidad"
                                   checked={switches.visible}
                                   onChange={() => handleSwitchChange('visible')}
                                 />
