@@ -11,7 +11,7 @@ import Sidebar from '../../Components/SideBar/Sidebar';
 library.add(fas);
 const AdminEditProd = () => {
   const dispatch = useDispatch();
-  const displayInventory = useSelector((state) => state.displayInventory);
+  const displayInventory = useSelector((state) => state.app.displayInventory);
   useEffect(() => {
     dispatch(getInventory());
   }, []);
