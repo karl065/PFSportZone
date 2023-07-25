@@ -1,12 +1,12 @@
 const {
   getFilterHandler,
-  getFilterStockPriceRange,
+  getFilterPriceRange,
 } = require("../../Filters/Handlers/FilterUsersHandlers/GetFilterHandler.js");
 
 const router = require("express").Router();
 
 router.get("/", getFilterHandler);
 
-router.get("/prc", getFilterStockPriceRange);
+router.get("/range", getFilterPriceRange);
 
 module.exports = router;

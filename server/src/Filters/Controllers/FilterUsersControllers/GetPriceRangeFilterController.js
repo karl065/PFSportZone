@@ -12,7 +12,7 @@ const { Op } = require("sequelize");
  * @returns el resultado de la llamada al método `findAll` en el modelo `Inventarios`, con una
  * condición `where` para filtrar por el parámetro `status` proporcionado.
  */
-const filterStockAvailableController = async (status) => {
+const filterAvailableController = async (status) => {
   console.log(status);
   return await Inventarios.findAll({ where: { status: status } });
 };
@@ -24,13 +24,12 @@ const filterStockAvailableController = async (status) => {
  * @param maxPrice - El precio máximo de los productos de stock que desea filtrar.
  * @returns una variedad de productos que caen dentro del rango de precio especificado.
  */
-const filterStockPriceRange = async (minPrice, maxPrice) => {
+const filterPriceRange = async (minPrice, maxPrice) => {
   try {
     const productsInRange = await Inventarios.findAll({
       where: {
-        selling_price: {
-          [Op.between]: [minPrice, maxPrice],
-        },
+        selling_price: { [Op.between]: [minPrice, maxPrice] },
+        status: "Available",
       },
       order: [["article_name", "ASC"]],
     });
@@ -42,39 +41,7 @@ const filterStockPriceRange = async (minPrice, maxPrice) => {
   }
 };
 
-// const priceRange = (arr, minRange, maxRange) => {
-//   let arrMinRange = [];
-//   let arrPriceRange = [];
-
-//   for (let i = 0; i < arr.length; i++) {
-//     if (arr[i] <= maxRange) {
-//       arrMinRange.push(arr[i]);
-//     }
-//   }
-//   for (let i = 0; i < arrMinRange.length; i++) {
-//     if (arrMinRange[i] >= minRange) {
-//       arrPriceRange.push(arrMinRange[i]);
-//     }
-//   }
-
-//   return arrPriceRange.sort(function (a, b) {
-//     return a - b;
-//   });
-// };
-
-// const filterStockPriceRange = async (minRange, maxRange) => {
-//   const allPrices = await Inventarios.findAll({}, "selling_price");
-//   const pricesList = allPrices.map((stock) => stock.selling_price);
-//   let pricesSelected = priceRange(pricesList, minRange, maxRange);
-//   const prods = await Inventarios.findAll({
-//     where: { selling_price: pricesSelected },
-//     order: [["selling_price", "ASC"]],
-//   });
-
-//   return prods;
-// };
-
 module.exports = {
-  filterStockAvailableController,
-  filterStockPriceRange,
+  filterAvailableController,
+  filterPriceRange,
 };

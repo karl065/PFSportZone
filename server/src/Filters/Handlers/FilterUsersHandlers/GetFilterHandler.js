@@ -1,12 +1,12 @@
 /* El código importa funciones específicas de dos archivos diferentes: "GetStockFilterController.js" y
 "GetUsersFilterController.js". */
 const {
-  filterStockAvailableController,
-  filterStockPriceRange,
-} = require("../../Controllers/FilterUsersControllers/GetStockFilterController");
+  filterAvailableController,
+  filterPriceRange,
+} = require("../../Controllers/FilterUsersControllers/GetPriceRangeFilterController.js");
 const {
   filterUsersControllers,
-} = require("../../Controllers/FilterUsersControllers/GetUsersFilterController");
+} = require("../../Controllers/FilterUsersControllers/GetUsersFilterController.js");
 
 /**
  * El código define dos funciones asíncronas, getFilterHandler y getFilterStockPriceRange, que manejan
@@ -29,7 +29,7 @@ const getFilterHandler = async (req, res) => {
 
   try {
     if (status) {
-      const queryResult = await filterStockAvailableController(status);
+      const queryResult = await filterAvailableController(status);
       return res.status(200).json(queryResult);
     }
     const queryResult = await filterUsersControllers(role, userStatus);
@@ -39,11 +39,11 @@ const getFilterHandler = async (req, res) => {
   }
 };
 
-const getFilterStockPriceRange = async (req, res) => {
-  const { minPrice, maxPrice } = req.body;
+const getFilterPriceRange = async (req, res) => {
+  const { minPrice, maxPrice } = req.query;
 
   try {
-    const productsInRange = await filterStockPriceRange(minPrice, maxPrice);
+    const productsInRange = await filterPriceRange(minPrice, maxPrice);
     return res.status(200).json(productsInRange);
   } catch (error) {
     return res.status(400).json({ error: error.message });
@@ -52,5 +52,5 @@ const getFilterStockPriceRange = async (req, res) => {
 
 module.exports = {
   getFilterHandler,
-  getFilterStockPriceRange,
+  getFilterPriceRange,
 };
