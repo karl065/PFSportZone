@@ -1,7 +1,7 @@
-import {useEffect} from 'react';
-import {Routes, Route, useLocation} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
-import {NavBar} from './Components';
+import { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { NavBar } from "./Components";
 import {
   Landing,
   Home,
@@ -20,14 +20,16 @@ import {
   AdminNewCategory,
   AdminEditProd,
   AdminPagos,
-} from './Views';
+  Cart,
+} from "./Views";
 import {
   getCategory,
   getInventory,
+  getSports,
   getUsers,
   setLoading,
-} from './redux/actions/actions';
-import {useState} from 'react';
+} from "./redux/actions/actions";
+import { useState } from "react";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,13 +40,17 @@ function App() {
   // * Carga inicial de los datos necesarios para la app.
   useEffect(() => {
     dispatch(setLoading(true));
-    dispatch(getUsers());
-    dispatch(getInventory()).then(() => dispatch(setLoading(false)));
-    dispatch(getCategory()).then(() => dispatch(setLoading(false)));
+    Promise.all([
+      dispatch(getUsers()),
+      dispatch(getCategory()),
+      dispatch(getSports()),
+      dispatch(getInventory()),
+    ]).then(() => dispatch(setLoading(false)));
   }, [dispatch]);
+
   return (
     <div className="App">
-      {location.pathname !== '/' && errorPage && <NavBar />}
+      {location.pathname !== "/" && errorPage && <NavBar />}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<UserLogin />} />
@@ -61,6 +67,7 @@ function App() {
         {/* <Route path="/favorites"/> */}
         <Route path="/product/:id" element={<Detail />} />
         <Route path="/about" element={<About />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/review" element={<Review />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="*" element={<Error setErrorPage={setErrorPage} />} />

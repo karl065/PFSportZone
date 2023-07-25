@@ -1,19 +1,20 @@
-import {useEffect} from 'react';
-import {useParams} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {getProductById, setLoading} from '../../redux/actions/actions';
-import {LoadingSpinner} from '../../Components/index';
-import {Link} from 'react-router-dom';
-import styles from './Detail.module.css';
-import arrowLeft from '../../assets/arrow-left.svg';
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { LoadingSpinner } from "../../Components/index";
+import { Link } from "react-router-dom";
+import { getProductById, setLoading } from "../../redux/actions/actions";
+import { addProduct } from "../../redux/actions/cartActions";
+import styles from "./Detail.module.css";
+import arrowLeft from "../../assets/arrow-left.svg";
 
 const Detail = () => {
   const dispatch = useDispatch();
-  const {id} = useParams();
-  const product = useSelector((state) => state.product);
-  let isLoading = useSelector((state) => state.isLoading);
+  const { id } = useParams();
+  const product = useSelector((state) => state.app.product);
+  let isLoading = useSelector((state) => state.app.isLoading);
   // const token = localStorage.getItem('token');
-  const role = localStorage.getItem('role');
+  const role = localStorage.getItem("role");
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(getProductById(id)).then(() => dispatch(setLoading(false)));
@@ -47,9 +48,14 @@ const Detail = () => {
                 <h3>Description</h3>
                 <p>{product.description}</p>
               </div>
-              {role === 'Cliente' && (
+              {role === "Cliente" && (
                 <div className={styles.buttons_box}>
-                  <button className={styles.btn_cart}>Add to cart</button>
+                  <button
+                    className={styles.btn_cart}
+                    onClick={() => dispatch(addProduct(id))}
+                  >
+                    Add to cart
+                  </button>
                   <button className={styles.btn_favorites}>
                     Add to favorite
                   </button>
