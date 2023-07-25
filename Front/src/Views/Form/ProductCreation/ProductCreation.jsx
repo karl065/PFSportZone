@@ -20,7 +20,7 @@ const initialValues = {
 
 export const ProductCreation = () => {
   const dispatch = useDispatch();
-  const category = useSelector((state) => state.category);
+  const category = useSelector((state) => state.app.category);
   const navigate = useNavigate();
 
   console.log(category);
