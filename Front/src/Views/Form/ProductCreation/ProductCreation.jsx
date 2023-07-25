@@ -16,14 +16,14 @@ const initialValues = {
   image: [],
   description: "",
   id_categories: "",
+  // id_sport: "",
 };
 
 export const ProductCreation = () => {
   const dispatch = useDispatch();
   const category = useSelector((state) => state.app.category);
+  const sports = useSelector((state) => state.app.sports);
   const navigate = useNavigate();
-
-  console.log(category);
 
   const SignupSchema = Yup.object().shape({
     id_inventory: Yup.string()
@@ -63,6 +63,12 @@ export const ProductCreation = () => {
         "Not a valid category"
       )
       .required("Select one category"),
+    // idDeportes: Yup.number()
+    //   .oneOf(
+    //     sports.map((sport) => sport.idDeportes),
+    //     "Not a valid category"
+    //   )
+    //   .required("Select one sport"),
   });
 
   const handleSubmit = (values, { resetForm }) => {
@@ -97,7 +103,7 @@ export const ProductCreation = () => {
           <Form className={styles.form}>
             <h1 className={styles.title}>NEW PRODUCT</h1>
             <div className={styles.field_container}>
-              <div className={styles.category_container}>
+              <div className={styles.select_container}>
                 <label>Category</label>
                 <Field as="select" name="id_categories">
                   <option value="">Select a category</option>
@@ -113,8 +119,24 @@ export const ProductCreation = () => {
                   className={styles.error}
                 />
               </div>
-              <label>ID</label>
+              {/* <div className={styles.select_container}>
+                <label>Sport</label>
+                <Field as="select" name="id_sport">
+                  <option value="">Select a sport</option>
+                  {sports.map((sport, index) => (
+                    <option value={sport.idDeportes} key={index}>
+                      {sport.name}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="id_sport"
+                  component="span"
+                  className={styles.error}
+                />
+              </div> */}
               <div className={styles.input_box}>
+                <label>ID</label>
                 <Field
                   name="id_inventory"
                   placeholder="Product Code"
