@@ -13,7 +13,7 @@ import {
   CREATE_CATEGORY,
   ORDER_PRODUCTS_BY_PRICE,
   FILTER_PRODUCTS_BY_STATUS,
-} from '../actions-types/action-types';
+} from "../actions-types/action-types";
 
 const initialState = {
   users: [],
@@ -24,7 +24,7 @@ const initialState = {
   isLoading: false,
 };
 
-export default function reducer(state = initialState, { type, payload }) {
+export default function appReducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_USERS:
       return { ...state, users: payload };
@@ -48,20 +48,25 @@ export default function reducer(state = initialState, { type, payload }) {
       const filteredInventory = state.inventory.filter((product) =>
         product.article_name.toLowerCase().includes(payload.toLowerCase())
       );
-      return {...state, displayInventory: filteredInventory};
+      return { ...state, displayInventory: filteredInventory };
     case ORDER_PRODUCTS_BY_PRICE:
       let inventoryOrdered = [];
-      inventoryOrdered = payload === 'menor_precio_a_mayor_precio'
-      ? [...state.inventory].sort((a,b) => (a.selling_price - b.selling_price) )
-      : [...state.inventory].sort((a,b) => (b.selling_price - a.selling_price) )
-    return {
-      ...state,
-      displayInventory: inventoryOrdered
-    };
+      inventoryOrdered =
+        payload === "menor_precio_a_mayor_precio"
+          ? [...state.inventory].sort(
+              (a, b) => a.selling_price - b.selling_price
+            )
+          : [...state.inventory].sort(
+              (a, b) => b.selling_price - a.selling_price
+            );
+      return {
+        ...state,
+        displayInventory: inventoryOrdered,
+      };
     case FILTER_PRODUCTS_BY_STATUS:
       return {
         ...state,
-        displayInventory: payload
+        displayInventory: payload,
       };
     case SET_LOADING:
       return { ...state, isLoading: payload };
