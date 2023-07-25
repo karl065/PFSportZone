@@ -11,6 +11,7 @@ import {
   RESET_DISPLAYED_PRODUCTS,
   GET_CATEGORY,
   CREATE_CATEGORY,
+  GET_SPORTS,
   ORDER_PRODUCTS_BY_PRICE,
   FILTER_PRODUCTS_BY_STATUS,
 } from "../actions-types/action-types";
@@ -19,6 +20,7 @@ const initialState = {
   users: [],
   inventory: [],
   category: [],
+  sports: [],
   displayInventory: [],
   product: {},
   isLoading: false,
@@ -32,6 +34,8 @@ export default function appReducer(state = initialState, { type, payload }) {
       return { ...state, inventory: payload, displayInventory: payload };
     case GET_CATEGORY:
       return { ...state, category: payload };
+    case GET_SPORTS:
+      return { ...state, sports: payload };
     case CREATE_USER:
       return { ...state, users: [...state.users, payload] };
     case CREATE_PRODUCT:
