@@ -72,8 +72,5 @@ li > .cart_img {
 
 .logout {
   background-color: red;
-}
-
-.logout:hover{
-  background-color: aqua;
+  cursor: pointer;
 }
