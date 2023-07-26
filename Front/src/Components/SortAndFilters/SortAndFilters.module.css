@@ -1,48 +1,69 @@
-.container {
+.container{
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
+  justify-content: space-between;
+  padding: 20px;
+  height: 10px;
 }
 
-.nav_filtersAndOrdereds {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-  gap: 20px;
-}
-.nav_disabled {
-  display: none;
-  transition: all 1s ease;
-}
-
-.input_checkbox {
-  padding: 5px;
-  font-size: 17px;
-}
-.input_checkbox input {
+.order_container select{
+  border: transparent;
+  border-radius: 10px;
   cursor: pointer;
 }
-.input_checkbox input:disabled {
-  cursor: no-drop;
+.order_container option{
+  text-align: center;
 }
 
-.menuBtn {
-  margin: 0.5rem 0;
-  background-color: yellow;
+.filters_container{
+  display: inline-flex;
+  flex-direction: column;
+  width: 30%;
 }
 
-.clearBtn,
-.menuBtn {
-  padding: 1rem;
-  height: fit-content;
-  border: 1px solid grey;
+.button_onMenu{
+  margin: 0% 0% 0% 60%;
 }
 
-.clearBtn {
-  background-color: #42b73a;
-  color: white;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+.menu_filters_active{
+  background-color: whitesmoke;
+  color: black;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  border: 3px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 2;
+}
+
+.menu_filters_active span{
+ display: inline-flex;
+ justify-content: space-between;
+}
+.menu_filters_active span button:hover{
+  background: black;
+  color: whitesmoke;
+}
+
+.menu_filters_active button{
+  background: #BEF31B;
+  padding: 10px;
+}
+
+.menu_filters_active select{
+  border: 2px solid black;
+}
+
+.menuDisabled{
+  visibility: hidden;
+}
+
+.applyButton{
+  padding: 10px;
+  border: 3px solid black
+}
+.applyButton:hover{
+  background: black;
+  color: whitesmoke;
 }

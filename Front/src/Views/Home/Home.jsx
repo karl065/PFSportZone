@@ -2,12 +2,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import Styles from "./Home.module.css";
-import Pagination from "../../Components/Pagination/Pagination";
-import { Card } from "../../Components";
 import { useSelector } from "react-redux";
-import SortAndFilters from "../../Components/SortAndFilters/SortAndFilters";
+import { Card } from "../../Components";
 import { LoadingSpinner } from "../../Components";
+import Pagination from "../../Components/Pagination/Pagination";
+import SortAndFilters from "../../Components/SortAndFilters/SortAndFilters";
+import Styles from "./Home.module.css";
 
 const Home = (props) => {
   const displayInventory = useSelector((state) => state.app.displayInventory);
