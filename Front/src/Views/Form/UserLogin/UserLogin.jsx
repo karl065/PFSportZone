@@ -38,15 +38,14 @@ const UserLogin = () => {
   });
 
   const swalErrorAuth = (error) => {
-    if (error?.code === "auth/popup-closed-by-user") {
-      // * Usuario cerro el pop-up intencionalmente, no es necesario mostrar un swal error.
-      return;
+    // * Solo muestro el error cuando NO ES por un cierre intencional del popup o de validación de DB [Email ya registrado/único].
+    if (error.code !== "23505" && error?.code !== "auth/popup-closed-by-user") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!. Please try again later.",
+      });
     }
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Something went wrong!. Please try again later.",
-    });
   };
 
   const signInWithGoogle = async () => {
@@ -59,6 +58,8 @@ const UserLogin = () => {
         userStatus: true,
         role: "Cliente",
       };
+
+      // ? Ver si después podemos hacer esto solo cuando no existe un usuario con ese email. y evitar la validación de arriba "23505"
       await dispatch(createUser(newUser));
 
       // * Google access token
@@ -183,14 +184,16 @@ const UserLogin = () => {
                             Login
                           </button>
                           <div className={styles.externalAuthButtons}>
-                            <button type="button"
+                            <button
+                              type="button"
                               onClick={signInWithGoogle}
                               className={styles.btnLoginGoogle}
                             >
                               <img src={googleIcon} alt="Google icon" />
                               Login with Google
                             </button>
-                            <button type="button"
+                            <button
+                              type="button"
                               onClick={signInWithFacebook}
                               className={styles.btnLoginFacebook}
                             >
