@@ -16,9 +16,10 @@ const relaciones = (models) => {
     Ventas,
     Favoritos,
     Pagos,
-    CarritoVentas,
+    Carrito,
     IngresoProducto,
     Deportes,
+    CarritoInventarios,
   } = models;
 
   Categorias.hasMany(Inventarios, {
@@ -38,6 +39,38 @@ const relaciones = (models) => {
     as: 'deportes',
   });
 
+  Usuarios.hasOne(Carrito, {foreignKey: 'idUser', as: 'carrito'});
+  Carrito.belongsTo(Usuarios, {foreignKey: 'idUser', as: 'usuario'});
+
+  // Hook afterCreate para crear automáticamente un carrito con valores nulos para el usuario recién creado
+  Usuarios.afterCreate(async (usuario, options) => {
+    try {
+      await Carrito.create({
+        total: 0,
+        idUser: usuario.idUser,
+      });
+    } catch (error) {
+      console.error('Error al crear el carrito:', error);
+    }
+  });
+
+  Carrito.belongsToMany(Inventarios, {
+    through: {
+      model: CarritoInventarios,
+      unique: false,
+      attributes: ['cant', 'precioPorUnd', 'precioPorCant'],
+    },
+    foreignKey: 'idCar',
+  });
+
+  Inventarios.belongsToMany(Carrito, {
+    through: {
+      model: CarritoInventarios,
+      unique: false,
+      attributes: ['cant', 'precioPorUnd', 'precioPorCant'],
+    },
+    foreignKey: 'id_inventory',
+  });
   return {
     Personas,
     Usuarios,
@@ -46,7 +79,7 @@ const relaciones = (models) => {
     Ventas,
     Favoritos,
     Pagos,
-    CarritoVentas,
+    Carrito,
     IngresoProducto,
   };
 };
