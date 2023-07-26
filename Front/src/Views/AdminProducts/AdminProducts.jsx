@@ -14,8 +14,8 @@ import Sidebar from "../../Components/SideBar/Sidebar";
 library.add(fas);
 
 const AdminProducts = () => {
-  const inventario = useSelector((state) => state.inventory);
-  // const category = useSelector((state) => state.category);
+  const inventario = useSelector((state) => state.app.inventory);
+  // const category = useSelector((state) => state.app.category);
   const [statusOption, setStatusOption] = useState([
     "Available",
     "Not Available",

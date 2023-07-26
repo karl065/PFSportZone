@@ -6,12 +6,16 @@ especificado */
 
 const {conn} = require('./src/DB');
 const {superUser} = require('./src/Root/Root');
+const {
+  inicializarDeportes,
+} = require('./src/Controllers/ControllersDeportes/PostControllerDeportes.js');
 const server = require('./src/server');
 const PORT = 3000;
 
 conn.sync().then(() => {
   server.listen(PORT, async () => {
     superUser();
+    inicializarDeportes();
     console.log(`Corriendo en el puerto: ${PORT}`);
   });
 });

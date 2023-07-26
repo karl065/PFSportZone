@@ -43,7 +43,7 @@ export const UserRegister = () => {
     role: Yup.string()
       .trim()
       .required()
-      .oneOf(['Cliente', 'Empleados', 'Admin'], 'Eliga un rol'),
+      .oneOf(['Cliente', 'Empleados', 'Admin'], 'Elija un rol'),
   });
 
   const handleSubmit = async (values) => {

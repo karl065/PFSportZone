@@ -16,6 +16,7 @@ import AdminNewUsers from './AdminNewUsers/AdminNewUsers.jsx';
 import AdminNewCategory from './AdminNewCategories/AdminNewCategories.jsx';
 import AdminEditProd from './AdminEditProd/AdminEditProd.jsx';
 import AdminPagos from './AdminPagos/AdminPagos.jsx';
+import Cart from './Cart/Cart.jsx';
 
 export {
   Landing,
@@ -36,4 +37,5 @@ export {
   AdminNewCategory,
   AdminEditProd,
   AdminPagos,
+  Cart,
 };
