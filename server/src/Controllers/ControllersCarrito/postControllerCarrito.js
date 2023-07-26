@@ -15,9 +15,7 @@ const agregarProdAlCarrito = async (idCar, id_inventory, cant) => {
     });
 
     const productosEnCarrito = await carrito.getInventarios();
-    console.log(productosEnCarrito);
     const total = productosEnCarrito.reduce((tot, product) => {
-      console.log(tot);
       return tot + product.CarritoInventarios.precioPorCant;
     }, 0);
     await carrito.update({total});
