@@ -1,25 +1,19 @@
-const { DataTypes } = require("sequelize");
+const {DataTypes} = require('sequelize');
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "Carrito",
+    'Carrito',
     {
-      id_shopping_cart: {
+      idCar: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      product_quantity: {
+      cantProd: {
         type: DataTypes.INTEGER,
       },
-      amount_per_product: {
-        type: DataTypes.FLOAT,
-      },
-      total_product_quantity: {
+      total: {
         type: DataTypes.INTEGER,
-      },
-      total_product_amount: {
-        type: DataTypes.FLOAT,
       },
     },
     {
