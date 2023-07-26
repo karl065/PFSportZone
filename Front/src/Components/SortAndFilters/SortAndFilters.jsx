@@ -34,84 +34,55 @@ const handleFilters = async(e) => {
   }
 
 
-//*funcion que cambia el estado para desplegar el menu de filtros
+//*funciones que cambian el estado para desplegar y cerrar el menu de filtros
   const handleViewFiltersAndOrdereds = () => {
     setMenuView(true);
-    if(menuView) setMenuView(false);
   };
+  const closeMenuFilters = () => {
+    setMenuView(false);
+  }
 
   return (
     <div className={Styles.container}>
-      <button onClick={handleViewFiltersAndOrdereds} className={Styles.menuBtn}>FILTRAR Y ORDENAR</button>
-      <nav className={menuView ? Styles.nav_filtersAndOrdereds : Styles.nav_disabled}>
+      <div className={Styles.order_container}>
+        <label htmlFor="ordenamientos">ordenar por:</label>
+        <br/>
+        <select name="ordenamientos" id="ordenamientos">
+          <option value="NUEVO">novedades</option>
+          <option value="PA">mas barato a mas caro</option>
+          <option value="PD">mas caro a mas barato</option>
+        </select>
+      </div>
 
-        <div className={Styles.filters}>
-          <h4>filtrar por Disponibilidad: </h4>
-          <div className={Styles.input_checkbox}>
-            <input 
-            onChange={handleFilters}
-            type="checkbox"
-            name= "Disponibilidad"
-            value= 'Available'
-            id= 'Available' 
-            />
-            <label htmlFor="Available">Available</label>
-          </div>
-
-          <div className={Styles.input_checkbox}>
-            <input 
-            onChange={handleFilters}
-            type="checkbox"
-            name= "Disponibilidad"
-            value= 'Not Available'
-            id= 'Not Available' 
-            />
-            <label htmlFor="Not Available">Not Available</label>
-          </div>
-
-          <div className={Styles.input_checkbox}>
-          <input 
-            onChange={handleFilters}
-            type="checkbox"
-            name= "Disponibilidad"
-            value= 'Discontinued'
-            id= 'Discontinued' 
-            />
-            <label htmlFor="Discontinued">Discontinued</label>
-          </div>
-
+      <div className={Styles.filters_container}>
+        <button onClick={handleViewFiltersAndOrdereds} className={Styles.button_onMenu}>filtros</button>
+        <br />
+        <div className={ menuView ? Styles.menu_filters_active : Styles.menuDisabled}>
+          <span>
+          <button onClick={closeMenuFilters}>X</button>
+          <button>eliminar filtros</button>
+          </span>
+          <p>Filtros elegidos:</p>
+          <br />
+          <label htmlFor="filters">por tipo de prenda:</label>
+          <select name="filters" id="filters">
+          </select>
+          <label htmlFor="filters">por deporte:</label>
+          <select name="filters" id="filters">
+          </select>
+          <label htmlFor="filters">por rango de precio:</label>
+          <select name="filters" id="filters">
+          </select>
+          <label htmlFor="filters">por genero:</label>
+          <select name="filters" id="filters">
+          </select>
+          <label htmlFor="filters">por marcas:</label>
+          <select name="filters" id="filters">
+          </select>
+          <br />
+          <button className={Styles.applyButton}>Aplicar Filtros</button>
         </div>
-
-        <div className={Styles.sorteds}>
-        <h4>ordenar por precio: </h4>
-
-        <div className={Styles.input_checkbox}>
-            <input
-            disabled={!displayInventory.length}
-            onChange={handleOrders} 
-            type="checkbox"
-            name= "Precio"
-            value= 'menor_precio_a_mayor_precio'
-            id= 'menor_precio_a_mayor_precio' 
-            />
-            <label htmlFor="Precio">menor precio a mayor precio</label>
-          </div>
-
-        <div className={Styles.input_checkbox}>
-            <input 
-            disabled={!displayInventory.length}
-            onChange={handleOrders}
-            type="checkbox"
-            name= "Precio"
-            value= 'mayor_precio_a_menor_precio'
-            id= 'mayor_precio_a_menor_precio' 
-            />
-            <label htmlFor="Precio">mayor precio a menor precio</label>
-          </div>
-
-        </div>
-        <button onClick={() => dispatch(resetDisplayedProducts())} className={Styles.clearBtn}>LIMPIAR FILTROS</button>
-      </nav>
+      </div>
     </div>
   );
 }
