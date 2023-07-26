@@ -1,26 +1,21 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SearchBar } from "../index";
-import styles from "./NavBar.module.css";
 import { resetDisplayedProducts } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { isLoggedIn, handleLogout } from "../../helpers/helperLogin";
+import styles from "./NavBar.module.css";
 import cartIcon from "../../assets/shopping-cart.svg";
 
 const NavBar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cartLength =  useSelector(state => state.cart.products.length);
-  const token = localStorage.getItem("token");
+  const cartLength = useSelector((state) => state.cart.products.length);
   const role = localStorage.getItem("role");
 
   const shouldRenderSearchBar =
     (location.pathname !== "/" && role === "Cliente") ||
     location.pathname === "/home";
-
-  // * La función `logout` elimina el elemento 'token' del localStorage.
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
-  };
 
   return (
     <nav className={styles.nav}>
@@ -41,7 +36,7 @@ const NavBar = () => {
             Catalog
           </Link>
         </li>
-        {token ? (
+        {isLoggedIn() ? (
           <>
             <li className={styles.cart_item}>
               <Link to="/cart">
@@ -51,12 +46,10 @@ const NavBar = () => {
                   className={styles.cart_img}
                 />
               </Link>
-              {cartLength && <span>{cartLength}</span>}
+              {cartLength > 0 && <span>{cartLength}</span>}
             </li>
-            <li className={styles.logout}>
-              <Link onClick={logout} to={"/"}>
-                Logout
-              </Link>
+            <li className={styles.logout} onClick={() => handleLogout(navigate)}>
+              Logout
             </li>
           </>
         ) : (
