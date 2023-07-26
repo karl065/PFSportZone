@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import Styles from './SortAndFilters.module.css';
 import { filterProductsByStatus, orderProductsByPrice, resetDisplayedProducts } from '../../redux/actions/actions';
 import axios from 'axios';
+import Styles from './SortAndFilters.module.css';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faSliders} from '@fortawesome/free-solid-svg-icons';
 import  server from '../../Connections/Server';
 
 export default function SortAndFilters(props) {
@@ -55,7 +57,10 @@ const handleFilters = async(e) => {
       </div>
 
       <div className={Styles.filters_container}>
-        <button onClick={handleViewFiltersAndOrdereds} className={Styles.button_onMenu}>filtros</button>
+        <button onClick={handleViewFiltersAndOrdereds} className={Styles.button_onMenu}>
+        <FontAwesomeIcon icon={faSliders} className={Styles.button_onMenu}/>
+        filtros
+        </button>
         <br />
         <div className={ menuView ? Styles.menu_filters_active : Styles.menuDisabled}>
           <span>
