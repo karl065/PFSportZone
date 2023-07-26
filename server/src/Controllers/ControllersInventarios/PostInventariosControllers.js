@@ -45,7 +45,6 @@ const crearArticulo = async (
         },
       ],
     });
-    console.log(nuevoArticulo);
     return nuevoArticulo;
   } catch (error) {
     console.log(error);
