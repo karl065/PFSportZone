@@ -23,8 +23,20 @@ const filterAvailableController = async (status) => {
  * @param maxPrice - El precio máximo de los productos de stock que desea filtrar.
  * @returns una variedad de productos que caen dentro del rango de precio especificado.
  */
-const filterPriceRange = async (minPrice, maxPrice) => {
+const filterPriceRange = async (minPrice = 0, maxPrice) => {
   try {
+    if (!maxPrice) {
+      const priceMax = await Inventarios.max('selling_price');
+      const sellingPriceMax = priceMax || 0;
+      const productsInRange = await Inventarios.findAll({
+        where: {
+          selling_price: {[Op.between]: [minPrice, sellingPriceMax]},
+          status: 'Available',
+        },
+        order: [['article_name', 'ASC']],
+      });
+      return productsInRange;
+    }
     const productsInRange = await Inventarios.findAll({
       where: {
         selling_price: {[Op.between]: [minPrice, maxPrice]},

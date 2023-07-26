@@ -1,7 +1,7 @@
-const { Inventarios, Categorias, Deportes } = require("../../DB");
+const {Inventarios, Categorias, Deportes, Marcas} = require('../../DB');
 const {
   getCategoryID,
-} = require("../ControllersCategorias/GetControllerCategory");
+} = require('../ControllersCategorias/GetControllerCategory');
 
 const crearArticulo = async (
   id_inventory,
@@ -11,14 +11,17 @@ const crearArticulo = async (
   stock,
   description,
   image,
+  genre,
+  stage,
   status,
   id_categories,
+  idMarca,
   idDeportes
 ) => {
   try {
     const categoria = await getCategoryID(id_categories);
     if (!categoria) {
-      return "No existe la categoria";
+      return 'No existe la categoria';
     }
     await Inventarios.create({
       id_inventory,
@@ -28,8 +31,11 @@ const crearArticulo = async (
       stock,
       description,
       image,
+      genre,
+      stage,
       status,
       id_categories,
+      idMarca,
       idDeportes,
     });
 
@@ -37,11 +43,15 @@ const crearArticulo = async (
       include: [
         {
           model: Categorias,
-          as: "categorias",
+          as: 'categorias',
         },
         {
           model: Deportes,
-          as: "deportes",
+          as: 'deportes',
+        },
+        {
+          model: Marcas,
+          as: 'marcas',
         },
       ],
     });
