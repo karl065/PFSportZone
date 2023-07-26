@@ -15,7 +15,7 @@
 }
 .nav_disabled {
   display: none;
-  transition: all 1s ease;
+  transition: all .5s ease;
 }
 
 .input_checkbox {
@@ -32,6 +32,8 @@
 .menuBtn {
   margin: 0.5rem 0;
   background-color: yellow;
+  border: transparent;
+  border-radius: 10px;
 }
 
 .clearBtn,
@@ -45,4 +47,5 @@
   background-color: #42b73a;
   color: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
