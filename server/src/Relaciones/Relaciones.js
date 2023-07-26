@@ -18,9 +18,11 @@ const relaciones = (models) => {
     Pagos,
     Carrito,
     IngresoProducto,
+<<<<<<<<< Temporary merge branch 1
     Deportes,
-    CarritoInventarios,
+=========
     Marcas,
+>>>>>>>>> Temporary merge branch 2
   } = models;
 
   Categorias.hasMany(Inventarios, {
@@ -64,12 +66,12 @@ const relaciones = (models) => {
     as: 'inventarios',
   });
   Deportes.hasMany(Inventarios, {
-    foreignKey: 'idDeportes',
-    as: 'inventarios',
+    foreignKey: "idDeportes",
+    as: "inventarios",
   });
   Inventarios.belongsTo(Deportes, {
-    foreignKey: 'idDeportes',
-    as: 'deportes',
+    foreignKey: "idDeportes",
+    as: "deportes",
   });
 
   Usuarios.hasOne(Carrito, {foreignKey: 'idUser', as: 'carrito'});
@@ -116,6 +118,7 @@ const relaciones = (models) => {
     Carrito,
     IngresoProducto,
     Marcas,
+    Deportes,
   };
 };
 module.exports = {relaciones};
