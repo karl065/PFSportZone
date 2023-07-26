@@ -5,7 +5,7 @@ llamada `baseURL` con un valor de `'http://localhost:3000'`. */
 
 const server = {
   api: {
-    baseURL: "https://backsportzone.onrender.com/",
+    baseURL: 'https://backsportzone.onrender.com/',
   },
 };
 // const server = {
