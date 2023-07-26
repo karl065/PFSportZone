@@ -16,5 +16,6 @@ router.use('/filters', filters);
 router.use('/category', category);
 router.use('/deporte', deporte);
 router.use('/carrito', carrito);
+router.use('/ingresarproductos', productsIncome);
 
 module.exports = router;

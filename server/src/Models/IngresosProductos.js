@@ -7,14 +7,21 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true,
     },
+    idProduct: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     article_name: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     purchase_price: {
       type: DataTypes.FLOAT,
+      allowNull: false,
     },
     product_quantity: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
   });
 };

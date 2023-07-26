@@ -24,12 +24,12 @@ const relaciones = (models) => {
   } = models;
 
   Categorias.hasMany(Inventarios, {
-    foreignKey: 'id_categories',
-    as: 'inventarios',
+    foreignKey: "id_categories",
+    as: "inventarios",
   });
   Inventarios.belongsTo(Categorias, {
-    foreignKey: 'id_categories',
-    as: 'categorias',
+    foreignKey: "id_categories",
+    as: "categorias",
   });
 
   Usuarios.belongsToMany(Inventarios, {
@@ -64,12 +64,12 @@ const relaciones = (models) => {
     as: 'inventarios',
   });
   Deportes.hasMany(Inventarios, {
-    foreignKey: 'idDeportes',
-    as: 'inventarios',
+    foreignKey: "idDeportes",
+    as: "inventarios",
   });
   Inventarios.belongsTo(Deportes, {
-    foreignKey: 'idDeportes',
-    as: 'deportes',
+    foreignKey: "idDeportes",
+    as: "deportes",
   });
 
   Usuarios.hasOne(Carrito, {foreignKey: 'idUser', as: 'carrito'});
@@ -120,4 +120,4 @@ const relaciones = (models) => {
     CarritoInventarios,
   };
 };
-module.exports = {relaciones};
+module.exports = { relaciones };
