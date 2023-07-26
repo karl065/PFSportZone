@@ -19,6 +19,7 @@ const relaciones = (models) => {
     CarritoVentas,
     IngresoProducto,
     Marcas,
+    Deportes,
   } = models;
 
   Categorias.hasMany(Inventarios, {
@@ -81,6 +82,7 @@ const relaciones = (models) => {
     CarritoVentas,
     IngresoProducto,
     Marcas,
+    Deportes,
   };
 };
 module.exports = { relaciones };
