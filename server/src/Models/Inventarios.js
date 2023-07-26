@@ -1,9 +1,9 @@
 /* Este código está definiendo un modelo Sequelize para la tabla "Inventarios" en una base de datos. */
-const {DataTypes} = require('sequelize');
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    'Inventarios',
+    "Inventarios",
     {
       id_inventory: {
         type: DataTypes.STRING,
@@ -27,8 +27,14 @@ module.exports = (sequelize) => {
       image: {
         type: DataTypes.ARRAY(DataTypes.STRING),
       },
+      genre: {
+        type: DataTypes.ENUM("Man", "Women", "Unisex"),
+      },
+      stage: {
+        type: DataTypes.ENUM("Children", "Adults"),
+      },
       status: {
-        type: DataTypes.ENUM('Available', 'Not Available', 'Discontinued'),
+        type: DataTypes.ENUM("Available", "Not Available", "Discontinued"),
       },
     },
     {
