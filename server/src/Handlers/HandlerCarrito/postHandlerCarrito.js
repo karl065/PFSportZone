@@ -1,6 +1,6 @@
 const {
   agregarProdAlCarrito,
-} = require('../../Controllers/ControllersCarrito/PostControllerCarrito.js');
+} = require('../../Controllers/ControllersCarrito/postControllerCarrito.js');
 
 const postHandlerCarrito = async (req, res) => {
   const {idCar, id_inventory, cant} = req.body;
