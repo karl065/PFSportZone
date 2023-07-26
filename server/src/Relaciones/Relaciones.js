@@ -20,6 +20,7 @@ const relaciones = (models) => {
     IngresoProducto,
     Deportes,
     CarritoInventarios,
+    Marcas,
   } = models;
 
   Categorias.hasMany(Inventarios, {
@@ -29,6 +30,38 @@ const relaciones = (models) => {
   Inventarios.belongsTo(Categorias, {
     foreignKey: 'id_categories',
     as: 'categorias',
+  });
+
+  Usuarios.belongsToMany(Inventarios, {
+    through: 'Favoritos',
+  });
+  Inventarios.belongsToMany(Usuarios, {
+    through: 'Favoritos',
+  });
+
+  Usuarios.hasMany(Ventas, {
+    foreignKey: 'id_usuarios',
+    as: 'usuarios',
+  });
+  Ventas.belongsTo(Usuarios, {
+    foreignKey: 'id_usuarios',
+    as: 'ventas',
+  });
+
+  Ventas.belongsToMany(Inventarios, {
+    through: 'Detalle_Ventas',
+  });
+  Inventarios.belongsToMany(Ventas, {
+    through: 'Detalle_Ventas',
+  });
+
+  Inventarios.belongsTo(Marcas, {
+    foreignKey: 'idMarca',
+    as: 'marcas',
+  });
+  Marcas.hasMany(Inventarios, {
+    foreignKey: 'idMarca',
+    as: 'inventarios',
   });
   Deportes.hasMany(Inventarios, {
     foreignKey: 'idDeportes',
@@ -82,6 +115,7 @@ const relaciones = (models) => {
     Pagos,
     Carrito,
     IngresoProducto,
+    Marcas,
   };
 };
 module.exports = {relaciones};
