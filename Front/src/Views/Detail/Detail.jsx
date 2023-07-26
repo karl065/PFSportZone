@@ -13,8 +13,8 @@ const Detail = () => {
   const { id } = useParams();
   const product = useSelector((state) => state.app.product);
   let isLoading = useSelector((state) => state.app.isLoading);
-  // const token = localStorage.getItem('token');
   const role = localStorage.getItem("role");
+  
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(getProductById(id)).then(() => dispatch(setLoading(false)));
