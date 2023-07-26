@@ -1,8 +1,8 @@
 /* El código `const { Inventarios } = require("../../../DB");` está importando el modelo `Inventarios`
 desde el módulo `../../../DB`. Esto permite que el código acceda al modelo `Inventarios` y realice
 operaciones en él, como consultar la base de datos para obtener datos de inventario. */
-const { Inventarios } = require("../../../DB");
-const { Op } = require("sequelize");
+const {Inventarios} = require('../../../DB');
+const {Op} = require('sequelize');
 
 /**
  * La función filtra y devuelve todos los inventarios con un estado específico.
@@ -13,8 +13,7 @@ const { Op } = require("sequelize");
  * condición `where` para filtrar por el parámetro `status` proporcionado.
  */
 const filterAvailableController = async (status) => {
-  console.log(status);
-  return await Inventarios.findAll({ where: { status: status } });
+  return await Inventarios.findAll({where: {status: status}});
 };
 
 /**
@@ -28,15 +27,15 @@ const filterPriceRange = async (minPrice, maxPrice) => {
   try {
     const productsInRange = await Inventarios.findAll({
       where: {
-        selling_price: { [Op.between]: [minPrice, maxPrice] },
-        status: "Available",
+        selling_price: {[Op.between]: [minPrice, maxPrice]},
+        status: 'Available',
       },
-      order: [["article_name", "ASC"]],
+      order: [['article_name', 'ASC']],
     });
     return productsInRange;
   } catch (error) {
     throw new Error(
-      "No se encontró ningún(os) producto(s) dentro del rango solicitado...!"
+      'No se encontró ningún(os) producto(s) dentro del rango solicitado...!'
     );
   }
 };
