@@ -1,18 +1,11 @@
 const {Carrito, Inventarios} = require('../../DB.js');
 
-const agregarProdAlCarrito = async (idCar, id_inventory, cant) => {
+const delProdCarrito = async (idCar, id_inventory) => {
   try {
     const carrito = await Carrito.findByPk(idCar);
     const producto = await Inventarios.findByPk(id_inventory);
 
-    const precioPorCant = producto.selling_price * cant;
-    await carrito.addInventarios(producto, {
-      through: {
-        cant,
-        precioPorUnd: producto.selling_price,
-        precioPorCant,
-      },
-    });
+    await carrito.removeInventarios(producto);
 
     const productosEnCarrito = await carrito.getInventarios();
     const total = productosEnCarrito.reduce((tot, product) => {
@@ -37,4 +30,22 @@ const agregarProdAlCarrito = async (idCar, id_inventory, cant) => {
   }
 };
 
-module.exports = {agregarProdAlCarrito};
+const delAllCarrito = async (idCar) => {
+  const carrito = await Carrito.findByPk(idCar);
+  carrito.setInventarios([]);
+  await Carrito.update({cantProd: 0, total: 0}, {where: {idCar}});
+  const carritoActualizado = await Carrito.findByPk(idCar, {
+    include: [
+      {
+        model: Inventarios,
+        through: {
+          attributes: ['cant', 'precioPorUnd', 'precioPorCant'],
+        },
+      },
+    ],
+  });
+
+  return carritoActualizado;
+};
+
+module.exports = {delProdCarrito, delAllCarrito};

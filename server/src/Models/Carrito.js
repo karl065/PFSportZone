@@ -9,6 +9,9 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      cantProd: {
+        type: DataTypes.INTEGER,
+      },
       total: {
         type: DataTypes.INTEGER,
       },

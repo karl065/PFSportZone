@@ -46,6 +46,7 @@ const relaciones = (models) => {
   Usuarios.afterCreate(async (usuario, options) => {
     try {
       await Carrito.create({
+        cantProd: 0,
         total: 0,
         idUser: usuario.idUser,
       });
