@@ -18,8 +18,11 @@ const login = async (email, password, navigate) => {
         text: data.msg,
       });
     }
+    
     localStorage.setItem("token", data.token);
     localStorage.setItem("role", data.role);
+    localStorage.setItem("idCarrito", data.carrito.idCar);
+
     const role = data.role;
     if (role === "SuperUser" || role === "Admin" || role === "Empleados") {
       navigate("/adminProducts");
@@ -33,11 +36,7 @@ const login = async (email, password, navigate) => {
 
 // * Retorna un booleano para saber si el usuario esta logeado o no (Token auth).
 const isLoggedIn = () => {
-  if (
-    localStorage.getItem("token") ||
-    localStorage.getItem("google_access_token") ||
-    localStorage.getItem("facebook_access_token")
-  ) {
+  if (localStorage.getItem("token")) {
     return true;
   }
 
@@ -50,9 +49,8 @@ const handleLogout = async (navigate) => {
     await signOut(auth);
     localStorage.removeItem("token");
     localStorage.removeItem("role");
-    localStorage.removeItem("google_access_token");
-    localStorage.removeItem("facebook_access_token");
-    navigate("/")
+    localStorage.removeItem("idCarrito");
+    navigate("/");
   } catch (error) {
     Swal.fire({
       icon: "error",

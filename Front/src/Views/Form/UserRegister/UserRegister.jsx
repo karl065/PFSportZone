@@ -57,7 +57,7 @@ export const UserRegister = () => {
       await dispatch(createUser(newUser));
       Swal.fire('Good job!', 'Successfully register!', 'success');
       if (location.pathname === '/register') {
-        await login(values.email, values.password, navigate);
+        await login(values.email, values.password, navigate, dispatch);
       } else {
         navigate('/adminUsers');
       }

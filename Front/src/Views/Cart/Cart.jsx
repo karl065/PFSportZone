@@ -2,13 +2,17 @@ import React from "react";
 import styles from "./Cart.module.css";
 import { useSelector } from "react-redux";
 import EmptyCart from "./EmptyCart";
+import CartItem from "./CartItem/CartItem";
 
 const Cart = () => {
   const userProducts = useSelector((state) => state.cart.products);
-  const cartLength = useSelector((state) => state.cart.products.length);
+  const cartId = useSelector((state) => state.cart.id);
+  const cartLength = userProducts.length;
 
   return (
-    <section className={`${styles.cart_wrapper} ${!cartLength && styles.empty}`}>
+    <section
+      className={`${styles.cart_wrapper} ${!cartLength && styles.empty}`}
+    >
       <div className={styles.cart_section}>
         {!cartLength ? (
           <EmptyCart />
@@ -22,13 +26,7 @@ const Cart = () => {
                 </span>
               </h1>
               {userProducts.map((product) => (
-                <div className={styles.product_container}>
-                  {product.image && (
-                    <img src={product?.image[0]} alt={product.article_name} />
-                  )}
-                  <h3>{product.article_name}</h3>
-                  <p>{product.stock}</p>
-                </div>
+                <CartItem product={product} cartId={cartId} />
               ))}
             </div>
             <div className={styles.checkout_container}>

@@ -10,7 +10,8 @@ const NavBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cartLength = useSelector((state) => state.cart.products.length);
+  const products = useSelector((state) => state.cart.products);
+  const cartLength = products.length || 0;
   const role = localStorage.getItem("role");
 
   const shouldRenderSearchBar =

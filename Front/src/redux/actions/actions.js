@@ -60,7 +60,8 @@ export const getSports = () => {
 export const createUser = (user) => {
   return async (dispatch) => {
     const { data } = await axios.post(`${server.api.baseURL}users`, user);
-    console.log(data);
+    console.log("Esta es la data del usuario", data);
+    
     dispatch({
       type: CREATE_USER,
       payload: data,
