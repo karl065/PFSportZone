@@ -5,7 +5,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
-
+import Pagination from '../../Components/Pagination/Pagination';
 import {useEffect, useState} from 'react';
 
 import {useSelector} from 'react-redux';
@@ -15,6 +15,9 @@ library.add(fas);
 
 const AdminProducts = () => {
   const inventario = useSelector((state) => state.inventory);
+  const [page, setPage] = useState(1);
+  const [amountPerPage, setAmountPerPage] = useState(8);
+  const pageCount = inventario.length / amountPerPage;
   // const category = useSelector((state) => state.category);
   const [statusOption, setStatusOption] = useState([
     'Available',
@@ -114,8 +117,14 @@ const AdminProducts = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {inventario.map((inventory, index) => (
-                            <tr key={index}>
+                        {inventario.length ? (
+                          inventario
+                            .slice(
+                              (page - 1) * amountPerPage,
+                              (page - 1) * amountPerPage + amountPerPage
+                            )
+                            .map((inventory, index) => (
+                              <tr key={index}>
                               <td>{inventory.id_inventory}</td>
                               <td>
                                 <img
@@ -136,9 +145,7 @@ const AdminProducts = () => {
                               )}
                               <td>
                                 {' '}
-                                <select
-                                  style={{width: 'auto', minWidth: '100px'}}
-                                >
+                                
                                   <option value={inventory.status}>
                                     {inventory.status}
                                   </option>
@@ -147,12 +154,16 @@ const AdminProducts = () => {
                                       {option}
                                     </option>
                                   ))}
-                                </select>
+                               
                               </td>
                             </tr>
-                          ))}
+                            ))
+                        ) : (
+                          <tr ><td>No results found...</td></tr>
+                        )}
                         </tbody>
                       </table>
+                      <Pagination page={page} setPage={setPage} pageCount={pageCount} />
                     </div>
                   </div>
                 </div>
