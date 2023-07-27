@@ -14,6 +14,7 @@ import {
   GET_SPORTS,
   ORDER_PRODUCTS_BY_PRICE,
   FILTER_PRODUCTS_BY_STATUS,
+  PRODUCTS_FILTERED,
 } from "../actions-types/action-types";
 
 const initialState = {
@@ -72,6 +73,11 @@ export default function appReducer(state = initialState, { type, payload }) {
         ...state,
         displayInventory: payload,
       };
+    case PRODUCTS_FILTERED:
+      return {
+        ...state,
+        displayInventory:payload
+      }
     case SET_LOADING:
       return { ...state, isLoading: payload };
     case RESET_DISPLAYED_PRODUCTS:

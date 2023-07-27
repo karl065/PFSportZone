@@ -12,6 +12,7 @@ import {
   CREATE_CATEGORY,
   ORDER_PRODUCTS_BY_PRICE,
   FILTER_PRODUCTS_BY_STATUS,
+  PRODUCTS_FILTERED,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
@@ -137,3 +138,10 @@ export const filterProductsByStatus = (status) => {
     payload: status
   };
 };
+
+export const productsFiltered = (products) => {
+  return {
+    type: PRODUCTS_FILTERED,
+    payload: products
+  };
+}
