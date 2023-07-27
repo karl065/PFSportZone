@@ -1,14 +1,15 @@
-import React from "react";
-import styles from "./Cart.module.css";
-import { useSelector } from "react-redux";
-import EmptyCart from "./EmptyCart";
+import styles from './Cart.module.css';
+import {useSelector} from 'react-redux';
+import EmptyCart from './EmptyCart';
 
 const Cart = () => {
   const userProducts = useSelector((state) => state.cart.products);
   const cartLength = useSelector((state) => state.cart.products.length);
 
   return (
-    <section className={`${styles.cart_wrapper} ${!cartLength && styles.empty}`}>
+    <section
+      className={`${styles.cart_wrapper} ${!cartLength && styles.empty}`}
+    >
       <div className={styles.cart_section}>
         {!cartLength ? (
           <EmptyCart />
@@ -16,13 +17,13 @@ const Cart = () => {
           <>
             <div className={styles.cart_info}>
               <h1>
-                CARRITO DE COMPRAS{" "}
+                CARRITO DE COMPRAS{' '}
                 <span className={styles.span_products}>
                   {userProducts.length}
                 </span>
               </h1>
-              {userProducts.map((product) => (
-                <div className={styles.product_container}>
+              {userProducts.map((product, index) => (
+                <div className={styles.product_container} key={index}>
                   {product.image && (
                     <img src={product?.image[0]} alt={product.article_name} />
                   )}

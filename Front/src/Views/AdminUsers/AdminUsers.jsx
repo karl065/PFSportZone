@@ -12,7 +12,6 @@ const AdminUsers = () => {
 
   const handleSwitchChange = () => {
     setSwitchOn(!isSwitchOn);
-    console.log(isSwitchOn);
   };
 
   const [selectedOption, setSelectedOption] = useState('');
