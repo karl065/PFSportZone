@@ -32,6 +32,34 @@ const relaciones = (models) => {
     as: "categorias",
   });
 
+  // -------------------------------------------------------
+  Usuarios.hasMany(Favoritos, {
+    foreignKey: "idUser",
+    as: "favoritos",
+    onDelete: "CASCADE",
+  });
+  Favoritos.belongsTo(Usuarios, {
+    foreignKey: "idUser",
+    as: "usuario",
+    onDelete: "CASCADE",
+  });
+  //
+  Favoritos.belongsToMany(Inventarios, {
+    through: "FavoritosInventarios",
+    foreignKey: "idFavorites",
+    as: "inventarios",
+    onDelete: "CASCADE",
+    timestamps: false,
+  });
+  Inventarios.belongsToMany(Favoritos, {
+    through: "FavoritosInventarios",
+    foreignKey: "id_inventory",
+    as: "favoritos",
+    onDelete: "CASCADE",
+    timestamps: false,
+  });
+  // -------------------------------------------------------
+
   Usuarios.belongsToMany(Inventarios, {
     through: "Favoritos",
   });
