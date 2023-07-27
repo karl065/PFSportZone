@@ -1,0 +1,60 @@
+.footerCO{
+    width: 100%;
+    min-height: 20vh;
+    display: grid;
+    grid-template-columns: 40% 20% 20% 20%;
+    grid-template-rows: 100%;
+    box-sizing: border-box;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.Fsec1,
+.Fsec2,
+.Fsec3,
+.Fsec4{
+    color: aliceblue;
+    box-sizing: border-box;
+}
+
+.Fsec1{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.Fsec1 *{
+    display: flex;
+}
+.MangCodig{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.imageMangCodig{
+height: 1.5rem;
+margin-right: 1rem;
+}
+.Fsec1IMGS{
+    width: 100% ;
+    height:10%;
+    background-color: black;
+}
+
+.Fsec2,
+.Fsec3{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+.Fsec2 h3,
+.Fsec3 h3{
+    padding-bottom: 1rem;
+}
+.Fsec2 ul,
+.Fsec3 ul{
+    color: rgb(121, 122, 123);
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}

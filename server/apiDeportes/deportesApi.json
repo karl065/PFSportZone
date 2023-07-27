@@ -1,0 +1,86 @@
+[
+  {
+    "deporteName": "Fútbol",
+    "status": true
+  },
+  {
+    "deporteName": "Baloncesto",
+    "status": true
+  },
+  {
+    "deporteName": "Tenis",
+    "status": true
+  },
+  {
+    "deporteName": "Atletismo",
+    "status": true
+  },
+  {
+    "deporteName": "Natación",
+    "status": true
+  },
+  {
+    "deporteName": "Voleibol",
+    "status": true
+  },
+  {
+    "deporteName": "Béisbol",
+    "status": true
+  },
+  {
+    "deporteName": "Hockey",
+    "status": true
+  },
+  {
+    "deporteName": "Gimnasia",
+    "status": true
+  },
+  {
+    "deporteName": "Ciclismo",
+    "status": true
+  },
+  {
+    "deporteName": "Rugby",
+    "status": true
+  },
+  {
+    "deporteName": "Boxeo",
+    "status": true
+  },
+  {
+    "deporteName": "Esgrima",
+    "status": true
+  },
+  {
+    "deporteName": "Bádminton",
+    "status": true
+  },
+  {
+    "deporteName": "Golf",
+    "status": true
+  },
+  {
+    "deporteName": "Equitación",
+    "status": true
+  },
+  {
+    "deporteName": "Judo",
+    "status": true
+  },
+  {
+    "deporteName": "Karate",
+    "status": true
+  },
+  {
+    "deporteName": "Lucha libre",
+    "status": true
+  },
+  {
+    "deporteName": "Patinaje",
+    "status": true
+  },
+  {
+    "deporteName": "Taekwondo",
+    "status": true
+  }
+]

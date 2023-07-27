@@ -2,6 +2,7 @@ import {
   SET_LOADING,
   GET_USERS,
   GET_INVENTORY,
+  GET_SPORTS,
   CREATE_USER,
   CREATE_PRODUCT,
   GET_PRODUCT_ID,
@@ -9,6 +10,8 @@ import {
   RESET_DISPLAYED_PRODUCTS,
   GET_CATEGORY,
   CREATE_CATEGORY,
+  ORDER_PRODUCTS_BY_PRICE,
+  FILTER_PRODUCTS_BY_STATUS,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
@@ -32,11 +35,22 @@ export const getInventory = () => {
     });
   };
 };
+
 export const getCategory = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}category `);
+    const {data} = await axios.get(`${server.api.baseURL}category`);
     dispatch({
       type: GET_CATEGORY,
+      payload: data,
+    });
+  };
+};
+
+export const getSports = () => {
+  return async (dispatch) => {
+    const {data} = await axios.get(`${server.api.baseURL}deporte`);
+    dispatch({
+      type: GET_SPORTS,
       payload: data,
     });
   };
@@ -61,6 +75,7 @@ export const createProduct = (product) => {
     });
   };
 };
+
 export const createCategory = (category) => {
   return async (dispatch) => {
     const {data} = await axios.post(`${server.api.baseURL}category`, category);
@@ -98,5 +113,19 @@ export const setLoading = (isLoading) => {
   return {
     type: SET_LOADING,
     payload: isLoading,
+  };
+};
+
+export const orderProductsByPrice = (order) => {
+  return {
+    type: ORDER_PRODUCTS_BY_PRICE,
+    payload: order,
+  };
+};
+
+export const filterProductsByStatus = (status) => {
+  return {
+    type: FILTER_PRODUCTS_BY_STATUS,
+    payload: status,
   };
 };

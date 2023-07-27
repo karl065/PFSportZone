@@ -11,8 +11,12 @@ const postInventariosHandler = async (req, res) => {
     stock,
     description,
     image,
+    genre,
+    stage,
     status,
     id_categories,
+    idMarca,
+    idDeportes,
   } = req.body;
   if (!id_inventory || !article_name || !selling_price) {
     return res.status(404).send('Los campos no deben estar vacíos...!');
@@ -26,8 +30,12 @@ const postInventariosHandler = async (req, res) => {
       stock,
       description,
       image,
+      genre,
+      stage,
       status,
-      id_categories
+      id_categories,
+      idMarca,
+      idDeportes
     );
     return res.status(201).json(dataArticulo);
   } catch (error) {

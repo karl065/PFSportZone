@@ -11,14 +11,12 @@ const AdminEmployes = () => {
 
   const handleSwitchChange = () => {
     setSwitchOn(!isSwitchOn);
-    //console.log(isSwitchOn);
   };
 
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
-    //console.log(selectedOption);
   };
 
   return (

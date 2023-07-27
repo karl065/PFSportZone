@@ -20,7 +20,6 @@ const AdminUsers = () => {
 
   const handleSwitchChange = () => {
     setSwitchOn(!isSwitchOn);
-    console.log(isSwitchOn);
   };
 
   const [selectedOption, setSelectedOption] = useState('');
@@ -203,7 +202,6 @@ const AdminUsers = () => {
                           className="row align-items-center no-gutters"
                           style={{
                             fontSize: '18px',
-                            fontFamily: 'Assistant, sans-serif',
                           }}
                         >
                           <div className="col me-2">
@@ -244,7 +242,6 @@ const AdminUsers = () => {
                       className="list-group list-group-flush"
                       style={{
                         fontSize: '16px',
-                        fontFamily: 'Assistant, sans-serif',
                       }}
                     >
                       <li className="list-group-item">

@@ -1,4 +1,4 @@
-const {Usuarios} = require('../DB.js');
+const {Usuarios, Carrito} = require('../DB.js');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {SECRETA} = process.env;
@@ -19,21 +19,21 @@ const {SECRETA} = process.env;
  */
 const authenticateUser = async (email, password) => {
   try {
-    const user = await Usuarios.findAll({
+    const user = await Usuarios.findOne({
       where: {email: email},
-      raw: true,
+      include: {model: Carrito, as: 'carrito'},
     });
     if (user.length === 0) {
       return {msg: 'Usuario o Password incorrecto'};
     }
-    const passwordValid = await bcryptjs.compare(password, user[0].password);
+    const passwordValid = await bcryptjs.compare(password, user.password);
 
     if (!passwordValid) {
       return {msg: 'Usuario o Password incorrecto'};
     }
 
     const payload = {
-      user: {id: user[0].idUser},
+      user: {id: user.idUser},
     };
 
     return new Promise((resolve, reject) => {
@@ -49,18 +49,15 @@ const authenticateUser = async (email, password) => {
           }
           const auth = {
             token,
-            email: user[0].email,
-            role: user[0].role,
+            id: user.idUser,
+            email: user.email,
+            role: user.role,
+            carrito: user.carrito,
           };
           resolve(auth);
         }
       );
     });
-    // const authenticate = {
-    //   // user: user[0],
-    //   token: await token,
-    // };
-    return authenticate;
   } catch (error) {
     return error.message;
   }

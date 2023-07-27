@@ -1,13 +1,14 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 // import React, { useEffect } from 'react';
-import axios from "axios";
-import { Image } from "cloudinary-react";
-import { useEffect, useState } from "react";
-import styles from "./CloudinaryWidget.module.css";
+import axios from 'axios';
+import {Image} from 'cloudinary-react';
+import {useEffect, useState} from 'react';
+import styles from './CloudinaryWidget.module.css';
 
-const CloudinaryWidget = ({ fieldName, setFieldValue }) => {
-  const cloudName = "dpjeltekx";
-  const uploadPreset = "PFSportZone";
+const CloudinaryWidget = ({fieldName, setFieldValue}) => {
+  const cloudName = 'dpjeltekx';
+  const uploadPreset = 'PFSportZone';
   const [uploadedImage, setUploadedImage] = useState([]);
   const [dataImage, setDataImage] = useState([]);
 
@@ -24,8 +25,8 @@ const CloudinaryWidget = ({ fieldName, setFieldValue }) => {
     try {
       // Preparar el formulario para subir la imagen con Cloudinary
       const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", uploadPreset);
+      formData.append('file', file);
+      formData.append('upload_preset', uploadPreset);
 
       // Realizar la solicitud POST a la API de Cloudinary
       const response = await axios.post(
@@ -49,7 +50,7 @@ const CloudinaryWidget = ({ fieldName, setFieldValue }) => {
       // * Guardo las url en un array y se la paso a los valores del formulario.
       setDataImage([...dataImage, response.data.url]);
     } catch (error) {
-      console.error("Error al subir la imagen:", error);
+      console.error('Error al subir la imagen:', error);
     }
   };
 
@@ -75,7 +76,7 @@ const CloudinaryWidget = ({ fieldName, setFieldValue }) => {
         <input
           type="file"
           accept="image/*"
-          style={{ display: "none" }}
+          style={{display: 'none'}}
           onChange={handleUpload}
         />
       </label>
