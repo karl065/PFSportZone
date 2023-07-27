@@ -1,7 +1,7 @@
 /* El código `const { Inventarios } = require("../../../DB");` está importando el modelo `Inventarios`
 desde el módulo `../../../DB`. Esto permite que el código acceda al modelo `Inventarios` y realice
 operaciones en él, como consultar la base de datos para obtener datos de inventario. */
-const {Inventarios} = require('../../../DB');
+const {Inventarios, Deportes, Categorias, Marcas} = require('../../../DB');
 const {Op} = require('sequelize');
 
 /**
@@ -23,25 +23,42 @@ const filterAvailableController = async (status) => {
  * @param maxPrice - El precio máximo de los productos de stock que desea filtrar.
  * @returns una variedad de productos que caen dentro del rango de precio especificado.
  */
-const filterPriceRange = async (minPrice = 0, maxPrice) => {
+const filterPriceRange = async (
+  minPrice = 0,
+  maxPrice,
+  genre,
+  state,
+  idDeportes,
+  id_categories,
+  idMarca
+) => {
   try {
-    if (!maxPrice) {
-      const priceMax = await Inventarios.max('selling_price');
-      const sellingPriceMax = priceMax || 0;
-      const productsInRange = await Inventarios.findAll({
-        where: {
-          selling_price: {[Op.between]: [minPrice, sellingPriceMax]},
-          status: 'Available',
-        },
-        order: [['article_name', 'ASC']],
-      });
-      return productsInRange;
+    const whereConditions = {
+      selling_price: {[Op.between]: [minPrice, maxPrice || Infinity]},
+      status: 'Available',
+    };
+
+    if (genre) {
+      whereConditions.genre = genre;
+    }
+
+    if (state) {
+      whereConditions.stage = state;
+    }
+
+    if (idDeportes) {
+      whereConditions.idDeportes = idDeportes;
+    }
+
+    if (id_categories) {
+      whereConditions.id_categories = id_categories;
+    }
+
+    if (idMarca) {
+      whereConditions.idMarca = idMarca;
     }
     const productsInRange = await Inventarios.findAll({
-      where: {
-        selling_price: {[Op.between]: [minPrice, maxPrice]},
-        status: 'Available',
-      },
+      where: whereConditions,
       order: [['article_name', 'ASC']],
     });
     return productsInRange;
