@@ -7,6 +7,7 @@ const category = require('./CategoriesRoutes/CategoriesRoutes.js');
 const deporte = require('./DeportesRoutes/DeportesRoutes.js');
 const carrito = require('./CarritoRoutes/CarritoRoutes.js');
 const productsIncome = require('./ProdsIncomeRoutes/ProdsIncomeRoutes.js');
+const marca = require('./MarcaRoutes/MarcaRoutes.js');
 const router = Router();
 
 /* El código utiliza el enrutador Express para definir rutas para diferentes partes de la aplicación. */
@@ -18,5 +19,6 @@ router.use('/category', category);
 router.use('/deporte', deporte);
 router.use('/carrito', carrito);
 router.use('/ingresarProductos', productsIncome);
+router.use('/marca', marca);
 
 module.exports = router;
