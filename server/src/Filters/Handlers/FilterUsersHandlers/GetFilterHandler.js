@@ -25,19 +25,42 @@ const {
  * devuelve como una respuesta JSON con un código de estado de 200.
  */
 const getFilterHandler = async (req, res) => {
-  const {role, userStatus, status, minPrice, maxPrice} = req.query;
+  const {
+    role,
+    userStatus,
+    status,
+    minPrice,
+    maxPrice,
+    genre,
+    state,
+    idDeportes,
+    id_categorias,
+    idMarca,
+  } = req.query;
 
   try {
     if (status) {
       const queryResult = await filterAvailableController(status);
       return res.status(200).json(queryResult);
     }
-    if (minPrice || maxPrice) {
-      const productsInRange = await filterPriceRange(minPrice, maxPrice);
-      return res.status(200).json(productsInRange);
+    // if (minPrice || maxPrice) {
+    //   const productsInRange = await filterPriceRange(minPrice, maxPrice);
+    //   return res.status(200).json(productsInRange);
+    // }
+    if (role || userStatus) {
+      const queryResult = await filterUsersControllers(role, userStatus);
+      return res.status(200).json(queryResult);
     }
-    const queryResult = await filterUsersControllers(role, userStatus);
-    return res.status(200).json(queryResult);
+    const productsInRange = await filterPriceRange(
+      minPrice,
+      maxPrice,
+      genre,
+      state,
+      idDeportes,
+      id_categorias,
+      idMarca
+    );
+    return res.status(200).json(productsInRange);
   } catch (error) {
     return res.status(400).json({error: error.message});
   }
