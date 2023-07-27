@@ -61,3 +61,8 @@
   color: whitesmoke;
   text-decoration: none;
 }
+.footerContainer{
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+}

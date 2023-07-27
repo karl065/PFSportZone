@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import {useNavigate, NavLink} from 'react-router-dom';
 import styles from './Landing.module.css';
+import Footer from '../../Components/Footer/Footer';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -45,7 +46,9 @@ const Landing = () => {
         alt="imagen-landing"
       />
 
-      <footer>Aca va</footer>
+      <footer className={styles.footerContainer}>
+        <Footer />
+      </footer>
     </div>
   );
 };
