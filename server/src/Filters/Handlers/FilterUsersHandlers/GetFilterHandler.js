@@ -3,10 +3,10 @@
 const {
   filterAvailableController,
   filterPriceRange,
-} = require("../../Controllers/FilterUsersControllers/GetPriceRangeFilterController.js");
+} = require('../../Controllers/FilterUsersControllers/GetPriceRangeFilterController.js');
 const {
   filterUsersControllers,
-} = require("../../Controllers/FilterUsersControllers/GetUsersFilterController");
+} = require('../../Controllers/FilterUsersControllers/GetUsersFilterController');
 
 /**
  * El código define dos funciones asíncronas, getFilterHandler y getFilterStockPriceRange, que manejan
@@ -25,32 +25,24 @@ const {
  * devuelve como una respuesta JSON con un código de estado de 200.
  */
 const getFilterHandler = async (req, res) => {
-  const { role, userStatus, status } = req.query;
+  const {role, userStatus, status, minPrice, maxPrice} = req.query;
 
   try {
     if (status) {
       const queryResult = await filterAvailableController(status);
       return res.status(200).json(queryResult);
     }
+    if (minPrice || maxPrice) {
+      const productsInRange = await filterPriceRange(minPrice, maxPrice);
+      return res.status(200).json(productsInRange);
+    }
     const queryResult = await filterUsersControllers(role, userStatus);
     return res.status(200).json(queryResult);
   } catch (error) {
-    return res.status(400).json({ error: error.message });
-  }
-};
-
-const getFilterPriceRange = async (req, res) => {
-  const { minPrice, maxPrice } = req.query;
-
-  try {
-    const productsInRange = await filterPriceRange(minPrice, maxPrice);
-    return res.status(200).json(productsInRange);
-  } catch (error) {
-    return res.status(400).json({ error: error.message });
+    return res.status(400).json({error: error.message});
   }
 };
 
 module.exports = {
   getFilterHandler,
-  getFilterPriceRange,
 };
