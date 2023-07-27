@@ -43,4 +43,4 @@ http://localhost:3000/carrito/:idCar/:id_inventory => para eliminar un producto 
 
 http://localhost:3000/carrito/:idCar => para eliminar todos los productos del carrito
 
-filtro por Rango, por query const minPrice, maxPrice
+filtros combinados, ejemplo ?minPrice=30000&maxPrice=50000&genre=Man&id_categorias=1&idDeportes=1&idMarca=1
