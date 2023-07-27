@@ -42,3 +42,5 @@ http://localhost:3000/carrito/:idCar/:id_inventory => para eliminar un producto 
 1 t01 primero el id del carrito y después el del producto, se envían por params
 
 http://localhost:3000/carrito/:idCar => para eliminar todos los productos del carrito
+
+filtros combinados, ejemplo ?minPrice=30000&maxPrice=50000&genre=Man&id_categorias=1&idDeportes=1&idMarca=1

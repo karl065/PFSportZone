@@ -1,6 +1,55 @@
-.login_container{
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.login_container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.externalAuthButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.externalAuthButtons button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.8rem;
+  gap: 2rem;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  letter-spacing: 2px;
+}
+
+.externalAuthButtons button:hover {
+  transition: all 0.2s ease-out;
+  transform: scale(1.04);
+}
+
+.externalAuthButtons button img {
+  width: 2rem;
+  height: 2rem;
+}
+
+.btnLoginGoogle {
+  background-color: white;
+  border: 1px solid grey;
+}
+
+.btnLoginGoogle:hover {
+  background-color: rgb(216, 216, 216)
+}
+
+.btnLoginFacebook {
+  background-color: rgb(8, 13, 85);
+  color: white;
+  border: 1px solid black;
+}
+
+.btnLoginFacebook:hover {
+  background-color: rgb(2, 4, 41);
+  color: white;
+  border: 1px solid black;
 }

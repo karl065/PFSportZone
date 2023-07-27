@@ -6,6 +6,10 @@
   padding: 2rem;
 }
 
+.empty {
+  background-color: rgba(128, 128, 128, 0.342);
+}
+
 .cart_section {
   display: grid;
   grid-template-columns: 70% auto;
