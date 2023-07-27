@@ -1,33 +1,65 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import axios from 'axios';
-import server from '../Connections/Server';
-import Swal from 'sweetalert2';
+import axios from "axios";
+import server from "../Connections/Server";
+import Swal from "sweetalert2";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig";
 
 // * Reutilizable para logearse, retorna una promesa para manejar error y mostrar un sweet alert o no.
 const login = async (email, password, navigate) => {
   try {
-    const {data} = await axios.post(`${server.api.baseURL}auth`, {
+    const { data } = await axios.post(`${server.api.baseURL}auth`, {
       email,
       password,
     });
     if (data.msg) {
       return Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
+        icon: "error",
+        title: "Oops...",
         text: data.msg,
       });
     }
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('role', data.role);
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("role", data.role);
     const role = data.role;
-    if (role === 'SuperUser' || role === 'Admin') {
-      navigate('/adminProducts');
-    } else if (role === 'Cliente') {
-      navigate('/home');
+    if (role === "SuperUser" || role === "Admin" || role === "Empleados") {
+      navigate("/adminProducts");
+    } else if (role === "Cliente") {
+      navigate("/home");
     }
   } catch (error) {
     return error;
   }
 };
 
-export {login};
+// * Retorna un booleano para saber si el usuario esta logeado o no (Token auth).
+const isLoggedIn = () => {
+  if (
+    localStorage.getItem("token") ||
+    localStorage.getItem("google_access_token") ||
+    localStorage.getItem("facebook_access_token")
+  ) {
+    return true;
+  }
+
+  return false;
+};
+
+// * La función `logout` elimina el elemento 'token' del localStorage.
+const handleLogout = async (navigate) => {
+  try {
+    await signOut(auth);
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("google_access_token");
+    localStorage.removeItem("facebook_access_token");
+    navigate("/")
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Couldn't sign out. Please try again",
+    });
+  }
+};
+
+export { login, isLoggedIn, handleLogout };

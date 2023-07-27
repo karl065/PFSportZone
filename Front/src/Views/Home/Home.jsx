@@ -10,8 +10,8 @@ import SortAndFilters from "../../Components/SortAndFilters/SortAndFilters";
 import Styles from "./Home.module.css";
 
 const Home = (props) => {
-  const displayInventory = useSelector((state) => state.displayInventory);
-  const isLoading = useSelector((state) => state.isLoading);
+  const displayInventory = useSelector((state) => state.app.displayInventory);
+  const isLoading = useSelector((state) => state.app.isLoading);
   const [page, setPage] = useState(1);
   const [amountPerPage, setAmountPerPage] = useState(8);
   const pageCount = displayInventory.length / amountPerPage;
@@ -19,7 +19,7 @@ const Home = (props) => {
   useEffect(() => {
     setPage(1);
   }, [pageCount]);
-  
+
   return (
     <div className={Styles.container}>
       <SortAndFilters setPage={setPage} />
@@ -33,11 +33,9 @@ const Home = (props) => {
                 (page - 1) * amountPerPage,
                 (page - 1) * amountPerPage + amountPerPage
               )
-              .map((item, index) => (
-                <div key={index}>
-                  <Card product={item} />
-                </div>
-              ))
+              .map((item, index) => {
+                if(item.stock) return <Card key={index} product={item} />
+              })
           ) : (
             <h3 className={Styles.no_matches}>No results found... ☹️</h3>
           )}

@@ -10,7 +10,7 @@ import  server from '../../Connections/Server';
 export default function SortAndFilters(props) {
   const [menuView, setMenuView] = useState(false);
   const dispatch = useDispatch();
-  const displayInventory = useSelector(state => state.displayInventory);
+  const displayInventory = useSelector(state => state.app.displayInventory);
 
 
 //*funcion que maneja los filtros por status de los productos

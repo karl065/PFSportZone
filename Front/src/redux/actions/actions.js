@@ -2,6 +2,7 @@ import {
   SET_LOADING,
   GET_USERS,
   GET_INVENTORY,
+  GET_SPORTS,
   CREATE_USER,
   CREATE_PRODUCT,
   GET_PRODUCT_ID,
@@ -34,9 +35,10 @@ export const getInventory = () => {
     });
   };
 };
+
 export const getCategory = () => {
   return async (dispatch) => {
-    const { data } = await axios.get(`${server.api.baseURL}category `);
+    const { data } = await axios.get(`${server.api.baseURL}category`);
     dispatch({
       type: GET_CATEGORY,
       payload: data,
@@ -44,9 +46,21 @@ export const getCategory = () => {
   };
 };
 
+export const getSports = () => {
+  return async (dispatch) => {
+    const { data } = await axios.get(`${server.api.baseURL}deporte`);
+    console.log(data);
+    dispatch({
+      type: GET_SPORTS,
+      payload: data,
+    })
+  }
+}
+
 export const createUser = (user) => {
   return async (dispatch) => {
     const { data } = await axios.post(`${server.api.baseURL}users`, user);
+    console.log(data);
     dispatch({
       type: CREATE_USER,
       payload: data,
