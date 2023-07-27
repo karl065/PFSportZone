@@ -1,21 +1,22 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useNavigate, NavLink, Link } from "react-router-dom";
-import { isLoggedIn, handleLogout } from "../../helpers/helperLogin";
-import styles from "./Landing.module.css";
+import {useNavigate, NavLink, Link} from 'react-router-dom';
+import {isLoggedIn, handleLogout} from '../../helpers/helperLogin';
+import styles from './Landing.module.css';
+import Footer from '../../Components/Footer/Footer';
 
 const Landing = () => {
   const navigate = useNavigate();
 
   //* función para redirigir al home al momento de hacer click a "Tienda"
   const toHome = () => {
-    navigate("/home");
+    navigate('/home');
   };
   //* función para redirigir al login al momento de hacer click a "Log In"
   const toLogIn = () => {
-    navigate("/login");
+    navigate('/login');
   };
 
-  const role = localStorage.getItem("role");
+  const role = localStorage.getItem('role');
 
   return (
     <div className={styles.container}>
@@ -23,13 +24,11 @@ const Landing = () => {
         <NavLink to="/about">
           <p>About Us</p>
         </NavLink>
-        {role === "SuperUser" || role === "Admin" ? (
-          <Link to={"/adminProducts"}>Dashboard</Link>
+        {role === 'SuperUser' || role === 'Admin' ? (
+          <Link to={'/adminProducts'}>Dashboard</Link>
         ) : null}
         {isLoggedIn() ? (
-          <li onClick={() => handleLogout(navigate)}>
-            Logout
-          </li>
+          <li onClick={() => handleLogout(navigate)}>Logout</li>
         ) : (
           <NavLink to="/register">
             <p>Sign Up</p>
@@ -57,7 +56,9 @@ const Landing = () => {
         alt="imagen-landing"
       />
 
-      <footer>Aca va</footer>
+      <footer className={styles.footerContainer}>
+        <Footer />
+      </footer>
     </div>
   );
 };
