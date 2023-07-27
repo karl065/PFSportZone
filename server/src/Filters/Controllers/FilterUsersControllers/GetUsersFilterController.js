@@ -28,12 +28,6 @@ const filterUsersControllers = async (role, userStatus) => {
   } catch (error) {
     return error.message;
   }
-
-  if (role !== undefined) {
-    return await Usuarios.findAll({where: {role: role}});
-  } else if (userStatus !== undefined) {
-    return await Usuarios.findAll({where: {userStatus: userStatus}});
-  }
 };
 
 module.exports = {filterUsersControllers};
