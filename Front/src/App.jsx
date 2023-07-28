@@ -69,7 +69,7 @@ function App() {
         <Route path="/register" element={<UserRegister />} />
         <Route path="/home" element={<Home />} />
         <Route path="/adminUsers" element={<AdminUsers />} />
-        <Route path="/adminProducts" element={<AdminProducts />} />
+        <Route path="#/adminProducts" element={<AdminProducts />} />
         <Route path="/adminEmployes" element={<AdminEmployes />} />
         <Route path="/adminNewProduct" element={<AdminNewProduct />} />
         <Route path="/adminNewMarca" element={<AdminNewMarca />} />
