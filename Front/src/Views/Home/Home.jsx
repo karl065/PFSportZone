@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Card } from "../../Components";
-import { LoadingSpinner } from "../../Components";
-import Pagination from "../../Components/Pagination/Pagination";
-import SortAndFilters from "../../Components/SortAndFilters/SortAndFilters";
-import Styles from "./Home.module.css";
+import {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
+import {Card} from '../../Components';
+import {LoadingSpinner} from '../../Components';
+import Pagination from '../../Components/Pagination/Pagination';
+import SortAndFilters from '../../Components/SortAndFilters/SortAndFilters';
+import Styles from './Home.module.css';
 
 const Home = (props) => {
   const displayInventory = useSelector((state) => state.app.displayInventory);
@@ -34,7 +34,7 @@ const Home = (props) => {
                 (page - 1) * amountPerPage + amountPerPage
               )
               .map((item, index) => {
-                if(item.stock) return <Card key={index} product={item} />
+                if (item.stock) return <Card key={index} product={item} />;
               })
           ) : (
             <h3 className={Styles.no_matches}>No results found... ☹️</h3>
