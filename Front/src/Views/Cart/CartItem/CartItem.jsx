@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
+import {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {deleteProduct} from '../../../redux/actions/cartActions';
-import styles from './CartItem.module.css';
+import {addProduct, deleteProduct} from '../../../redux/actions/cartActions';
+import styles from './CartItem.module.CSS';
 
 const CartItem = ({product, cartId}) => {
   const dispatch = useDispatch();
@@ -14,22 +16,64 @@ const CartItem = ({product, cartId}) => {
     CarritoInventarios,
   } = product;
 
-  const handleDeleteProduct = async (idProduct) => {
-    await dispatch(deleteProduct(cartId, idProduct));
+  const [selectedQuantity, setSelectedQuantity] = useState(
+    CarritoInventarios.cant
+  );
+
+  const incrementQuantity = () => {
+    if (selectedQuantity < stock) {
+      const newQuantity = selectedQuantity + 1;
+      setSelectedQuantity(newQuantity);
+      // dispatch(addProduct(cartId, id_inventory, newQuantity));
+    }
   };
 
+  const decrementQuantity = () => {
+    if (selectedQuantity > 1) {
+      const newQuantity = selectedQuantity - 1;
+      setSelectedQuantity(newQuantity);
+      // dispatch(addProduct(cartId, id_inventory, newQuantity));
+    }
+  };
+
+  const handleDeleteProduct = (idProduct) => {
+    dispatch(deleteProduct(cartId, idProduct));
+  };
+
+  useEffect(() => {
+    // Solo si selectedQuantity es diferente de CarritoInventarios.cant, dispatch para actualizar el producto
+    if (selectedQuantity !== CarritoInventarios.cant) {
+      dispatch(addProduct(cartId, id_inventory, selectedQuantity));
+    }
+  }, [selectedQuantity]);
   return (
     <div className={styles.product_container}>
       {image && <img src={image[0]} alt={article_name} />}
-      <p onClick={() => handleDeleteProduct(id_inventory)}>Delete</p>
+      <p className={styles.article_name}>{article_name}</p>
       <div className={styles.stock_box}>
-        <button>-</button>
-        <span>{CarritoInventarios.cant}</span>
-        <button>+</button>
+        <button onClick={decrementQuantity} disabled={selectedQuantity === 1}>
+          -
+        </button>
+        <span>{selectedQuantity}</span>
+        <button
+          onClick={incrementQuantity}
+          disabled={selectedQuantity >= stock}
+        >
+          +
+        </button>
       </div>
-      <h3>{article_name}</h3>
-      <p>Price per unit: ${selling_price}</p>
-      <p>Stock: {stock}</p>
+      <p className={styles.price_per_amount}>
+        ${CarritoInventarios.precioPorCant}
+      </p>
+      <p className={styles.price_per_unit}>Price per unit: ${selling_price}</p>
+      <p className={styles.stockAvailable}>Available: {stock}</p>
+      <p
+        onClick={() => handleDeleteProduct(id_inventory)}
+        className={styles.actions_p}
+      >
+        Delete
+      </p>
+      <p className={styles.actions_p}>Buy Now</p>
     </div>
   );
 };
