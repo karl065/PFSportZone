@@ -2,11 +2,7 @@
 /* eslint-disable react/prop-types */
 import {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {
-  addProduct,
-  deleteProduct,
-  getCart,
-} from '../../../redux/actions/cartActions';
+import {addProduct, deleteProduct} from '../../../redux/actions/cartActions';
 import styles from './CartItem.module.CSS';
 
 const CartItem = ({product, cartId}) => {
@@ -43,9 +39,6 @@ const CartItem = ({product, cartId}) => {
   const handleDeleteProduct = (idProduct) => {
     dispatch(deleteProduct(cartId, idProduct));
   };
-  useEffect(() => {
-    dispatch(getCart());
-  }, []);
 
   useEffect(() => {
     // Solo si selectedQuantity es diferente de CarritoInventarios.cant, dispatch para actualizar el producto
@@ -58,9 +51,16 @@ const CartItem = ({product, cartId}) => {
       {image && <img src={image[0]} alt={article_name} />}
       <p className={styles.article_name}>{article_name}</p>
       <div className={styles.stock_box}>
-        <button onClick={decrementQuantity} disabled={selectedQuantity === 1}>-</button>
+        <button onClick={decrementQuantity} disabled={selectedQuantity === 1}>
+          -
+        </button>
         <span>{selectedQuantity}</span>
-        <button onClick={incrementQuantity} disabled={selectedQuantity >= stock}>+</button>
+        <button
+          onClick={incrementQuantity}
+          disabled={selectedQuantity >= stock}
+        >
+          +
+        </button>
       </div>
       <p className={styles.price_per_amount}>
         ${CarritoInventarios.precioPorCant}
