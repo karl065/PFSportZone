@@ -99,8 +99,9 @@ useEffect(() => {
   };
   const closeMenuFilters = () => {
     setMenuView(false);
-  }
-console.log(productosFiltrados);
+  };
+
+
   return (
     <div className={Styles.container}>
       <div className={Styles.order_container}>
@@ -186,7 +187,7 @@ console.log(productosFiltrados);
           </select>
 
           <br />
-          <button className={Styles.applyButton}>Aplicar Filtros({productosFiltrados.length} resultados)</button>
+          <button className={Styles.applyButton} onClick={closeMenuFilters}>Aplicar Filtros({productosFiltrados.length} resultados)</button>
         </div>
       </div>
     </div>
