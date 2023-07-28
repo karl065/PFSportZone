@@ -35,6 +35,7 @@ import {
 } from './redux/actions/actions';
 import {getCart} from './redux/actions/cartActions';
 import {useState} from 'react';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const dispatch = useDispatch();
@@ -86,6 +87,7 @@ function App() {
         <Route path="/faq" element={<Faq />} />
         <Route path="*" element={<Error setErrorPage={setErrorPage} />} />
       </Routes>
+      <ToastContainer/>
     </div>
   );
 }

@@ -71,7 +71,7 @@ const CloudinaryWidget = ({fieldName, setFieldValue}) => {
     <div className={styles.container}>
       {/* Botón para seleccionar la imagen */}
       <label className={styles.label}>
-        Select image(-s)
+        Seleccione una/varias imagene(-s)
         {/* Input de tipo "file" oculto */}
         <input
           type="file"

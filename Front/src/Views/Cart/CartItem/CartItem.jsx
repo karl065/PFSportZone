@@ -65,15 +65,14 @@ const CartItem = ({product, cartId}) => {
       <p className={styles.price_per_amount}>
         ${CarritoInventarios.precioPorCant}
       </p>
-      <p className={styles.price_per_unit}>Price per unit: ${selling_price}</p>
-      <p className={styles.stockAvailable}>Available: {stock}</p>
+      <p className={styles.price_per_unit}>Por unidad: ${selling_price}</p>
+      <p className={styles.stockAvailable}>Disponibles: {stock}</p>
       <p
         onClick={() => handleDeleteProduct(id_inventory)}
         className={styles.actions_p}
       >
-        Delete
+        Eliminar
       </p>
-      <p className={styles.actions_p}>Buy Now</p>
     </div>
   );
 };
