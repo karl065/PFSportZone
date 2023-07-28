@@ -24,8 +24,10 @@ const Cart = () => {
                   {userProducts.length}
                 </span>
               </h1>
-              {userProducts.map((product) => (
-                <CartItem product={product} cartId={cartId} />
+              {userProducts.map((product, index) => (
+                <div key={index}>
+                  <CartItem product={product} cartId={cartId} />
+                </div>
               ))}
             </div>
             <div className={styles.checkout_container}>
