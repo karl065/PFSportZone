@@ -14,6 +14,7 @@ import {
   FILTER_PRODUCTS_BY_STATUS,
   PRODUCTS_FILTERED,
   ORDER_PRODUCTS_BY_ABC,
+  FILTER_USERS_BY_ROLE_AND_STATUS,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
@@ -143,5 +144,17 @@ export const productsFiltered = (products) => {
   return {
     type: PRODUCTS_FILTERED,
     payload: products,
+  };
+};
+
+export const filterUsersByRoleAndStatus = (role, status) => {
+  return async (dispatch) => {
+    const {data} = await axios.get(
+      `${server.api.baseURL}filters?role=${role}&userStatus=${status}`
+    );
+    dispatch({
+      type: FILTER_USERS_BY_ROLE_AND_STATUS,
+      payload: data,
+    });
   };
 };
