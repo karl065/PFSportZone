@@ -3,7 +3,7 @@
 import {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {addProduct, deleteProduct} from '../../../redux/actions/cartActions';
-import styles from './CartItem.module.CSS';
+import styles from './CartItem.module.css';
 
 const CartItem = ({product, cartId}) => {
   const dispatch = useDispatch();
