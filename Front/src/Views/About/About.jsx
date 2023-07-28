@@ -1,6 +1,7 @@
 import React from 'react'
 import Styles from './About.module.css';
-
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faLinkedin} from '@fortawesome/free-brands-svg-icons';
 
 const integrantes = [
   {
@@ -65,7 +66,7 @@ const About = () => {
           <h3>{int.nombre}</h3>
           <p>{int.descripcion}</p>
           <a href={int.linkedin} target='blank'>
-          Linkedin💼
+          <FontAwesomeIcon icon={faLinkedin} style={{height: '40px', hover:{color : 'whitesmoke'}}} className={Styles.social}/>
           </a>
         </div>
           

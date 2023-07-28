@@ -41,11 +41,17 @@ const crearOrdenController = async (Inventarios) => {
 
     const preference = {
       items: carritoItems,
-      back_urls: backUrls,
-      notification_url: notificationUrl,
+      back_urls: {
+        success: 'http://localhost:3000/mercadopago/success',
+        failure: 'http://localhost:3000/mercadopago/failure',
+        pending: 'http://localhost:3000/mercadopago/pending',
+      },
+      notification_url:
+        'https://0118-186-154-207-195.ngrok-free.app/mercadopago/notification',
     };
 
     const response = await mercadopago.preferences.create(preference);
+    console.log(response);
     return response;
   } catch (error) {
     return error;

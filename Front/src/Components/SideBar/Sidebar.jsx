@@ -92,6 +92,28 @@ const Sidebar = () => {
                 location.pathname === '/adminNewCategory' ? styles.active : ''
               }`}
             >
+              <Link to="/adminNewDeportes">
+                <FontAwesomeIcon icon="tshirt" />
+                <span> Crear Deporte</span>
+              </Link>
+            </li>
+            <hr className="sidebar-divider my-2" />
+            <li
+              className={`nav-item ${
+                location.pathname === '/adminNewCategory' ? styles.active : ''
+              }`}
+            >
+              <Link to="/adminNewMarca">
+                <FontAwesomeIcon icon="tshirt" />
+                <span> Crear Marca</span>
+              </Link>
+            </li>
+            <hr className="sidebar-divider my-2" />
+            <li
+              className={`nav-item ${
+                location.pathname === '/adminNewCategory' ? styles.active : ''
+              }`}
+            >
               <Link to="/adminNewCategory">
                 <FontAwesomeIcon icon="tshirt" />
                 <span> Crear Categoria</span>

@@ -1,13 +1,24 @@
 /* eslint-disable react/prop-types */
-import {useNavigate} from 'react-router-dom';
-import styles from './Card.module.css';
+import { useNavigate } from "react-router-dom";
+import styles from "./Card.module.css";
+import { useState } from "react";
+import { addProduct } from "../../redux/actions/cartActions";
+import { useDispatch, useSelector } from "react-redux";
 
-const Card = ({product}) => {
-  const {id_inventory, article_name, selling_price, stock, image} = product;
+const Card = ({ product }) => {
+  const { id_inventory, article_name, selling_price, stock, image } = product;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const cartId = useSelector((state) => state.cart.id);
+  const role = localStorage.getItem("role");
+  const [redirectDetail, setRedirectDetail] = useState(true);
 
   const handleCardClick = () => {
-    navigate(`/product/${id_inventory}`);
+    if (redirectDetail) navigate(`/product/${id_inventory}`);
+  };
+
+  const handleAddToCart = async () => {
+    await dispatch(addProduct(cartId, id_inventory, 1));
   };
 
   return (
@@ -19,6 +30,16 @@ const Card = ({product}) => {
       <div className={styles.info}>
         <p>${selling_price}</p>
         <p>Stock: {stock}</p>
+        {role === "Cliente" && (
+          <button
+            onMouseOver={() => setRedirectDetail(false)}
+            onMouseLeave={() => setRedirectDetail(true)}
+            onClick={handleAddToCart}
+            className={styles.addCartBtn}
+          >
+            Add to cart
+          </button>
+        )}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 el módulo `../../../DB`. Es probable que el objeto `Usuarios` represente un modelo o una tabla de
 base de datos para los usuarios. Al importarlo, el código puede acceder e interactuar con el modelo
 o tabla `Usuarios` en el resto del código. */
-const {Usuarios} = require('../../../DB');
+const { Usuarios } = require("../../../DB");
 
 /**
  * La función filtra a los usuarios según su función o estado de usuario.
@@ -15,19 +15,11 @@ const {Usuarios} = require('../../../DB');
  * criterios de estado de usuario.
  */
 const filterUsersControllers = async (role, userStatus) => {
-  try {
-    const whereConditions = {};
-    if (role) {
-      whereConditions.role = role;
-    }
-    if (userStatus) {
-      whereConditions.userStatus = userStatus;
-    }
-    const userFilters = await Usuarios.findAll({where: whereConditions});
-    return userFilters;
-  } catch (error) {
-    return error.message;
-  }
+  
+    return await Usuarios.findAll({ where: { role: role, userStatus: userStatus }});
+ 
+
+
 };
 
-module.exports = {filterUsersControllers};
+module.exports = { filterUsersControllers };

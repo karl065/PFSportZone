@@ -66,11 +66,11 @@ const UserLogin = () => {
         await login(newUser.email, newUser.password, navigate);
       }else{
         await dispatch(createUser(newUser));
-        navigate("/home");
+        await login(newUser.email, newUser.password, navigate);
       }
 
     } catch (error) {
-      swalErrorAuth();
+      swalErrorAuth(error);
     }
   };
 
@@ -90,10 +90,10 @@ const UserLogin = () => {
         await login(newUser.email, newUser.password, navigate, dispatch);
       }else{
         await dispatch(createUser(newUser));
-        navigate("/home");
+        await login(newUser.email, newUser.password, navigate);
       }
     } catch (error) {
-      swalErrorAuth();
+      swalErrorAuth(error);
     }
   };
 
