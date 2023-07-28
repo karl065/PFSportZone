@@ -11,7 +11,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.products);
-  const cartLength = products.length || 0;
+  const cartLength = products ? products.length : 0;
   const role = localStorage.getItem("role");
 
   const shouldRenderSearchBar =
