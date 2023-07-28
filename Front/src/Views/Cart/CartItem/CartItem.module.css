@@ -48,6 +48,8 @@
 
 .stock_box span{
   font-size: 2rem;
+  min-width: 3ch;
+  text-align: center;
 }
 
 .price_per_unit{
