@@ -1,0 +1,13 @@
+.product_container {
+  display: grid;
+  grid-template-columns: auto 1.5fr 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 2px solid grey;
+}
+
+.product_container img {
+  width: 8rem;
+  height: 8rem;
+  border: 2px solid black;
+}
