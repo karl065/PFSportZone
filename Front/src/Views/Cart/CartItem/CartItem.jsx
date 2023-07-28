@@ -1,9 +1,9 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { deleteProduct } from "../../../redux/actions/cartActions";
-import styles from "./CartItem.module.css";
+/* eslint-disable react/prop-types */
+import {useDispatch} from 'react-redux';
+import {deleteProduct} from '../../../redux/actions/cartActions';
+import styles from './CartItem.module.css';
 
-const CartItem = ({ product, cartId }) => {
+const CartItem = ({product, cartId}) => {
   const dispatch = useDispatch();
   const {
     id_inventory,

@@ -2,11 +2,17 @@ import styles from './Cart.module.css';
 import {useSelector} from 'react-redux';
 import EmptyCart from './EmptyCart';
 import CartItem from './CartItem/CartItem';
+import MercadoPago from '../../Components/MercadoPago/MercadoPago';
 
 const Cart = () => {
   const userProducts = useSelector((state) => state.cart.products);
   const cartId = useSelector((state) => state.cart.id);
-  const cartLength = userProducts.length;
+  let cartLength;
+  if (userProducts) {
+    cartLength = userProducts.length;
+  }
+
+  console.log(userProducts);
 
   return (
     <section
@@ -44,6 +50,7 @@ const Cart = () => {
                 <h4>Total</h4>
                 <p>$2104.54</p>
               </div>
+              <MercadoPago Inventarios={userProducts} />
               <button className={styles.btnCheckout}>Checkout</button>
             </div>
           </>
