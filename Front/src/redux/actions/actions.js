@@ -13,6 +13,7 @@ import {
   ORDER_PRODUCTS_BY_PRICE,
   FILTER_PRODUCTS_BY_STATUS,
   PRODUCTS_FILTERED,
+  ORDER_PRODUCTS_BY_ABC,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
@@ -128,6 +129,13 @@ export const setLoading = (isLoading) => {
 export const orderProductsByPrice = (order) => {
   return {
     type: ORDER_PRODUCTS_BY_PRICE,
+    payload: order
+  };
+};
+
+export const orderProductsByAbc = (order) => {
+  return {
+    type: ORDER_PRODUCTS_BY_ABC,
     payload: order
   };
 };

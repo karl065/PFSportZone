@@ -5,7 +5,7 @@ import Styles from './SortAndFilters.module.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSliders} from '@fortawesome/free-solid-svg-icons';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { orderProductsByPrice, productsFiltered, resetDisplayedProducts } from '../../redux/actions/actions';
+import { orderProductsByAbc, orderProductsByPrice, productsFiltered, resetDisplayedProducts } from '../../redux/actions/actions';
 import  server from '../../Connections/Server';
 
 
@@ -29,6 +29,11 @@ const [productosFiltrados, setProductosFiltrados] = useState([]);
 const handleOrderByPrice = (e) => {
   const {value} = e.target
   dispatch(orderProductsByPrice(value));
+};
+
+const handleOrderByAbc = (e) => {
+  const {value} = e.target
+  dispatch(orderProductsByAbc(value));
 }
 
 //*funciones para capturar los valores de los selects y tambien para limpiar los filtros
@@ -95,16 +100,21 @@ useEffect(() => {
   const closeMenuFilters = () => {
     setMenuView(false);
   }
-
+console.log(productosFiltrados);
   return (
     <div className={Styles.container}>
       <div className={Styles.order_container}>
         <label htmlFor="ordenamientos">ordenar por:</label>
         <br/>
         <select name="ordenamientos" id="ordenamientos" onChange={handleOrderByPrice}>
-          <option value="NUEVO">novedades</option>
+          <option value="default">precio</option>
           <option value="PA">mas barato a mas caro</option>
           <option value="PD">mas caro a mas barato</option>
+        </select>
+        <select name="ordenamientos" id="ordenamientos" onChange={handleOrderByAbc}>
+          <option value="default">alfabeticamente</option>
+          <option value="ABCA">abc ascendente</option>
+          <option value="ABCD">abc descendente</option>
         </select>
       </div>
 

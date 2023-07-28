@@ -6,10 +6,12 @@
   height: 80px;
 }
 
+
 .order_container select{
   border: transparent;
   border-radius: 10px;
   cursor: pointer;
+  margin: 3px;
 }
 .order_container option{
   text-align: center;
