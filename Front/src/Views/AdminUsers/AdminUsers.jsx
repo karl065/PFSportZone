@@ -1,31 +1,38 @@
 import axios from 'axios';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
-import {Form} from 'react-bootstrap';
-import {useEffect, useState} from 'react';
+import {useState,useEffect} from 'react';
 import Pagination from '../../Components/Pagination/Pagination';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Sidebar from '../../Components/SideBar/Sidebar';
+import { filterUsersByRoleAndStatus} from '../../redux/actions/actions';
 
 library.add(fas);
 const AdminUsers = () => {
-  const users = useSelector((state) => state.users);
+  const users = useSelector((state) => state.app.users);
+  const [roleSeleccionado, setRoleSeleccionado] = useState('');
+  const [statusSeleccionado, setStatusSeleccionado] = useState('');
   const [page, setPage] = useState(1);
   const [amountPerPage, setAmountPerPage] = useState(8);
   const pageCount = users.length / amountPerPage;
+  const dispatch = useDispatch();
 
-
-  const [isSwitchOn, setSwitchOn] = useState(false);
-
-  const handleSwitchChange = () => {
-    setSwitchOn(!isSwitchOn);
+  const handleRoleChange = (event) => {
+    setRoleSeleccionado(event.target.value);
   };
 
-  const [selectedOption, setSelectedOption] = useState('');
-  const handleSelectChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
+  const handleStatusChange = (event) => {
+    setStatusSeleccionado(event.target.value);
+  }
+
+  useEffect(() => {
+    if (roleSeleccionado && statusSeleccionado) {
+      dispatch(filterUsersByRoleAndStatus(roleSeleccionado,statusSeleccionado))
+      setPage(1);
+    }
+  }, [roleSeleccionado, statusSeleccionado]);
 
 
   return (
@@ -39,12 +46,20 @@ const AdminUsers = () => {
           <div id="content">
             <div className="container-fluid" style={{display: 'block'}}>
               <div className="d-sm-flex justify-content-between align-items-center mb-4">
-                <h3 className="text-dark mb-0">Productos</h3>
+                <h3 className="text-dark mb-0">Usuarios</h3>
                 <div>
-                  <select style={{height: '38px', marginTop: '10px'}}>
-                    <option defaultValue="12">Filtrar por</option>
-                    <option value="12">Usuarios</option>
-                    <option value="13">Empleados</option>
+                  <select value={roleSeleccionado} style={{height: '38px', marginTop: '10px'}} onChange={handleRoleChange}>
+                    <option defaultValue="Cliente">Filtrar por role</option>
+                    <option value="Cliente">Cliente</option>
+                    <option value="Empleados">Empleados</option>
+                    <option value="Admin">Admin</option>
+                  </select>
+                </div>
+                <div>
+                  <select value={statusSeleccionado} style={{height: '38px', marginTop: '10px'}} onChange={handleStatusChange}>
+                    <option defaultValue="true">Filtrar por estado</option>
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
                   </select>
                 </div>
               </div>
@@ -118,13 +133,7 @@ const AdminUsers = () => {
                             .map((users, index) => (
                               <tr key={index}>
                               <td>{users.idUser}</td>
-                              {/* <td>
-                                <img
-                                  src={users.image[0]}
-                                  alt={users.article_name}
-                                  width={100}
-                                />
-                              </td> */}
+                              
                               <td>{users.email}</td>
                               <td>{users.user}</td>
                               <td>{users.password}</td>
@@ -135,24 +144,16 @@ const AdminUsers = () => {
                               ) : (
                                 <td>Inactivo</td>
                               )}
-                              {/* <td>
-                                {' '}
+                             <td>
+                              <FontAwesomeIcon icon="pencil-square" />
                                 
-                                  <option value={inventory.status}>
-                                    {users.status}
-                                  </option>
-                                  {statusOption.map((option, index) => (
-                                    <option value={option} key={index}>
-                                      {option}
-                                    </option>
-                                  ))}
-                               
-                              </td> */}
+                              </td>
                             </tr>
                             ))
                         ) : (
                           <tr ><td>No results found...</td></tr>
                         )}
+                        
                         </tbody>
                       </table>
                       <Pagination page={page} setPage={setPage} pageCount={pageCount} />
@@ -162,126 +163,6 @@ const AdminUsers = () => {
               </div>
             </div>
           </div>
-          {/* <div id="content">
-            <div className="container-fluid" style={{display: 'block'}}>
-              <div className="d-sm-flex justify-content-between align-items-center mb-4">
-                <h3 className="text-dark mb-0">Usuarios</h3>
-                <div>
-                  <select
-                    style={{height: '38px', marginTop: '10px'}}
-                    value={selectedOption}
-                    onChange={handleSelectChange}
-                  >
-                    <option defaultValue="">Filtrar por</option>
-                    <option value="Usuarios">Usuarios</option>
-                    <option value="Empleados">Empleados</option>
-                  </select>
-                </div>
-                <div></div>
-                <div>
-                  <button
-                    className="btn btn-primary"
-                    type="button"
-                    style={{marginTop: '10px', background: '#749900'}}
-                  >
-                    Eliminar
-                  </button>
-                </div>
-              </div>
-              <div></div>
-              <div className="row">
-                <div
-                  className="col-lg-6 mb-4"
-                  style={{display: 'block', width: '100%'}}
-                >
-                  <div className="card shadow mb-4"></div>
-                  <div className="card shadow mb-4" style={{width: '100%'}}>
-                    <ul className="list-group list-group-flush">
-                      <li className="list-group-item">
-                        <div
-                          className="row align-items-center no-gutters"
-                          style={{
-                            fontSize: '18px',
-                          }}
-                        >
-                          <div className="col me-2">
-                            <h6 className="mb-0">
-                              <strong>ID</strong>
-                            </h6>
-                          </div>
-                          <div className="col me-2">
-                            <h6 className="mb-0">
-                              <strong>Nombre</strong>
-                            </h6>
-                          </div>
-                          <div className="col me-2">
-                            <h6 className="mb-0">
-                              <strong>Apellido</strong>
-                            </h6>
-                          </div>
-                          <div className="col me-2">
-                            <h6 className="mb-0">
-                              <strong>Correo</strong>
-                            </h6>
-                          </div>
-                          <div className="col me-2">
-                            <h6 className="mb-0">
-                              <strong>Tipo</strong>
-                            </h6>
-                          </div>
-                          <div className="col-auto">
-                            <h6 className="mb-0">
-                              <strong>Estado de Usuario</strong>
-                            </h6>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-
-                    <ul
-                      className="list-group list-group-flush"
-                      style={{
-                        fontSize: '16px',
-                      }}
-                    >
-                      <li className="list-group-item">
-                        {users.map((user) => (
-                          <div
-                            className="row align-items-center no-gutters"
-                            key={user.idUser}
-                          >
-                            <div className="col me-2">
-                              <p>{user.idUser}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.user}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.apellido}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.email}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.role}</p>
-                            </div>
-                            <div className="col me-2">
-                            {user.userStatus ? (
-                                <td>Activo</td>
-                              ) : (
-                                <td>Inactivo</td>
-                              )}
-                            
-                            </div>
-                          </div>
-                        ))}
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>
         <a className="border rounded d-inline scroll-to-top" href="#page-top">
           <i className="fas fa-angle-up"></i>

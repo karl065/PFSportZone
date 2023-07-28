@@ -14,6 +14,7 @@ import {
   GET_SPORTS,
   ORDER_PRODUCTS_BY_PRICE,
   FILTER_PRODUCTS_BY_STATUS,
+  FILTER_USERS_BY_ROLE_AND_STATUS,
 } from "../actions-types/action-types";
 
 const initialState = {
@@ -76,6 +77,9 @@ export default function appReducer(state = initialState, { type, payload }) {
       return { ...state, isLoading: payload };
     case RESET_DISPLAYED_PRODUCTS:
       return { ...state, displayInventory: [...state.inventory] };
+    case FILTER_USERS_BY_ROLE_AND_STATUS:
+        return { ...state,
+           users: payload };     
     default:
       return { ...state };
   }

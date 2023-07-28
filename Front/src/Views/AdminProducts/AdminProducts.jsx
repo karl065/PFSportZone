@@ -1,25 +1,25 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-undef */
-/* eslint-disable react-hooks/rules-of-hooks */
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
-
+import Pagination from '../../Components/Pagination/Pagination';
 import {useEffect, useState} from 'react';
-
-import { useSelector } from "react-redux";
-import Sidebar from "../../Components/SideBar/Sidebar";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {useSelector} from 'react-redux';
+import Sidebar from '../../Components/SideBar/Sidebar';
 
 library.add(fas);
 
 const AdminProducts = () => {
-  const inventario = useSelector((state) => state.inventory);
+  const inventario = useSelector((state) => state.app.displayInventory);
+
+  const [page, setPage] = useState(1);
+  const [amountPerPage, setAmountPerPage] = useState(8);
+  const pageCount = inventario.length / amountPerPage;
   // const category = useSelector((state) => state.category);
   const [statusOption, setStatusOption] = useState([
-    "Available",
-    "Not Available",
-    "Discontinued",
+    'Available',
+    'Not Available',
+    'Discontinued',
   ]);
 
   useEffect(() => {
@@ -31,19 +31,19 @@ const AdminProducts = () => {
 
   return (
     <div>
-      <div id="wrapper" style={{ display: "flex" }}>
+      <div id="wrapper" style={{display: 'flex'}}>
         <Sidebar />
         <div
           className="d-flex flex-column"
           id="content-wrapper"
-          style={{ flex: "1", flexGrow: "1" }}
+          style={{flex: '1', flexGrow: '1'}}
         >
           <div id="content">
-            <div className="container-fluid" style={{ display: "block" }}>
+            <div className="container-fluid" style={{display: 'block'}}>
               <div className="d-sm-flex justify-content-between align-items-center mb-4">
                 <h3 className="text-dark mb-0">Productos</h3>
                 <div>
-                  <select style={{ height: "38px", marginTop: "10px" }}>
+                  <select style={{height: '38px', marginTop: '10px'}}>
                     <option defaultValue="12">Filtrar por</option>
                     <option value="12">Usuarios</option>
                     <option value="13">Empleados</option>
@@ -94,9 +94,10 @@ const AdminProducts = () => {
                     >
                       <table
                         id="dataTable"
-                        className="table my-0 mx-0 "
+                        className="table my-0"
                         style={{
-                          fontSize: "16px",
+                          fontSize: '16px',
+                          fontFamily: 'Assistant, sans-serif',
                         }}
                       >
                         <thead>
@@ -123,29 +124,25 @@ const AdminProducts = () => {
                               <tr key={index}>
                               <td>{inventory.id_inventory}</td>
                               <td>
-                                {inventory.image && (
-                                  <img
-                                    src={inventory?.image[0]}
-                                    alt={inventory.article_name}
-                                    width={100}
-                                  />
-                                )}
+                                <img
+                                  src={inventory.image[0]}
+                                  alt={inventory.article_name}
+                                  width={100}
+                                />
                               </td>
                               <td>{inventory.article_name}</td>
                               <td>{inventory.selling_price}</td>
                               <td>{inventory.purchase_price}</td>
                               <td>{inventory.stock}</td>
                               <td>{inventory.description}</td>
-                              <td>
-                                {inventory.categorias
-                                  ? inventory.categorias.categoryName
-                                  : "categoria"}
-                              </td>
+                              {inventory.categorias ? (
+                                <td>{inventory.categorias.categoryName}</td>
+                              ) : (
+                                'categoria'
+                              )}
                               <td>
                                 {' '}
-                                <select
-                                  style={{width: 'auto', minWidth: '100px'}}
-                                >
+                                
                                   <option value={inventory.status}>
                                     {inventory.status}
                                   </option>
@@ -155,6 +152,10 @@ const AdminProducts = () => {
                                     </option>
                                   ))}
                                
+                              </td>
+                              <td>
+                              <FontAwesomeIcon icon="pencil-square" />
+                                
                               </td>
                             </tr>
                             ))
