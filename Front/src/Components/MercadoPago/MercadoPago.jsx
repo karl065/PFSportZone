@@ -28,7 +28,7 @@ const MercadoPago = (props) => {
     if (id) setPreferenceID(id);
   };
   return (
-    <div>
+    <div id="wallet_container">
       {!preferenceId ? (
         <button className={styles.btnCheckout} onClick={handleComprar}>
           Checkout
