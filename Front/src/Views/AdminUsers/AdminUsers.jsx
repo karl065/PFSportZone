@@ -1,37 +1,42 @@
-import axios from 'axios';
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+// import axios from 'axios';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
-import {Form} from 'react-bootstrap';
 import {useEffect, useState} from 'react';
+import Pagination from '../../Components/Pagination/Pagination';
+import {useSelector, useDispatch} from 'react-redux';
 import Sidebar from '../../Components/SideBar/Sidebar';
+import {filterUsersByRoleAndStatus} from '../../redux/actions/actions';
 
 library.add(fas);
 const AdminUsers = () => {
-  const [isSwitchOn, setSwitchOn] = useState(false);
+  const users = useSelector((state) => state.app.users);
+  const [roleSeleccionado, setRoleSeleccionado] = useState('');
+  const [statusSeleccionado, setStatusSeleccionado] = useState('');
+  const [page, setPage] = useState(1);
+  const [amountPerPage, setAmountPerPage] = useState(8);
+  const pageCount = users.length / amountPerPage;
+  const dispatch = useDispatch();
 
-  const handleSwitchChange = () => {
-    setSwitchOn(!isSwitchOn);
+  const handleRoleChange = (event) => {
+    setRoleSeleccionado(event.target.value);
   };
 
-  const [selectedOption, setSelectedOption] = useState('');
-
-  const handleSelectChange = (event) => {
-    setSelectedOption(event.target.value);
+  const handleStatusChange = (event) => {
+    setStatusSeleccionado(event.target.value);
   };
 
-  const [users, setUsers] = useState([]);
   useEffect(() => {
-    // Lógica para cargar los usuarios iniciales
-    axios
-      .get('https://backsportzone.onrender.com/users')
-      .then(({data}) => {
-        setUsers(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+    if (roleSeleccionado && statusSeleccionado) {
+      dispatch(
+        filterUsersByRoleAndStatus(roleSeleccionado, statusSeleccionado)
+      );
+      setPage(1);
+    }
+  }, [roleSeleccionado, statusSeleccionado]);
 
   return (
     <div>
@@ -48,119 +53,127 @@ const AdminUsers = () => {
                 <h3 className="text-dark mb-0">Usuarios</h3>
                 <div>
                   <select
+                    value={roleSeleccionado}
                     style={{height: '38px', marginTop: '10px'}}
-                    value={selectedOption}
-                    onChange={handleSelectChange}
+                    onChange={handleRoleChange}
                   >
-                    <option defaultValue="">Filtrar por</option>
-                    <option value="Usuarios">Usuarios</option>
+                    <option defaultValue="Cliente">Filtrar por role</option>
+                    <option value="Cliente">Cliente</option>
                     <option value="Empleados">Empleados</option>
+                    <option value="Admin">Admin</option>
                   </select>
                 </div>
-                <div></div>
                 <div>
-                  <button
-                    className="btn btn-primary"
-                    type="button"
-                    style={{marginTop: '10px', background: '#749900'}}
+                  <select
+                    value={statusSeleccionado}
+                    style={{height: '38px', marginTop: '10px'}}
+                    onChange={handleStatusChange}
                   >
-                    Eliminar
-                  </button>
+                    <option defaultValue="true">Filtrar por estado</option>
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+                  </select>
                 </div>
               </div>
-              <div></div>
-              <div className="row">
-                <div
-                  className="col-lg-6 mb-4"
-                  style={{display: 'block', width: '100%'}}
-                >
-                  <div className="card shadow mb-4"></div>
-                  <div className="card shadow mb-4" style={{width: '100%'}}>
-                    <ul className="list-group list-group-flush">
-                      <li className="list-group-item">
+              <div className="container-fluid">
+                <div className="card shadow">
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-md-6 text-nowrap">
                         <div
-                          className="row align-items-center no-gutters"
-                          style={{
-                            fontSize: '18px',
-                          }}
+                          id="dataTable_length"
+                          className="dataTables_length"
+                          aria-controls="dataTable"
                         >
-                          <div className="col me-2">
-                            <h6 className="mb-0">
-                              <strong>ID</strong>
-                            </h6>
-                          </div>
-                          <div className="col me-2">
-                            <h6 className="mb-0">
-                              <strong>Nombre</strong>
-                            </h6>
-                          </div>
-                          <div className="col me-2">
-                            <h6 className="mb-0">
-                              <strong>Apellido</strong>
-                            </h6>
-                          </div>
-                          <div className="col me-2">
-                            <h6 className="mb-0">
-                              <strong>Correo</strong>
-                            </h6>
-                          </div>
-                          <div className="col me-2">
-                            <h6 className="mb-0">
-                              <strong>Tipo</strong>
-                            </h6>
-                          </div>
-                          <div className="col-auto">
-                            <h6 className="mb-0">
-                              <strong>Estado de Usuario</strong>
-                            </h6>
-                          </div>
+                          <label className="form-label">
+                            <select className="d-inline-block form-select form-select-sm">
+                              <option defaultValue="10">10</option>
+                              <option value="25">25</option>
+                              <option value="50">50</option>
+                              <option value="100">100</option>
+                            </select>
+                          </label>
                         </div>
-                      </li>
-                    </ul>
-
-                    <ul
-                      className="list-group list-group-flush"
-                      style={{
-                        fontSize: '16px',
-                      }}
+                      </div>
+                      <div className="col-md-6">
+                        <div
+                          id="dataTable_filter"
+                          className="text-md-end dataTables_filter"
+                        >
+                          <label className="form-label">
+                            <input
+                              className="form-control form-control-sm"
+                              type="search"
+                              aria-controls="dataTable"
+                              placeholder="Search"
+                            />
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      id="dataTable"
+                      className="table-responsive table mt-2"
+                      role="grid"
+                      aria-describedby="dataTable_info"
                     >
-                      <li className="list-group-item">
-                        {users.map((user) => (
-                          <div
-                            className="row align-items-center no-gutters"
-                            key={user.idUser}
-                          >
-                            <div className="col me-2">
-                              <p>{user.idUser}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.user}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.apellido}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.email}</p>
-                            </div>
-                            <div className="col me-2">
-                              <p>{user.role}</p>
-                            </div>
+                      <table
+                        id="dataTable"
+                        className="table my-0"
+                        style={{
+                          fontSize: '16px',
+                          fontFamily: 'Assistant, sans-serif',
+                        }}
+                      >
+                        <thead>
+                          <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Tipo</th>
+                            <th>Role</th>
+                            <th>Estado</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {users.length ? (
+                            users
+                              .slice(
+                                (page - 1) * amountPerPage,
+                                (page - 1) * amountPerPage + amountPerPage
+                              )
+                              .map((users, index) => (
+                                <tr key={index}>
+                                  <td>{users.idUser}</td>
 
-                            <div className="col-auto">
-                              <Form>
-                                <Form.Check
-                                  type="switch"
-                                  id="switchButton"
-                                  label="Activo/Inactivo"
-                                  checked={isSwitchOn}
-                                  onChange={handleSwitchChange}
-                                />
-                              </Form>
-                            </div>
-                          </div>
-                        ))}
-                      </li>
-                    </ul>
+                                  <td>{users.email}</td>
+                                  <td>{users.user}</td>
+                                  <td>{users.password}</td>
+                                  <td>{users.role}</td>
+
+                                  {users.userStatus ? (
+                                    <td>Activo</td>
+                                  ) : (
+                                    <td>Inactivo</td>
+                                  )}
+                                  <td>
+                                    <FontAwesomeIcon icon="pencil-square" />
+                                  </td>
+                                </tr>
+                              ))
+                          ) : (
+                            <tr>
+                              <td>No results found...</td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                      <Pagination
+                        page={page}
+                        setPage={setPage}
+                        pageCount={pageCount}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

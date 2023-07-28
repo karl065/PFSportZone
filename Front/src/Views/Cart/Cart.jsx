@@ -47,7 +47,6 @@ const Cart = () => {
                 <p>${totalCart}</p>
               </div>
               <MercadoPago Inventarios={userProducts} />
-              <button className={styles.btnCheckout}>Checkout</button>
             </div>
           </>
         )}
