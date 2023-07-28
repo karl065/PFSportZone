@@ -3,6 +3,7 @@
   grid-template-columns: auto 1.5fr 1fr 1fr;
   grid-template-rows: 80% auto;
   align-items: center;
+  justify-items: center;
   gap: 2rem;
   padding: 2rem 0;
   border-bottom: 2px solid grey;
@@ -17,6 +18,7 @@
 .article_name{
   font-size: 1.4rem;
   text-wrap: balance;
+  justify-self: start;
 }
 
 .stockAvailable{
@@ -28,17 +30,26 @@
 .stock_box{
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
 }
 
 .stock_box button {
   padding: 0.3rem 1rem;
   font-size: 2rem;
+  background-color: rgb(49, 49, 49);
+  color: white;
+}
+
+.stock_box button:disabled{
+  background-color: grey;
+  opacity: 0.8;
+  cursor: default;
 }
 
 .stock_box span{
   font-size: 2rem;
+  min-width: 3ch;
+  text-align: center;
 }
 
 .price_per_unit{

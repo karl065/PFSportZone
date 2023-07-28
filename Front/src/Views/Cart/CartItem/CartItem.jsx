@@ -58,9 +58,9 @@ const CartItem = ({product, cartId}) => {
       {image && <img src={image[0]} alt={article_name} />}
       <p className={styles.article_name}>{article_name}</p>
       <div className={styles.stock_box}>
-        <button onClick={decrementQuantity}>-</button>
+        <button onClick={decrementQuantity} disabled={selectedQuantity === 1}>-</button>
         <span>{selectedQuantity}</span>
-        <button onClick={incrementQuantity}>+</button>
+        <button onClick={incrementQuantity} disabled={selectedQuantity >= stock}>+</button>
       </div>
       <p className={styles.price_per_amount}>
         ${CarritoInventarios.precioPorCant}
