@@ -11,12 +11,13 @@ import {
 import Swal from "sweetalert2";
 import { auth } from "../../../firebase/firebaseConfig";
 import { createUser } from "../../../redux/actions/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import googleIcon from "../../../assets/google-icon.svg";
 import facebookIcon from "../../../assets/facebook-icon.svg";
 import styles from "./UserLogin.module.css";
 
 const UserLogin = () => {
+  const users = useSelector(state => state.app.users);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // * Define el esquema de validación usando Yup
@@ -39,7 +40,7 @@ const UserLogin = () => {
 
   const swalErrorAuth = (error) => {
     // * Solo muestro el error cuando NO ES por un cierre intencional del popup o de validación de DB [Email ya registrado/único].
-    if (error.code !== "23505" && error?.code !== "auth/popup-closed-by-user") {
+    if (error?.original.code !== "23505" && error?.code !== "auth/popup-closed-by-user") {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -55,18 +56,19 @@ const UserLogin = () => {
       const newUser = {
         email: result.user.email,
         user: result.user.displayName,
+        password: result.user.uid,
         userStatus: true,
         role: "Cliente",
       };
 
       // ? Ver si después podemos hacer esto solo cuando no existe un usuario con ese email. y evitar la validación de arriba "23505"
-      await dispatch(createUser(newUser));
+      if(users.find(user => user.email === newUser.email)){
+        await login(newUser.email, newUser.password, navigate);
+      }else{
+        await dispatch(createUser(newUser));
+        navigate("/home");
+      }
 
-      // * Google access token
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      localStorage.setItem("google_access_token", credential.accessToken);
-      localStorage.setItem("role", "Cliente");
-      navigate("/home");
     } catch (error) {
       swalErrorAuth();
     }
@@ -79,16 +81,17 @@ const UserLogin = () => {
       const newUser = {
         email: result.user.email,
         user: result.user.displayName,
+        password: result.user.uid,
         userStatus: true,
         role: "Cliente",
       };
-      await dispatch(createUser(newUser));
 
-      // * Facebook access token
-      const credential = FacebookAuthProvider.credentialFromResult(result);
-      localStorage.setItem("facebook_access_token", credential.accessToken);
-      localStorage.setItem("role", "Cliente");
-      navigate("/home");
+      if(users.find(user => user.email === newUser.email)){
+        await login(newUser.email, newUser.password, navigate, dispatch);
+      }else{
+        await dispatch(createUser(newUser));
+        navigate("/home");
+      }
     } catch (error) {
       swalErrorAuth();
     }

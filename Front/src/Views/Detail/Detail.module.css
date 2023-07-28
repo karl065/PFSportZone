@@ -71,6 +71,18 @@
   font-size: 1.5rem;
 }
 
+.stock_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 3rem;
+}
+
+.stock_box button {
+  background-color: rgba(190, 243, 27, 0.97);;
+}
+
 .buttons_box {
   display: flex;
   align-items: center;
