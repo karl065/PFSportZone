@@ -15,6 +15,9 @@ import {
   PRODUCTS_FILTERED,
   ORDER_PRODUCTS_BY_ABC,
   FILTER_USERS_BY_ROLE_AND_STATUS,
+  CREATE_MARCA,
+  CREATE_DEPORTE,
+  GET_MARCA,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
@@ -59,6 +62,16 @@ export const getSports = () => {
   };
 };
 
+export const getMarca = () => {
+  return async (dispatch) => {
+    const {data} = await axios.get(`${server.api.baseURL}marca`);
+    dispatch({
+      type: GET_MARCA,
+      payload: data,
+    });
+  };
+};
+
 export const createUser = (user) => {
   return async (dispatch) => {
     const {data} = await axios.post(`${server.api.baseURL}users`, user);
@@ -84,6 +97,25 @@ export const createCategory = (category) => {
     const {data} = await axios.post(`${server.api.baseURL}category`, category);
     dispatch({
       type: CREATE_CATEGORY,
+      payload: data,
+    });
+  };
+};
+
+export const createMarca = (marca) => {
+  return async (dispatch) => {
+    const {data} = await axios.post(`${server.api.baseURL}marca`, marca);
+    dispatch({
+      type: CREATE_MARCA,
+      payload: data,
+    });
+  };
+};
+export const createDeporte = (deporte) => {
+  return async (dispatch) => {
+    const {data} = await axios.post(`${server.api.baseURL}deporte`, deporte);
+    dispatch({
+      type: CREATE_DEPORTE,
       payload: data,
     });
   };

@@ -1,7 +1,8 @@
-import { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { NavBar } from "./Components";
+/* eslint-disable react-hooks/exhaustive-deps */
+import {useEffect} from 'react';
+import {Routes, Route, useLocation} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {NavBar} from './Components';
 import {
   Landing,
   Home,
@@ -18,26 +19,29 @@ import {
   UserLogin,
   AdminNewUsers,
   AdminNewCategory,
+  AdminNewMarca,
+  AdminNewDeportes,
   AdminEditProd,
   AdminPagos,
   Cart,
-} from "./Views";
+} from './Views';
 import {
   getCategory,
   getInventory,
+  getMarca,
   getSports,
   getUsers,
   setLoading,
-} from "./redux/actions/actions";
-import { getCart } from "./redux/actions/cartActions";
-import { useState } from "react";
+} from './redux/actions/actions';
+import {getCart} from './redux/actions/cartActions';
+import {useState} from 'react';
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   // * Estado para no mostrar la nav en la pagina 404
   const [errorPage, setErrorPage] = useState(true);
-  const idCart = localStorage.getItem("idCarrito");
+  const idCart = localStorage.getItem('idCarrito');
 
   // * Carga inicial de los datos necesarios para la app.
   useEffect(() => {
@@ -46,6 +50,7 @@ function App() {
       dispatch(getUsers()),
       dispatch(getCategory()),
       dispatch(getSports()),
+      dispatch(getMarca()),
       dispatch(getInventory()),
     ]).then(() => dispatch(setLoading(false)));
   }, [dispatch]);
@@ -57,7 +62,7 @@ function App() {
 
   return (
     <div className="App">
-      {location.pathname !== "/" && errorPage && <NavBar />}
+      {location.pathname !== '/' && errorPage && <NavBar />}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<UserLogin />} />
@@ -67,6 +72,8 @@ function App() {
         <Route path="/adminProducts" element={<AdminProducts />} />
         <Route path="/adminEmployes" element={<AdminEmployes />} />
         <Route path="/adminNewProduct" element={<AdminNewProduct />} />
+        <Route path="/adminNewMarca" element={<AdminNewMarca />} />
+        <Route path="/adminNewDeportes" element={<AdminNewDeportes />} />
         <Route path="/adminNewUser" element={<AdminNewUsers />} />
         <Route path="/adminNewCategory" element={<AdminNewCategory />} />
         <Route path="/adminEditProd" element={<AdminEditProd />} />

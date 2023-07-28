@@ -17,12 +17,16 @@ import {
   PRODUCTS_FILTERED,
   ORDER_PRODUCTS_BY_ABC,
   FILTER_USERS_BY_ROLE_AND_STATUS,
+  CREATE_MARCA,
+  CREATE_DEPORTE,
+  GET_MARCA,
 } from '../actions-types/action-types';
 
 const initialState = {
   users: [],
   inventory: [],
   category: [],
+  marcas: [],
   sports: [],
   displayInventory: [],
   product: {},
@@ -39,6 +43,8 @@ export default function appReducer(state = initialState, {type, payload}) {
       return {...state, category: payload};
     case GET_SPORTS:
       return {...state, sports: payload};
+    case GET_MARCA:
+      return {...state, marcas: payload};
     case CREATE_USER:
       return {...state, users: [...state.users, payload]};
     case CREATE_PRODUCT:
@@ -49,6 +55,10 @@ export default function appReducer(state = initialState, {type, payload}) {
       };
     case CREATE_CATEGORY:
       return {...state, category: [...state.category, payload]};
+    case CREATE_MARCA:
+      return {...state, marcas: [...state.marcas, payload]};
+    case CREATE_DEPORTE:
+      return {...state, sports: [...state.sports, payload]};
     case GET_PRODUCT_ID:
       return {...state, product: payload};
     case FILTER_PRODUCTS_BY_NAME:
