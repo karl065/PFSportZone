@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import Styles from './SortAndFilters.module.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSliders} from '@fortawesome/free-solid-svg-icons';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { resetDisplayedProducts } from '../../redux/actions/actions';
+import { orderProductsByPrice, productsFiltered, resetDisplayedProducts } from '../../redux/actions/actions';
 import  server from '../../Connections/Server';
 
 
@@ -13,46 +13,81 @@ export default function SortAndFilters(props) {
 
   const [menuView, setMenuView] = useState(false);
   const dispatch = useDispatch();
-  const displayInventory = useSelector(state => state.app.displayInventory);
   const sports = useSelector(state => state.app.sports);
   const categorys = useSelector(state => state.app.category);
   const [filters, setFilters] = useState({
-    category: "",
-    sports: "",
-    rangeOfPrices: "",
-    genres: "",
-    brands: "",
+   id_categorias: "",
+    idDeportes: "",
+    minPrice: "",
+    maxPrice: "",
+    genre: "",
+    idMarca: "",
   });
+const [productosFiltrados, setProductosFiltrados] = useState([]);
 
+//?FUNCIONES PARA LOS ORDERS
+const handleOrderByPrice = (e) => {
+  const {value} = e.target
+  dispatch(orderProductsByPrice(value));
+}
 
 //*funciones para capturar los valores de los selects y tambien para limpiar los filtros
-const handleFiltersChange = (e) => {
+const handleFiltersChange = async(e) => {
   setFilters({ ...filters,
     [e.target.name] : e.target.value
   })
-}
-
-//?capturo el valor del select de rango de precios aparte ya que necesito minPrice y MaxPrice
-const handleRangeOfPrices = (e) => {
-  const {value} = e.target;
-  const valuesSeparated = value.split("-");
-  setFilters({
-    ...filters,
-    [e.target.name] : valuesSeparated
-  })
 };
-
 
 const handleFiltersClean = () => {
   setFilters({
-    category: "",
-    sports: "",
-    rangeOfPrices: "",
-    genres: "",
-    brands: "",
+    id_categorias: "default",
+    idDeportes: "default",
+    minPrice: "default",
+    maxPrice:"default",
+    genre: "default",
+    idMarca: "default",
   });
   dispatch(resetDisplayedProducts());
-}
+};
+
+
+//*funcion para que al ir modificando filters se sigan agregando querys a la request para filtrar
+const fetchFilteredProducts = async (filters) => {
+  try {
+    const queryString = Object.keys(filters)
+  .map((key) => {
+    const value = filters[key];
+    if (value !== undefined && value !== null && value !== "" && value !== "default") {
+      return `${key}=${value}`;
+    }
+    return null; // Si el valor no es válido, se devuelve null
+  })
+  .filter((query) => query !== null) // Filtrar los valores nulos
+  .join('&');
+
+    const response = await axios.get(`${server.api.baseURL}filters?${queryString}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching filtered products:', error);
+    return [];
+  }
+};
+
+//! el useEffect llama a la funcion de arriba cada vez que los filtros se actualizan y va actualizando los productos filtrados
+useEffect(() => {
+  // Llamar a la función fetchFilteredProducts con los filters actuales
+  fetchFilteredProducts(filters)
+    .then((filteredProducts) => {
+      // Actualizar el estado de productosFiltrados con los resultados filtrados
+      setProductosFiltrados(filteredProducts);
+      dispatch(productsFiltered(filteredProducts))
+    })
+    .catch((error) => {
+      console.error('Error fetching filtered products:', error);
+    });
+}, [filters]);
+
+
 //*funciones que cambian el estado para desplegar y cerrar el menu de filtros
   const handleViewFiltersAndOrdereds = () => {
     setMenuView(true);
@@ -60,13 +95,13 @@ const handleFiltersClean = () => {
   const closeMenuFilters = () => {
     setMenuView(false);
   }
-  console.log(filters)
+
   return (
     <div className={Styles.container}>
       <div className={Styles.order_container}>
         <label htmlFor="ordenamientos">ordenar por:</label>
         <br/>
-        <select name="ordenamientos" id="ordenamientos">
+        <select name="ordenamientos" id="ordenamientos" onChange={handleOrderByPrice}>
           <option value="NUEVO">novedades</option>
           <option value="PA">mas barato a mas caro</option>
           <option value="PD">mas caro a mas barato</option>
@@ -90,61 +125,60 @@ const handleFiltersClean = () => {
           <br />
 
           <label htmlFor="filters">por tipo de prenda:</label>
-          <select name="category" id="filters" onChange={handleFiltersChange}>
+          <select value={filters.id_categorias} name="id_categorias" id="filters" onChange={(e)=> handleFiltersChange(e)}>
+            <option value="default" disabled>Elige una opcion</option>
             {categorys?.length && categorys.map((category,index)=>{
-              return <option value={category.categoryName} key={index}>{category.categoryName}</option>
+              return <option value={category.id_categories} key={index}>{category.categoryName}</option>
             })}
           </select>
 
           <label htmlFor="filters">por deporte:</label>
-          <select name="sports" id="filters" onChange={handleFiltersChange}>
+          <select value={filters.idDeportes} name="idDeportes" id="filters" onChange={(e)=>handleFiltersChange(e)}>
+            <option value="default" disabled>Elige una opcion</option>
             {sports?.length && sports.map((sport,index) => {
-              return <option value={sport.deporteName} key={index}>{sport.deporteName}</option>
+              return <option value={sport.idDeportes} key={index}>{sport.deporteName}</option>
             })}
           </select>
 
-          <label htmlFor="filters">por rango de precio:</label>
-          <select name="rangeOfPrices" id="filters" onChange={handleRangeOfPrices}>
-            <option value="0-1000">0-1000</option>
-            <option value="1000-5000">1000-5000</option>
-            <option value="5000-10000">5000-10000</option>
-            <option value="Infinity">Mas de 10000</option>
-          </select>
 
           <label htmlFor="filters">por genero:</label>
-          <select name="genres" id="filters" onChange={handleFiltersChange}>
-            <option value="Men">Hombre</option>
-            <option value="Woman">Mujer</option>
+          <select value={filters.genre} name="genre" id="filters" onChange={(e)=>handleFiltersChange(e)}>
+            <option value="default" disabled>Elige una opcion</option>
+            <option value="Man">Hombre</option>
+            <option value="Women">Mujer</option>
             <option value="Unisex">Unisex</option>
           </select>
 
           <label htmlFor="filters">por marcas:</label>
-          <select name="brands" id="filters" onChange={handleFiltersChange}>
+          <select value={filters.idMarca} name="idMarca" id="filters" onChange={(e)=>handleFiltersChange(e)}>
+          <option value="default" disabled>Elige una opcion</option>
+          </select>
+
+          <label htmlFor="filters">precio minimo:</label>
+          <select value={filters.minPrice} name="minPrice" id="filters" onChange={(e)=>handleFiltersChange(e)}>
+            <option value="default" disabled>Elige una opcion</option>
+            <option value="0">0</option>
+            <option value="1000">1.000</option>
+            <option value="5000">5.000</option>
+            <option value="20000">20.000</option>
+            <option value="40000">40.000</option>
+            <option value="50000">50.000</option>
+          </select>
+
+          <label htmlFor="filters">precio maximo:</label>
+          <select value={filters.maxPrice} name="maxPrice" id="filters" onChange={(e)=>handleFiltersChange(e)}>
+            <option value="default" disabled>Elige una opcion</option>
+            <option value="1000">1.000</option>
+            <option value="5000">5.000</option>
+            <option value="10000">10.000</option>
+            <option value="50000">50.000</option>
+            <option value="Infinity">mas de 50.000</option>
           </select>
 
           <br />
-          <button className={Styles.applyButton}>Aplicar Filtros</button>
+          <button className={Styles.applyButton}>Aplicar Filtros({productosFiltrados.length} resultados)</button>
         </div>
       </div>
     </div>
   );
 }
-
-
-//TODO: Filtros
-////desde el back se resumio todo a un solo llamado, eso facilita los elementos que puedo traer para renderizar
-//// desde el front entonces podria:
-// todo: REDUX
-////crear un estado que se llame productsFiltered, que reciba el resultado de la peticion al back
-//// una action que cada vez que invoque un filtro renderice lo filtrado
-//todo: componente
-////tengo que capturar el valor de los filtros seleccionados y pasar esos valores  a la peticion como querys
-//ademas que cada vez que esos filtros se modifican, que se aplique a lo renderizado al instante
-//todo: filtros a aplicar
-// minPrice = 0,
-// maxPrice,
-// genre,
-// state,
-// idDeportes,
-// id_categories,
-// idMarca

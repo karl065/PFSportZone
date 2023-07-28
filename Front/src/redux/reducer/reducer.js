@@ -57,11 +57,11 @@ export default function appReducer(state = initialState, { type, payload }) {
     case ORDER_PRODUCTS_BY_PRICE:
       let inventoryOrdered = [];
       inventoryOrdered =
-        payload === "menor_precio_a_mayor_precio"
-          ? [...state.inventory].sort(
+        payload === "PA"
+          ? [...state.displayInventory].sort(
               (a, b) => a.selling_price - b.selling_price
             )
-          : [...state.inventory].sort(
+          : [...state.displayInventory].sort(
               (a, b) => b.selling_price - a.selling_price
             );
       return {
