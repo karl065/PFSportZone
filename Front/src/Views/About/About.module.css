@@ -52,7 +52,7 @@ color: #FFF;
 
 }
   
-.cardIndividual a:hover{
+.social :hover{
     color: white
 }
 .cardIndividual:hover img{

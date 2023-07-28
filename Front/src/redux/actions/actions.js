@@ -12,6 +12,8 @@ import {
   CREATE_CATEGORY,
   ORDER_PRODUCTS_BY_PRICE,
   FILTER_PRODUCTS_BY_STATUS,
+  PRODUCTS_FILTERED,
+  ORDER_PRODUCTS_BY_ABC,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
@@ -123,9 +125,23 @@ export const orderProductsByPrice = (order) => {
   };
 };
 
+export const orderProductsByAbc = (order) => {
+  return {
+    type: ORDER_PRODUCTS_BY_ABC,
+    payload: order,
+  };
+};
+
 export const filterProductsByStatus = (status) => {
   return {
     type: FILTER_PRODUCTS_BY_STATUS,
     payload: status,
+  };
+};
+
+export const productsFiltered = (products) => {
+  return {
+    type: PRODUCTS_FILTERED,
+    payload: products,
   };
 };

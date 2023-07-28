@@ -14,6 +14,8 @@ import {
   GET_SPORTS,
   ORDER_PRODUCTS_BY_PRICE,
   FILTER_PRODUCTS_BY_STATUS,
+  PRODUCTS_FILTERED,
+  ORDER_PRODUCTS_BY_ABC,
 } from "../actions-types/action-types";
 
 const initialState = {
@@ -56,22 +58,37 @@ export default function appReducer(state = initialState, { type, payload }) {
     case ORDER_PRODUCTS_BY_PRICE:
       let inventoryOrdered = [];
       inventoryOrdered =
-        payload === "menor_precio_a_mayor_precio"
-          ? [...state.inventory].sort(
+        payload === "PA"
+          ? [...state.displayInventory].sort(
               (a, b) => a.selling_price - b.selling_price
             )
-          : [...state.inventory].sort(
+          : [...state.displayInventory].sort(
               (a, b) => b.selling_price - a.selling_price
             );
       return {
         ...state,
         displayInventory: inventoryOrdered,
       };
+    case ORDER_PRODUCTS_BY_ABC:
+      let orderedGamesAbc = [];    //el metodo sort no modifica el array original, lo ordena y devuelve una nueva referencia del array pero ordenado
+                orderedGamesAbc = payload === "ABCA"
+                ? [...state.displayInventory].sort((a,b)=> a.article_name.localeCompare(b.article_name ))
+                : [...state.displayInventory].sort((a,b)=> b.article_name.localeCompare(a.article_name ));
+
+            return{
+                ...state,
+                displayInventory: orderedGamesAbc
+            };
     case FILTER_PRODUCTS_BY_STATUS:
       return {
         ...state,
         displayInventory: payload,
       };
+    case PRODUCTS_FILTERED:
+      return {
+        ...state,
+        displayInventory:payload
+      }
     case SET_LOADING:
       return { ...state, isLoading: payload };
     case RESET_DISPLAYED_PRODUCTS:
