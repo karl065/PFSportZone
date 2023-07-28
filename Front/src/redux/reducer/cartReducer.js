@@ -1,14 +1,36 @@
-import { ADD_PRODUCT } from "../actions-types/cartTypes";
+import {
+  GET_CART,
+  ADD_PRODUCT,
+  DELETE_PRODUCT,
+} from "../actions-types/cartTypes";
 
 const initialState = {
+  id: null,
   products: [],
-  total_amount: 0,
+  total: 0,
 };
 
 const cartReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case GET_CART:
+      return {
+        ...state,
+        id: payload.idCar,
+        products: payload.Inventarios,
+        total: payload.total,
+      };
     case ADD_PRODUCT:
-      return { ...state, products: [...state.products, payload] };
+      return {
+        ...state,
+        products: payload.Inventarios,
+        total: payload.total,
+      };
+    case DELETE_PRODUCT:
+      return {
+        ...state,
+        products: payload.Inventarios,
+        total: payload.total,
+      };
     default:
       return { ...state };
   }

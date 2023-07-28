@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LoadingSpinner } from "../../Components/index";
 import { Link } from "react-router-dom";
 import { getProductById, setLoading } from "../../redux/actions/actions";
-import { addProduct } from "../../redux/actions/cartActions";
+import { addProduct, getCart } from "../../redux/actions/cartActions";
 import styles from "./Detail.module.css";
 import arrowLeft from "../../assets/arrow-left.svg";
 
@@ -14,11 +14,31 @@ const Detail = () => {
   const product = useSelector((state) => state.app.product);
   let isLoading = useSelector((state) => state.app.isLoading);
   const role = localStorage.getItem("role");
-  
+  const idCarrito = localStorage.getItem("idCarrito");
+
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
+
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(getProductById(id)).then(() => dispatch(setLoading(false)));
   }, [dispatch, id]);
+
+  const incrementQuantity = () => {
+    if (selectedQuantity < product.stock) {
+      setSelectedQuantity(selectedQuantity + 1);
+    }
+  };
+
+  const decrementQuantity = () => {
+    if (selectedQuantity > 1) {
+      setSelectedQuantity(selectedQuantity - 1);
+    }
+  };
+
+  const handleAddProduct = async () => {
+    await dispatch(addProduct(idCarrito, product.id_inventory, selectedQuantity));
+    await dispatch(getCart(idCarrito));
+  };
 
   return (
     <section className={styles.detail_wrapper}>
@@ -49,17 +69,24 @@ const Detail = () => {
                 <p>{product.description}</p>
               </div>
               {role === "Cliente" && (
-                <div className={styles.buttons_box}>
-                  <button
-                    className={styles.btn_cart}
-                    onClick={() => dispatch(addProduct(id))}
-                  >
-                    Add to cart
-                  </button>
-                  <button className={styles.btn_favorites}>
-                    Add to favorite
-                  </button>
-                </div>
+                <>
+                  <div className={styles.stock_box}>
+                    <button onClick={decrementQuantity}>-</button>
+                    <span>{selectedQuantity}</span>
+                    <button onClick={incrementQuantity}>+</button>
+                  </div>
+                  <div className={styles.buttons_box}>
+                    <button
+                      className={styles.btn_cart}
+                      onClick={handleAddProduct}
+                    >
+                      Add to cart
+                    </button>
+                    <button className={styles.btn_favorites}>
+                      Add to favorite
+                    </button>
+                  </div>
+                </>
               )}
             </div>
           </div>

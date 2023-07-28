@@ -1,14 +1,23 @@
-import React from "react";
-import styles from "./Cart.module.css";
-import { useSelector } from "react-redux";
-import EmptyCart from "./EmptyCart";
+import styles from './Cart.module.css';
+import {useSelector} from 'react-redux';
+import EmptyCart from './EmptyCart';
+import CartItem from './CartItem/CartItem';
+import MercadoPago from '../../Components/MercadoPago/MercadoPago';
 
 const Cart = () => {
   const userProducts = useSelector((state) => state.cart.products);
-  const cartLength = useSelector((state) => state.cart.products.length);
+  const cartId = useSelector((state) => state.cart.id);
+  let cartLength;
+  if (userProducts) {
+    cartLength = userProducts.length;
+  }
+
+  console.log(userProducts);
 
   return (
-    <section className={`${styles.cart_wrapper} ${!cartLength && styles.empty}`}>
+    <section
+      className={`${styles.cart_wrapper} ${!cartLength && styles.empty}`}
+    >
       <div className={styles.cart_section}>
         {!cartLength ? (
           <EmptyCart />
@@ -16,18 +25,14 @@ const Cart = () => {
           <>
             <div className={styles.cart_info}>
               <h1>
-                CARRITO DE COMPRAS{" "}
+                CARRITO DE COMPRAS{' '}
                 <span className={styles.span_products}>
                   {userProducts.length}
                 </span>
               </h1>
-              {userProducts.map((product) => (
-                <div className={styles.product_container}>
-                  {product.image && (
-                    <img src={product?.image[0]} alt={product.article_name} />
-                  )}
-                  <h3>{product.article_name}</h3>
-                  <p>{product.stock}</p>
+              {userProducts.map((product, index) => (
+                <div key={index}>
+                  <CartItem product={product} cartId={cartId} />
                 </div>
               ))}
             </div>
@@ -45,6 +50,7 @@ const Cart = () => {
                 <h4>Total</h4>
                 <p>$2104.54</p>
               </div>
+              <MercadoPago Inventarios={userProducts} />
               <button className={styles.btnCheckout}>Checkout</button>
             </div>
           </>

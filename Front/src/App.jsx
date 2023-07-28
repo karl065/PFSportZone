@@ -29,6 +29,7 @@ import {
   getUsers,
   setLoading,
 } from "./redux/actions/actions";
+import { getCart } from "./redux/actions/cartActions";
 import { useState } from "react";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
   const location = useLocation();
   // * Estado para no mostrar la nav en la pagina 404
   const [errorPage, setErrorPage] = useState(true);
+  const idCart = localStorage.getItem("idCarrito");
 
   // * Carga inicial de los datos necesarios para la app.
   useEffect(() => {
@@ -47,6 +49,11 @@ function App() {
       dispatch(getInventory()),
     ]).then(() => dispatch(setLoading(false)));
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(setLoading(true));
+    dispatch(getCart(idCart)).then(() => dispatch(setLoading(false)));
+  }, [idCart]);
 
   return (
     <div className="App">

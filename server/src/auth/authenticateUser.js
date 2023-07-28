@@ -23,7 +23,8 @@ const authenticateUser = async (email, password) => {
       where: {email: email},
       include: {model: Carrito, as: 'carrito'},
     });
-    if (user.length === 0) {
+
+    if (!user) {
       return {msg: 'Usuario o Password incorrecto'};
     }
     const passwordValid = await bcryptjs.compare(password, user.password);
