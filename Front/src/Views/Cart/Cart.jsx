@@ -51,7 +51,6 @@ const Cart = () => {
                 <p>$2104.54</p>
               </div>
               <MercadoPago Inventarios={userProducts} />
-              <button className={styles.btnCheckout}>Checkout</button>
             </div>
           </>
         )}
