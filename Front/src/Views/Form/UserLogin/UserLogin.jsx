@@ -70,7 +70,7 @@ const UserLogin = () => {
       }
 
     } catch (error) {
-      swalErrorAuth();
+      swalErrorAuth(error);
     }
   };
 
@@ -93,7 +93,7 @@ const UserLogin = () => {
         await login(newUser.email, newUser.password, navigate);
       }
     } catch (error) {
-      swalErrorAuth();
+      swalErrorAuth(error);
     }
   };
 
