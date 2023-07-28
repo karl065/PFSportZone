@@ -17,7 +17,7 @@ export const getCart = (idCart) => {
 
 export const addProduct = (idCart, idProduct, quantity) => {
   return async (dispatch) => {
-    console.log("Producto id", idProduct);
+    console.log("Cantidad", quantity);
     const { data } = await axios.post(`${server.api.baseURL}carrito`, {
       idCar: idCart,
       id_inventory: idProduct,
