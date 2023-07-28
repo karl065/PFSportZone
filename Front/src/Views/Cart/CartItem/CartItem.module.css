@@ -1,6 +1,8 @@
 .product_container {
   display: grid;
   grid-template-columns: auto 1.5fr 1fr 1fr;
+  grid-template-rows: 80% auto;
+  align-items: center;
   gap: 2rem;
   padding: 2rem 0;
   border-bottom: 2px solid grey;
@@ -9,5 +11,53 @@
 .product_container img {
   width: 8rem;
   height: 8rem;
-  border: 2px solid black;
+  border: 2px solid rgb(0, 0, 0);
+}
+
+.article_name{
+  font-size: 1.4rem;
+  text-wrap: balance;
+}
+
+.stockAvailable{
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+  justify-self: center;
+}
+
+.stock_box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.stock_box button {
+  padding: 0.3rem 1rem;
+  font-size: 2rem;
+}
+
+.stock_box span{
+  font-size: 2rem;
+}
+
+.price_per_unit{
+  font-size: 1.4rem;
+}
+
+.price_per_amount{
+  font-size: 1.8rem;
+}
+
+.actions_p{
+  font-size: 1.2rem;
+  color: #3485FA;
+  text-decoration: underline;
+  cursor: pointer;
+  width: fit-content;
+  justify-self: center;
+}
+
+.actions_p:hover{
+  text-decoration: none;
 }

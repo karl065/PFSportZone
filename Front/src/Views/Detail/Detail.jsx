@@ -68,6 +68,7 @@ const Detail = () => {
                 <h3>Description</h3>
                 <p>{product.description}</p>
               </div>
+              <p className={styles.stock_p}>Stock: {product.stock}</p>
               {role === "Cliente" && (
                 <>
                   <div className={styles.stock_box}>

@@ -8,7 +8,7 @@
   position: relative;
 }
 
-.arrow_left{
+.arrow_left {
   position: absolute;
   top: 0;
   left: 0;
@@ -56,19 +56,36 @@
 
 .info_container h2 {
   font-size: 3rem;
+  color: black;
+}
+
+.description_box {
+  box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.25) inset;
+  -webkit-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.25) inset;
+  -moz-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.25) inset;
 }
 
 .description_box h3 {
   font-size: 2rem;
-}
-
-.description_box p {
-  max-height: 4rem;
-  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.705);
+  color: white;
 }
 
 .description_box p {
   font-size: 1.5rem;
+  background-color: #dcf883;
+  color: white;
+  padding: 0.5rem;
+  max-height: 4rem;
+  overflow: auto;
+  color: black;
+  box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.25) inset;
+  -webkit-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.25) inset;
+  -moz-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+.stock_p {
+  font-size: 1.3rem;
 }
 
 .stock_box {
@@ -80,7 +97,7 @@
 }
 
 .stock_box button {
-  background-color: rgba(190, 243, 27, 0.97);;
+  background-color: rgba(190, 243, 27, 0.97);
 }
 
 .buttons_box {
@@ -94,12 +111,16 @@
   border-radius: 0.3125rem;
   border: 3px solid #000;
   padding: 0.2rem 0.4rem;
-  font-size: 1rem;
+  font-size: 1.3rem;
   width: fit-content;
 }
 
 .btn_cart {
   background: rgba(190, 243, 27, 0.97);
+}
+
+.btn_cart:active {
+  background: rgba(84, 110, 4, 0.555);
 }
 
 .btn_favorites {

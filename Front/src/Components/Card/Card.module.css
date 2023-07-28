@@ -17,7 +17,8 @@
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.04);
+  transition: all 0.14s;
 }
 
 .header_card {
@@ -58,4 +59,20 @@
 .info p:nth-child(2) {
   font-size: 1.4rem;
   color: #3b3b39;
+}
+
+.addCartBtn{
+  color: white;
+  background-color: black;
+  margin-top: 0.2rem;
+  padding: 0.3rem 1.5rem;
+}
+
+.addCartBtn:hover{
+  transform: scale(1.12);
+  transition: scale 0.2s;
+}
+
+.addCartBtn:active{
+  background-color: rgb(61, 61, 61);
 }
