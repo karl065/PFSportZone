@@ -10,7 +10,8 @@ const NavBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cartLength = useSelector((state) => state.cart.products.length);
+  const products = useSelector((state) => state.cart.products);
+  const cartLength = products?.length;
   const role = localStorage.getItem("role");
 
   const shouldRenderSearchBar =
@@ -38,17 +39,22 @@ const NavBar = () => {
         </li>
         {isLoggedIn() ? (
           <>
-            <li className={styles.cart_item}>
-              <Link to="/cart">
-                <img
-                  src={cartIcon}
-                  alt="Shopping Cart"
-                  className={styles.cart_img}
-                />
-              </Link>
-              {cartLength > 0 && <span>{cartLength}</span>}
-            </li>
-            <li className={styles.logout} onClick={() => handleLogout(navigate)}>
+            {role === "Cliente" && (
+              <li className={styles.cart_item}>
+                <Link to="/cart">
+                  <img
+                    src={cartIcon}
+                    alt="Shopping Cart"
+                    className={styles.cart_img}
+                  />
+                </Link>
+                {cartLength > 0 && <span>{cartLength}</span>}
+              </li>
+            )}
+            <li
+              className={styles.logout}
+              onClick={() => handleLogout(navigate)}
+            >
               Logout
             </li>
           </>

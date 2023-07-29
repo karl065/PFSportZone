@@ -1,14 +1,19 @@
-import React from "react";
 import styles from "./Cart.module.css";
 import { useSelector } from "react-redux";
 import EmptyCart from "./EmptyCart";
+import CartItem from "./CartItem/CartItem";
+import MercadoPago from "../../Components/MercadoPago/MercadoPago";
 
 const Cart = () => {
   const userProducts = useSelector((state) => state.cart.products);
-  const cartLength = useSelector((state) => state.cart.products.length);
+  const totalCart = useSelector((state) => state.cart.total);
+  const cartId = useSelector((state) => state.cart.id);
+  let cartLength = userProducts?.length;
 
   return (
-    <section className={`${styles.cart_wrapper} ${!cartLength && styles.empty}`}>
+    <section
+      className={`${styles.cart_wrapper} ${!cartLength && styles.empty}`}
+    >
       <div className={styles.cart_section}>
         {!cartLength ? (
           <EmptyCart />
@@ -16,36 +21,32 @@ const Cart = () => {
           <>
             <div className={styles.cart_info}>
               <h1>
-                CARRITO DE COMPRAS{" "}
+                SHOPPING CART
                 <span className={styles.span_products}>
                   {userProducts.length}
                 </span>
               </h1>
-              {userProducts.map((product) => (
-                <div className={styles.product_container}>
-                  {product.image && (
-                    <img src={product?.image[0]} alt={product.article_name} />
-                  )}
-                  <h3>{product.article_name}</h3>
-                  <p>{product.stock}</p>
+              {userProducts.map((product, index) => (
+                <div key={index}>
+                  <CartItem product={product} cartId={cartId} />
                 </div>
               ))}
             </div>
             <div className={styles.checkout_container}>
-              <h3>Facturacion</h3>
+              <h3>ORDER SUMMARY</h3>
               <div className={styles.checkout_box}>
                 <h4>Subtotal</h4>
-                <p>$2014.54</p>
+                <p className={styles.p}>${totalCart}</p>
               </div>
               <div className={styles.checkout_box}>
                 <h4>Shipping</h4>
-                <p>$0</p>
+                <p className={styles.p}>$0</p>
               </div>
-              <div className={styles.checkout_box}>
-                <h4>Total</h4>
-                <p>$2104.54</p>
+              <div className={`${styles.checkout_box} ${styles.total}`}>
+                <h2>Total</h2>
+                <p>${totalCart}</p>
               </div>
-              <button className={styles.btnCheckout}>Checkout</button>
+              <MercadoPago Inventarios={userProducts} />
             </div>
           </>
         )}

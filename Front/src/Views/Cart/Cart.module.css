@@ -40,20 +40,6 @@
   padding: 0.4rem 2rem;
 }
 
-.product_container {
-  display: grid;
-  grid-template-columns: auto 1.5fr 1fr 1fr;
-  gap: 2rem;
-  padding: 2rem 0;
-  border-bottom: 2px solid grey;
-}
-
-.product_container img {
-  width: 8rem;
-  height: 8rem;
-  border: 2px solid black;
-}
-
 .checkout_container {
   display: flex;
   flex-direction: column;
@@ -67,10 +53,26 @@
   text-align: center;
 }
 
+.checkout_container h4 {
+  font-weight: 200;
+}
+
+.total_p{
+  font-size: 8rem;
+}
+
 .checkout_box {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.checkout_box .p{
+  font-size: 1.4rem;
+}
+
+.total{
+  font-size: 1.8rem;
 }
 
 .btnCheckout {
