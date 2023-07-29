@@ -3,10 +3,15 @@ import {useNavigate, NavLink, Link} from 'react-router-dom';
 import {isLoggedIn, handleLogout} from '../../helpers/helperLogin';
 import styles from './Landing.module.css';
 import Footer from '../../Components/Footer/Footer';
+import {useDispatch} from 'react-redux';
+import {deleteAllProduct} from '../../redux/actions/cartActions';
 
 const Landing = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const urlParams = new URLSearchParams(window.location.search);
+  const status = urlParams.get('status');
+  if (status) dispatch(deleteAllProduct());
   //* función para redirigir al home al momento de hacer click a "Tienda"
   const toHome = () => {
     navigate('/home');
