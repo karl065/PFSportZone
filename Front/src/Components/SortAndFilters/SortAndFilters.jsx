@@ -18,7 +18,7 @@ export default function SortAndFilters() {
   const [menuView, setMenuView] = useState(false);
   const dispatch = useDispatch();
   const sports = useSelector((state) => state.app.sports);
-  const marca = useSelector((state) => state.app.marca);
+  const marcas = useSelector((state) => state.app.marcas);
   const categorys = useSelector((state) => state.app.category);
   const [filters, setFilters] = useState({
     id_categorias: '',
@@ -56,6 +56,13 @@ export default function SortAndFilters() {
       idMarca: 'default',
     });
     dispatch(resetDisplayedProducts());
+  };
+
+  const handlerSingleFilterClean = (name) => {
+    setFilters({
+      ...filters,
+      [name] : 'default' 
+    })
   };
 
   //*funcion para que al ir modificando filters se sigan agregando querys a la request para filtrar
@@ -107,7 +114,7 @@ export default function SortAndFilters() {
   const closeMenuFilters = () => {
     setMenuView(false);
   };
-
+  console.log(filters);
   return (
     <div className={Styles.container}>
       <div className={Styles.order_container}>
@@ -157,9 +164,22 @@ export default function SortAndFilters() {
             <button onClick={handleFiltersClean}>eliminar filtros</button>
           </span>
           <p>Filtros elegidos:</p>
+          {
+            Object.keys(filters).map((key,index)=>{
+              const value = filters[key];
+              if(
+                value !== undefined && 
+                value !== null && 
+                value !== "" && 
+                value !== 'default' ) {
+                  return <button key={index} onClick={() => handlerSingleFilterClean(key)}>{value}</button>
+                }
+                return null;
+            })
+          }
           <br />
 
-          <label htmlFor="filters">por tipo de prenda:</label>
+          <label htmlFor="filters">por tipo de producto:</label>
           <select
             value={filters.id_categorias}
             name="id_categorias"
@@ -216,8 +236,8 @@ export default function SortAndFilters() {
             onChange={(e) => handleFiltersChange(e)}
           >
             <option value="default">Elige una opcion</option>
-            {marca?.length &&
-              marca.map((marc, index) => {
+            {marcas?.length &&
+              marcas.map((marc, index) => {
                 return (
                   <option value={marc.idMarca} key={index}>
                     {marc.name}

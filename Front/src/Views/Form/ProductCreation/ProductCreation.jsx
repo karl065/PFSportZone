@@ -67,10 +67,10 @@ export const ProductCreation = () => {
       .required('Select one category'),
     idMarca: Yup.number()
       .oneOf(
-        sports.map((marca) => marca.idMarca),
-        'Not a valid marca'
+        marcas.map((marca) => marca.idMarca),
+        'Not a valid Brand'
       )
-      .required('Select one Marca'),
+      .required('Select one Brand'),
     idDeportes: Yup.number()
       .oneOf(
         sports.map((sport) => sport.idDeportes),
@@ -144,9 +144,9 @@ export const ProductCreation = () => {
                 />
               </div>
               <div className={styles.select_container}>
-                <label>Marca</label>
+                <label>Brand</label>
                 <Field as="select" name="idMarca">
-                  <option value="">Select a marca</option>
+                  <option value="">Select a Brand</option>
                   {marcas.map((marca, index) => (
                     <option value={marca.idMarca} key={index}>
                       {marca.name}

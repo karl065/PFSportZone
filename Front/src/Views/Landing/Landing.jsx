@@ -22,20 +22,20 @@ const Landing = () => {
     <div className={styles.container}>
       <ul className={styles.barraSuperior}>
         <NavLink to="/about">
-          <p>About Us</p>
+          <p>Sobre nosotros</p>
         </NavLink>
         {role === 'SuperUser' || role === 'Admin' ? (
           <Link to={'/adminProducts'}>Dashboard</Link>
         ) : null}
         {isLoggedIn() ? (
-          <li onClick={() => handleLogout(navigate)}>Logout</li>
+          <li onClick={() => handleLogout(navigate)}>cerrar sesion</li>
         ) : (
           <NavLink to="/register">
-            <p>Sign Up</p>
+            <p>registrate</p>
           </NavLink>
         )}
         <NavLink to="/faq">
-          <p>F&A</p>
+          <p>P&R</p>
         </NavLink>
       </ul>
       <div className={styles.titles}>
@@ -47,7 +47,7 @@ const Landing = () => {
         <button className={styles.tienda} onClick={toHome}>
           TIENDA
         </button>
-        {!isLoggedIn() && <button onClick={toLogIn}>LOG IN</button>}
+        {!isLoggedIn() && <button onClick={toLogIn}>ingresar</button>}
       </div>
 
       <img
