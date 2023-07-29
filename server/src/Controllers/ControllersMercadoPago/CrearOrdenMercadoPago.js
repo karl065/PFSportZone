@@ -51,7 +51,6 @@ const crearOrdenController = async (Inventarios) => {
     };
 
     const response = await mercadopago.preferences.create(preference);
-    console.log(response);
     return response;
   } catch (error) {
     return error;

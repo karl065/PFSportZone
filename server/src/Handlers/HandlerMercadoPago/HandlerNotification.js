@@ -1,7 +1,5 @@
 const notification = async (req, res) => {
-  console.log(req.query);
-  const paymentStatus = req.query.status;
-  console.log(paymentStatus);
+  console.log('esto es notificacion', req.query);
   res.send('Procesando pago...');
 };
 
