@@ -18,6 +18,10 @@ const NavBar = () => {
     (location.pathname !== "/" && role === "Cliente") ||
     location.pathname === "/home";
 
+  const handleResetProducts = () => {
+    if (location.pathname !== "/home") dispatch(resetDisplayedProducts());
+  };
+
   return (
     <nav className={styles.nav}>
       {location.pathname === "/" ? (
@@ -33,7 +37,7 @@ const NavBar = () => {
       {shouldRenderSearchBar && <SearchBar />}
       <ul className={styles.nav_list}>
         <li>
-          <Link to="/home" onClick={() => dispatch(resetDisplayedProducts())}>
+          <Link to="/home" onClick={handleResetProducts}>
             Catalogo
           </Link>
         </li>
