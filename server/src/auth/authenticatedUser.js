@@ -10,6 +10,9 @@ const {Usuarios} = require('../DB.js');
 const authenticatedUser = async (idUser) => {
   try {
     const user = await Usuarios.findByPk(idUser);
+
+    if(!user) throw new Error("User not found");
+
     return user;
   } catch (error) {
     return error.message;

@@ -11,13 +11,6 @@ const login = async (email, password, navigate) => {
       email,
       password,
     });
-    if (data.msg) {
-      return Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: data.msg,
-      });
-    }
 
     localStorage.setItem('token', data.token);
     localStorage.setItem('role', data.role);
@@ -30,7 +23,11 @@ const login = async (email, password, navigate) => {
       navigate('/home');
     }
   } catch (error) {
-    return error;
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: "Email o contraseña incorrectos.",
+    });
   }
 };
 
