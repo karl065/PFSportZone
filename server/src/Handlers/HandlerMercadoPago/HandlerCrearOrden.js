@@ -6,6 +6,7 @@ const handlerCrearOrden = async (req, res) => {
   const {Inventarios} = req.body;
   try {
     const orden = await crearOrdenController(Inventarios);
+    console.log('esta es la orden en Handler ', orden);
     return res.status(200).json(orden);
   } catch (error) {
     return res.status(400).json({error: error.message});
