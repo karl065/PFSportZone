@@ -43,8 +43,25 @@ async function enviarNotificacionCambioContrasena(email) {
       error
     );
   }
+
+  async function enviarNotificacionCompra(email, article_name) {
+    const mensaje = {
+      from: "dianamtm55@gmail.com",
+      to: email,
+      subject: "Confirmación de compra",
+      text: `Gracias por tu compra. Has adquirido el artículo: ${article_name}.`,
+    };
+
+    try {
+      await transporter.sendMail(mensaje);
+      console.log("Notificación de compra enviada.");
+    } catch (error) {
+      console.error("Error al enviar la notificación de compra:", error);
+    }
+  }
 }
 module.exports = {
   enviarNotificacionUsuarioNuevo,
   enviarNotificacionCambioContrasena,
+  enviarNotificacionCompra,
 };
