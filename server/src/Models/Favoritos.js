@@ -9,15 +9,7 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      idUser: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      id_inventory: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      comentarios: {
+      comment: {
         type: DataTypes.TEXT,
       },
     },

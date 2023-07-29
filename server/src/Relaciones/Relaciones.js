@@ -45,18 +45,16 @@ const relaciones = (models) => {
   });
   //
   Favoritos.belongsToMany(Inventarios, {
-    through: "FavoritosInventarios",
+    through: "Favoritos_Inventarios",
     foreignKey: "idFavorites",
+    otherKey: "id_inventory",
     as: "inventarios",
-    onDelete: "CASCADE",
-    timestamps: false,
   });
   Inventarios.belongsToMany(Favoritos, {
-    through: "FavoritosInventarios",
+    through: "Favoritos_Inventarios",
     foreignKey: "id_inventory",
+    otherKey: "idFavorites",
     as: "favoritos",
-    onDelete: "CASCADE",
-    timestamps: false,
   });
   // -------------------------------------------------------
 
