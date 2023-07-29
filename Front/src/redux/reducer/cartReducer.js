@@ -2,8 +2,9 @@ import {
   GET_CART,
   ADD_PRODUCT,
   DELETE_PRODUCT,
+  DELETE_ALL_PRODUCT,
   UPDATE_CART,
-} from "../actions-types/cartTypes";
+} from '../actions-types/cartTypes';
 
 const initialState = {
   id: null,
@@ -11,7 +12,7 @@ const initialState = {
   total: 0,
 };
 
-const cartReducer = (state = initialState, { type, payload }) => {
+const cartReducer = (state = initialState, {type, payload}) => {
   switch (type) {
     case GET_CART:
       return {
@@ -38,8 +39,14 @@ const cartReducer = (state = initialState, { type, payload }) => {
         products: payload.Inventarios,
         total: payload.total,
       };
+    case DELETE_ALL_PRODUCT:
+      return {
+        ...state,
+        products: payload.Inventarios,
+        total: payload.total,
+      };
     default:
-      return { ...state };
+      return {...state};
   }
 };
 

@@ -2,19 +2,16 @@ import {
   GET_CART,
   ADD_PRODUCT,
   DELETE_PRODUCT,
+  DELETE_ALL_PRODUCT,
   UPDATE_CART,
 } from "../actions-types/cartTypes";
 import axios from "axios";
 import server from "../../Connections/Server";
 
 export const getCart = () => {
-  const idCarrito = localStorage.getItem("idCarrito");
-  console.log(idCarrito);
+  const idCarrito = localStorage.getItem('idCarrito');
   return async (dispatch) => {
-    const { data } = await axios.get(
-      `${server.api.baseURL}carrito/${idCarrito}`
-    );
-    console.log("getcart data", data);
+    const {data} = await axios.get(`${server.api.baseURL}carrito/${idCarrito}`);
     // * Elimina el atributo usuario de la respuesta.
     delete data.usuario;
     dispatch({
@@ -63,6 +60,20 @@ export const deleteProduct = (idCart, idProduct) => {
 
     dispatch({
       type: DELETE_PRODUCT,
+      payload: data,
+    });
+  };
+};
+export const deleteAllProduct = () => {
+  const idCarrito = localStorage.getItem('idCarrito');
+  return async (dispatch) => {
+    const {data} = await axios.delete(
+      `${server.api.baseURL}carrito/${idCarrito}`
+    );
+
+    console.log('Carrito delete', data);
+    dispatch({
+      type: DELETE_ALL_PRODUCT,
       payload: data,
     });
   };
