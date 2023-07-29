@@ -9,7 +9,7 @@ const Landing = () => {
 
   //* función para redirigir al home al momento de hacer click a "Tienda"
   const toHome = () => {
-    navigate('/#/home');
+    navigate('/home');
   };
   //* función para redirigir al login al momento de hacer click a "Log In"
   const toLogIn = () => {
