@@ -1,8 +1,8 @@
-import styles from "./Cart.module.css";
-import { useSelector } from "react-redux";
-import EmptyCart from "./EmptyCart";
-import CartItem from "./CartItem/CartItem";
-import MercadoPago from "../../Components/MercadoPago/MercadoPago";
+import styles from './Cart.module.css';
+import {useSelector} from 'react-redux';
+import EmptyCart from './EmptyCart';
+import CartItem from './CartItem/CartItem';
+import MercadoPago from '../../Components/MercadoPago/MercadoPago';
 
 const Cart = () => {
   const userProducts = useSelector((state) => state.cart.products);
@@ -26,8 +26,8 @@ const Cart = () => {
                   {userProducts.length}
                 </span>
               </h1>
-              {userProducts.map((product, index) => (
-                <div key={index}>
+              {userProducts.map((product) => (
+                <div key={product.id_inventory}>
                   <CartItem product={product} cartId={cartId} />
                 </div>
               ))}
