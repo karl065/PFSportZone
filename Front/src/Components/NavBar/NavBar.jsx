@@ -18,6 +18,10 @@ const NavBar = () => {
     (location.pathname !== "/" && role === "Cliente") ||
     location.pathname === "/home";
 
+  const handleResetProducts = () => {
+    if (location.pathname !== "/home") dispatch(resetDisplayedProducts());
+  };
+
   return (
     <nav className={styles.nav}>
       {location.pathname === "/" ? (
@@ -28,13 +32,13 @@ const NavBar = () => {
         </Link>
       )}
       {role === "SuperUser" || role === "Admin" ? (
-        <Link to={"/adminProducts"}>Dashboard</Link>
+        <Link to={"/adminProducts"}>Panel admin</Link>
       ) : null}
       {shouldRenderSearchBar && <SearchBar />}
       <ul className={styles.nav_list}>
         <li>
-          <Link to="/home" onClick={() => dispatch(resetDisplayedProducts())}>
-            Catalog
+          <Link to="/home" onClick={handleResetProducts}>
+            Catalogo
           </Link>
         </li>
         {isLoggedIn() ? (
@@ -55,16 +59,16 @@ const NavBar = () => {
               className={styles.logout}
               onClick={() => handleLogout(navigate)}
             >
-              Logout
+              Salir
             </li>
           </>
         ) : (
           <>
             <li>
-              <Link to="/login">Log in</Link>
+              <Link to="/login">Ingresar</Link>
             </li>
             <li>
-              <Link to="/register">Sign up</Link>
+              <Link to="/register">REGISTRO</Link>
             </li>
           </>
         )}

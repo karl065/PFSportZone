@@ -7,6 +7,7 @@ import { getProductById, setLoading } from "../../redux/actions/actions";
 import { addProduct, getCart } from "../../redux/actions/cartActions";
 import styles from "./Detail.module.css";
 import arrowLeft from "../../assets/arrow-left.svg";
+import { successToast } from "../../helpers/toastNotification";
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const Detail = () => {
   const handleAddProduct = async () => {
     await dispatch(addProduct(idCarrito, product.id_inventory, selectedQuantity));
     await dispatch(getCart(idCarrito));
+    successToast("Producto añadido correctamente!", 1000);
   };
 
   return (
@@ -65,7 +67,7 @@ const Detail = () => {
               <h1>{product.article_name}</h1>
               <h2>${product.selling_price}</h2>
               <div className={styles.description_box}>
-                <h3>Description</h3>
+                <h3>Descripción</h3>
                 <p>{product.description}</p>
               </div>
               <p className={styles.stock_p}>Stock: {product.stock}</p>
@@ -81,10 +83,10 @@ const Detail = () => {
                       className={styles.btn_cart}
                       onClick={handleAddProduct}
                     >
-                      Add to cart
+                      Añadir al carrito
                     </button>
                     <button className={styles.btn_favorites}>
-                      Add to favorite
+                      Añadir a favoritos
                     </button>
                   </div>
                 </>

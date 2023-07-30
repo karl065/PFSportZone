@@ -100,6 +100,11 @@
   background-color: rgba(190, 243, 27, 0.97);
 }
 
+.stock_box span{
+  width: 3ch;
+  text-align: center;
+}
+
 .buttons_box {
   display: flex;
   align-items: center;

@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {addProduct, deleteProduct} from '../../../redux/actions/cartActions';
-import styles from './CartItem.module.css';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { deleteProduct, updateCart } from "../../../redux/actions/cartActions";
+import styles from "./CartItem.module.css";
 
-const CartItem = ({product, cartId}) => {
+const CartItem = ({ product, cartId }) => {
   const dispatch = useDispatch();
   const {
     id_inventory,
@@ -16,15 +16,13 @@ const CartItem = ({product, cartId}) => {
     CarritoInventarios,
   } = product;
 
-  const [selectedQuantity, setSelectedQuantity] = useState(
-    CarritoInventarios.cant
-  );
+  const [selectedQuantity, setSelectedQuantity] = useState(CarritoInventarios.cant);
 
   const incrementQuantity = () => {
     if (selectedQuantity < stock) {
       const newQuantity = selectedQuantity + 1;
       setSelectedQuantity(newQuantity);
-      // dispatch(addProduct(cartId, id_inventory, newQuantity));
+      dispatch(updateCart(cartId, id_inventory, newQuantity));
     }
   };
 
@@ -32,20 +30,14 @@ const CartItem = ({product, cartId}) => {
     if (selectedQuantity > 1) {
       const newQuantity = selectedQuantity - 1;
       setSelectedQuantity(newQuantity);
-      // dispatch(addProduct(cartId, id_inventory, newQuantity));
+      dispatch(updateCart(cartId, id_inventory, newQuantity));
     }
   };
 
-  const handleDeleteProduct = (idProduct) => {
-    dispatch(deleteProduct(cartId, idProduct));
+  const handleDeleteProduct = async (idProduct) => {
+    await dispatch(deleteProduct(cartId, idProduct));
   };
 
-  useEffect(() => {
-    // Solo si selectedQuantity es diferente de CarritoInventarios.cant, dispatch para actualizar el producto
-    if (selectedQuantity !== CarritoInventarios.cant) {
-      dispatch(addProduct(cartId, id_inventory, selectedQuantity));
-    }
-  }, [selectedQuantity]);
   return (
     <div className={styles.product_container}>
       {image && <img src={image[0]} alt={article_name} />}
@@ -65,15 +57,14 @@ const CartItem = ({product, cartId}) => {
       <p className={styles.price_per_amount}>
         ${CarritoInventarios.precioPorCant}
       </p>
-      <p className={styles.price_per_unit}>Price per unit: ${selling_price}</p>
-      <p className={styles.stockAvailable}>Available: {stock}</p>
+      <p className={styles.price_per_unit}>Por unidad: ${selling_price}</p>
+      <p className={styles.stockAvailable}>Disponibles: {stock}</p>
       <p
         onClick={() => handleDeleteProduct(id_inventory)}
         className={styles.actions_p}
       >
-        Delete
+        Eliminar
       </p>
-      <p className={styles.actions_p}>Buy Now</p>
     </div>
   );
 };

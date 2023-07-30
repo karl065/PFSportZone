@@ -127,7 +127,7 @@ const UserLogin = () => {
                             className="text-dark mb-4"
                             style={{ fontSize: "2.4rem" }}
                           >
-                            WELCOME!
+                            BIENVENIDO!
                           </h4>
                         </div>
                         <form className="user" onSubmit={formik.handleSubmit}>
@@ -158,7 +158,7 @@ const UserLogin = () => {
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               type="password"
-                              placeholder="Password"
+                              placeholder="Contraseña"
                               name="password"
                               style={{ borderRadius: "0px" }}
                             />
@@ -184,7 +184,7 @@ const UserLogin = () => {
                               borderRadius: "0px",
                             }}
                           >
-                            Login
+                            Ingresar
                           </button>
                           <div className={styles.externalAuthButtons}>
                             <button
@@ -193,7 +193,7 @@ const UserLogin = () => {
                               className={styles.btnLoginGoogle}
                             >
                               <img src={googleIcon} alt="Google icon" />
-                              Login with Google
+                              Ingresar con google
                             </button>
                             <button
                               type="button"
@@ -201,7 +201,7 @@ const UserLogin = () => {
                               className={styles.btnLoginFacebook}
                             >
                               <img src={facebookIcon} alt="Facebook icon" />
-                              Login with Facebook
+                              Ingresar con facebook
                             </button>
                           </div>
                           <hr />
