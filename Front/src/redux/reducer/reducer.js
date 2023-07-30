@@ -63,6 +63,16 @@ export default function appReducer(state = initialState, {type, payload}) {
       return {...state, sports: [...state.sports, payload]};
     case GET_PRODUCT_ID:
       return {...state, product: payload};
+    case EDIT_PRODUCT:
+      const indexProduct = state.inventory.findIndex(
+        (p) => p.id_inventory === payload.id_inventory
+      );
+      const updatedInventory = [...state.inventory];
+      updatedInventory[indexProduct] = payload;
+      return {
+        ...state,
+        inventory: updatedInventory,
+      };
     case FILTER_PRODUCTS_BY_NAME:
       const filteredInventory = state.inventory.filter((product) =>
         product.article_name.toLowerCase().includes(payload.toLowerCase())
