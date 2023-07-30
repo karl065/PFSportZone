@@ -1,20 +1,18 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-undef */
-/* eslint-disable react-hooks/rules-of-hooks */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import Pagination from '../../Components/Pagination/Pagination';
 import {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Sidebar from '../../Components/SideBar/Sidebar';
+import {filterProductsByStatus} from '../../redux/actions/actions';
 
 library.add(fas);
 
 const AdminProducts = () => {
   const inventario = useSelector((state) => state.app.inventory);
+  const [statusSeleccionado, setStatusSeleccionado] = useState('');
   const [page, setPage] = useState(1);
   const [amountPerPage, setAmountPerPage] = useState(8);
   const pageCount = inventario.length / amountPerPage;
@@ -23,6 +21,17 @@ const AdminProducts = () => {
     'Not Available',
     'Discontinued',
   ]);
+  const dispatch = useDispatch();
+
+  const handleStatusChange = (e) => {
+    const {value} = e.target;
+    setStatusSeleccionado(value);
+  };
+
+  useEffect(() => {
+    dispatch(filterProductsByStatus(statusSeleccionado));
+    setPage(1);
+}, [statusSeleccionado]);
 
   useEffect(() => {
     const statusToRemove = inventario.map((item) => item.status);
@@ -45,10 +54,11 @@ const AdminProducts = () => {
               <div className="d-sm-flex justify-content-between align-items-center mb-4">
                 <h3 className="text-dark mb-0">Productos</h3>
                 <div>
-                  <select style={{height: '38px', marginTop: '10px'}}>
-                    <option defaultValue="12">Filtrar por</option>
-                    <option value="12">Usuarios</option>
-                    <option value="13">Empleados</option>
+                  <select value={statusSeleccionado}  onChange={handleStatusChange} style={{height: '38px', marginTop: '10px'}}>
+                    <option value='default'>Filtrar por</option>
+                    <option value="Available">Disponible</option>
+                    <option value="Not Available">No disponible</option>
+                    <option value="Discontinued">Descontinuado</option>
                   </select>
                 </div>
               </div>
@@ -147,12 +157,10 @@ const AdminProducts = () => {
                                       ? inventory.categorias.categoryName
                                       : 'categoria'}
                                   </td>
-                                  <td>
+                                  
+                                  <td><select className="d-inline-block form-select form-select-sm">
                                     {' '}
-                                    <select
-                                      style={{width: 'auto', minWidth: '100px'}}
-                                    >
-                                      <option value={inventory.status}>
+                                    <option value={inventory.status}>
                                         {inventory.status}
                                       </option>
                                       {statusOption.map((option, index) => (
@@ -160,7 +168,7 @@ const AdminProducts = () => {
                                           {option}
                                         </option>
                                       ))}
-                                    </select>
+                                  </select>
                                   </td>
                                   <td>
                                     <FontAwesomeIcon icon="pencil-square" />

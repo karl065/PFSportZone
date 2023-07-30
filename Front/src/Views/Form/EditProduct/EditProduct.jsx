@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import styles from './EditProduct.module.css';
 import {useDispatch, useSelector} from 'react-redux';
-import {editProduct} from '../../../redux/actions/actions';
+import {editProduct, getInventory} from '../../../redux/actions/actions';
 
 const EditProduct = ({product}) => {
   const dispatch = useDispatch();
@@ -75,6 +75,7 @@ const EditProduct = ({product}) => {
   const handleSubmit = async (values) => {
     try {
       await dispatch(editProduct(values));
+      dispatch(getInventory());
       Swal.fire('Buen trabajo!', 'Producto editado correctamente!', 'success');
     } catch (error) {
       Swal.fire({
