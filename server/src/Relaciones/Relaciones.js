@@ -33,35 +33,35 @@ const relaciones = (models) => {
   });
 
   Usuarios.belongsToMany(Inventarios, {
-    through: 'Favoritos',
+    through: "Favoritos",
   });
   Inventarios.belongsToMany(Usuarios, {
-    through: 'Favoritos',
+    through: "Favoritos",
   });
 
   Usuarios.hasMany(Ventas, {
-    foreignKey: 'id_usuarios',
-    as: 'usuarios',
+    foreignKey: "id_usuarios",
+    as: "usuarios",
   });
   Ventas.belongsTo(Usuarios, {
-    foreignKey: 'id_usuarios',
-    as: 'ventas',
+    foreignKey: "id_usuarios",
+    as: "ventas",
   });
 
   Ventas.belongsToMany(Inventarios, {
-    through: 'Detalle_Ventas',
+    through: "Detalle_Ventas",
   });
   Inventarios.belongsToMany(Ventas, {
-    through: 'Detalle_Ventas',
+    through: "Detalle_Ventas",
   });
 
   Inventarios.belongsTo(Marcas, {
-    foreignKey: 'idMarca',
-    as: 'marcas',
+    foreignKey: "idMarca",
+    as: "marcas",
   });
   Marcas.hasMany(Inventarios, {
-    foreignKey: 'idMarca',
-    as: 'inventarios',
+    foreignKey: "idMarca",
+    as: "inventarios",
   });
   Deportes.hasMany(Inventarios, {
     foreignKey: "idDeportes",
@@ -72,8 +72,8 @@ const relaciones = (models) => {
     as: "deportes",
   });
 
-  Usuarios.hasOne(Carrito, {foreignKey: 'idUser', as: 'carrito'});
-  Carrito.belongsTo(Usuarios, {foreignKey: 'idUser', as: 'usuario'});
+  Usuarios.hasOne(Carrito, { foreignKey: "idUser", as: "carrito" });
+  Carrito.belongsTo(Usuarios, { foreignKey: "idUser", as: "usuario" });
 
   // Hook afterCreate para crear automáticamente un carrito con valores nulos para el usuario recién creado
   Usuarios.afterCreate(async (usuario, options) => {
@@ -84,7 +84,7 @@ const relaciones = (models) => {
         idUser: usuario.idUser,
       });
     } catch (error) {
-      console.error('Error al crear el carrito:', error);
+      console.error("Error al crear el carrito:", error);
     }
   });
 
@@ -92,18 +92,18 @@ const relaciones = (models) => {
     through: {
       model: CarritoInventarios,
       unique: false,
-      attributes: ['cant', 'precioPorUnd', 'precioPorCant'],
+      attributes: ["cant", "precioPorUnd", "precioPorCant"],
     },
-    foreignKey: 'idCar',
+    foreignKey: "idCar",
   });
 
   Inventarios.belongsToMany(Carrito, {
     through: {
       model: CarritoInventarios,
       unique: false,
-      attributes: ['cant', 'precioPorUnd', 'precioPorCant'],
+      attributes: ["cant", "precioPorUnd", "precioPorCant"],
     },
-    foreignKey: 'id_inventory',
+    foreignKey: "id_inventory",
   });
   return {
     Personas,

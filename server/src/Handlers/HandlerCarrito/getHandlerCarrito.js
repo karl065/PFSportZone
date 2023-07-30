@@ -6,6 +6,9 @@ const {
 const getHandlerCarrito = async (req, res) => {
   try {
     const carrito = await getAllCarrito();
+    carrito.Inventarios.sort((a, b) =>
+      a.article_name.localeCompare(b.article_name)
+    );
     return res.status(200).json(carrito);
   } catch (error) {
     return res.status(500).json({error: error.message});
