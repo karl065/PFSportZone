@@ -67,7 +67,7 @@ export const ProductCreation = () => {
       .required('Select one category'),
     idMarca: Yup.number()
       .oneOf(
-        sports.map((marca) => marca.idMarca),
+        marcas.map((marca) => marca.idMarca),
         'Not a valid marca'
       )
       .required('Select one Marca'),
