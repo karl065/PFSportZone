@@ -2,39 +2,44 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import Pagination from '../../Components/Pagination/Pagination';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Sidebar from '../../Components/SideBar/Sidebar';
+import {filterProductsByStatus} from '../../redux/actions/actions';
 
 library.add(fas);
 
 const AdminProducts = () => {
   const inventario = useSelector((state) => state.app.inventory);
-  const [statusSeleccionado, setStatusSeleccionado] = useState('Show All');
+  const [statusSeleccionado, setStatusSeleccionado] = useState('');
   const [page, setPage] = useState(1);
   const [amountPerPage, setAmountPerPage] = useState(8);
-
+  const pageCount = inventario.length / amountPerPage;
   const [statusOption, setStatusOption] = useState([
     'Available',
     'Not Available',
     'Discontinued',
   ]);
-
+  const dispatch = useDispatch();
 
   const handleStatusChange = (e) => {
     const {value} = e.target;
     setStatusSeleccionado(value);
-    console.log(value);
   };
 
-  const filteredInventory =
-    statusSeleccionado === 'Show All'
-      ? inventario
-      
-      : inventario.filter((item) => item.status === statusSeleccionado);
-      
-    const pageCount = inventario.length / amountPerPage;
+  useEffect(() => {
+    dispatch(filterProductsByStatus(statusSeleccionado));
+    setPage(1);
+}, [statusSeleccionado]);
+
+  useEffect(() => {
+    const statusToRemove = inventario.map((item) => item.status);
+    setStatusOption((prevStatusOption) =>
+      prevStatusOption.filter((status) => !statusToRemove.includes(status))
+    );
+  }, [inventario]);
+
   return (
     <div>
       <div id="wrapper" style={{display: 'flex'}}>
@@ -50,7 +55,7 @@ const AdminProducts = () => {
                 <h3 className="text-dark mb-0">Productos</h3>
                 <div>
                   <select value={statusSeleccionado}  onChange={handleStatusChange} style={{height: '38px', marginTop: '10px'}}>
-                    <option value='Show All'>Filtrar por</option>
+                    <option value='default'>Filtrar por</option>
                     <option value="Available">Disponible</option>
                     <option value="Not Available">No disponible</option>
                     <option value="Discontinued">Descontinuado</option>
@@ -112,7 +117,8 @@ const AdminProducts = () => {
                             <th>Codigo</th>
                             <th>Imagen</th>
                             <th>Nombre</th>
-                            <th>Precio de Venta</th>
+                            <th>Venta P</th>
+                            <th>Compra P</th>
                             <th>Stock</th>
                             <th>Descripcion</th>
                             <th>Categoria</th>
@@ -120,11 +126,13 @@ const AdminProducts = () => {
                           </tr>
                         </thead>
                         <tbody>
-                        {filteredInventory.length ? (
-                            filteredInventory
-                              .slice((page - 1) * amountPerPage, (page - 1) * amountPerPage + amountPerPage)
+                          {inventario.length ? (
+                            inventario
+                              .slice(
+                                (page - 1) * amountPerPage,
+                                (page - 1) * amountPerPage + amountPerPage
+                              )
                               .map((inventory, index) => (
-                                
                                 <tr key={index}>
                                   <td>{inventory.id_inventory}</td>
                                   <td>
@@ -136,14 +144,21 @@ const AdminProducts = () => {
                                   </td>
                                   <td>{inventory.article_name}</td>
                                   <td>{inventory.selling_price}</td>
+                                  <td>{inventory.purchase_price}</td>
                                   <td>{inventory.stock}</td>
                                   <td>{inventory.description}</td>
+                                  {inventory.categorias ? (
+                                    <td>{inventory.categorias.categoryName}</td>
+                                  ) : (
+                                    'categoria'
+                                  )}
                                   <td>
                                     {inventory.categorias
                                       ? inventory.categorias.categoryName
                                       : 'categoria'}
                                   </td>
-                                  <td style={{"minWidth": "150px"}}><select className="d-inline-block form-select form-select-sm">
+                                  
+                                  <td><select className="d-inline-block form-select form-select-sm">
                                     {' '}
                                     <option value={inventory.status}>
                                         {inventory.status}
@@ -153,8 +168,8 @@ const AdminProducts = () => {
                                           {option}
                                         </option>
                                       ))}
-                                    </select>
-                                    </td>
+                                  </select>
+                                  </td>
                                   <td>
                                     <FontAwesomeIcon icon="pencil-square" />
                                   </td>

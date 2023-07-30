@@ -150,12 +150,23 @@ const AdminUsers = () => {
                                   <td>{users.email}</td>
                                   
                                   <td>{users.role}</td>
-
-                                  {users.userStatus ? (
+                                  <td><select className="d-inline-block form-select form-select-sm">
+                                    {' '}
+                                    <option value={inventory.status}>
+                                        {inventory.status}
+                                      </option>
+                                      {statusOption.map((option, index) => (
+                                        <option value={option} key={index}>
+                                          {option}
+                                        </option>
+                                      ))}
+                                  </select>
+                                  </td>
+                                  {/* {users.userStatus ? (
                                     <td>Activo</td>
                                   ) : (
                                     <td>Inactivo</td>
-                                  )}
+                                  )} */}
                                   <td>
                                     <FontAwesomeIcon icon="pencil-square" />
                                   </td>
