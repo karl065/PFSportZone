@@ -1,12 +1,8 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-undef */
-/* eslint-disable react-hooks/rules-of-hooks */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import Pagination from '../../Components/Pagination/Pagination';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useSelector} from 'react-redux';
 import Sidebar from '../../Components/SideBar/Sidebar';
@@ -15,22 +11,29 @@ library.add(fas);
 
 const AdminProducts = () => {
   const inventario = useSelector((state) => state.app.inventory);
+  const [statusSeleccionado, setStatusSeleccionado] = useState('');
   const [page, setPage] = useState(1);
   const [amountPerPage, setAmountPerPage] = useState(8);
-  const pageCount = inventario.length / amountPerPage;
+
   const [statusOption, setStatusOption] = useState([
     'Available',
     'Not Available',
     'Discontinued',
   ]);
 
-  useEffect(() => {
-    const statusToRemove = inventario.map((item) => item.status);
-    setStatusOption((prevStatusOption) =>
-      prevStatusOption.filter((status) => !statusToRemove.includes(status))
-    );
-  }, [inventario]);
 
+  const handleStatusChange = (e) => {
+    const {value} = e.target;
+    setStatusSeleccionado(value);
+  };
+
+  const filteredInventory =
+    statusSeleccionado === 'Show All'
+      ? inventario
+      : statusSeleccionado === 'default'
+      ? inventario
+      : inventario.filter((item) => item.status === statusSeleccionado);
+    const pageCount = inventario.length / amountPerPage;
   return (
     <div>
       <div id="wrapper" style={{display: 'flex'}}>
@@ -45,10 +48,12 @@ const AdminProducts = () => {
               <div className="d-sm-flex justify-content-between align-items-center mb-4">
                 <h3 className="text-dark mb-0">Productos</h3>
                 <div>
-                  <select style={{height: '38px', marginTop: '10px'}}>
-                    <option defaultValue="12">Filtrar por</option>
-                    <option value="12">Usuarios</option>
-                    <option value="13">Empleados</option>
+                  <select value={statusSeleccionado}  onChange={handleStatusChange} style={{height: '38px', marginTop: '10px'}}>
+                    <option value='default'>Filtrar por</option>
+                    <option value="Show All">Todos</option>
+                    <option value="Available">Disponible</option>
+                    <option value="Not Available">No disponible</option>
+                    <option value="Discontinued">Descontinuado</option>
                   </select>
                 </div>
               </div>
@@ -107,8 +112,7 @@ const AdminProducts = () => {
                             <th>Codigo</th>
                             <th>Imagen</th>
                             <th>Nombre</th>
-                            <th>Venta P</th>
-                            <th>Compra P</th>
+                            <th>Precio de Venta</th>
                             <th>Stock</th>
                             <th>Descripcion</th>
                             <th>Categoria</th>
@@ -116,12 +120,9 @@ const AdminProducts = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {inventario.length ? (
-                            inventario
-                              .slice(
-                                (page - 1) * amountPerPage,
-                                (page - 1) * amountPerPage + amountPerPage
-                              )
+                        {filteredInventory.length ? (
+                            filteredInventory
+                              .slice((page - 1) * amountPerPage, (page - 1) * amountPerPage + amountPerPage)
                               .map((inventory, index) => (
                                 <tr key={index}>
                                   <td>{inventory.id_inventory}</td>
@@ -134,25 +135,16 @@ const AdminProducts = () => {
                                   </td>
                                   <td>{inventory.article_name}</td>
                                   <td>{inventory.selling_price}</td>
-                                  <td>{inventory.purchase_price}</td>
                                   <td>{inventory.stock}</td>
                                   <td>{inventory.description}</td>
-                                  {inventory.categorias ? (
-                                    <td>{inventory.categorias.categoryName}</td>
-                                  ) : (
-                                    'categoria'
-                                  )}
                                   <td>
                                     {inventory.categorias
                                       ? inventory.categorias.categoryName
                                       : 'categoria'}
                                   </td>
-                                  <td>
+                                  <td style={{"minWidth": "150px"}}><select className="d-inline-block form-select form-select-sm">
                                     {' '}
-                                    <select
-                                      style={{width: 'auto', minWidth: '100px'}}
-                                    >
-                                      <option value={inventory.status}>
+                                    <option value={inventory.status}>
                                         {inventory.status}
                                       </option>
                                       {statusOption.map((option, index) => (
@@ -161,7 +153,7 @@ const AdminProducts = () => {
                                         </option>
                                       ))}
                                     </select>
-                                  </td>
+                                    </td>
                                   <td>
                                     <FontAwesomeIcon icon="pencil-square" />
                                   </td>

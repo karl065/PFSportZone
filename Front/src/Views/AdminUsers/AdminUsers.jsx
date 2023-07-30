@@ -21,21 +21,19 @@ const AdminUsers = () => {
   const pageCount = users.length / amountPerPage;
   const dispatch = useDispatch();
 
-  const handleRoleChange = (event) => {
-    setRoleSeleccionado(event.target.value);
+  const handleRoleChange = (e) => {
+    const {value} = e.target;
+    setRoleSeleccionado(value);
   };
 
-  const handleStatusChange = (event) => {
-    setStatusSeleccionado(event.target.value);
+  const handleStatusChange = (e) => {
+    const {value} = e.target;
+    setStatusSeleccionado(value);
   };
 
   useEffect(() => {
-    if (roleSeleccionado && statusSeleccionado) {
-      dispatch(
-        filterUsersByRoleAndStatus(roleSeleccionado, statusSeleccionado)
-      );
+      dispatch(filterUsersByRoleAndStatus(roleSeleccionado, statusSeleccionado));
       setPage(1);
-    }
   }, [roleSeleccionado, statusSeleccionado]);
 
   return (
@@ -57,7 +55,7 @@ const AdminUsers = () => {
                     style={{height: '38px', marginTop: '10px'}}
                     onChange={handleRoleChange}
                   >
-                    <option defaultValue="Cliente">Filtrar por role</option>
+                    <option value='default'>Filtrar por role</option>
                     <option value="Cliente">Cliente</option>
                     <option value="Empleados">Empleados</option>
                     <option value="Admin">Admin</option>
@@ -69,7 +67,7 @@ const AdminUsers = () => {
                     style={{height: '38px', marginTop: '10px'}}
                     onChange={handleStatusChange}
                   >
-                    <option defaultValue="true">Filtrar por estado</option>
+                    <option value='default'>Filtrar por estado</option>
                     <option value="true">Activo</option>
                     <option value="false">Inactivo</option>
                   </select>
@@ -127,10 +125,11 @@ const AdminUsers = () => {
                       >
                         <thead>
                           <tr>
-                            <th>Id</th>
+                            <th>Tipo Doc</th>
+                            <th>Documento</th>
                             <th>Nombre</th>
+                            <th>Apellido</th>
                             <th>Correo</th>
-                            <th>Tipo</th>
                             <th>Role</th>
                             <th>Estado</th>
                           </tr>
@@ -144,11 +143,12 @@ const AdminUsers = () => {
                               )
                               .map((users, index) => (
                                 <tr key={index}>
-                                  <td>{users.idUser}</td>
-
+                                  <td>{users.document_type}</td>
+                                  <td>{users.document_number}</td>
+                                  <td>{users.first_name}</td>
+                                  <td>{users.last_name}</td>
                                   <td>{users.email}</td>
-                                  <td>{users.user}</td>
-                                  <td>{users.password}</td>
+                                  
                                   <td>{users.role}</td>
 
                                   {users.userStatus ? (

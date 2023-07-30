@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +6,8 @@ import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getInventory} from '../../redux/actions/actions';
 import Sidebar from '../../Components/SideBar/Sidebar';
+import {Form} from 'react-bootstrap';
+
 
 library.add(fas);
 const AdminEditProd = () => {
@@ -15,6 +16,21 @@ const AdminEditProd = () => {
   useEffect(() => {
     dispatch(getInventory());
   }, []);
+
+  //grupo de swiches
+  const SwInitialState = {
+    estado: false,
+    visible: false,
+    mayorista: false,
+  };
+  const [switches, setSwitches] = useState(SwInitialState);
+  const handleSwitchChange = (switchName) => {
+    setSwitches((prevSwitches) => ({
+      ...prevSwitches,
+      [switchName]: !prevSwitches[switchName],
+    }));
+    console.log(switchName+" "+switches[switchName]);
+  };
 
   //solo se usa para el cambio de pestaña
   const [activeTab, setActiveTab] = useState('tab-1');
@@ -25,28 +41,24 @@ const AdminEditProd = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState(displayInventory);
   const [selectedItem, setSelectedItem] = useState('');
+  const [product, setProduct] = useState('');
 
   const handleSearch = (event) => {
-    //const searchTerm = event.target.value;
-    setSearchTerm(event.target.value);
-
-    const filteredData = displayInventory.filter((item) =>
+  setSearchTerm(event.target.value);
+  const filteredData = displayInventory.filter((item) =>
       item.article_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setData(filteredData);
   };
 
-  const handleItemClick = (item) => {
-    setSelectedItem(item);
-  };
 
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      if (data.length > 0) {
-        setSelectedItem(data[0]);
-        setData([data[0]]);
-      }
-    }
+  const handleFilter = () => {
+    const filteredData = displayInventory.filter((item) =>
+      item.article_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setData(filteredData);
+    setProduct(filteredData[0]);
+    setSearchTerm('');
   };
 
   return (
@@ -64,7 +76,7 @@ const AdminEditProd = () => {
                 <div className="container">
                   <div className="row">
                     <div className="col-md-4">
-                      {' '}
+                     
                       <h4 className="text-dark mb-4">Editar Producto</h4>
                     </div>
                     <div className="col-md-4 col-xl-4">
@@ -81,28 +93,21 @@ const AdminEditProd = () => {
                             type="text"
                             value={searchTerm}
                             onChange={handleSearch}
-                            onKeyDown={handleKeyPress}
+                            //onKeyDown={handleKeyPress}
                             list="search-results"
                             placeholder="Search for ..."
                           />
 
-                          <button
-                            className="btn btn-primary py-0"
-                            type="button"
-                            style={{background: 'rgb(116,153,0)'}}
-                          >
+                          <button className="btn btn-primary py-0" type="button" onClick={handleFilter} style={{ background:'rgb(116,153,0)'  }}>
                             <FontAwesomeIcon icon="fa-search" />
                           </button>
                         </div>
                         <datalist id="search-results">
                           {data.map((item) => (
-                            <option
-                              key={item.id_inventory}
-                              value={item.article_name}
-                            />
+                            <option key={item.id_inventory} value={item.article_name} />
                           ))}
                         </datalist>
-                        <ul className="list-group">
+                        <ul className="list-group" style={{ display: 'none' }}>
                           {data.map((item) => (
                             <li
                               className={`list-group-item ${
@@ -110,7 +115,7 @@ const AdminEditProd = () => {
                               }`}
                               key={item.id_inventory}
                               onClick={() => handleItemClick(item)}
-                              style={{background: 'rgb(116,153,0)'}}
+                              style={{ background: 'rgb(116,153,0)' }}
                             >
                               {item.article_name}
                             </li>
@@ -207,14 +212,14 @@ const AdminEditProd = () => {
                               <p>Codigo</p>
                               <input
                                 type="text"
-                                defaultValue={selectedItem.id_inventory}
+                                defaultValue={product.id_inventory}
                               />
                             </div>
                             <div className="col" style={{textAlign: 'center'}}>
                               <p>Nombre</p>
                               <input
                                 type="text"
-                                defaultValue={selectedItem.article_name}
+                                defaultValue={product.article_name}
                               />
                             </div>
                             <div className="col">
@@ -240,20 +245,17 @@ const AdminEditProd = () => {
                               className="col-md-6"
                               style={{textAlign: 'center', width: '200px'}}
                             >
-                              <div className="form-check form-switch">
-                                <input
-                                  id="formCheck-6"
-                                  className="form-check-input"
-                                  type="checkbox"
+                              <div className="col-auto">
+                              <Form>
+                                <Form.Check
+                                  type="switch"
+                                  id="switchButton"
+                                  label="Estado"
+                                  checked={switches.estado}
+                                  onChange={() => handleSwitchChange('estado')}
                                 />
-                                <label
-                                  className="form-check-label"
-                                  htmlFor="formCheck-6"
-                                  style={{marginTop: '25px'}}
-                                >
-                                  <strong>Notify me about new replies</strong>
-                                </label>
-                              </div>
+                              </Form>
+                            </div>
                             </div>
                           </div>
                           <div className="row">
@@ -261,7 +263,7 @@ const AdminEditProd = () => {
                               <p>Estado</p>
                               <input
                                 type="text"
-                                defaultValue={selectedItem.status}
+                                defaultValue={product.status}
                               />
                             </div>
                             <div className="col" style={{textAlign: 'center'}}>
@@ -291,20 +293,17 @@ const AdminEditProd = () => {
                               className="col-md-6"
                               style={{textAlign: 'center', width: '200px'}}
                             >
-                              <div className="form-check form-switch">
-                                <input
-                                  id="formCheck-2"
-                                  className="form-check-input"
-                                  type="checkbox"
+                              <div className="col-auto">
+                              <Form>
+                                <Form.Check
+                                  type="switch"
+                                  id="switchButton"
+                                  label="Visibilidad"
+                                  checked={switches.visible}
+                                  onChange={() => handleSwitchChange('visible')}
                                 />
-                                <label
-                                  className="form-check-label"
-                                  htmlFor="formCheck-2"
-                                  style={{marginTop: '25px'}}
-                                >
-                                  <strong>Notify me about new replies</strong>
-                                </label>
-                              </div>
+                              </Form>
+                            </div>
                             </div>
                           </div>
                           <div className="row">
@@ -313,7 +312,7 @@ const AdminEditProd = () => {
                               <div>
                                 <textarea
                                   style={{width: '100%'}}
-                                  defaultValue={selectedItem.description}
+                                  defaultValue={product.description}
                                 ></textarea>
                               </div>
                             </div>
@@ -339,14 +338,14 @@ const AdminEditProd = () => {
                               <p>Precio de Venta</p>
                               <input
                                 type="text"
-                                defaultValue={selectedItem.selling_price}
+                                defaultValue={product.selling_price}
                               />
                             </div>
                             <div className="col" style={{textAlign: 'center'}}>
                               <p>Precio de Compra</p>
                               <input
                                 type="text"
-                                defaultValue={selectedItem.purchase_price}
+                                defaultValue={product.purchase_price}
                               />
                             </div>
                             <div className="col">
@@ -364,7 +363,11 @@ const AdminEditProd = () => {
                               </div>
                             </div>
                             <div className="col">
-                              <div></div>
+                              <div><img
+                                  src={product.image}
+                                  alt={product.article_name}
+                                  width={200}
+                                /></div>
                             </div>
                             <div
                               className="col-md-6"
@@ -398,7 +401,7 @@ const AdminEditProd = () => {
                                 <p>Stock</p>
                                 <input
                                   type="text"
-                                  defaultValue={selectedItem.stock}
+                                  defaultValue={product.stock}
                                 />
                               </div>
                               <div

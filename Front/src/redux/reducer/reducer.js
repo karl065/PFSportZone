@@ -20,6 +20,7 @@ import {
   CREATE_MARCA,
   CREATE_DEPORTE,
   GET_MARCA,
+  UPDATE_ITEM_STATUS,
 } from '../actions-types/action-types';
 
 const initialState = {
@@ -111,6 +112,12 @@ export default function appReducer(state = initialState, {type, payload}) {
       return {...state, displayInventory: [...state.inventory]};
     case FILTER_USERS_BY_ROLE_AND_STATUS:
       return {...state, users: payload};
+    case UPDATE_ITEM_STATUS:
+        const { itemId, newStatus } = action.payload;
+        const updatedInventory = state.app.inventory.map((item) =>
+          item.id_inventory === itemId ? { ...item, status: newStatus } : item
+        );
+      return { ...state, app: { ...state.app, inventory: updatedInventory } };
     default:
       return {...state};
   }
