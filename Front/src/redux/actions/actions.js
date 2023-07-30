@@ -18,13 +18,14 @@ import {
   CREATE_MARCA,
   CREATE_DEPORTE,
   GET_MARCA,
-} from '../actions-types/action-types';
-import server from '../../Connections/Server';
-import axios from 'axios';
+  EDIT_PRODUCT,
+} from "../actions-types/action-types";
+import server from "../../Connections/Server";
+import axios from "axios";
 
 export const getUsers = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}users`);
+    const { data } = await axios.get(`${server.api.baseURL}users`);
     dispatch({
       type: GET_USERS,
       payload: data,
@@ -34,7 +35,7 @@ export const getUsers = () => {
 
 export const getInventory = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}inventory`);
+    const { data } = await axios.get(`${server.api.baseURL}inventory`);
     dispatch({
       type: GET_INVENTORY,
       payload: data,
@@ -44,7 +45,7 @@ export const getInventory = () => {
 
 export const getCategory = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}category`);
+    const { data } = await axios.get(`${server.api.baseURL}category`);
     dispatch({
       type: GET_CATEGORY,
       payload: data,
@@ -54,7 +55,7 @@ export const getCategory = () => {
 
 export const getSports = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}deporte`);
+    const { data } = await axios.get(`${server.api.baseURL}deporte`);
     dispatch({
       type: GET_SPORTS,
       payload: data,
@@ -64,7 +65,7 @@ export const getSports = () => {
 
 export const getMarca = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}marca`);
+    const { data } = await axios.get(`${server.api.baseURL}marca`);
     dispatch({
       type: GET_MARCA,
       payload: data,
@@ -74,7 +75,7 @@ export const getMarca = () => {
 
 export const createUser = (user) => {
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}users`, user);
+    const { data } = await axios.post(`${server.api.baseURL}users`, user);
     dispatch({
       type: CREATE_USER,
       payload: data,
@@ -84,7 +85,10 @@ export const createUser = (user) => {
 
 export const createProduct = (product) => {
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}inventory`, product);
+    const { data } = await axios.post(
+      `${server.api.baseURL}inventory`,
+      product
+    );
     dispatch({
       type: CREATE_PRODUCT,
       payload: data,
@@ -94,7 +98,10 @@ export const createProduct = (product) => {
 
 export const createCategory = (category) => {
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}category`, category);
+    const { data } = await axios.post(
+      `${server.api.baseURL}category`,
+      category
+    );
     dispatch({
       type: CREATE_CATEGORY,
       payload: data,
@@ -104,7 +111,7 @@ export const createCategory = (category) => {
 
 export const createMarca = (marca) => {
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}marca`, marca);
+    const { data } = await axios.post(`${server.api.baseURL}marca`, marca);
     dispatch({
       type: CREATE_MARCA,
       payload: data,
@@ -113,9 +120,23 @@ export const createMarca = (marca) => {
 };
 export const createDeporte = (deporte) => {
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}deporte`, deporte);
+    const { data } = await axios.post(`${server.api.baseURL}deporte`, deporte);
     dispatch({
       type: CREATE_DEPORTE,
+      payload: data,
+    });
+  };
+};
+
+export const editProduct = (newValues) => {
+  return async (dispatch) => {
+    const { data } = await axios.put(
+      `${server.api.baseURL}inventory/${newValues.id_inventory}`,
+      newValues
+    );
+    console.log("Usuario actualizado", data);
+    dispatch({
+      type: EDIT_PRODUCT,
       payload: data,
     });
   };
@@ -130,7 +151,7 @@ export const filterProductsByName = (name) => {
 
 export const getProductById = (id) => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}inventory/${id}`);
+    const { data } = await axios.get(`${server.api.baseURL}inventory/${id}`);
     dispatch({
       type: GET_PRODUCT_ID,
       payload: data,
@@ -181,7 +202,7 @@ export const productsFiltered = (products) => {
 
 export const filterUsersByRoleAndStatus = (role, status) => {
   return async (dispatch) => {
-    const {data} = await axios.get(
+    const { data } = await axios.get(
       `${server.api.baseURL}filters?role=${role}&userStatus=${status}`
     );
     dispatch({
