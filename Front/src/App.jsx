@@ -21,7 +21,7 @@ import {
   AdminNewCategory,
   AdminNewMarca,
   AdminNewDeportes,
-  AdminEditProd,
+  AdminEditProduct,
   AdminPagos,
   Cart,
 } from "./Views";
@@ -79,7 +79,7 @@ function App() {
         <Route path="/adminNewDeportes" element={<AdminNewDeportes />} />
         <Route path="/adminNewUser" element={<AdminNewUsers />} />
         <Route path="/adminNewCategory" element={<AdminNewCategory />} />
-        <Route path="/adminEditProd" element={<AdminEditProd />} />
+        <Route path="/adminEditProd" element={<AdminEditProduct />} />
         <Route path="/adminPagos" element={<AdminPagos />} />
         {/* <Route path="/favorites"/> */}
         <Route path="/product/:id" element={<Detail />} />
