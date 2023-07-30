@@ -2,6 +2,7 @@ const {
   putUser,
 } = require("../../Controllers/ControllersUsers/putControllersUsers");
 const bcryptjs = require("bcryptjs");
+const { enviarNotificacionCambioContrasena } = require("../../Mail/Mail");
 
 const putHandlerUser = async (req, res) => {
   const { id } = req.params;
@@ -39,7 +40,23 @@ const putHandlerUser = async (req, res) => {
       ...(phone !== undefined && { phone }),
       ...(address !== undefined && { address }),
     };
+
+    // Actualiza los datos del usuario en la base de datos
     const userUpdate = await putUser(userData, id);
+
+    // Si se proporcionó una nueva contraseña, envía la notificación de cambio de contraseña
+    if (password) {
+      try {
+        await enviarNotificacionCambioContrasena(email);
+        console.log("Notificación de cambio de contraseña enviada.");
+      } catch (error) {
+        console.error(
+          "Error al enviar la notificación de cambio de contraseña:",
+          error
+        );
+      }
+    }
+
     return res.status(200).json(userUpdate);
   } catch (error) {
     return res.status(500).json({ error: error });
