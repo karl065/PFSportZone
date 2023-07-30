@@ -59,7 +59,6 @@ const filterPriceRange = async (
     }
     const productsInRange = await Inventarios.findAll({
       where: whereConditions,
-      order: [['article_name', 'ASC']],
     });
     return productsInRange;
   } catch (error) {
