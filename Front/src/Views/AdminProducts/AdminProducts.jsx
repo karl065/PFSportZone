@@ -11,7 +11,7 @@ library.add(fas);
 
 const AdminProducts = () => {
   const inventario = useSelector((state) => state.app.inventory);
-  const [statusSeleccionado, setStatusSeleccionado] = useState('');
+  const [statusSeleccionado, setStatusSeleccionado] = useState('Show All');
   const [page, setPage] = useState(1);
   const [amountPerPage, setAmountPerPage] = useState(8);
 
@@ -25,14 +25,15 @@ const AdminProducts = () => {
   const handleStatusChange = (e) => {
     const {value} = e.target;
     setStatusSeleccionado(value);
+    console.log(value);
   };
 
   const filteredInventory =
     statusSeleccionado === 'Show All'
       ? inventario
-      : statusSeleccionado === 'default'
-      ? inventario
+      
       : inventario.filter((item) => item.status === statusSeleccionado);
+      
     const pageCount = inventario.length / amountPerPage;
   return (
     <div>
@@ -49,8 +50,7 @@ const AdminProducts = () => {
                 <h3 className="text-dark mb-0">Productos</h3>
                 <div>
                   <select value={statusSeleccionado}  onChange={handleStatusChange} style={{height: '38px', marginTop: '10px'}}>
-                    <option value='default'>Filtrar por</option>
-                    <option value="Show All">Todos</option>
+                    <option value='Show All'>Filtrar por</option>
                     <option value="Available">Disponible</option>
                     <option value="Not Available">No disponible</option>
                     <option value="Discontinued">Descontinuado</option>
@@ -124,6 +124,7 @@ const AdminProducts = () => {
                             filteredInventory
                               .slice((page - 1) * amountPerPage, (page - 1) * amountPerPage + amountPerPage)
                               .map((inventory, index) => (
+                                
                                 <tr key={index}>
                                   <td>{inventory.id_inventory}</td>
                                   <td>
