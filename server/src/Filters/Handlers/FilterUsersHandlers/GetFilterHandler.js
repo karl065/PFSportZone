@@ -25,7 +25,6 @@ const {
  * devuelve como una respuesta JSON con un código de estado de 200.
  */
 const getFilterHandler = async (req, res) => {
-  console.log("entro a getFilterHandler");
   const {
     role,
     userStatus,
@@ -48,7 +47,14 @@ const getFilterHandler = async (req, res) => {
     //   const productsInRange = await filterPriceRange(minPrice, maxPrice);
     //   return res.status(200).json(productsInRange);
     // }
-    if ((role || userStatus)||(role && status)||(role && !status)||(!role && status)||(!role && !status)) {
+    if (
+      role ||
+      userStatus ||
+      (role && status) ||
+      (role && !status) ||
+      (!role && status) ||
+      (!role && !status)
+    ) {
       const queryResult = await filterUsersControllers(role, userStatus);
       return res.status(200).json(queryResult);
     }

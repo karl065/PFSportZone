@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
@@ -31,7 +33,7 @@ const AdminProducts = () => {
   useEffect(() => {
     dispatch(filterProductsByStatus(statusSeleccionado));
     setPage(1);
-}, [statusSeleccionado]);
+  }, [statusSeleccionado]);
 
   useEffect(() => {
     const statusToRemove = inventario.map((item) => item.status);
@@ -54,8 +56,12 @@ const AdminProducts = () => {
               <div className="d-sm-flex justify-content-between align-items-center mb-4">
                 <h3 className="text-dark mb-0">Productos</h3>
                 <div>
-                  <select value={statusSeleccionado}  onChange={handleStatusChange} style={{height: '38px', marginTop: '10px'}}>
-                    <option value='default'>Filtrar por</option>
+                  <select
+                    value={statusSeleccionado}
+                    onChange={handleStatusChange}
+                    style={{height: '38px', marginTop: '10px'}}
+                  >
+                    <option value="default">Filtrar por</option>
                     <option value="Available">Disponible</option>
                     <option value="Not Available">No disponible</option>
                     <option value="Discontinued">Descontinuado</option>
@@ -157,10 +163,11 @@ const AdminProducts = () => {
                                       ? inventory.categorias.categoryName
                                       : 'categoria'}
                                   </td>
-                                  
-                                  <td><select className="d-inline-block form-select form-select-sm">
-                                    {' '}
-                                    <option value={inventory.status}>
+
+                                  <td>
+                                    <select className="d-inline-block form-select form-select-sm">
+                                      {' '}
+                                      <option value={inventory.status}>
                                         {inventory.status}
                                       </option>
                                       {statusOption.map((option, index) => (
@@ -168,7 +175,7 @@ const AdminProducts = () => {
                                           {option}
                                         </option>
                                       ))}
-                                  </select>
+                                    </select>
                                   </td>
                                   <td>
                                     <FontAwesomeIcon icon="pencil-square" />

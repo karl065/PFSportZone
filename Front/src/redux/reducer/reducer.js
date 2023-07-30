@@ -21,7 +21,8 @@ import {
   CREATE_DEPORTE,
   GET_MARCA,
   EDIT_PRODUCT,
-} from "../actions-types/action-types";
+  UPDATE_USERS_STATUS,
+} from '../actions-types/action-types';
 
 const initialState = {
   users: [],
@@ -111,6 +112,8 @@ export default function appReducer(state = initialState, {type, payload}) {
     case RESET_DISPLAYED_PRODUCTS:
       return {...state, displayInventory: [...state.inventory]};
     case FILTER_USERS_BY_ROLE_AND_STATUS:
+      return {...state, users: payload};
+    case UPDATE_USERS_STATUS:
       return {...state, users: payload};
     default:
       return {...state};

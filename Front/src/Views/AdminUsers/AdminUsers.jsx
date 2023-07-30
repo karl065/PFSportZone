@@ -9,7 +9,10 @@ import {useEffect, useState} from 'react';
 import Pagination from '../../Components/Pagination/Pagination';
 import {useSelector, useDispatch} from 'react-redux';
 import Sidebar from '../../Components/SideBar/Sidebar';
-import {filterUsersByRoleAndStatus} from '../../redux/actions/actions';
+import {
+  filterUsersByRoleAndStatus,
+  updateUsersStatus,
+} from '../../redux/actions/actions';
 
 library.add(fas);
 const AdminUsers = () => {
@@ -20,7 +23,8 @@ const AdminUsers = () => {
   const [amountPerPage, setAmountPerPage] = useState(8);
   const pageCount = users.length / amountPerPage;
   const dispatch = useDispatch();
-
+  const [statusOption, setStatusOption] = useState(['Activo', 'Inactivo']);
+  const [userStatusOptions, setUserStatusOptions] = useState({});
   const handleRoleChange = (e) => {
     const {value} = e.target;
     setRoleSeleccionado(value);
@@ -31,10 +35,30 @@ const AdminUsers = () => {
     setStatusSeleccionado(value);
   };
 
+  const statusSubmit = (e, idUser) => {
+    e.preventDefault();
+    if (e.target.value === 'Inactivo') {
+      dispatch(updateUsersStatus(idUser, {userStatus: false}));
+    } else if (e.target.value === 'Activo') {
+      dispatch(updateUsersStatus(idUser, {userStatus: true}));
+    }
+  };
+
   useEffect(() => {
-      dispatch(filterUsersByRoleAndStatus(roleSeleccionado, statusSeleccionado));
-      setPage(1);
+    dispatch(filterUsersByRoleAndStatus(roleSeleccionado, statusSeleccionado));
+    setPage(1);
   }, [roleSeleccionado, statusSeleccionado]);
+
+  useEffect(() => {
+    // Populate userStatusOptions with initial user statuses
+    const initialStatusOptions = {};
+    users.forEach((user) => {
+      initialStatusOptions[user.idUser] = user.userStatus
+        ? 'Activo'
+        : 'Inactivo';
+    });
+    setUserStatusOptions(initialStatusOptions);
+  }, [users]);
 
   return (
     <div>
@@ -55,7 +79,7 @@ const AdminUsers = () => {
                     style={{height: '38px', marginTop: '10px'}}
                     onChange={handleRoleChange}
                   >
-                    <option value='default'>Filtrar por role</option>
+                    <option value="default">Filtrar por role</option>
                     <option value="Cliente">Cliente</option>
                     <option value="Empleados">Empleados</option>
                     <option value="Admin">Admin</option>
@@ -67,7 +91,7 @@ const AdminUsers = () => {
                     style={{height: '38px', marginTop: '10px'}}
                     onChange={handleStatusChange}
                   >
-                    <option value='default'>Filtrar por estado</option>
+                    <option value="default">Filtrar por estado</option>
                     <option value="true">Activo</option>
                     <option value="false">Inactivo</option>
                   </select>
@@ -125,10 +149,8 @@ const AdminUsers = () => {
                       >
                         <thead>
                           <tr>
-                            <th>Tipo Doc</th>
-                            <th>Documento</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
+                            <th>id</th>
+                            <th>Usuario</th>
                             <th>Correo</th>
                             <th>Role</th>
                             <th>Estado</th>
@@ -143,30 +165,25 @@ const AdminUsers = () => {
                               )
                               .map((users, index) => (
                                 <tr key={index}>
-                                  <td>{users.document_type}</td>
-                                  <td>{users.document_number}</td>
-                                  <td>{users.first_name}</td>
-                                  <td>{users.last_name}</td>
+                                  <td>{users.idUser}</td>
+                                  <td>{users.user}</td>
                                   <td>{users.email}</td>
-                                  
                                   <td>{users.role}</td>
-                                  <td><select className="d-inline-block form-select form-select-sm">
-                                    {' '}
-                                    <option value={inventory.status}>
-                                        {inventory.status}
-                                      </option>
+                                  <td>
+                                    <select
+                                      className="d-inline-block form-select form-select-sm"
+                                      value={userStatusOptions[users.idUser]}
+                                      onChange={(e) =>
+                                        statusSubmit(e, users.idUser)
+                                      }
+                                    >
                                       {statusOption.map((option, index) => (
                                         <option value={option} key={index}>
                                           {option}
                                         </option>
                                       ))}
-                                  </select>
+                                    </select>
                                   </td>
-                                  {/* {users.userStatus ? (
-                                    <td>Activo</td>
-                                  ) : (
-                                    <td>Inactivo</td>
-                                  )} */}
                                   <td>
                                     <FontAwesomeIcon icon="pencil-square" />
                                   </td>

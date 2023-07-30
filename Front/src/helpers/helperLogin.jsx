@@ -13,6 +13,7 @@ const login = async (email, password, navigate) => {
     });
 
     localStorage.setItem('token', data.token);
+    localStorage.setItem('idUser', data.id);
     localStorage.setItem('role', data.role);
     localStorage.setItem('idCarrito', data.carrito.idCar);
 
@@ -26,7 +27,7 @@ const login = async (email, password, navigate) => {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: "Email o contraseña incorrectos.",
+      text: 'Email o contraseña incorrectos.',
     });
   }
 };
