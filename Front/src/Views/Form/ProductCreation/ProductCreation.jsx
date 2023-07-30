@@ -1,23 +1,23 @@
-import {Formik, Form, Field, ErrorMessage} from 'formik';
-import {useDispatch, useSelector} from 'react-redux';
-import {createProduct} from '../../../redux/actions/actions';
-import CloudinaryWidget from '../../../WidgetCloudinary/CloudinaryWidget';
-import * as Yup from 'yup';
-import styles from './ProductCreation.module.css';
-import Swal from 'sweetalert2';
-import {useNavigate} from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { createProduct } from "../../../redux/actions/actions";
+import CloudinaryWidget from "../../../WidgetCloudinary/CloudinaryWidget";
+import * as Yup from "yup";
+import styles from "./ProductCreation.module.css";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const initialValues = {
-  id_inventory: '',
-  article_name: '',
-  selling_price: '',
-  purchase_price: '',
-  stock: '',
+  id_inventory: "",
+  article_name: "",
+  selling_price: "",
+  purchase_price: "",
+  stock: "",
   image: [],
-  description: '',
-  id_categories: '',
-  idMarca: '',
-  idDeportes: '',
+  description: "",
+  id_categories: "",
+  idMarca: "",
+  idDeportes: "",
 };
 
 export const ProductCreation = () => {
@@ -29,73 +29,78 @@ export const ProductCreation = () => {
 
   const SignupSchema = Yup.object().shape({
     id_inventory: Yup.string()
-      .required('ID del producto requerido')
-      .min(3, 'Al menos 3 dígitos'),
+      .required("ID del producto requerido")
+      .min(3, "Al menos 3 dígitos"),
     article_name: Yup.string()
-      .required('Nombre de producto requerido')
-      .min(2, 'Al menos 2 caracteres.')
-      .max(80, 'Muy largo!. No mas de 80 caracteres.')
-      .test('has-3-letters', 'Debe contener al menos 3 letras', (value) =>
+      .required("Nombre de producto requerido")
+      .min(2, "Al menos 2 caracteres.")
+      .max(80, "Muy largo!. No mas de 80 caracteres.")
+      .test("has-3-letters", "Debe contener al menos 3 letras", (value) =>
         /^(.*[a-zA-Z].*){3,}$/.test(value)
       ),
     selling_price: Yup.number()
-      .required('Precio de venta requerido')
-      .min(0.1, 'Mínimo: $0.1')
+      .required("Precio de venta requerido")
+      .min(0.1, "Mínimo: $0.1")
       .transform((value) => (isNaN(value) ? undefined : Number(value))),
     purchase_price: Yup.number()
-      .required('Precio de compra requerido')
-      .min(0.1, 'Mínimo: $0.1')
+      .required("Precio de compra requerido")
+      .min(0.1, "Mínimo: $0.1")
       .transform((value) => (isNaN(value) ? undefined : Number(value))),
     stock: Yup.number()
-      .integer('Debe ser un entero')
-      .required('Stock requerido')
-      .min(0, 'El stock debe ser positivo')
+      .integer("Debe ser un entero")
+      .required("Stock requerido")
+      .min(0, "El stock debe ser positivo")
       .transform((value) => (isNaN(value) ? undefined : Number(value))),
     description: Yup.string()
-      .required('Descripción requerida')
-      .min(20, 'Muy corto!. Al menos 20 caracteres.')
-      .max(1500, 'Muy largo!. No mas de 1500 caracteres.'),
+      .required("Descripción requerida")
+      .min(20, "Muy corto!. Al menos 20 caracteres.")
+      .max(1500, "Muy largo!. No mas de 1500 caracteres."),
     image: Yup.array()
       .of(Yup.string())
-      .min(1, 'Es necesaria una imagen')
-      .max(5, 'Máximo de 5 imágenes por producto'),
+      .min(1, "Es necesaria una imagen")
+      .max(5, "Máximo de 5 imágenes por producto"),
     id_categories: Yup.number()
       .oneOf(
         category.map((category) => category.id_categories),
-        'No es una categoría'
+        "No es una categoría"
       )
-      .required('Seleccione una categoría'),
+      .required("Seleccione una categoría"),
     idMarca: Yup.number()
       .oneOf(
         marcas.map((marca) => marca.idMarca),
-        'No es una marca'
+        "No es una marca"
       )
-      .required('Seleccione una marca'),
+      .required("Seleccione una marca"),
     idDeportes: Yup.number()
       .oneOf(
         sports.map((sport) => sport.idDeportes),
-        'No es un deporte'
+        "No es un deporte"
       )
-      .required('Seleccione un deporte'),
+      .required("Seleccione un deporte"),
   });
 
-  const handleSubmit = (values, {resetForm}) => {
+  const handleDeleteImage = (images, imgUrl, setFieldValue) => {
+    const filteredUrls = images.filter((image) => image !== imgUrl);
+    setFieldValue("image", filteredUrls);
+  };
+
+  const handleSubmit = (values, { resetForm }) => {
     try {
       dispatch(
         createProduct({
           ...values,
-          status: 'Available',
+          status: "Available",
         })
       ).then(() => {
-        Swal.fire('Buen trabajo!', 'Producto creado correctamente!', 'success');
+        Swal.fire("Buen trabajo!", "Producto creado correctamente!", "success");
         resetForm();
-        navigate('/adminProducts');
+        navigate("/adminProducts");
       });
     } catch (error) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Error creando un producto. Intente nuevamente.',
+        icon: "error",
+        title: "Oops...",
+        text: "Error creando un producto. Intente nuevamente.",
       });
     }
   };
@@ -107,7 +112,7 @@ export const ProductCreation = () => {
         onSubmit={handleSubmit}
         validationSchema={SignupSchema}
       >
-        {({errors, setFieldValue}) => (
+        {({ errors, values, setFieldValue }) => (
           <Form className={styles.form}>
             <h1 className={styles.title}>NUEVO PRODUCTO</h1>
             <div className={styles.field_container}>
@@ -240,12 +245,25 @@ export const ProductCreation = () => {
                 <CloudinaryWidget
                   fieldName="image"
                   setFieldValue={setFieldValue}
+                  images={values.image}
                 />
-                <ErrorMessage
-                  name="image"
-                  component="span"
-                  className={styles.error}
-                />
+                {errors.image && <span className={styles.error}>{errors.image}</span>}
+              </div>
+              <div className={styles.images_container}>
+                {values.image &&
+                  values.image.map((image, index) => (
+                    <div key={index} className={styles.image_box}>
+                      <img src={image} alt="Product image" />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleDeleteImage(values.image, image, setFieldValue)
+                        }
+                      >
+                        X
+                      </button>
+                    </div>
+                  ))}
               </div>
             </div>
 
