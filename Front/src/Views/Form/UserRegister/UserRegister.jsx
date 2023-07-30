@@ -1,11 +1,11 @@
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
-import {LoadingSpinner} from '../../../Components';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import * as Yup from 'yup';
 import styles from './UserRegister.module.css';
 import Swal from 'sweetalert2';
 import {createUser} from '../../../redux/actions/actions';
+import {login} from '../../../helpers/helperLogin';
 
 const initialValues = {
   email: '',
@@ -18,7 +18,6 @@ const initialValues = {
 export const UserRegister = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isLoading = useSelector((state) => state.isLoading);
   const location = useLocation();
 
   const urlCurrent = location.pathname;
@@ -41,33 +40,26 @@ export const UserRegister = () => {
     passwordConfirmation: Yup.string()
       .oneOf([Yup.ref('password'), null], 'Passwords must match')
       .required('Required confirmation'),
+    role: Yup.string()
+      .trim()
+      .required()
+      .oneOf(['Cliente', 'Empleados', 'Admin'], 'Elija un rol'),
   });
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     // ? Implementar como un componente loading que tenga un fondo tipo swal, centrado en la pantalla y cargue un spinner.
     try {
-      if (urlCurrent === '/adminNewUser') {
-        const newUser = {
-          ...values,
-          userStatus: true,
-        };
-        console.log(newUser);
-        dispatch(createUser(newUser)).then(() => {
-          Swal.fire('Good job!', 'Successfully register!', 'success').then(() =>
-            navigate('/adminUsers')
-          );
-        });
-      } else {
-        const newUser = {
-          ...values,
-          userStatus: true,
-        };
+      const newUser = {
+        ...values,
+        userStatus: true,
+      };
 
-        dispatch(createUser(newUser)).then(() => {
-          Swal.fire('Good job!', 'Successfully register!', 'success').then(() =>
-            navigate('/home')
-          );
-        });
+      await dispatch(createUser(newUser));
+      Swal.fire('Good job!', 'Successfully register!', 'success');
+      if (location.pathname === '/register') {
+        await login(values.email, values.password, navigate, dispatch);
+      } else {
+        navigate('/adminUsers');
       }
     } catch (error) {
       Swal.fire({
@@ -152,11 +144,20 @@ export const UserRegister = () => {
                 />
               </div>
               {urlCurrent === '/adminNewUser' ? (
-                <Field as="select" name="role">
-                  <option value="Admin">Admin</option>
-                  <option value="Empleados">Empleado</option>
-                  <option value="Cliente">Cliente</option>
-                </Field>
+                <div className={styles.field}>
+                  <label>Role</label>
+                  <Field as="select" name="role" className={styles.role_select}>
+                    <option value="">Select a role</option>
+                    <option value="Cliente">Cliente</option>
+                    <option value="Empleados">Empleado</option>
+                    <option value="Admin">Admin</option>
+                  </Field>
+                  <ErrorMessage
+                    name="role"
+                    component="span"
+                    className={styles.error}
+                  />
+                </div>
               ) : null}
               <button
                 type="submit"
@@ -169,7 +170,6 @@ export const UserRegister = () => {
           </>
         )}
       </Formik>
-      {isLoading && <LoadingSpinner />}
     </div>
   );
 };

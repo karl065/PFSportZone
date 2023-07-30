@@ -1,4 +1,4 @@
-const {Inventarios, Categorias} = require('../../DB');
+const {Inventarios, Categorias, Deportes} = require('../../DB');
 
 const getInventarios = async () => {
   return await Inventarios.findAll({
@@ -6,6 +6,10 @@ const getInventarios = async () => {
       {
         model: Categorias,
         as: 'categorias',
+      },
+      {
+        model: Deportes,
+        as: 'deportes',
       },
     ],
   });
@@ -19,6 +23,10 @@ const getInventariosByName = async (name) => {
         model: Categorias,
         as: 'categorias',
       },
+      {
+        model: Deportes,
+        as: 'deportes',
+      },
     ],
   });
 };
@@ -29,6 +37,10 @@ const getInventariosById = async (id) => {
       {
         model: Categorias,
         as: 'categorias',
+      },
+      {
+        model: Deportes,
+        as: 'deportes',
       },
     ],
   });

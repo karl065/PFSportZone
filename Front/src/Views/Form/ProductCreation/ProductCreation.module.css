@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 4rem;
+  gap: 1.7rem;
   background-color: #f1f1f1;
   margin: 2rem;
   width: 70%;
@@ -34,6 +34,24 @@
   gap: 1rem;
   color: #858383;
   font-size: 1.2rem;
+}
+
+.select_container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+.select_container label {
+  width: 20%;
+}
+
+.select_container select {
+  overflow: scroll;
+  max-height: 80px;
+  font-size: 1.2rem;
+  width: auto;
 }
 
 .field_container {

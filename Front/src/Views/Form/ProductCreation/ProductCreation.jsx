@@ -16,11 +16,15 @@ const initialValues = {
   image: [],
   description: '',
   id_categories: '',
+  idMarca: '',
+  idDeportes: '',
 };
 
 export const ProductCreation = () => {
   const dispatch = useDispatch();
-  const category = useSelector((state) => state.category);
+  const category = useSelector((state) => state.app.category);
+  const sports = useSelector((state) => state.app.sports);
+  const marcas = useSelector((state) => state.app.marcas);
   const navigate = useNavigate();
 
   const SignupSchema = Yup.object().shape({
@@ -50,11 +54,29 @@ export const ProductCreation = () => {
     description: Yup.string()
       .required('Description required')
       .min(20, 'Too Short!. At least 20 characters')
-      .max(10000, 'Too Long!. No more than 10000 characters.'),
+      .max(1500, 'Too Long!. No more than 1500 characters.'),
     image: Yup.array()
       .of(Yup.string())
       .min(1, 'At least one image is required')
       .max(5, 'Maximum of 5 images per product'),
+    id_categories: Yup.number()
+      .oneOf(
+        category.map((category) => category.id_categories),
+        'Not a valid category'
+      )
+      .required('Select one category'),
+    idMarca: Yup.number()
+      .oneOf(
+        sports.map((marca) => marca.idMarca),
+        'Not a valid marca'
+      )
+      .required('Select one Marca'),
+    idDeportes: Yup.number()
+      .oneOf(
+        sports.map((sport) => sport.idDeportes),
+        'Not a valid Sport'
+      )
+      .required('Select one sport'),
   });
 
   const handleSubmit = (values, {resetForm}) => {
@@ -89,19 +111,56 @@ export const ProductCreation = () => {
           <Form className={styles.form}>
             <h1 className={styles.title}>NEW PRODUCT</h1>
             <div className={styles.field_container}>
-              <div>
+              <div className={styles.select_container}>
                 <label>Category</label>
                 <Field as="select" name="id_categories">
-                  <option value="">seleccione una categoria</option>
+                  <option value="">Select a category</option>
                   {category.map((cat, index) => (
                     <option value={cat.id_categories} key={index}>
                       {cat.categoryName}
                     </option>
                   ))}
                 </Field>
+                <ErrorMessage
+                  name="id_categories"
+                  component="span"
+                  className={styles.error}
+                />
               </div>
-              <label>ID</label>
+              <div className={styles.select_container}>
+                <label>Sport</label>
+                <Field as="select" name="idDeportes">
+                  <option value="">Select a sport</option>
+                  {sports.map((sport, index) => (
+                    <option value={sport.idDeportes} key={index}>
+                      {sport.deporteName}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="idDeportes"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
+              <div className={styles.select_container}>
+                <label>Marca</label>
+                <Field as="select" name="idMarca">
+                  <option value="">Select a marca</option>
+                  {marcas.map((marca, index) => (
+                    <option value={marca.idMarca} key={index}>
+                      {marca.name}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="idMarca"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
               <div className={styles.input_box}>
+                <label>ID</label>
                 <Field
                   name="id_inventory"
                   placeholder="Product Code"

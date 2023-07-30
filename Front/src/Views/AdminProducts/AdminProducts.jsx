@@ -1,21 +1,23 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-undef */
 /* eslint-disable react-hooks/rules-of-hooks */
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
-
+import Pagination from '../../Components/Pagination/Pagination';
 import {useEffect, useState} from 'react';
-
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useSelector} from 'react-redux';
 import Sidebar from '../../Components/SideBar/Sidebar';
 
 library.add(fas);
 
 const AdminProducts = () => {
-  const inventario = useSelector((state) => state.inventory);
-  // const category = useSelector((state) => state.category);
+  const inventario = useSelector((state) => state.app.inventory);
+  const [page, setPage] = useState(1);
+  const [amountPerPage, setAmountPerPage] = useState(8);
+  const pageCount = inventario.length / amountPerPage;
   const [statusOption, setStatusOption] = useState([
     'Available',
     'Not Available',
@@ -114,45 +116,69 @@ const AdminProducts = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {inventario.map((inventory, index) => (
-                            <tr key={index}>
-                              <td>{inventory.id_inventory}</td>
-                              <td>
-                                <img
-                                  src={inventory.image[0]}
-                                  alt={inventory.article_name}
-                                  width={100}
-                                />
-                              </td>
-                              <td>{inventory.article_name}</td>
-                              <td>{inventory.selling_price}</td>
-                              <td>{inventory.purchase_price}</td>
-                              <td>{inventory.stock}</td>
-                              <td>{inventory.description}</td>
-                              {inventory.categorias ? (
-                                <td>{inventory.categorias.categoryName}</td>
-                              ) : (
-                                'categoria'
-                              )}
-                              <td>
-                                {' '}
-                                <select
-                                  style={{width: 'auto', minWidth: '100px'}}
-                                >
-                                  <option value={inventory.status}>
-                                    {inventory.status}
-                                  </option>
-                                  {statusOption.map((option, index) => (
-                                    <option value={option} key={index}>
-                                      {option}
-                                    </option>
-                                  ))}
-                                </select>
-                              </td>
+                          {inventario.length ? (
+                            inventario
+                              .slice(
+                                (page - 1) * amountPerPage,
+                                (page - 1) * amountPerPage + amountPerPage
+                              )
+                              .map((inventory, index) => (
+                                <tr key={index}>
+                                  <td>{inventory.id_inventory}</td>
+                                  <td>
+                                    <img
+                                      src={inventory.image[0]}
+                                      alt={inventory.article_name}
+                                      width={100}
+                                    />
+                                  </td>
+                                  <td>{inventory.article_name}</td>
+                                  <td>{inventory.selling_price}</td>
+                                  <td>{inventory.purchase_price}</td>
+                                  <td>{inventory.stock}</td>
+                                  <td>{inventory.description}</td>
+                                  {inventory.categorias ? (
+                                    <td>{inventory.categorias.categoryName}</td>
+                                  ) : (
+                                    'categoria'
+                                  )}
+                                  <td>
+                                    {inventory.categorias
+                                      ? inventory.categorias.categoryName
+                                      : 'categoria'}
+                                  </td>
+                                  <td>
+                                    {' '}
+                                    <select
+                                      style={{width: 'auto', minWidth: '100px'}}
+                                    >
+                                      <option value={inventory.status}>
+                                        {inventory.status}
+                                      </option>
+                                      {statusOption.map((option, index) => (
+                                        <option value={option} key={index}>
+                                          {option}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <FontAwesomeIcon icon="pencil-square" />
+                                  </td>
+                                </tr>
+                              ))
+                          ) : (
+                            <tr>
+                              <td>No results found...</td>
                             </tr>
-                          ))}
+                          )}
                         </tbody>
                       </table>
+                      <Pagination
+                        page={page}
+                        setPage={setPage}
+                        pageCount={pageCount}
+                      />
                     </div>
                   </div>
                 </div>

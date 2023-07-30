@@ -8,6 +8,11 @@
   font-size: 1.5rem;
   text-transform: uppercase;
   background: rgba(0, 0, 0, 0.92);
+  width: 100%;
+}
+
+.site_title {
+  font-size: 2.4rem;
 }
 
 .nav_list {
@@ -16,11 +21,56 @@
   align-items: center;
   text-decoration: none;
   list-style: none;
+  margin: 0;
+  letter-spacing: 3px;
   padding: 0;
   gap: 2.875rem;
+}
+
+.nav li {
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+}
+
+.nav li:hover {
+  transition: all 0.2s;
+  background-color: rgba(128, 128, 128, 0.342);
 }
 
 .nav a {
   text-decoration: none;
   color: inherit;
+}
+
+.cart_item{
+  position: relative;
+  z-index: 2;
+}
+
+.cart_item span {
+  position: absolute;
+  top: -1rem;
+  right: -0.4rem;
+  font-size: 1rem;
+  padding: 0.1rem 0.8rem;
+  text-align: center;
+  border-radius: 10px;
+  z-index: 1;
+  background-color: red;
+  color: white;
+  font-family: inherit;
+}
+
+.cart_img{
+  width: 3rem;
+  height: 3rem;
+}
+
+li > .cart_img {
+  cursor: pointer;
+}
+
+.logout {
+  background-color: red;
+  cursor: pointer;
 }

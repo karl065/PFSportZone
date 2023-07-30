@@ -1,43 +1,40 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import {useNavigate, NavLink, Link} from 'react-router-dom';
-import styles from './Landing.module.css';
+import { useNavigate, NavLink, Link } from "react-router-dom";
+import { isLoggedIn, handleLogout } from "../../helpers/helperLogin";
+import styles from "./Landing.module.css";
+import Footer from "../../Components/Footer/Footer";
+import { useDispatch } from "react-redux";
+import { deleteAllProduct } from "../../redux/actions/cartActions";
 
 const Landing = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const urlParams = new URLSearchParams(window.location.search);
+  const status = urlParams.get("status");
+  if (status) dispatch(deleteAllProduct());
   //* función para redirigir al home al momento de hacer click a "Tienda"
   const toHome = () => {
-    navigate('/home');
+    navigate("/home");
   };
   //* función para redirigir al login al momento de hacer click a "Log In"
   const toLogIn = () => {
-    navigate('/login');
+    navigate("/login");
   };
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-  };
-
-  const token = localStorage.getItem('token');
-  const role = localStorage.getItem('role');
+  const role = localStorage.getItem("role");
 
   return (
     <div className={styles.container}>
-      <div className={styles.barraSuperior}>
+      <ul className={styles.barraSuperior}>
         <NavLink to="/about">
           <p>About Us</p>
         </NavLink>
-        {role === 'SuperUser' || role === 'Admin' ? (
-          <Link to={'/adminProducts'}>Dashboard</Link>
+        {role === "SuperUser" || role === "Admin" ? (
+          <Link to={"/adminProducts"}>Dashboard</Link>
         ) : null}
-        {token ? (
-          // <li>
-          <Link onClick={logout} to={'/'}>
-            Logout
-          </Link>
+        {isLoggedIn() ? (
+          <li onClick={() => handleLogout(navigate)}>Logout</li>
         ) : (
-          // </li>
           <NavLink to="/register">
             <p>Sign Up</p>
           </NavLink>
@@ -45,7 +42,7 @@ const Landing = () => {
         <NavLink to="/faq">
           <p>F&A</p>
         </NavLink>
-      </div>
+      </ul>
       <div className={styles.titles}>
         <h1>SPORTZONE</h1>
         <h3>Todo el deporte en un solo lugar...</h3>
@@ -55,7 +52,7 @@ const Landing = () => {
         <button className={styles.tienda} onClick={toHome}>
           TIENDA
         </button>
-        {token ? null : <button onClick={toLogIn}>LOG IN</button>}
+        {!isLoggedIn() && <button onClick={toLogIn}>LOG IN</button>}
       </div>
 
       <img
@@ -64,7 +61,9 @@ const Landing = () => {
         alt="imagen-landing"
       />
 
-      <footer>Aca va</footer>
+      <footer className={styles.footerContainer}>
+        <Footer />
+      </footer>
     </div>
   );
 };

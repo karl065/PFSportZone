@@ -11,6 +11,30 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      person_type: {
+        type: DataTypes.ENUM('Natural', 'Juridical'),
+      },
+      document_type: {
+        type: DataTypes.ENUM('CC', 'CE', 'PA', 'NIT'),
+      },
+      document_number: {
+        type: DataTypes.INTEGER,
+      },
+      first_name: {
+        type: DataTypes.STRING,
+      },
+      last_name: {
+        type: DataTypes.STRING,
+      },
+      phone: {
+        type: DataTypes.INTEGER,
+      },
+      address: {
+        type: DataTypes.STRING,
+      },
+      image: {
+        type: DataTypes.STRING,
+      },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -23,7 +47,6 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       role: {
         type: DataTypes.ENUM('SuperUser', 'Admin', 'Cliente', 'Empleados'),

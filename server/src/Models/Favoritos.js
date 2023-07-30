@@ -1,13 +1,16 @@
-const { DataTypes } = require("sequelize");
+const {DataTypes} = require('sequelize');
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "Favoritos",
+    'Favoritos',
     {
-      id_favorites: {
+      idFavorites: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+      },
+      comentarios: {
+        type: DataTypes.TEXT,
       },
     },
     {
