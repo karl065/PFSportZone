@@ -13,7 +13,7 @@ export const getCart = () => {
   return async (dispatch) => {
     const {data} = await axios.get(`${server.api.baseURL}carrito/${idCarrito}`);
     // * Elimina el atributo usuario de la respuesta.
-    delete data.usuario;
+   // delete data.usuario;
     dispatch({
       type: GET_CART,
       payload: data,
