@@ -20,14 +20,8 @@ export default function SortAndFilters() {
   const sports = useSelector((state) => state.app.sports);
   const marcas = useSelector((state) => state.app.marcas);
   const categorys = useSelector((state) => state.app.category);
-  const [filters, setFilters] = useState({
-    id_categorias: '',
-    idDeportes: '',
-    minPrice: '',
-    maxPrice: '',
-    genre: '',
-    idMarca: '',
-  });
+  const [filters, setFilters] = useState({});
+  const [filtersSelected,setFiltersSelected] = useState([]);
   const [productosFiltrados, setProductosFiltrados] = useState([]);
 
   //?FUNCIONES PARA LOS ORDERS
@@ -44,26 +38,30 @@ export default function SortAndFilters() {
   //*funciones para capturar los valores de los selects y tambien para limpiar los filtros
   const handleFiltersChange = async (e) => {
     setFilters({...filters, [e.target.name]: e.target.value});
+
+    const selectedOption = e.target.options[e.target.selectedIndex];
+    const selectedText = selectedOption.textContent;
+    setFiltersSelected([...filtersSelected,selectedText]);
   };
 
   const handleFiltersClean = () => {
-    setFilters({
-      id_categorias: 'default',
-      idDeportes: 'default',
-      minPrice: 'default',
-      maxPrice: 'default',
-      genre: 'default',
-      idMarca: 'default',
-    });
+    setFilters({});
+    setFiltersSelected([]);
     dispatch(resetDisplayedProducts());
   };
 
   const handlerSingleFilterClean = (name) => {
     setFilters({
       ...filters,
-      [name] : 'default' 
+      [name] : 'default'
     })
-  };
+
+    setFiltersSelected((prevFiltersSelected) => {
+      // Filtramos los elementos diferentes a 'name' del estado filtersSelected
+      return prevFiltersSelected.filter((filter) => filter !== filters[name]);
+    });
+
+}
 
   //*funcion para que al ir modificando filters se sigan agregando querys a la request para filtrar
   const fetchFilteredProducts = async (filters) => {
@@ -114,7 +112,7 @@ export default function SortAndFilters() {
   const closeMenuFilters = () => {
     setMenuView(false);
   };
-  console.log(filters);
+  console.log(filtersSelected);
   return (
     <div className={Styles.container}>
       <div className={Styles.order_container}>
@@ -172,7 +170,13 @@ export default function SortAndFilters() {
                 value !== null && 
                 value !== "" && 
                 value !== 'default' ) {
-                  return <button key={index} onClick={() => handlerSingleFilterClean(key)}>{value}</button>
+                const buttonText = filtersSelected[index];
+                  return <button 
+                  key={index} 
+                  value={value}
+                  onClick={() => handlerSingleFilterClean(key)}>
+                    {buttonText}
+                    </button>
                 }
                 return null;
             })
