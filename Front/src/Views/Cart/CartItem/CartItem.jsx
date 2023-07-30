@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteProduct, updateCart } from "../../../redux/actions/cartActions";
+import { addProduct, deleteProduct, updateCart } from "../../../redux/actions/cartActions";
 import styles from "./CartItem.module.css";
 
 const CartItem = ({ product, cartId }) => {
@@ -16,13 +16,15 @@ const CartItem = ({ product, cartId }) => {
     CarritoInventarios,
   } = product;
 
-  const [selectedQuantity, setSelectedQuantity] = useState(CarritoInventarios.cant);
+  const [selectedQuantity, setSelectedQuantity] = useState(
+    CarritoInventarios.cant
+  );
 
   const incrementQuantity = () => {
     if (selectedQuantity < stock) {
       const newQuantity = selectedQuantity + 1;
       setSelectedQuantity(newQuantity);
-      dispatch(updateCart(cartId, id_inventory, newQuantity));
+      dispatch(addProduct(cartId, id_inventory, newQuantity));
     }
   };
 
@@ -30,13 +32,25 @@ const CartItem = ({ product, cartId }) => {
     if (selectedQuantity > 1) {
       const newQuantity = selectedQuantity - 1;
       setSelectedQuantity(newQuantity);
-      dispatch(updateCart(cartId, id_inventory, newQuantity));
+      dispatch(addProduct(cartId, id_inventory, newQuantity));
     }
   };
 
   const handleDeleteProduct = async (idProduct) => {
     await dispatch(deleteProduct(cartId, idProduct));
   };
+
+  // useEffect(() => {
+  //   // * Función para enviar datos a DB
+  //   const sendUpdatedCartToDB = () => {
+  //     dispatch(addProduct(cartId, id_inventory, selectedQuantity));
+  //   };
+
+  //   // * Se ejecuta al desmontar
+  //   return () => {
+  //     sendUpdatedCartToDB();
+  //   };
+  // }, [selectedQuantity]);
 
   return (
     <div className={styles.product_container}>
