@@ -49,12 +49,14 @@ const relaciones = (models) => {
     foreignKey: "idFavorites",
     otherKey: "id_inventory",
     as: "inventarios",
+    onDelete: "CASCADE",
   });
   Inventarios.belongsToMany(Favoritos, {
     through: "Favoritos_Inventarios",
     foreignKey: "id_inventory",
     otherKey: "idFavorites",
     as: "favoritos",
+    onDelete: "CASCADE",
   });
   // -------------------------------------------------------
 
