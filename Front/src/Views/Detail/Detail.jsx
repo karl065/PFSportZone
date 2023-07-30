@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { LoadingSpinner } from "../../Components/index";
+import { Carousel, LoadingSpinner } from "../../Components/index";
 import { Link } from "react-router-dom";
 import { getProductById, setLoading } from "../../redux/actions/actions";
 import { addProduct, getCart } from "../../redux/actions/cartActions";
@@ -37,7 +37,9 @@ const Detail = () => {
   };
 
   const handleAddProduct = async () => {
-    await dispatch(addProduct(idCarrito, product.id_inventory, selectedQuantity));
+    await dispatch(
+      addProduct(idCarrito, product.id_inventory, selectedQuantity)
+    );
     await dispatch(getCart(idCarrito));
     successToast("Producto añadido correctamente!", 1000);
   };
@@ -56,13 +58,7 @@ const Detail = () => {
             />
           </Link>
           <div className={styles.detail}>
-            {product.image && (
-              <img
-                src={product.image[0]}
-                alt={product.article_name}
-                className={styles.img}
-              />
-            )}
+            {product.image && <Carousel slides={product.image} />}
             <div className={styles.info_container}>
               <h1>{product.article_name}</h1>
               <h2>${product.selling_price}</h2>
