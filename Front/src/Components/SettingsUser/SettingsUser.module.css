@@ -1,0 +1,68 @@
+.SettingsUserfalse,
+.SettingsUsertrue{
+    background-color: rgba(0, 0, 0, 0.92);
+    color: aliceblue;
+    position: absolute;
+    top: 11.7%;
+    right: 0%;
+    width: 30%;
+    aspect-ratio: 1;
+}
+.closeBtn{
+    position: absolute;
+    color: aliceblue;
+    background-color: rgb(240, 66, 66);
+}
+.SettingsUserfalse hr,
+.SettingsUsertrue hr{
+    margin-top: 0.5px;
+    margin-right: 0px;
+    margin-bottom: 0.5px;
+    margin-left: 0px;
+}
+
+.imageuser{
+    width: 40%;
+    margin-left: 30%;
+}
+
+.SettingsUserfalse{
+    animation: slide-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) forwards;
+}
+@keyframes slide-right {
+    0% {
+      transform: scaleX(100%);
+    }
+    100% {
+      transform-origin: 900px;
+      transform: scaleX(0%);
+      display: none;
+    }
+  }
+  
+.SettingsUsertrue{
+    animation: right-slide 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) forwards;
+}
+@keyframes right-slide {
+    0% {
+        transform-origin: 900px;
+        transform: scaleX(0%);
+        display: none;
+    }
+    100% {
+        transform: scaleX(100%);
+    }
+  }
+
+.elementSettings{
+    width: 100%;
+    padding: 0px;
+    border: none;
+    background-color: rgba(171, 170, 170, 0);
+    color: aliceblue;
+    transition: all 1s;
+}
+.elementSettings:hover{
+    transition: all 300ms;
+    background-color: rgba(171, 170, 170, 0.256);
+}
