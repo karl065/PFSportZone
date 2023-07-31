@@ -97,7 +97,7 @@ export const CategoryCreation = () => {
               className={styles.btnSubmit}
               disabled={Object.keys(errors).length > 0}
             >
-              Submit
+              Enviar
             </button>
           </Form>
         )}
