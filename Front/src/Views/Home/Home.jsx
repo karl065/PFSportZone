@@ -45,7 +45,7 @@ const Home = (props) => {
                 return null;
               })
           ) : (
-            <h3 className={Styles.no_matches}>No results found... ☹️</h3>
+            <h3 className={Styles.no_matches}>Sin resultados... ☹️</h3>
           )}
         </div>
       )}
