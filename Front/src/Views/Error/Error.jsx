@@ -34,13 +34,13 @@ const Error = (props) => {
       </div>
       <div className={style.TBcontainer}>
         <h1>Ups..!</h1>
-        <p>Page not found</p>
+        <p>Pagina no encontrada</p>
         <div className={style.btns}>
           <Link className={style.btnError} to={'/home'}>
-            Go Home
+            Catalogo
           </Link>
           <Link to={'/'} className={style.btnError}>
-            Go Back
+            Regresar
           </Link>
         </div>
       </div>

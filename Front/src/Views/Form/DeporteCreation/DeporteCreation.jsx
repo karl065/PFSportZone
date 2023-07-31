@@ -16,10 +16,10 @@ export const DeporteCreation = () => {
 
   const SignupSchema = Yup.object().shape({
     deporteName: Yup.string()
-      .required('Required category name')
-      .min(2, 'Too Short!. At leas 2 characters.')
-      .max(80, 'Too Long!. No more than 80 characters.')
-      .test('has-3-letters', 'Must contain at least 3 letters', (value) =>
+      .required('Requerido')
+      .min(2, 'Muy corto!. Al menos 2 caracteres')
+      .max(80, 'Muy largo!. No mas de 80 caracteres')
+      .test('has-3-letters', 'Debe contener al menos 3 letras', (value) =>
         /^(.*[a-zA-Z].*){3,}$/.test(value)
       ),
   });
@@ -75,7 +75,7 @@ export const DeporteCreation = () => {
               className={styles.btnSubmit}
               disabled={Object.keys(errors).length > 0}
             >
-              Submit
+              Enviar
             </button>
           </Form>
         )}

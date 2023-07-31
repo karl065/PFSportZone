@@ -22,8 +22,8 @@ const UserLogin = () => {
   const dispatch = useDispatch();
   // * Define el esquema de validación usando Yup
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email('Not an email').required('Email required'),
-    password: Yup.string().required('Password required'),
+    email: Yup.string().email('No es un email').required('Email requerido'),
+    password: Yup.string().required('Contraseña requerida'),
   });
 
   // * Configura Formik y su estado inicial
