@@ -11,14 +11,14 @@ export default function Pagination(props) {
   return (
     <div className={Styles.container}>
       <button disabled={props.page <= 1} onClick={PreviousPage}>
-        previous
+        Anterior
       </button>
       <p>{`Pagina ${props.page} de ${Math.ceil(props.pageCount)}`}</p>
       <button
         disabled={props.page === Math.ceil(props.pageCount) || props.page === 0}
         onClick={nextPage}
       >
-        next
+        Siguiente
       </button>
     </div>
   );
