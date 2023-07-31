@@ -5,9 +5,8 @@ import * as Yup from "yup";
 import Swal from "sweetalert2";
 import styles from "./EditProduct.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { editProduct, getInventory } from "../../../redux/actions/actions";
-
-const EditProduct = ({ product }) => {
+import { editProduct } from "../../../redux/actions/actions";
+const EditProduct = ({ product, onSubmitSuccess }) => {
   const dispatch = useDispatch();
   const category = useSelector((state) => state.app.category);
   const sports = useSelector((state) => state.app.sports);
@@ -75,8 +74,8 @@ const EditProduct = ({ product }) => {
   const handleSubmit = async (values) => {
     try {
       await dispatch(editProduct(values));
-      dispatch(getInventory());
       Swal.fire("Buen trabajo!", "Producto editado correctamente!", "success");
+      onSubmitSuccess();
     } catch (error) {
       Swal.fire({
         icon: "error",
