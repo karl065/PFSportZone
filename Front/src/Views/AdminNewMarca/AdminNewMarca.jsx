@@ -16,9 +16,7 @@ const AdminNewMarca = () => {
         >
           <div id="content">
             <div className="container-fluid" style={{display: 'block'}}>
-              <div className="d-sm-flex justify-content-between align-items-center mb-4">
-                <h3 className="text-dark mb-0">Nueva Marca</h3>
-              </div>
+              <div className="d-sm-flex justify-content-between align-items-center mb-4"></div>
               <MarcaCreation />
             </div>
           </div>
