@@ -6,7 +6,8 @@ import {isLoggedIn, handleLogout} from '../../helpers/helperLogin';
 import styles from './NavBar.module.css';
 import cartIcon from '../../assets/shopping-cart.svg';
 
-const NavBar = () => {
+
+const NavBar = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,6 +22,8 @@ const NavBar = () => {
   const handleResetProducts = () => {
     if (location.pathname !== '/home') dispatch(resetDisplayedProducts());
   };
+
+    const urlImageUser = 'https://res.cloudinary.com/dpjeltekx/image/upload/v1690818714/PF/WhatsApp_Image_2023-07-31_at_10.39.59_uatatn.jpg'
 
   return (
     <nav className={styles.nav}>
@@ -65,6 +68,9 @@ const NavBar = () => {
             >
               Salir
             </li>
+            <li className={styles.userSettings} style={{'--bgimage': `url('${urlImageUser}')`}} onClick={props.deployMenu} >
+            </li>
+            
           </>
         ) : (
           <>

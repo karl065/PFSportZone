@@ -19,6 +19,7 @@
   padding: 0.8rem;
   gap: 2rem;
   font-size: 1.2rem;
+  text-align: center;
   border-radius: 10px;
   letter-spacing: 2px;
 }
@@ -39,7 +40,7 @@
 }
 
 .btnLoginGoogle:hover {
-  background-color: rgb(216, 216, 216)
+  background-color: rgb(216, 216, 216);
 }
 
 .btnLoginFacebook {
@@ -52,4 +53,18 @@
   background-color: rgb(2, 4, 41);
   color: white;
   border: 1px solid black;
+}
+
+.PassO{
+  text-align: center;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  transform: scale(1);
+  font-weight: 400;
+  transition: 300ms transform;
+}
+
+.PassO:hover{
+  transform: scale(1.2, 1.1);
+  font-weight: 600;
+  color: rgb(90, 90, 236);
 }

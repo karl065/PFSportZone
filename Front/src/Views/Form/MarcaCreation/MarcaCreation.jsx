@@ -81,7 +81,7 @@ export const MarcaCreation = () => {
                 <Field
                   as="textarea"
                   name="description"
-                  placeholder="Product description"
+                  placeholder="Descripción de la Marca"
                   className={styles.input}
                   rows="4"
                 />

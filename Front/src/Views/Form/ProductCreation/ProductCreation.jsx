@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import {useDispatch, useSelector} from 'react-redux';
 import {createProduct} from '../../../redux/actions/actions';
@@ -6,6 +7,7 @@ import * as Yup from 'yup';
 import styles from './ProductCreation.module.css';
 import Swal from 'sweetalert2';
 import {useNavigate} from 'react-router-dom';
+import {useState} from 'react';
 
 const initialValues = {
   id_inventory: '',
@@ -14,6 +16,7 @@ const initialValues = {
   purchase_price: '',
   stock: '',
   image: [],
+  genre: '',
   description: '',
   id_categories: '',
   idMarca: '',
@@ -26,6 +29,7 @@ export const ProductCreation = () => {
   const sports = useSelector((state) => state.app.sports);
   const marcas = useSelector((state) => state.app.marcas);
   const navigate = useNavigate();
+  const genero = ['Man', 'Women', 'Unisex'];
 
   const SignupSchema = Yup.object().shape({
     id_inventory: Yup.string()
@@ -59,6 +63,12 @@ export const ProductCreation = () => {
       .of(Yup.string())
       .min(1, 'Es necesaria una imagen')
       .max(5, 'Máximo de 5 imágenes por producto'),
+    genre: Yup.string()
+      .oneOf(
+        genero.map((gen) => gen),
+        'No es un genero'
+      )
+      .required('Seleccione un genero'),
     id_categories: Yup.number()
       .oneOf(
         category.map((category) => category.id_categories),
@@ -128,6 +138,22 @@ export const ProductCreation = () => {
                 </Field>
                 <ErrorMessage
                   name="id_categories"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
+              <div className={styles.select_container}>
+                <label>Genero</label>
+                <Field as="select" name="genre">
+                  <option value="">Seleccione un genero</option>
+                  {genero.map((gen, index) => (
+                    <option value={gen} key={index}>
+                      {gen}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="genre"
                   component="span"
                   className={styles.error}
                 />
