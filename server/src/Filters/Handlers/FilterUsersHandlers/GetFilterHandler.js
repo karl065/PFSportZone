@@ -39,22 +39,11 @@ const getFilterHandler = async (req, res) => {
   } = req.query;
 
   try {
-    if (status) {
-      const queryResult = await filterAvailableController(status);
-      return res.status(200).json(queryResult);
-    }
-    // if (minPrice || maxPrice) {
-    //   const productsInRange = await filterPriceRange(minPrice, maxPrice);
-    //   return res.status(200).json(productsInRange);
+    // if (status) {
+    //   const queryResult = await filterAvailableController(status);
+    //   return res.status(200).json(queryResult);
     // }
-    if (
-      role ||
-      userStatus ||
-      (role && status) ||
-      (role && !status) ||
-      (!role && status) ||
-      (!role && !status)
-    ) {
+    if (role || userStatus) {
       const queryResult = await filterUsersControllers(role, userStatus);
       return res.status(200).json(queryResult);
     }
@@ -65,7 +54,8 @@ const getFilterHandler = async (req, res) => {
       state,
       idDeportes,
       id_categorias,
-      idMarca
+      idMarca,
+      status
     );
     return res.status(200).json(productsInRange);
   } catch (error) {

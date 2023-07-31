@@ -30,7 +30,8 @@ const filterPriceRange = async (
   state,
   idDeportes,
   id_categories,
-  idMarca
+  idMarca,
+  status
 ) => {
   try {
     const whereConditions = {
@@ -57,8 +58,25 @@ const filterPriceRange = async (
     if (idMarca) {
       whereConditions.idMarca = idMarca;
     }
+    if (status) {
+      whereConditions.status = status;
+    }
     const productsInRange = await Inventarios.findAll({
       where: whereConditions,
+      include: [
+        {
+          model: Categorias,
+          as: 'categorias',
+        },
+        {
+          model: Deportes,
+          as: 'deportes',
+        },
+        {
+          model: Marcas,
+          as: 'marcas',
+        },
+      ],
     });
     return productsInRange;
   } catch (error) {
