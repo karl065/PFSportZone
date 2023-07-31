@@ -39,11 +39,10 @@ const getFilterHandler = async (req, res) => {
   } = req.query;
 
   try {
-    if (status) {
-      const queryResult = await filterAvailableController(status);
-      return res.status(200).json(queryResult);
-    }
-
+    // if (status) {
+    //   const queryResult = await filterAvailableController(status);
+    //   return res.status(200).json(queryResult);
+    // }
     if (role || userStatus) {
       const queryResult = await filterUsersControllers(role, userStatus);
       return res.status(200).json(queryResult);
@@ -55,7 +54,8 @@ const getFilterHandler = async (req, res) => {
       state,
       idDeportes,
       id_categorias,
-      idMarca
+      idMarca,
+      status
     );
     return res.status(200).json(productsInRange);
   } catch (error) {

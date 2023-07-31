@@ -124,15 +124,8 @@ const relaciones = (models) => {
     as: "deportes",
   });
 
-  Usuarios.hasOne(Carrito, {
-    foreignKey: "idUser",
-    as: "carrito",
-  });
-
-  Carrito.belongsTo(Usuarios, {
-    foreignKey: "idUser",
-    as: "usuario",
-  });
+  Usuarios.hasOne(Carrito, { foreignKey: "idUser", as: "carrito" });
+  Carrito.belongsTo(Usuarios, { foreignKey: "idUser", as: "usuario" });
 
   // Hook afterCreate para crear automáticamente un carrito con valores nulos para el usuario recién creado
   Usuarios.afterCreate(async (usuario, options) => {
