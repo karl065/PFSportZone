@@ -17,16 +17,16 @@ export const CategoryCreation = () => {
 
   const SignupSchema = Yup.object().shape({
     categoryName: Yup.string()
-      .required('Required category name')
-      .min(2, 'Too Short!. At leas 2 characters.')
-      .max(80, 'Too Long!. No more than 80 characters.')
-      .test('has-3-letters', 'Must contain at least 3 letters', (value) =>
+      .required('Requerido')
+      .min(2, 'Muy corto!. Al menos 2 caracteres.')
+      .max(80, 'Muy largo!. No mas de 80 caracteres.')
+      .test('has-3-letters', 'Debe contener al menos 3 letras', (value) =>
         /^(.*[a-zA-Z].*){3,}$/.test(value)
       ),
     description: Yup.string()
-      .required('Description required')
-      .min(20, 'Too Short!. At least 20 characters')
-      .max(10000, 'Too Long!. No more than 10000 characters.'),
+      .required('Descripción requerida')
+      .min(20, 'Muy corto!. Al menos 20 caracteres')
+      .max(10000, 'Muy largo!. No mas de 10000 caracteres.'),
   });
 
   const handleSubmit = (values, {resetForm}) => {
@@ -37,7 +37,7 @@ export const CategoryCreation = () => {
           status: true,
         })
       ).then(() => {
-        Swal.fire('Good job!', 'Category created!', 'success');
+        Swal.fire('Buen trabajo!', 'Categoría creada!', 'success');
         resetForm();
         navigate('/adminProducts');
       });
@@ -45,7 +45,7 @@ export const CategoryCreation = () => {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Fail creating a category. Please try again later.',
+        text: 'Error creando la categoría. Intente nuevamente.',
       });
     }
   };

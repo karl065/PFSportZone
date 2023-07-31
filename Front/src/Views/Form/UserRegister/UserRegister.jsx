@@ -21,28 +21,29 @@ export const UserRegister = () => {
   const location = useLocation();
 
   const urlCurrent = location.pathname;
+  const role = localStorage.getItem('role');
 
   const SignupSchema = Yup.object().shape({
     email: Yup.string()
       .trim()
-      .required('Email is required')
-      .email('Not an email'),
+      .required('Email requerido')
+      .email('No es un email'),
     user: Yup.string()
       .trim()
-      .required('Username is required')
-      .min(5, 'Too Short! At least 5 characters')
-      .max(30, 'Too Long! 30 characters maximum'),
+      .required('Usuario requerido')
+      .min(5, 'Muy corto! Al menos 5 caracteres')
+      .max(30, 'Muy largo! No mas de 30 caracteres'),
     password: Yup.string()
       .trim()
-      .required('Password is required')
-      .matches(/^\S*$/, 'Cannot have spaces')
-      .min(5, 'At least 5 characters'),
+      .required('Contraseña requerida')
+      .matches(/^\S*$/, 'No puede contener espacios')
+      .min(5, 'Al menos 5 caracteres'),
     passwordConfirmation: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords must match')
-      .required('Required confirmation'),
+      .oneOf([Yup.ref('password'), null], 'Las contraseñas deben coincidir')
+      .required('Confirmación requerida'),
     role: Yup.string()
       .trim()
-      .required()
+      .required('Rol requerido')
       .oneOf(['Cliente', 'Empleados', 'Admin'], 'Elija un rol'),
   });
 
@@ -55,7 +56,7 @@ export const UserRegister = () => {
       };
 
       await dispatch(createUser(newUser));
-      Swal.fire('Good job!', 'Successfully register!', 'success');
+      Swal.fire('Buen trabajo!', 'Registrado con éxito!', 'success');
       if (location.pathname === '/register') {
         await login(values.email, values.password, navigate, dispatch);
       } else {
@@ -65,7 +66,7 @@ export const UserRegister = () => {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Registration failed. Please try again later.',
+        text: 'Error en el registro. Intente nuevamente.',
       });
     }
   };
@@ -80,12 +81,12 @@ export const UserRegister = () => {
         {({errors}) => (
           <>
             <Form className={styles.form}>
-              <p className={styles.loginParagraph}>
+              {(!role || role === "Cliente") && <p className={styles.loginParagraph}>
                 Ya tiene una cuenta?
                 <Link to="/login" className={styles.loginText}>
                   Ingrese
                 </Link>
-              </p>
+              </p>}
               <h1 className={styles.title}>REGISTRO</h1>
               <div className={styles.field}>
                 <label>Email</label>

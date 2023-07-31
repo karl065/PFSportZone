@@ -1,14 +1,14 @@
-import {Formik, Form, Field, ErrorMessage} from 'formik';
-import {useDispatch} from 'react-redux';
-import {createMarca} from '../../../redux/actions/actions';
-import * as Yup from 'yup';
-import styles from './MarcaCreation.module.css';
-import Swal from 'sweetalert2';
-import {useNavigate} from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useDispatch } from "react-redux";
+import { createMarca } from "../../../redux/actions/actions";
+import * as Yup from "yup";
+import styles from "./MarcaCreation.module.css";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const initialValues = {
-  name: '',
-  description: '',
+  name: "",
+  description: "",
 };
 
 export const MarcaCreation = () => {
@@ -17,19 +17,16 @@ export const MarcaCreation = () => {
 
   const SignupSchema = Yup.object().shape({
     name: Yup.string()
-      .required('Required category name')
-      .min(2, 'Too Short!. At leas 2 characters.')
-      .max(80, 'Too Long!. No more than 80 characters.')
-      .test('has-3-letters', 'Must contain at least 3 letters', (value) =>
-        /^(.*[a-zA-Z].*){3,}$/.test(value)
-      ),
+      .required("Nombre marca requerida")
+      .min(2, "Muy corto!. Al menos 2 caracteres.")
+      .max(80, "Muy largo!. No mas de 80 caracteres."),
     description: Yup.string()
-      .required('Description required')
-      .min(20, 'Too Short!. At least 20 characters')
-      .max(10000, 'Too Long!. No more than 10000 characters.'),
+      .required("Descripcion requerida")
+      .min(20, "Muy corto!. Al menos 20 caracteres.")
+      .max(10000, "Muy largo!. No mas de 10000 caracteres."),
   });
 
-  const handleSubmit = (values, {resetForm}) => {
+  const handleSubmit = (values, { resetForm }) => {
     try {
       dispatch(
         createMarca({
@@ -37,15 +34,15 @@ export const MarcaCreation = () => {
           is_active: true,
         })
       ).then(() => {
-        Swal.fire('Good job!', 'Marca created!', 'success');
+        Swal.fire("Buen trabajo!", "Marca creada!", "success");
         resetForm();
-        navigate('/adminProducts');
+        navigate("/adminProducts");
       });
     } catch (error) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Fail creating a marca. Please try again later.',
+        icon: "error",
+        title: "Oops...",
+        text: "Error creando la Marca. Intente nuevamente.",
       });
     }
   };
@@ -57,7 +54,7 @@ export const MarcaCreation = () => {
         onSubmit={handleSubmit}
         validationSchema={SignupSchema}
       >
-        {({errors}) => (
+        {({ errors }) => (
           <Form className={styles.form}>
             <h1 className={styles.title}>NUEVA MARCA</h1>
             <div className={styles.field_container}>
