@@ -23,22 +23,13 @@ const authenticateUser = async (email, password) => {
       where: {email: email},
       include: {model: Carrito, as: 'carrito'},
     });
-    /* La condición `if (!usuario)` comprueba si la variable `usuario` es falsa, lo que significa que no
-existe o es nula. Si el `usuario` no existe, significa que no hay ningún usuario con el correo
-electrónico proporcionado en la base de datos. En este caso, la función devuelve un objeto con un
-mensaje que indica que el nombre de usuario o la contraseña son incorrectos. Esto se utiliza para
-manejar el caso en el que el usuario no existe en la base de datos y evitar que se siga ejecutando
-el proceso de autenticación. */
 
-    if (!user) {
-      return {msg: 'Usuario o Password incorrecto'};
-    }
     const passwordValid = await bcryptjs.compare(password, user.password);
 
-    if (!passwordValid) {
-      return {msg: 'Usuario o Password incorrecto'};
+    if (!user || !passwordValid) {
+      throw new Error("Usuario o email incorrectos");
     }
-
+    
     const payload = {
       user: {id: user.idUser},
     };

@@ -31,7 +31,7 @@ const MercadoPago = (props) => {
     <div id="wallet_container">
       {!preferenceId ? (
         <button className={styles.btnCheckout} onClick={handleComprar}>
-          Checkout
+          Pagar
         </button>
       ) : (
         <Wallet initialization={{preferenceId}} />

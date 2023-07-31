@@ -1,4 +1,4 @@
-const {authenticateUser} = require('../../auth/authenticateUser');
+const { authenticateUser } = require("../../auth/authenticateUser");
 
 /**
  * La función `handlerAuthenticate` es una función asíncrona que maneja la autenticación del usuario al
@@ -14,14 +14,13 @@ const {authenticateUser} = require('../../auth/authenticateUser');
  * respuesta JSON con un código de estado
  */
 const handlerAuthenticate = async (req, res) => {
-  const {email, password} = req.body;
   try {
+    const { email, password } = req.body;
     const token = await authenticateUser(email, password);
     res.status(200).json(token);
   } catch (error) {
-    // console.log(error);
-    res.status(400).json({error: error});
+    res.status(401).json({ error: error.message });
   }
 };
 
-module.exports = {handlerAuthenticate};
+module.exports = { handlerAuthenticate };

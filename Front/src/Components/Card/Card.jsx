@@ -4,6 +4,7 @@ import styles from "./Card.module.css";
 import { useState } from "react";
 import { addProduct } from "../../redux/actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
+import { successToast } from "../../helpers/toastNotification";
 
 const Card = ({ product }) => {
   const { id_inventory, article_name, selling_price, stock, image } = product;
@@ -19,6 +20,7 @@ const Card = ({ product }) => {
 
   const handleAddToCart = async () => {
     await dispatch(addProduct(cartId, id_inventory, 1));
+    successToast("Producto añadido correctamente!", 1500);
   };
 
   return (
@@ -37,7 +39,7 @@ const Card = ({ product }) => {
             onClick={handleAddToCart}
             className={styles.addCartBtn}
           >
-            Add to cart
+            Añadir al carrito
           </button>
         )}
       </div>

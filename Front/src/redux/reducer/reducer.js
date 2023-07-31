@@ -20,6 +20,8 @@ import {
   CREATE_MARCA,
   CREATE_DEPORTE,
   GET_MARCA,
+  EDIT_PRODUCT,
+  UPDATE_USERS_STATUS,
 } from '../actions-types/action-types';
 
 const initialState = {
@@ -61,6 +63,16 @@ export default function appReducer(state = initialState, {type, payload}) {
       return {...state, sports: [...state.sports, payload]};
     case GET_PRODUCT_ID:
       return {...state, product: payload};
+    case EDIT_PRODUCT:
+      const indexProduct = state.inventory.findIndex(
+        (p) => p.id_inventory === payload.id_inventory
+      );
+      const updatedInventory = [...state.inventory];
+      updatedInventory[indexProduct] = payload;
+      return {
+        ...state,
+        inventory: updatedInventory,
+      };
     case FILTER_PRODUCTS_BY_NAME:
       const filteredInventory = state.inventory.filter((product) =>
         product.article_name.toLowerCase().includes(payload.toLowerCase())
@@ -110,6 +122,8 @@ export default function appReducer(state = initialState, {type, payload}) {
     case RESET_DISPLAYED_PRODUCTS:
       return {...state, displayInventory: [...state.inventory]};
     case FILTER_USERS_BY_ROLE_AND_STATUS:
+      return {...state, users: payload};
+    case UPDATE_USERS_STATUS:
       return {...state, users: payload};
     default:
       return {...state};

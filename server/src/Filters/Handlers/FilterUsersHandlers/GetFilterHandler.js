@@ -47,7 +47,14 @@ const getFilterHandler = async (req, res) => {
     //   const productsInRange = await filterPriceRange(minPrice, maxPrice);
     //   return res.status(200).json(productsInRange);
     // }
-    if (role || userStatus) {
+    if (
+      role ||
+      userStatus ||
+      (role && status) ||
+      (role && !status) ||
+      (!role && status) ||
+      (!role && !status)
+    ) {
       const queryResult = await filterUsersControllers(role, userStatus);
       return res.status(200).json(queryResult);
     }

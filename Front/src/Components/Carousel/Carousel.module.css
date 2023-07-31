@@ -1,0 +1,87 @@
+.container {
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.288);
+}
+
+.slides_box {
+  display: flex;
+  transition: transform 0.5s ease-out;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+  height: 100%;
+  width: 100%;
+}
+
+.image:hover {
+  transform: scale(1.05);
+}
+
+.buttons_container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.buttons_container button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #2d3748;
+  transition: background-color 0.2s ease-out;
+}
+
+.buttons_container button img {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.buttons_container button:hover {
+  background-color: white;
+}
+
+.slider {
+  position: absolute;
+  bottom: 1rem;
+  right: 0;
+  left: 0;
+}
+
+.slider_buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.general {
+  transition: all 0.2s ease-out;
+  width: 0.75rem; /* 12px */
+  height: 0.75rem; /* 12px */
+  background-color: rgb(41, 29, 29);
+  border-radius: 50%;
+}
+
+.padding {
+  padding: 0.5rem; /* 8px */
+}
+
+.opacity {
+  opacity: 50%;
+}

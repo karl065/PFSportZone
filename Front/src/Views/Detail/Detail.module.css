@@ -25,20 +25,6 @@
   grid-template-columns: 40% auto;
 }
 
-.img {
-  object-fit: cover;
-  object-position: center;
-  border: 1px solid grey;
-  height: 100%;
-  width: 100%;
-  transition: all 0.2s;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-}
-
-.img:hover {
-  transform: scale(1.05);
-}
-
 .info_container {
   display: flex;
   flex-direction: column;
@@ -98,6 +84,11 @@
 
 .stock_box button {
   background-color: rgba(190, 243, 27, 0.97);
+}
+
+.stock_box span{
+  width: 3ch;
+  text-align: center;
 }
 
 .buttons_box {

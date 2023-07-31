@@ -1,0 +1,116 @@
+.form {
+  display: grid;
+  grid-template-columns: 60% auto;
+  gap: 2rem;
+  background-color: #c4c6bd;
+  padding: 2rem;
+}
+
+.all_inputs_container,
+.selects_container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.readOnly input {
+  color: white;
+  font-size: 1.5rem !important;
+  background-color: #393939;
+  outline: none;
+}
+
+.readOnly label {
+  font-size: 1.5rem !important;
+  letter-spacing: 2px;
+  color: black;
+}
+
+.selects_container {
+  overflow-x: auto;
+}
+
+.input_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input_container label {
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+.input_container input,
+.input_container textarea,
+.selects_container select {
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.error {
+  color: red;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+
+.images_container {
+  max-width: 100%;
+  display: flex;
+  overflow: auto;
+}
+
+.image_box {
+  position: relative;
+  border: 2px solid black;
+}
+
+.image_box img {
+  width: 120px;
+  height: 100px;
+}
+
+.image_box button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30%;
+  background-color: red;
+  color: white;
+  font-family: inherit;
+}
+
+.cloudinary_field {
+  display: flex;
+  flex-direction: column;
+}
+
+.btnReset {
+  background-color: #749900;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.btnReset:active {
+  background-color: #6d8f07ae;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.btnSubmit {
+  background-color: black;
+  color: white;
+  font-size: 1.5rem;
+  width: 100%;
+  justify-self: center;
+  padding: 1rem 4rem;
+}
+
+.btnSubmit:active {
+  background-color: #393939;
+}
+
+.btnSubmit:disabled {
+  background-color: #3939398e;
+  cursor: not-allowed;
+}

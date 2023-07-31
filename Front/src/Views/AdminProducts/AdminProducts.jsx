@@ -1,20 +1,20 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-undef */
-/* eslint-disable react-hooks/rules-of-hooks */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import Pagination from '../../Components/Pagination/Pagination';
 import {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Sidebar from '../../Components/SideBar/Sidebar';
+import {editProduct, filterProductsByStatus} from '../../redux/actions/actions';
 
 library.add(fas);
 
 const AdminProducts = () => {
   const inventario = useSelector((state) => state.app.inventory);
+  const [statusSeleccionado, setStatusSeleccionado] = useState('');
   const [page, setPage] = useState(1);
   const [amountPerPage, setAmountPerPage] = useState(8);
   const pageCount = inventario.length / amountPerPage;
@@ -23,13 +23,21 @@ const AdminProducts = () => {
     'Not Available',
     'Discontinued',
   ]);
+  const dispatch = useDispatch();
 
+  const handleStatusChange = (e) => {
+    const {value} = e.target;
+    setStatusSeleccionado(value);
+  };
+
+  const statusSubmit = (e, id_inventory) => {
+    e.preventDefault();
+    dispatch(editProduct({id_inventory, status: e.target.value}));
+  };
   useEffect(() => {
-    const statusToRemove = inventario.map((item) => item.status);
-    setStatusOption((prevStatusOption) =>
-      prevStatusOption.filter((status) => !statusToRemove.includes(status))
-    );
-  }, [inventario]);
+    dispatch(filterProductsByStatus(statusSeleccionado));
+    setPage(1);
+  }, [statusSeleccionado]);
 
   return (
     <div>
@@ -45,10 +53,15 @@ const AdminProducts = () => {
               <div className="d-sm-flex justify-content-between align-items-center mb-4">
                 <h3 className="text-dark mb-0">Productos</h3>
                 <div>
-                  <select style={{height: '38px', marginTop: '10px'}}>
-                    <option defaultValue="12">Filtrar por</option>
-                    <option value="12">Usuarios</option>
-                    <option value="13">Empleados</option>
+                  <select
+                    value={statusSeleccionado}
+                    onChange={handleStatusChange}
+                    style={{height: '38px', marginTop: '10px'}}
+                  >
+                    <option value="default">Filtrar por</option>
+                    <option value="Available">Disponible</option>
+                    <option value="Not Available">No disponible</option>
+                    <option value="Discontinued">Descontinuado</option>
                   </select>
                 </div>
               </div>
@@ -137,24 +150,19 @@ const AdminProducts = () => {
                                   <td>{inventory.purchase_price}</td>
                                   <td>{inventory.stock}</td>
                                   <td>{inventory.description}</td>
-                                  {inventory.categorias ? (
-                                    <td>{inventory.categorias.categoryName}</td>
-                                  ) : (
-                                    'categoria'
-                                  )}
                                   <td>
                                     {inventory.categorias
                                       ? inventory.categorias.categoryName
                                       : 'categoria'}
                                   </td>
                                   <td>
-                                    {' '}
                                     <select
-                                      style={{width: 'auto', minWidth: '100px'}}
+                                      className="d-inline-block form-select form-select-sm"
+                                      value={inventory.status}
+                                      onChange={(e) =>
+                                        statusSubmit(e, inventory.id_inventory)
+                                      }
                                     >
-                                      <option value={inventory.status}>
-                                        {inventory.status}
-                                      </option>
                                       {statusOption.map((option, index) => (
                                         <option value={option} key={index}>
                                           {option}

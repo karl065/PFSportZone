@@ -15,11 +15,15 @@ const { Usuarios } = require("../../../DB");
  * criterios de estado de usuario.
  */
 const filterUsersControllers = async (role, userStatus) => {
-  
-    return await Usuarios.findAll({ where: { role: role, userStatus: userStatus }});
- 
-
-
+    const whereFilter = {};
+    if (role !== undefined) {
+      whereFilter.role = role;
+    }
+    if (userStatus !== undefined) {
+      whereFilter.userStatus = userStatus;
+    }
+    console.log(whereFilter);
+    return await Usuarios.findAll({where: whereFilter});
 };
 
 module.exports = { filterUsersControllers };
