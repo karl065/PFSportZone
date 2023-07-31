@@ -5,13 +5,13 @@ import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import styles from './EditProduct.module.css';
 import {useDispatch, useSelector} from 'react-redux';
-import {editProduct, getInventory} from '../../../redux/actions/actions';
-
-const EditProduct = ({product}) => {
+import {editProduct} from '../../../redux/actions/actions';
+const EditProduct = ({product, onSubmitSuccess}) => {
   const dispatch = useDispatch();
   const category = useSelector((state) => state.app.category);
   const sports = useSelector((state) => state.app.sports);
   const marcas = useSelector((state) => state.app.marcas);
+  const genero = ['Man', 'Women', 'Unisex'];
 
   const SignupSchema = Yup.object().shape({
     id_inventory: Yup.string()
@@ -47,6 +47,12 @@ const EditProduct = ({product}) => {
       .of(Yup.string())
       .min(1, 'Es necesaria una imagen')
       .max(5, 'Máximo de 5 imágenes por producto'),
+    genre: Yup.string()
+      .oneOf(
+        genero.map((gen) => gen),
+        'No es un genero'
+      )
+      .required('Seleccione un genero'),
     id_categories: Yup.number()
       .oneOf(
         category.map((category) => category.id_categories),
@@ -75,8 +81,8 @@ const EditProduct = ({product}) => {
   const handleSubmit = async (values) => {
     try {
       await dispatch(editProduct(values));
-      dispatch(getInventory());
       Swal.fire('Buen trabajo!', 'Producto editado correctamente!', 'success');
+      onSubmitSuccess();
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -97,6 +103,7 @@ const EditProduct = ({product}) => {
           stock: product?.stock || '',
           image: product?.image || [],
           description: product?.description || '',
+          genre: product?.genre || '',
           id_categories: product?.id_categories || '',
           idMarca: product?.idMarca || '',
           idDeportes: product?.idDeportes || '',
@@ -235,38 +242,57 @@ const EditProduct = ({product}) => {
                 />
               </div>
 
-              <div className={styles.cloudinary_field}>
-                <div>
-                  <CloudinaryWidget
-                    fieldName="image"
-                    setFieldValue={setFieldValue}
-                    images={values.image}
-                  />
-                  {errors.image && (
-                    <span className={styles.error}>{errors.image}</span>
-                  )}
-                </div>
-                <div className={styles.images_container}>
-                  {values.image &&
-                    values.image.map((image, index) => (
-                      <div key={index} className={styles.image_box}>
-                        <img src={image} alt="Product image" />
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handleDeleteImage(
-                              values.image,
-                              image,
-                              setFieldValue
-                            )
-                          }
-                        >
-                          X
-                        </button>
-                      </div>
-                    ))}
-                </div>
+              <div className={styles.input_container}>
+                <label>Genero</label>
+                <Field as="select" name="genre">
+                  <option value="">Seleccione un genero</option>
+                  {genero.map((gen, index) => (
+                    <option value={gen} key={index}>
+                      {gen}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="genre"
+                  component="span"
+                  className={styles.error}
+                />
               </div>
+
+              {product && Object.keys(product).length ? (
+                <div className={styles.cloudinary_field}>
+                  <div>
+                    <CloudinaryWidget
+                      fieldName="image"
+                      setFieldValue={setFieldValue}
+                      images={values.image}
+                    />
+                    {errors.image && (
+                      <span className={styles.error}>{errors.image}</span>
+                    )}
+                  </div>
+                  <div className={styles.images_container}>
+                    {values.image &&
+                      values.image.map((image, index) => (
+                        <div key={index} className={styles.image_box}>
+                          <img src={image} alt="Product image" />
+                          <button
+                            type="button"
+                            onClick={() =>
+                              handleDeleteImage(
+                                values.image,
+                                image,
+                                setFieldValue
+                              )
+                            }
+                          >
+                            X
+                          </button>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              ) : null}
             </div>
 
             <button

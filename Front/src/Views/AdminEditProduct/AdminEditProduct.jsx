@@ -12,6 +12,10 @@ const AdminEditProduct = () => {
     setSelectedItem(item);
   };
 
+  const handleSubmitSuccess = () => {
+    setSelectedItem({});
+  }
+
   // ? Searchbar
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -126,7 +130,7 @@ const AdminEditProduct = () => {
             />
           </button>
         </div>
-        <EditProduct product={selectedItem} />
+        <EditProduct product={selectedItem} onSubmitSuccess={handleSubmitSuccess} />
       </div>
     </div>
   );
