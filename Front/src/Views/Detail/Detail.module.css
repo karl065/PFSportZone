@@ -19,7 +19,6 @@
 .detail {
   width: 90%;
   max-width: 110rem;
-  max-height: 800px;
   display: grid;
   column-gap: 2rem;
   grid-template-columns: 40% auto;
