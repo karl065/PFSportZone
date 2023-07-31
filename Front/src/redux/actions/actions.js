@@ -18,6 +18,9 @@ import {
   CREATE_MARCA,
   CREATE_DEPORTE,
   GET_MARCA,
+  EDIT_PRODUCT,
+  UPDATE_USERS_STATUS,
+  UPDATE_ITEM_STATUS,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
@@ -121,6 +124,19 @@ export const createDeporte = (deporte) => {
   };
 };
 
+export const editProduct = (newValues) => {
+  return async (dispatch) => {
+    const {data} = await axios.put(
+      `${server.api.baseURL}inventory/${newValues.id_inventory}`,
+      newValues
+    );
+    dispatch({
+      type: EDIT_PRODUCT,
+      payload: data,
+    });
+  };
+};
+
 export const filterProductsByName = (name) => {
   return {
     type: FILTER_PRODUCTS_BY_NAME,
@@ -166,9 +182,14 @@ export const orderProductsByAbc = (order) => {
 };
 
 export const filterProductsByStatus = (status) => {
-  return {
-    type: FILTER_PRODUCTS_BY_STATUS,
-    payload: status,
+  return async (dispatch) => {
+    const {data} = await axios.get(
+      `${server.api.baseURL}filters?status=${status}`
+    );
+    dispatch({
+      type: FILTER_PRODUCTS_BY_STATUS,
+      payload: data,
+    });
   };
 };
 
@@ -179,13 +200,48 @@ export const productsFiltered = (products) => {
   };
 };
 
-export const filterUsersByRoleAndStatus = (role, status) => {
+export const filterUsersByRoleAndStatus = (role, userStatus) => {
+  const filters = {
+    role,
+    userStatus,
+  };
   return async (dispatch) => {
+    const queryString = Object.keys(filters)
+      .map((key) => {
+        const value = filters[key];
+        if (
+          value !== undefined &&
+          value !== null &&
+          value !== '' &&
+          value !== 'default'
+        ) {
+          return `${key}=${value}`;
+        }
+        return null; // Si el valor no es válido, se devuelve null
+      })
+      .filter((query) => query !== null) // Filtrar los valores nulos
+      .join('&');
     const {data} = await axios.get(
-      `${server.api.baseURL}filters?role=${role}&userStatus=${status}`
+      `${server.api.baseURL}filters?${queryString}`
     );
     dispatch({
       type: FILTER_USERS_BY_ROLE_AND_STATUS,
+      payload: data,
+    });
+  };
+};
+
+export const updateItemStatus = (itemId, newStatus) => ({
+  type: UPDATE_ITEM_STATUS,
+  payload: {itemId, newStatus},
+});
+export const updateUsersStatus = (idUser, newStatus) => {
+  return async (dispatch) => {
+    await axios.put(`${server.api.baseURL}users/${idUser}`, newStatus);
+    const {data} = await axios.get(`${server.api.baseURL}users`);
+    data.sort((a, b) => a.idUser - b.idUser);
+    dispatch({
+      type: UPDATE_USERS_STATUS,
       payload: data,
     });
   };

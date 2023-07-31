@@ -1,36 +1,36 @@
 /* eslint-disable react/prop-types */
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { login } from "../../../helpers/helperLogin";
-import { useNavigate } from "react-router-dom";
+import {useFormik} from 'formik';
+import * as Yup from 'yup';
+import {login} from '../../../helpers/helperLogin';
+import {useNavigate} from 'react-router-dom';
 import {
   FacebookAuthProvider,
   GoogleAuthProvider,
   signInWithPopup,
-} from "firebase/auth";
-import Swal from "sweetalert2";
-import { auth } from "../../../firebase/firebaseConfig";
-import { createUser } from "../../../redux/actions/actions";
-import { useDispatch, useSelector } from "react-redux";
-import googleIcon from "../../../assets/google-icon.svg";
-import facebookIcon from "../../../assets/facebook-icon.svg";
-import styles from "./UserLogin.module.css";
+} from 'firebase/auth';
+import Swal from 'sweetalert2';
+import {auth} from '../../../firebase/firebaseConfig';
+import {createUser} from '../../../redux/actions/actions';
+import {useDispatch, useSelector} from 'react-redux';
+import googleIcon from '../../../assets/google-icon.svg';
+import facebookIcon from '../../../assets/facebook-icon.svg';
+import styles from './UserLogin.module.css';
 
 const UserLogin = () => {
-  const users = useSelector(state => state.app.users);
+  const users = useSelector((state) => state.app.users);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // * Define el esquema de validación usando Yup
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Not an email").required("Email required"),
-    password: Yup.string().required("Password required"),
+    email: Yup.string().email('Not an email').required('Email required'),
+    password: Yup.string().required('Password required'),
   });
 
   // * Configura Formik y su estado inicial
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     validationSchema,
     onSubmit: async (values) => {
@@ -40,11 +40,14 @@ const UserLogin = () => {
 
   const swalErrorAuth = (error) => {
     // * Solo muestro el error cuando NO ES por un cierre intencional del popup o de validación de DB [Email ya registrado/único].
-    if (error?.original.code !== "23505" && error?.code !== "auth/popup-closed-by-user") {
+    if (
+      error?.original.code !== '23505' &&
+      error?.code !== 'auth/popup-closed-by-user'
+    ) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!. Please try again later.",
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!. Please try again later.',
       });
     }
   };
@@ -58,17 +61,16 @@ const UserLogin = () => {
         user: result.user.displayName,
         password: result.user.uid,
         userStatus: true,
-        role: "Cliente",
+        role: 'Cliente',
       };
 
       // ? Ver si después podemos hacer esto solo cuando no existe un usuario con ese email. y evitar la validación de arriba "23505"
-      if(users.find(user => user.email === newUser.email)){
+      if (users.find((user) => user.email === newUser.email)) {
         await login(newUser.email, newUser.password, navigate);
-      }else{
+      } else {
         await dispatch(createUser(newUser));
         await login(newUser.email, newUser.password, navigate);
       }
-
     } catch (error) {
       swalErrorAuth(error);
     }
@@ -83,12 +85,12 @@ const UserLogin = () => {
         user: result.user.displayName,
         password: result.user.uid,
         userStatus: true,
-        role: "Cliente",
+        role: 'Cliente',
       };
 
-      if(users.find(user => user.email === newUser.email)){
+      if (users.find((user) => user.email === newUser.email)) {
         await login(newUser.email, newUser.password, navigate, dispatch);
-      }else{
+      } else {
         await dispatch(createUser(newUser));
         await login(newUser.email, newUser.password, navigate);
       }
@@ -102,13 +104,13 @@ const UserLogin = () => {
       <div
         id="ng-login"
         className={`${styles.login_container} bg-gradient-primary`}
-        style={{ background: "#42b73a", "--bs-success": "#42b73a" }}
+        style={{background: '#42b73a', '--bs-success': '#42b73a'}}
       >
         <div className="container">
           <div className="row justify-content-center">
             <div
               className="col-md-9 col-lg-12 col-xl-10"
-              style={{ width: "400px" }}
+              style={{width: '400px'}}
             >
               <div className="card shadow-lg o-hidden border-0 my-5">
                 <div className="card-body p-0">
@@ -116,18 +118,18 @@ const UserLogin = () => {
                     <div
                       className="col-lg-6"
                       style={{
-                        borderRadius: "10px",
-                        borderColor: "rgba(133,135,150,0)",
-                        width: "400px",
+                        borderRadius: '10px',
+                        borderColor: 'rgba(133,135,150,0)',
+                        width: '400px',
                       }}
                     >
-                      <div className="p-5" style={{ width: "100%" }}>
+                      <div className="p-5" style={{width: '100%'}}>
                         <div className="text-center">
                           <h4
                             className="text-dark mb-4"
-                            style={{ fontSize: "2.4rem" }}
+                            style={{fontSize: '2.4rem'}}
                           >
-                            WELCOME!
+                            BIENVENIDO!
                           </h4>
                         </div>
                         <form className="user" onSubmit={formik.handleSubmit}>
@@ -142,7 +144,7 @@ const UserLogin = () => {
                               aria-describedby="emailHelp"
                               placeholder="Email"
                               name="email"
-                              style={{ borderRadius: "0px" }}
+                              style={{borderRadius: '0px'}}
                             />
                             {formik.touched.email && formik.errors.email ? (
                               <div className="text-danger">
@@ -158,9 +160,9 @@ const UserLogin = () => {
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               type="password"
-                              placeholder="Password"
+                              placeholder="Contraseña"
                               name="password"
-                              style={{ borderRadius: "0px" }}
+                              style={{borderRadius: '0px'}}
                             />
                             {formik.touched.password &&
                             formik.errors.password ? (
@@ -180,11 +182,11 @@ const UserLogin = () => {
                             disabled={!formik.isValid || formik.isSubmitting}
                             type="submit"
                             style={{
-                              background: "#42b73a",
-                              borderRadius: "0px",
+                              background: '#42b73a',
+                              borderRadius: '0px',
                             }}
                           >
-                            Login
+                            Ingresar
                           </button>
                           <div className={styles.externalAuthButtons}>
                             <button
@@ -193,7 +195,7 @@ const UserLogin = () => {
                               className={styles.btnLoginGoogle}
                             >
                               <img src={googleIcon} alt="Google icon" />
-                              Login with Google
+                              Ingresar con google
                             </button>
                             <button
                               type="button"
@@ -201,7 +203,7 @@ const UserLogin = () => {
                               className={styles.btnLoginFacebook}
                             >
                               <img src={facebookIcon} alt="Facebook icon" />
-                              Login with Facebook
+                              Ingresar con facebook
                             </button>
                           </div>
                           <hr />

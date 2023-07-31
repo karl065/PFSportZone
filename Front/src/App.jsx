@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useEffect} from 'react';
-import {Routes, Route, useLocation} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
-import {NavBar} from './Components';
+import { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { NavBar } from "./Components";
 import {
   Landing,
   Home,
@@ -21,10 +21,10 @@ import {
   AdminNewCategory,
   AdminNewMarca,
   AdminNewDeportes,
-  AdminEditProd,
+  AdminEditProduct,
   AdminPagos,
   Cart,
-} from './Views';
+} from "./Views";
 import {
   getCategory,
   getInventory,
@@ -32,16 +32,17 @@ import {
   getSports,
   getUsers,
   setLoading,
-} from './redux/actions/actions';
-import {getCart} from './redux/actions/cartActions';
-import {useState} from 'react';
+} from "./redux/actions/actions";
+import { getCart } from "./redux/actions/cartActions";
+import { useState } from "react";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   // * Estado para no mostrar la nav en la pagina 404
   const [errorPage, setErrorPage] = useState(true);
-  const idCart = localStorage.getItem('idCarrito');
+  const idCart = localStorage.getItem("idCarrito");
 
   // * Carga inicial de los datos necesarios para la app.
   useEffect(() => {
@@ -56,13 +57,15 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(setLoading(true));
-    dispatch(getCart(idCart)).then(() => dispatch(setLoading(false)));
+    if (idCart) {
+      dispatch(setLoading(true));
+      dispatch(getCart(idCart)).then(() => dispatch(setLoading(false)));
+    }
   }, [idCart]);
 
   return (
     <div className="App">
-      {location.pathname !== '/' && errorPage && <NavBar />}
+      {location.pathname !== "/" && errorPage && <NavBar />}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<UserLogin />} />
@@ -76,7 +79,7 @@ function App() {
         <Route path="/adminNewDeportes" element={<AdminNewDeportes />} />
         <Route path="/adminNewUser" element={<AdminNewUsers />} />
         <Route path="/adminNewCategory" element={<AdminNewCategory />} />
-        <Route path="/adminEditProd" element={<AdminEditProd />} />
+        <Route path="/adminEditProd" element={<AdminEditProduct />} />
         <Route path="/adminPagos" element={<AdminPagos />} />
         {/* <Route path="/favorites"/> */}
         <Route path="/product/:id" element={<Detail />} />
@@ -86,6 +89,7 @@ function App() {
         <Route path="/faq" element={<Faq />} />
         <Route path="*" element={<Error setErrorPage={setErrorPage} />} />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

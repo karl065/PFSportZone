@@ -3,6 +3,7 @@ import {
   ADD_PRODUCT,
   DELETE_PRODUCT,
   DELETE_ALL_PRODUCT,
+  UPDATE_CART,
 } from '../actions-types/cartTypes';
 
 const initialState = {
@@ -26,6 +27,12 @@ const cartReducer = (state = initialState, {type, payload}) => {
         products: payload.Inventarios,
         total: payload.total,
       };
+    case UPDATE_CART:
+      return {
+        ...state,
+        products: payload.Inventarios,
+        total: payload.total,
+      }
     case DELETE_PRODUCT:
       return {
         ...state,

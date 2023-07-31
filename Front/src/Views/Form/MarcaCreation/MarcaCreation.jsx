@@ -59,9 +59,9 @@ export const MarcaCreation = () => {
       >
         {({errors}) => (
           <Form className={styles.form}>
-            <h1 className={styles.title}>NEW MARCA</h1>
+            <h1 className={styles.title}>NUEVA MARCA</h1>
             <div className={styles.field_container}>
-              <label>Name</label>
+              <label>NOMBRE</label>
               <div className={styles.input_box}>
                 <Field
                   name="name"
@@ -76,7 +76,7 @@ export const MarcaCreation = () => {
               </div>
             </div>
             <div className={styles.field_container}>
-              <label>Description</label>
+              <label>Descripción</label>
               <div className={styles.input_box}>
                 <Field
                   as="textarea"

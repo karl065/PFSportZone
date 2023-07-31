@@ -21,7 +21,7 @@ const Cart = () => {
           <>
             <div className={styles.cart_info}>
               <h1>
-                SHOPPING CART
+                CARRITO DE COMPRAS
                 <span className={styles.span_products}>
                   {userProducts.length}
                 </span>
@@ -33,13 +33,13 @@ const Cart = () => {
               ))}
             </div>
             <div className={styles.checkout_container}>
-              <h3>ORDER SUMMARY</h3>
+              <h3>RESUMEN DEL PEDIDO</h3>
               <div className={styles.checkout_box}>
                 <h4>Subtotal</h4>
                 <p className={styles.p}>${totalCart}</p>
               </div>
               <div className={styles.checkout_box}>
-                <h4>Shipping</h4>
+                <h4>Envió</h4>
                 <p className={styles.p}>$0</p>
               </div>
               <div className={`${styles.checkout_box} ${styles.total}`}>
