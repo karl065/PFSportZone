@@ -146,9 +146,9 @@ export const UserRegister = () => {
               </div>
               {urlCurrent === '/adminNewUser' ? (
                 <div className={styles.field}>
-                  <label>Role</label>
+                  <label>Rol</label>
                   <Field as="select" name="role" className={styles.role_select}>
-                    <option value="">Select a role</option>
+                    <option value="">Seleccione un Rol</option>
                     <option value="Cliente">Cliente</option>
                     <option value="Empleados">Empleado</option>
                     <option value="Admin">Admin</option>
@@ -165,7 +165,7 @@ export const UserRegister = () => {
                 className={styles.btnSubmit}
                 disabled={Object.keys(errors).length > 0}
               >
-                Registrarse
+                {(!role || role === "Cliente") ? "Registrarse" : "Registrar"}
               </button>
             </Form>
           </>
