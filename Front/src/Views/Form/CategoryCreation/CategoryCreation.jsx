@@ -59,13 +59,13 @@ export const CategoryCreation = () => {
       >
         {({errors}) => (
           <Form className={styles.form}>
-            <h1 className={styles.title}>NEW CATEGORY</h1>
+            <h1 className={styles.title}>Nueva Categoria</h1>
             <div className={styles.field_container}>
-              <label>Name</label>
+              <label>Nombre</label>
               <div className={styles.input_box}>
                 <Field
                   name="categoryName"
-                  placeholder="Category name"
+                  placeholder="Nombre Categoria"
                   className={styles.input}
                 />
                 <ErrorMessage
@@ -76,12 +76,12 @@ export const CategoryCreation = () => {
               </div>
             </div>
             <div className={styles.field_container}>
-              <label>Description</label>
+              <label>Descripción</label>
               <div className={styles.input_box}>
                 <Field
                   as="textarea"
                   name="description"
-                  placeholder="Product description"
+                  placeholder="Descripción de la categoria"
                   className={styles.input}
                   rows="4"
                 />
