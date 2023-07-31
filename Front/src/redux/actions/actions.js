@@ -125,12 +125,15 @@ export const createDeporte = (deporte) => {
   };
 };
 
-export const editProduct = (newValues) => {
+export const editProduct = (newValues, status) => {
   return async (dispatch) => {
     const {data} = await axios.put(
       `${server.api.baseURL}inventory/${newValues.id_inventory}`,
       newValues
     );
+    if (status) {
+      dispatch(filterProductsByStatus(status));
+    }
     dispatch({
       type: EDIT_PRODUCT,
       payload: data,
