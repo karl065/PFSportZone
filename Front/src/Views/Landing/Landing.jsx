@@ -32,7 +32,8 @@ const Landing = () => {
           `${server.api.baseURL}mails`,
           mail
         );
-        Swal.fire('Buen trabajo!', `${responseMail.data}`, 'success');
+        console.log(responseMail);
+        Swal.fire('Buen trabajo!', `Compra Exitosa`, 'success');
 
         dispatch(deleteAllProduct());
       } catch (error) {
@@ -41,15 +42,6 @@ const Landing = () => {
     }
   };
 
-  // if (status) {
-  //   const idUser = localStorage.getItem('idUSer');
-  //   try {
-  //     const {data} = await axios.get(`${server.api.baseURL}${idUser}`);
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }
   //* función para redirigir al home al momento de hacer click a "Tienda"
   const toHome = () => {
     navigate('/home');
