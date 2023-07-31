@@ -25,4 +25,7 @@ router.use("/ingresarProductos", productsIncome);
 router.use("/marca", marca);
 router.use("/mercadopago", mercadopago);
 
+router.use("/favorites", favorites);
+router.use("/review", reviews);
+
 module.exports = router;

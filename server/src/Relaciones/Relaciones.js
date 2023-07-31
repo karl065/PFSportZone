@@ -71,17 +71,13 @@ const relaciones = (models) => {
     as: "usuario",
     onDelete: "CASCADE",
   });
-  //
-  // Reviews.belongsTo(Inventarios, {
-  //   foreignKey: "id_Inventory",
-  //   as: "inventarios",
-  //   onDelete: "CASCADE",
-  // });
-  // Inventarios.hasMany(Reviews, {
-  //   foreignKey: "id_Inventory",
-  //   as: "reviews",
-  //   onDelete: "CASCADE",
-  // });
+
+  Inventarios.hasOne(Reviews, { foreignKey: "id_inventory", as: "reviews" });
+  Reviews.belongsTo(Inventarios, {
+    foreignKey: "id_inventory",
+    as: "inventarios",
+  });
+
   // -------------------------------------------------------
 
   Usuarios.belongsToMany(Inventarios, {
