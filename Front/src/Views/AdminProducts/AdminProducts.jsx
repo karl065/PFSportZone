@@ -27,18 +27,21 @@ const AdminProducts = () => {
 
   const handleStatusChange = (e) => {
     const {value} = e.target;
+    console.log(value);
+    dispatch(filterProductsByStatus(value));
     setStatusSeleccionado(value);
   };
 
   const statusSubmit = (e, id_inventory) => {
     e.preventDefault();
-    dispatch(editProduct({id_inventory, status: e.target.value}));
+    if (statusSeleccionado) {
+      dispatch(
+        editProduct({id_inventory, status: e.target.value}, statusSeleccionado)
+      );
+    } else {
+      dispatch(editProduct({id_inventory, status: e.target.value}));
+    }
   };
-  useEffect(() => {
-    dispatch(filterProductsByStatus(statusSeleccionado));
-    setPage(1);
-  }, [statusSeleccionado]);
-
   return (
     <div>
       <div id="wrapper" style={{display: 'flex'}}>
@@ -58,10 +61,12 @@ const AdminProducts = () => {
                     onChange={handleStatusChange}
                     style={{height: '38px', marginTop: '10px'}}
                   >
-                    <option value="default">Filtrar por</option>
-                    <option value="Available">Disponible</option>
-                    <option value="Not Available">No disponible</option>
-                    <option value="Discontinued">Descontinuado</option>
+                    <option value="">Filtrar por</option>
+                    {statusOption.map((option, index) => (
+                      <option value={option} key={index}>
+                        {option}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>

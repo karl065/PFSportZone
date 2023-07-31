@@ -4,7 +4,6 @@ const {
 
 const handlerCrearOrden = async (req, res) => {
   const {Inventarios} = req.body;
-  console.log(Inventarios);
   try {
     const orden = await crearOrdenController(Inventarios);
     return res.status(200).json(orden);
