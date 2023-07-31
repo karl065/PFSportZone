@@ -75,9 +75,9 @@ const Landing = () => {
             <p>Sign Up</p>
           </NavLink>
         )}
-        <NavLink to="/faq">
+        {/* <NavLink to="/faq">
           <p>F&A</p>
-        </NavLink>
+        </NavLink> */}
       </ul>
       <div className={styles.titles}>
         <h1>SPORTZONE</h1>
