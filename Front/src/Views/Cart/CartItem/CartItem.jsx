@@ -58,7 +58,8 @@ const CartItem = ({product, cartId}) => {
 
   // ? Para evitar el desfase del cambio de selectedQuantity declaro una nueva variable "newValue".
   const incrementQuantity = () => {
-    const newValue = selectedQuantity < stock ? selectedQuantity + 1 : stock;
+    const newValue =
+      selectedQuantity < stock ? Number(selectedQuantity) + 1 : stock;
     setSelectedQuantity(newValue);
     updateCart(newValue);
     setError('noerror');
@@ -67,7 +68,7 @@ const CartItem = ({product, cartId}) => {
   const decrementQuantity = () => {
     const newValue =
       selectedQuantity > 1 && selectedQuantity <= stock
-        ? selectedQuantity - 1
+        ? Number(selectedQuantity) - 1
         : stock - 1;
 
     setSelectedQuantity(newValue);
