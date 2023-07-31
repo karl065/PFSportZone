@@ -20,6 +20,7 @@ const putHandlerUser = async (req, res) => {
     phone,
     address,
   } = req.body;
+  console.log(password);
   let passwordHash;
   if (password) {
     passwordHash = await bcryptjs.hash(password, 10);
@@ -47,7 +48,7 @@ const putHandlerUser = async (req, res) => {
     // Si se proporcionó una nueva contraseña, envía la notificación de cambio de contraseña
     if (password) {
       try {
-        await enviarNotificacionCambioContrasena(email);
+        await enviarNotificacionCambioContrasena(userUpdate.email);
         console.log('Notificación de cambio de contraseña enviada.');
       } catch (error) {
         console.error(
