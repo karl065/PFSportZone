@@ -18,25 +18,7 @@ const AdminNewUsers = () => {
             <div className="container-fluid" style={{display: 'block'}}>
               <div className="d-sm-flex justify-content-between align-items-center mb-4">
                 <h3 className="text-dark mb-0">Nuevo Producto</h3>
-                <div>
-                  <select style={{height: '38px', marginTop: '10px'}}>
-                    <option defaultValue="12">Filtrar por</option>
-                    <option value="12">Usuarios</option>
-                    <option value="13">Empleados</option>
-                  </select>
-                </div>
-                <div></div>
-                <div>
-                  <button
-                    className="btn btn-primary"
-                    type="button"
-                    style={{marginTop: '10px', background: '#749900'}}
-                  >
-                    Eliminar
-                  </button>
-                </div>
               </div>
-              <div></div>
               <UserRegister />
             </div>
           </div>

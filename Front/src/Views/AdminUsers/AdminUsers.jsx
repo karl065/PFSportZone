@@ -11,6 +11,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import Sidebar from '../../Components/SideBar/Sidebar';
 import {
   filterUsersByRoleAndStatus,
+  getUsers,
   updateUsersStatus,
 } from '../../redux/actions/actions';
 
@@ -25,6 +26,17 @@ const AdminUsers = () => {
   const dispatch = useDispatch();
   const [statusOption, setStatusOption] = useState(['Activo', 'Inactivo']);
   const [userStatusOptions, setUserStatusOptions] = useState({});
+
+  const applyFilters = () => {
+    if (roleSeleccionado || statusSeleccionado) {
+      dispatch(
+        filterUsersByRoleAndStatus(roleSeleccionado, statusSeleccionado)
+      );
+    } else {
+      dispatch(getUsers());
+    }
+  };
+
   const handleRoleChange = (e) => {
     const {value} = e.target;
     setRoleSeleccionado(value);
@@ -38,15 +50,36 @@ const AdminUsers = () => {
   const statusSubmit = (e, idUser) => {
     e.preventDefault();
     if (e.target.value === 'Inactivo') {
-      dispatch(updateUsersStatus(idUser, {userStatus: false}));
+      if (roleSeleccionado || statusSeleccionado) {
+        dispatch(
+          updateUsersStatus(
+            idUser,
+            {userStatus: false},
+            roleSeleccionado,
+            statusSeleccionado
+          )
+        );
+      } else {
+        dispatch(updateUsersStatus(idUser, {userStatus: false}));
+      }
     } else if (e.target.value === 'Activo') {
-      dispatch(updateUsersStatus(idUser, {userStatus: true}));
+      if (roleSeleccionado || statusSeleccionado) {
+        dispatch(
+          updateUsersStatus(
+            idUser,
+            {userStatus: true},
+            roleSeleccionado,
+            statusSeleccionado
+          )
+        );
+      } else {
+        dispatch(updateUsersStatus(idUser, {userStatus: true}));
+      }
     }
   };
 
   useEffect(() => {
-    dispatch(filterUsersByRoleAndStatus(roleSeleccionado, statusSeleccionado));
-    setPage(1);
+    applyFilters();
   }, [roleSeleccionado, statusSeleccionado]);
 
   useEffect(() => {
@@ -75,11 +108,11 @@ const AdminUsers = () => {
                 <h3 className="text-dark mb-0">Usuarios</h3>
                 <div>
                   <select
-                    value={roleSeleccionado}
+                    // value={roleSeleccionado}
                     style={{height: '38px', marginTop: '10px'}}
                     onChange={handleRoleChange}
                   >
-                    <option value="default">Filtrar por role</option>
+                    <option value="">Filtrar por role</option>
                     <option value="Cliente">Cliente</option>
                     <option value="Empleados">Empleados</option>
                     <option value="Admin">Admin</option>
@@ -87,11 +120,11 @@ const AdminUsers = () => {
                 </div>
                 <div>
                   <select
-                    value={statusSeleccionado}
+                    // value={statusSeleccionado}
                     style={{height: '38px', marginTop: '10px'}}
                     onChange={handleStatusChange}
                   >
-                    <option value="default">Filtrar por estado</option>
+                    <option value="">Filtrar por estado</option>
                     <option value="true">Activo</option>
                     <option value="false">Inactivo</option>
                   </select>

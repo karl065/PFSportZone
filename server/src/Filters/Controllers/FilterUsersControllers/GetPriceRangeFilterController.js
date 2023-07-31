@@ -33,6 +33,7 @@ const filterPriceRange = async (
   idMarca
 ) => {
   try {
+    console.log(id_categories);
     const whereConditions = {
       selling_price: {[Op.between]: [minPrice, maxPrice || Infinity]},
       status: 'Available',
