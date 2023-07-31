@@ -21,8 +21,8 @@ export default function SortAndFilters() {
   const marcas = useSelector((state) => state.app.marcas);
   const categorys = useSelector((state) => state.app.category);
   const [filters, setFilters] = useState({});
-  const [filtersSelected,setFiltersSelected] = useState([]);
   const [productosFiltrados, setProductosFiltrados] = useState([]);
+  // const [filtersSelected,setFiltersSelected] = useState([]);
 
   //?FUNCIONES PARA LOS ORDERS
   const handleOrderByPrice = (e) => {
@@ -39,14 +39,14 @@ export default function SortAndFilters() {
   const handleFiltersChange = async (e) => {
     setFilters({...filters, [e.target.name]: e.target.value});
 
-    const selectedOption = e.target.options[e.target.selectedIndex];
-    const selectedText = selectedOption.textContent;
-    setFiltersSelected([...filtersSelected,selectedText]);
+    // const selectedOption = e.target.options[e.target.selectedIndex];
+    // const selectedText = selectedOption.textContent;
+    // setFiltersSelected([...filtersSelected,selectedText]);
   };
 
   const handleFiltersClean = () => {
     setFilters({});
-    setFiltersSelected([]);
+    // setFiltersSelected([]);
     dispatch(resetDisplayedProducts());
   };
 
@@ -56,11 +56,10 @@ export default function SortAndFilters() {
       [name] : 'default'
     })
 
-    setFiltersSelected((prevFiltersSelected) => {
-      // Filtramos los elementos diferentes a 'name' del estado filtersSelected
-      return prevFiltersSelected.filter((filter) => filter !== filters[name]);
-    });
-
+    // setFiltersSelected((prevFiltersSelected) => {
+    //   // Filtramos los elementos diferentes a 'name' del estado filtersSelected
+    //   return prevFiltersSelected.filter((filter) => filter !== filters[name]);
+    // });
 }
 
   //*funcion para que al ir modificando filters se sigan agregando querys a la request para filtrar
@@ -112,7 +111,7 @@ export default function SortAndFilters() {
   const closeMenuFilters = () => {
     setMenuView(false);
   };
-  console.log(filtersSelected);
+
   return (
     <div className={Styles.container}>
       <div className={Styles.order_container}>
@@ -162,7 +161,7 @@ export default function SortAndFilters() {
             <button onClick={handleFiltersClean}>eliminar filtros</button>
           </span>
           <p>Filtros elegidos:</p>
-          {
+          {/* {
             Object.keys(filters).map((key,index)=>{
               const value = filters[key];
               if(
@@ -180,7 +179,7 @@ export default function SortAndFilters() {
                 }
                 return null;
             })
-          }
+          } */}
           <br />
 
           <label htmlFor="filters">por tipo de producto:</label>
@@ -261,7 +260,9 @@ export default function SortAndFilters() {
             <option value="0">0</option>
             <option value="1000">1.000</option>
             <option value="5000">5.000</option>
+            <option value="10000">10.000</option>
             <option value="20000">20.000</option>
+            <option value="30000">30.000</option>
             <option value="40000">40.000</option>
             <option value="50000">50.000</option>
           </select>
@@ -277,6 +278,9 @@ export default function SortAndFilters() {
             <option value="1000">1.000</option>
             <option value="5000">5.000</option>
             <option value="10000">10.000</option>
+            <option value="20000">20.000</option>
+            <option value="30000">30.000</option>
+            <option value="40000">40.000</option>
             <option value="50000">50.000</option>
             <option value="Infinity">mas de 50.000</option>
           </select>
