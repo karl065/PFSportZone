@@ -110,7 +110,7 @@ export default function appReducer(state = initialState, {type, payload}) {
     case FILTER_PRODUCTS_BY_STATUS:
       return {
         ...state,
-        displayInventory: payload,
+        inventory: payload,
       };
     case PRODUCTS_FILTERED:
       return {

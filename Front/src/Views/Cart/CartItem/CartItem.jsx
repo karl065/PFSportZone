@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { addProduct, deleteProduct, updateCart } from "../../../redux/actions/cartActions";
-import styles from "./CartItem.module.css";
+import {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {addProduct, deleteProduct} from '../../../redux/actions/cartActions';
+import styles from './CartItem.module.css';
 
-const CartItem = ({ product, cartId }) => {
+const CartItem = ({product, cartId}) => {
   const dispatch = useDispatch();
   const {
     id_inventory,
