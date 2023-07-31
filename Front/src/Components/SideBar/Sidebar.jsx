@@ -64,7 +64,7 @@ const Sidebar = () => {
                 <span> Crear Usuario</span>
               </Link>
             </li>
-            <hr className="sidebar-divider my-2" />
+            {/* <hr className="sidebar-divider my-2" />
             <li
               className={`nav-item ${
                 location.pathname === '/adminEmployes' ? styles.active : ''
@@ -85,7 +85,7 @@ const Sidebar = () => {
                 <FontAwesomeIcon icon="money-check-alt" />
                 <span> Pagos</span>
               </Link>
-            </li>
+            </li> */}
             <hr className="sidebar-divider my-2" />
             <li
               className={`nav-item ${
