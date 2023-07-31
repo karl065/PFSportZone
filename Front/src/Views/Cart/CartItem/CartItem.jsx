@@ -49,7 +49,7 @@ const CartItem = ({ product, cartId }) => {
   };
 
   const updateCart = (newValue) => {
-    setStopWriting(false); // ? Para que no se bugee una vez que cambia el input y tambien spamea el boton y haga doble request.
+    setStopWriting(false); // ? Para que no se bugee una vez que cambia el input y también spamea el botón y haga doble request.
     setIsLoading(true);
     dispatch(addProduct(cartId, id_inventory, newValue)).then(() =>
       setIsLoading(false)
@@ -83,7 +83,7 @@ const CartItem = ({ product, cartId }) => {
     await dispatch(deleteProduct(cartId, idProduct));
   };
 
-  // * Cuando el usuario escriba algo correcto y allan pasado 800ms de que dejo de escribir tambien
+  // * Cuando el usuario escriba algo correcto y hayan pasado 800ms desde que dejo de escribir también
   // * Se actualize el monto.
   useEffect(() => {
     if (error === "noerror" && stopWriting) {
