@@ -4,6 +4,8 @@ import axios from "axios";
 import { useState } from "react";
 import styles from "./CloudinaryWidget.module.css";
 
+const MAX_IMAGES = 5;
+
 const CloudinaryWidget = ({ fieldName, setFieldValue, images }) => {
   const cloudName = "dpjeltekx";
   const uploadPreset = "PFSportZone";
@@ -11,7 +13,7 @@ const CloudinaryWidget = ({ fieldName, setFieldValue, images }) => {
 
   const handleUpload = async (event) => {
     // * Máximo 5 imágenes antes de seguir subiendo.
-    if (images.length >= 5) return;
+    if (images.length >= MAX_IMAGES) return;
 
     const file = event.target.files[0];
 
@@ -60,6 +62,7 @@ const CloudinaryWidget = ({ fieldName, setFieldValue, images }) => {
           onChange={handleUpload}
         />
       </label>
+      <p>Max:{MAX_IMAGES}</p>
     </div>
   );
 };
