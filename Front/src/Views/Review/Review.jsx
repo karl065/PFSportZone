@@ -11,17 +11,19 @@ const Review = () => {
   })
 
   const handleRating = (number) => {
-<<<<<<< HEAD
     setFormReview({
       rating: number,
       comment: ''
     })
 }
+
+const handleComment = (e) => {
+  setFormReview({
+    ...formReview,
+    [e.target.name] : e.target.value
+  })
+}
   console.log(formReview);
-=======
-    setRating(number);
-  };
->>>>>>> 63332ae699339503c861e33443d4004f770662fe
   return (
     <div className={Styles.container}>
       <div className={Styles.texto}>
@@ -42,17 +44,19 @@ const Review = () => {
         </span>
 
       <span>
-        <label htmlFor="comentario">danos tu opinion:</label>
-        <textarea name="comentario" id="comentario" cols="50" rows="10"></textarea>
+        <label htmlFor="comment">danos tu opinion:</label>
+        <textarea 
+        name="comment" 
+        id="comment" 
+        cols="50" 
+        rows="10" 
+        value={formReview.comment}
+        onChange={handleComment}></textarea>
       </span>
         <button>enviar</button>
       </div>
     </div>
   );
-<<<<<<< HEAD
 }
-=======
-};
->>>>>>> 63332ae699339503c861e33443d4004f770662fe
 
 export default Review;
