@@ -19,6 +19,7 @@ import AdminNewMarca from './AdminNewMarca/AdminNewMarca.jsx';
 import AdminEditProd from './AdminEditProd/AdminEditProd.jsx';
 import AdminPagos from './AdminPagos/AdminPagos.jsx';
 import Cart from './Cart/Cart.jsx';
+import ResetPaas from './Form/ResetPaas/ResetPaas.jsx';
 
 export {
   Landing,
@@ -42,4 +43,5 @@ export {
   Cart,
   AdminNewDeportes,
   AdminNewMarca,
+  ResetPaas,
 };
