@@ -145,7 +145,7 @@ const AdminProducts = () => {
                                   <td>{inventory.id_inventory}</td>
                                   <td>
                                     <img
-                                      src={inventory.image[0]}
+                                      src={inventory?.image[0]}
                                       alt={inventory.article_name}
                                       width={100}
                                     />

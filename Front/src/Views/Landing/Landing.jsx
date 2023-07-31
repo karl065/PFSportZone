@@ -10,6 +10,7 @@ import axios from 'axios';
 import server from '../../Connections/Server';
 import {useEffect} from 'react';
 import Swal from 'sweetalert2';
+import {getInventory} from '../../redux/actions/actions';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -18,24 +19,35 @@ const Landing = () => {
   const status = urlParams.get('status');
   const fetchData = async () => {
     if (status) {
-      // const idUser = localStorage.getItem('idUser');
       const idCarrito = localStorage.getItem('idCarrito');
       try {
         const {data} = await axios.get(
           `${server.api.baseURL}carrito/${idCarrito}`
         );
+        for (const item of data.Inventarios) {
+          const {id_inventory, CarritoInventarios} = item;
+          const newStock = item.stock - CarritoInventarios.cant;
+          // Hacer la solicitud PUT al endpoint de inventario para actualizar el stock
+          try {
+            await axios.put(`${server.api.baseURL}inventory/${id_inventory}`, {
+              stock: newStock,
+            });
+          } catch (error) {
+            console.log(
+              'Error al actualizar el stock del artículo:',
+              error.message
+            );
+            // Aquí puedes manejar el error según lo que necesites
+          }
+        }
+        Swal.fire('Buen trabajo!', `Compra Exitosa`, 'success');
+        dispatch(getInventory());
+        dispatch(deleteAllProduct());
         const mail = {
           email: data.usuario.email,
           article_name: data.Inventarios[0].article_name,
         };
-        const responseMail = await axios.post(
-          `${server.api.baseURL}mails`,
-          mail
-        );
-        console.log(responseMail);
-        Swal.fire('Buen trabajo!', `Compra Exitosa`, 'success');
-
-        dispatch(deleteAllProduct());
+        await axios.post(`${server.api.baseURL}mails`, mail);
       } catch (error) {
         console.log(error.message);
       }
@@ -63,16 +75,16 @@ const Landing = () => {
     <div className={styles.container}>
       <ul className={styles.barraSuperior}>
         <NavLink to="/about">
-          <p>About Us</p>
+          <p>Acerca de</p>
         </NavLink>
         {role === 'SuperUser' || role === 'Admin' ? (
-          <Link to={'/adminProducts'}>Dashboard</Link>
+          <Link to={'/adminProducts'}>Panel Admin</Link>
         ) : null}
         {isLoggedIn() ? (
-          <li onClick={() => handleLogout(navigate)}>Logout</li>
+          <li onClick={() => handleLogout(navigate)}>Salir</li>
         ) : (
           <NavLink to="/register">
-            <p>Sign Up</p>
+            <p>Registrarse</p>
           </NavLink>
         )}
         {/* <NavLink to="/faq">
@@ -88,7 +100,7 @@ const Landing = () => {
         <button className={styles.tienda} onClick={toHome}>
           TIENDA
         </button>
-        {!isLoggedIn() && <button onClick={toLogIn}>LOG IN</button>}
+        {!isLoggedIn() && <button onClick={toLogIn}>Ingresar</button>}
       </div>
 
       <img
