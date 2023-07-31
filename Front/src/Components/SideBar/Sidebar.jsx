@@ -89,7 +89,7 @@ const Sidebar = () => {
             <hr className="sidebar-divider my-2" />
             <li
               className={`nav-item ${
-                location.pathname === '/adminNewCategory' ? styles.active : ''
+                location.pathname === '/adminNewDeportes' ? styles.active : ''
               }`}
             >
               <Link to="/adminNewDeportes">
@@ -100,7 +100,7 @@ const Sidebar = () => {
             <hr className="sidebar-divider my-2" />
             <li
               className={`nav-item ${
-                location.pathname === '/adminNewCategory' ? styles.active : ''
+                location.pathname === '/adminNewMarca' ? styles.active : ''
               }`}
             >
               <Link to="/adminNewMarca">

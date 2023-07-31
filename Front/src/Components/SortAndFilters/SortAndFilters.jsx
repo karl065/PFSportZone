@@ -76,9 +76,11 @@ export default function SortAndFilters() {
         })
         .filter((query) => query !== null) // Filtrar los valores nulos
         .join('&');
+      console.log(queryString);
       const response = await axios.get(
         `${server.api.baseURL}filters?${queryString}`
       );
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error('Error fetching filtered products:', error);

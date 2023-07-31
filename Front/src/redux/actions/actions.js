@@ -28,6 +28,7 @@ import axios from 'axios';
 export const getUsers = () => {
   return async (dispatch) => {
     const {data} = await axios.get(`${server.api.baseURL}users`);
+    data.sort((a, b) => a.idUser - b.idUser);
     dispatch({
       type: GET_USERS,
       payload: data,
@@ -224,6 +225,7 @@ export const filterUsersByRoleAndStatus = (role, userStatus) => {
     const {data} = await axios.get(
       `${server.api.baseURL}filters?${queryString}`
     );
+    data.sort((a, b) => a.idUser - b.idUser);
     dispatch({
       type: FILTER_USERS_BY_ROLE_AND_STATUS,
       payload: data,
@@ -235,14 +237,18 @@ export const updateItemStatus = (itemId, newStatus) => ({
   type: UPDATE_ITEM_STATUS,
   payload: {itemId, newStatus},
 });
-export const updateUsersStatus = (idUser, newStatus) => {
+export const updateUsersStatus = (idUser, newStatus, role, userStatus) => {
   return async (dispatch) => {
     await axios.put(`${server.api.baseURL}users/${idUser}`, newStatus);
-    const {data} = await axios.get(`${server.api.baseURL}users`);
-    data.sort((a, b) => a.idUser - b.idUser);
-    dispatch({
-      type: UPDATE_USERS_STATUS,
-      payload: data,
-    });
+    if (role || userStatus) {
+      dispatch(filterUsersByRoleAndStatus(role, userStatus));
+    } else {
+      const {data} = await axios.get(`${server.api.baseURL}users`);
+      data.sort((a, b) => a.idUser - b.idUser);
+      dispatch({
+        type: UPDATE_USERS_STATUS,
+        payload: data,
+      });
+    }
   };
 };
