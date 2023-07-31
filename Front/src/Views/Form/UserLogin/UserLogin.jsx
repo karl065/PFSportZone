@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import {login} from '../../../helpers/helperLogin';
 import {useNavigate} from 'react-router-dom';
 import {
-  FacebookAuthProvider,
+  // FacebookAuthProvider,
   GoogleAuthProvider,
   signInWithPopup,
 } from 'firebase/auth';
@@ -13,7 +13,7 @@ import {auth} from '../../../firebase/firebaseConfig';
 import {createUser} from '../../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import googleIcon from '../../../assets/google-icon.svg';
-import facebookIcon from '../../../assets/facebook-icon.svg';
+// import facebookIcon from '../../../assets/facebook-icon.svg';
 import styles from './UserLogin.module.css';
 
 const UserLogin = () => {
@@ -76,28 +76,28 @@ const UserLogin = () => {
     }
   };
 
-  const signInWithFacebook = async () => {
-    try {
-      const provider = new FacebookAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const newUser = {
-        email: result.user.email,
-        user: result.user.displayName,
-        password: result.user.uid,
-        userStatus: true,
-        role: 'Cliente',
-      };
+  // const signInWithFacebook = async () => {
+  //   try {
+  //     const provider = new FacebookAuthProvider();
+  //     const result = await signInWithPopup(auth, provider);
+  //     const newUser = {
+  //       email: result.user.email,
+  //       user: result.user.displayName,
+  //       password: result.user.uid,
+  //       userStatus: true,
+  //       role: 'Cliente',
+  //     };
 
-      if (users.find((user) => user.email === newUser.email)) {
-        await login(newUser.email, newUser.password, navigate, dispatch);
-      } else {
-        await dispatch(createUser(newUser));
-        await login(newUser.email, newUser.password, navigate);
-      }
-    } catch (error) {
-      swalErrorAuth(error);
-    }
-  };
+  //     if (users.find((user) => user.email === newUser.email)) {
+  //       await login(newUser.email, newUser.password, navigate, dispatch);
+  //     } else {
+  //       await dispatch(createUser(newUser));
+  //       await login(newUser.email, newUser.password, navigate);
+  //     }
+  //   } catch (error) {
+  //     swalErrorAuth(error);
+  //   }
+  // };
 
   return (
     <section>
@@ -197,14 +197,14 @@ const UserLogin = () => {
                               <img src={googleIcon} alt="Google icon" />
                               Ingresar con google
                             </button>
-                            <button
+                            {/* <button
                               type="button"
                               onClick={signInWithFacebook}
                               className={styles.btnLoginFacebook}
                             >
                               <img src={facebookIcon} alt="Facebook icon" />
                               Ingresar con facebook
-                            </button>
+                            </button> */}
                           </div>
                           <hr />
                         </form>
