@@ -5,10 +5,16 @@ import {faLinkedin} from '@fortawesome/free-brands-svg-icons';
 
 const integrantes = [
   {
-    nombre: "Carlos Castellanos",
+    nombre: "Carlos Javier Castellanos",
     descripcion: "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
     linkedin: "https://www.linkedin.com/in/carlos-castellanos-73253b25b/"
+  },
+  {
+    nombre: "Kevin Jesus Mamani Capuma",
+    descripcion: "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
+    foto: "link de foto aca",
+    linkedin: "Link aca/"
   },
   {
     nombre: "Diana Marcela Tabares Marin",
