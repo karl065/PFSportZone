@@ -130,7 +130,6 @@ export const editProduct = (newValues) => {
       `${server.api.baseURL}inventory/${newValues.id_inventory}`,
       newValues
     );
-    console.log('Usuario actualizado', data);
     dispatch({
       type: EDIT_PRODUCT,
       payload: data,

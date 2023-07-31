@@ -8,7 +8,7 @@ import {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useSelector, useDispatch} from 'react-redux';
 import Sidebar from '../../Components/SideBar/Sidebar';
-import {filterProductsByStatus} from '../../redux/actions/actions';
+import {editProduct, filterProductsByStatus} from '../../redux/actions/actions';
 
 library.add(fas);
 
@@ -30,17 +30,14 @@ const AdminProducts = () => {
     setStatusSeleccionado(value);
   };
 
+  const statusSubmit = (e, id_inventory) => {
+    e.preventDefault();
+    dispatch(editProduct({id_inventory, status: e.target.value}));
+  };
   useEffect(() => {
     dispatch(filterProductsByStatus(statusSeleccionado));
     setPage(1);
   }, [statusSeleccionado]);
-
-  useEffect(() => {
-    const statusToRemove = inventario.map((item) => item.status);
-    setStatusOption((prevStatusOption) =>
-      prevStatusOption.filter((status) => !statusToRemove.includes(status))
-    );
-  }, [inventario]);
 
   return (
     <div>
@@ -153,23 +150,19 @@ const AdminProducts = () => {
                                   <td>{inventory.purchase_price}</td>
                                   <td>{inventory.stock}</td>
                                   <td>{inventory.description}</td>
-                                  {inventory.categorias ? (
-                                    <td>{inventory.categorias.categoryName}</td>
-                                  ) : (
-                                    'categoria'
-                                  )}
                                   <td>
                                     {inventory.categorias
                                       ? inventory.categorias.categoryName
                                       : 'categoria'}
                                   </td>
-
                                   <td>
-                                    <select className="d-inline-block form-select form-select-sm">
-                                      {' '}
-                                      <option value={inventory.status}>
-                                        {inventory.status}
-                                      </option>
+                                    <select
+                                      className="d-inline-block form-select form-select-sm"
+                                      value={inventory.status}
+                                      onChange={(e) =>
+                                        statusSubmit(e, inventory.id_inventory)
+                                      }
+                                    >
                                       {statusOption.map((option, index) => (
                                         <option value={option} key={index}>
                                           {option}
