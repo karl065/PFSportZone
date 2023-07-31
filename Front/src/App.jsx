@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { NavBar } from "./Components";
+import {useEffect} from 'react';
+import {Routes, Route, useLocation} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {NavBar} from './Components';
 import {
   Landing,
   Home,
@@ -24,7 +24,8 @@ import {
   AdminEditProduct,
   AdminPagos,
   Cart,
-} from "./Views";
+  ResetPaas,
+} from './Views';
 import {
   getCategory,
   getInventory,
@@ -32,17 +33,21 @@ import {
   getSports,
   getUsers,
   setLoading,
-} from "./redux/actions/actions";
-import { getCart } from "./redux/actions/cartActions";
-import { useState } from "react";
-import { ToastContainer } from "react-toastify";
+} from './redux/actions/actions';
+import {getCart} from './redux/actions/cartActions';
+import {useState} from 'react';
+import {ToastContainer} from 'react-toastify';
+import SettingsUser from './Components/SettingsUser/SettingsUser';
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   // * Estado para no mostrar la nav en la pagina 404
   const [errorPage, setErrorPage] = useState(true);
-  const idCart = localStorage.getItem("idCarrito");
+  const idCart = localStorage.getItem('idCarrito');
+
+  // * Estado para el despligue del menu de usuario
+  let [deployMenu, setDeployMenu] = useState(false);
 
   // * Carga inicial de los datos necesarios para la app.
   useEffect(() => {
@@ -65,10 +70,20 @@ function App() {
 
   return (
     <div className="App">
-      {location.pathname !== "/" && errorPage && <NavBar />}
+      {location.pathname !== '/' && errorPage && (
+        <NavBar
+          deployMenu={() => {
+            setDeployMenu(!deployMenu);
+          }}
+        />
+      )}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<UserLogin />} />
+        <Route
+          path="/resetpass"
+          element={<ResetPaas setErrorPage={setErrorPage} />}
+        />
         <Route path="/register" element={<UserRegister />} />
         <Route path="/home" element={<Home />} />
         <Route path="/adminUsers" element={<AdminUsers />} />
@@ -89,6 +104,12 @@ function App() {
         <Route path="/faq" element={<Faq />} />
         <Route path="*" element={<Error setErrorPage={setErrorPage} />} />
       </Routes>
+      <SettingsUser
+        bool={deployMenu}
+        deployMenu={() => {
+          setDeployMenu(!deployMenu);
+        }}
+      />
       <ToastContainer />
     </div>
   );

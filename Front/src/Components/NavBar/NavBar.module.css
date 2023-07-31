@@ -74,3 +74,28 @@ li > .cart_img {
   background-color: red;
   cursor: pointer;
 }
+
+.userSettings{
+  background-color: azure;
+  display: flex;
+  width: 20%;
+  height: 100%;
+  position: relative;
+}
+.userSettings::after{
+  content: '';
+  background-color: aqua;
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  width: 400%;
+  aspect-ratio: 1;
+  transform: translate(-30%, -50%);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  border-radius: 100vmax;
+  border: 3px solid white;
+  background-image: var(--bgimage);
+  cursor: pointer;
+}

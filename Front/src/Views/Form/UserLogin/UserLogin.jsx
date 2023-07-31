@@ -207,6 +207,8 @@ const UserLogin = () => {
                             </button>
                           </div>
                           <hr />
+                          {/* <p className={styles.PassO}><Link to={'/login/resetpass'}>Olvidaste tu contraseña?</Link></p>
+                          <hr /> */}
                         </form>
                       </div>
                     </div>
