@@ -92,6 +92,13 @@ export default function SortAndFilters() {
 
   //! el useEffect llama a la funcion de arriba cada vez que los filtros se actualizan y va actualizando los productos filtrados
   useEffect(() => {
+    const areAllFiltersEmpty = Object.values(filters).every(
+      (value) => value === ''
+    );
+
+    if (areAllFiltersEmpty) {
+      return;
+    }
     // Llamar a la función fetchFilteredProducts con los filters actuales
     fetchFilteredProducts(filters)
       .then((filteredProducts) => {

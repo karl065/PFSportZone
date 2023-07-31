@@ -81,12 +81,12 @@ export const UserRegister = () => {
           <>
             <Form className={styles.form}>
               <p className={styles.loginParagraph}>
-                Already have an account?
+                Ya tiene una cuenta?
                 <Link to="/login" className={styles.loginText}>
-                  Log in
+                  Ingrese
                 </Link>
               </p>
-              <h1 className={styles.title}>Register</h1>
+              <h1 className={styles.title}>REGISTRO</h1>
               <div className={styles.field}>
                 <label>Email</label>
                 <Field
@@ -102,10 +102,10 @@ export const UserRegister = () => {
               </div>
 
               <div className={styles.field}>
-                <label>Username</label>
+                <label>Usuario</label>
                 <Field
                   name="user"
-                  placeholder="Username"
+                  placeholder="Usuario"
                   className={styles.input}
                 />
                 <ErrorMessage
@@ -116,11 +116,11 @@ export const UserRegister = () => {
               </div>
 
               <div className={styles.field}>
-                <label>Password</label>
+                <label>Contraseña</label>
                 <Field
                   type="password"
                   name="password"
-                  placeholder="Password"
+                  placeholder="Contraseña"
                   className={styles.input}
                 />
                 <ErrorMessage
@@ -130,11 +130,11 @@ export const UserRegister = () => {
                 />
               </div>
               <div className={styles.field}>
-                <label>Confirm Password</label>
+                <label>Confirmar contraseña</label>
                 <Field
                   name="passwordConfirmation"
                   type="password"
-                  placeholder="Confirm Password"
+                  placeholder="Confirmar contraeña"
                   className={styles.input}
                 />
                 <ErrorMessage
@@ -164,7 +164,7 @@ export const UserRegister = () => {
                 className={styles.btnSubmit}
                 disabled={Object.keys(errors).length > 0}
               >
-                Submit
+                Registrarse
               </button>
             </Form>
           </>

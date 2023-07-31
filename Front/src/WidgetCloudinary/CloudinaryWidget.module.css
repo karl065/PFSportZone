@@ -1,5 +1,6 @@
 .container {
   width: 100%;
+  position: relative;
 }
 
 .label {
@@ -13,25 +14,10 @@
   font-size: 1.4rem;
 }
 
-.images_container {
-  max-width: 100%;
-  display: flex;
-  overflow-x: auto;
-}
-
-.image_box {
-  position: relative;
-  border: 2px solid black;
-}
-
-.image_box button{
+.contianer p{
   position: absolute;
+  color: black;
   top: 0;
-  right: 0;
-  width: 30%;
-  background-color: red;
-  color: white;
-  font-family: inherit;
+  left: 0;
 }
-
 

@@ -15,7 +15,6 @@ const Home = (props) => {
   const [page, setPage] = useState(1);
   const [amountPerPage, setAmountPerPage] = useState(8);
   const pageCount = displayInventory.length / amountPerPage;
-
   useEffect(() => {
     setPage(1);
   }, [pageCount]);
@@ -34,7 +33,16 @@ const Home = (props) => {
                 (page - 1) * amountPerPage + amountPerPage
               )
               .map((item, index) => {
-                if (item.stock) return <Card key={index} product={item} />;
+                if (
+                  !(
+                    item.stock === 0 ||
+                    item.status === 'Discontinued' ||
+                    item.status === 'Not Available'
+                  )
+                ) {
+                  return <Card key={index} product={item} />;
+                }
+                return null;
               })
           ) : (
             <h3 className={Styles.no_matches}>No results found... ☹️</h3>

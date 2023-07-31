@@ -16,9 +16,10 @@ import AdminNewUsers from './AdminNewUsers/AdminNewUsers.jsx';
 import AdminNewCategory from './AdminNewCategories/AdminNewCategories.jsx';
 import AdminNewDeportes from './AdminNewDeporte/AdminNewDeporte.jsx';
 import AdminNewMarca from './AdminNewMarca/AdminNewMarca.jsx';
-import AdminEditProd from './AdminEditProd/AdminEditProd.jsx';
 import AdminPagos from './AdminPagos/AdminPagos.jsx';
+import AdminEditProduct from './AdminEditProduct/AdminEditProduct.jsx';
 import Cart from './Cart/Cart.jsx';
+import EditProduct from './Form/EditProduct/EditProduct.jsx';
 
 export {
   Landing,
@@ -37,9 +38,10 @@ export {
   AdminNewProduct,
   AdminNewUsers,
   AdminNewCategory,
-  AdminEditProd,
+  AdminEditProduct,
   AdminPagos,
   Cart,
   AdminNewDeportes,
   AdminNewMarca,
+  EditProduct,
 };

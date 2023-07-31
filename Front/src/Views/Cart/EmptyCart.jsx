@@ -5,15 +5,15 @@ const EmptyCart = () => {
   return (
     <>
       <div className={`${styles.empty} ${styles.empty_info}`}>
-        <h2>Start shopping!</h2>
-        <h3>Add a lot of products and get free shipping 😁</h3>
+        <h2>¡Empieza un carrito de compras!</h2>
+        <h3>Agrega muchos productos y consigue un envío gratis. 😁</h3>
         <Link to="/home" className={styles.btnDiscover}>
-          Discover products
+          Descubrir productos
         </Link>
       </div>
       <div className={`${styles.empty} ${styles.empty_checkout}`}>
-        <h2>Checkout</h2>
-        <h3>Here you will see the amounts of your purchase</h3>
+        <h2>Resumen de compra</h2>
+        <h3>Aquí verás los importes de tu compra una vez que agregues productos.</h3>
       </div>
     </>
   );

@@ -9,7 +9,11 @@ import {useEffect, useState} from 'react';
 import Pagination from '../../Components/Pagination/Pagination';
 import {useSelector, useDispatch} from 'react-redux';
 import Sidebar from '../../Components/SideBar/Sidebar';
-import {filterUsersByRoleAndStatus} from '../../redux/actions/actions';
+import {
+  filterUsersByRoleAndStatus,
+  getUsers,
+  updateUsersStatus,
+} from '../../redux/actions/actions';
 
 library.add(fas);
 const AdminUsers = () => {
@@ -20,23 +24,74 @@ const AdminUsers = () => {
   const [amountPerPage, setAmountPerPage] = useState(8);
   const pageCount = users.length / amountPerPage;
   const dispatch = useDispatch();
+  const [statusOption, setStatusOption] = useState(['Activo', 'Inactivo']);
+  const [userStatusOptions, setUserStatusOptions] = useState({});
 
-  const handleRoleChange = (event) => {
-    setRoleSeleccionado(event.target.value);
-  };
-
-  const handleStatusChange = (event) => {
-    setStatusSeleccionado(event.target.value);
-  };
-
-  useEffect(() => {
-    if (roleSeleccionado && statusSeleccionado) {
+  const applyFilters = () => {
+    if (roleSeleccionado || statusSeleccionado) {
       dispatch(
         filterUsersByRoleAndStatus(roleSeleccionado, statusSeleccionado)
       );
-      setPage(1);
+    } else {
+      dispatch(getUsers());
     }
+  };
+
+  const handleRoleChange = (e) => {
+    const {value} = e.target;
+    setRoleSeleccionado(value);
+  };
+
+  const handleStatusChange = (e) => {
+    const {value} = e.target;
+    setStatusSeleccionado(value);
+  };
+
+  const statusSubmit = (e, idUser) => {
+    e.preventDefault();
+    if (e.target.value === 'Inactivo') {
+      if (roleSeleccionado || statusSeleccionado) {
+        dispatch(
+          updateUsersStatus(
+            idUser,
+            {userStatus: false},
+            roleSeleccionado,
+            statusSeleccionado
+          )
+        );
+      } else {
+        dispatch(updateUsersStatus(idUser, {userStatus: false}));
+      }
+    } else if (e.target.value === 'Activo') {
+      if (roleSeleccionado || statusSeleccionado) {
+        dispatch(
+          updateUsersStatus(
+            idUser,
+            {userStatus: true},
+            roleSeleccionado,
+            statusSeleccionado
+          )
+        );
+      } else {
+        dispatch(updateUsersStatus(idUser, {userStatus: true}));
+      }
+    }
+  };
+
+  useEffect(() => {
+    applyFilters();
   }, [roleSeleccionado, statusSeleccionado]);
+
+  useEffect(() => {
+    // Populate userStatusOptions with initial user statuses
+    const initialStatusOptions = {};
+    users.forEach((user) => {
+      initialStatusOptions[user.idUser] = user.userStatus
+        ? 'Activo'
+        : 'Inactivo';
+    });
+    setUserStatusOptions(initialStatusOptions);
+  }, [users]);
 
   return (
     <div>
@@ -53,11 +108,11 @@ const AdminUsers = () => {
                 <h3 className="text-dark mb-0">Usuarios</h3>
                 <div>
                   <select
-                    value={roleSeleccionado}
+                    // value={roleSeleccionado}
                     style={{height: '38px', marginTop: '10px'}}
                     onChange={handleRoleChange}
                   >
-                    <option defaultValue="Cliente">Filtrar por role</option>
+                    <option value="">Filtrar por role</option>
                     <option value="Cliente">Cliente</option>
                     <option value="Empleados">Empleados</option>
                     <option value="Admin">Admin</option>
@@ -65,11 +120,11 @@ const AdminUsers = () => {
                 </div>
                 <div>
                   <select
-                    value={statusSeleccionado}
+                    // value={statusSeleccionado}
                     style={{height: '38px', marginTop: '10px'}}
                     onChange={handleStatusChange}
                   >
-                    <option defaultValue="true">Filtrar por estado</option>
+                    <option value="">Filtrar por estado</option>
                     <option value="true">Activo</option>
                     <option value="false">Inactivo</option>
                   </select>
@@ -127,10 +182,9 @@ const AdminUsers = () => {
                       >
                         <thead>
                           <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
+                            <th>id</th>
+                            <th>Usuario</th>
                             <th>Correo</th>
-                            <th>Tipo</th>
                             <th>Role</th>
                             <th>Estado</th>
                           </tr>
@@ -145,17 +199,24 @@ const AdminUsers = () => {
                               .map((users, index) => (
                                 <tr key={index}>
                                   <td>{users.idUser}</td>
-
-                                  <td>{users.email}</td>
                                   <td>{users.user}</td>
-                                  <td>{users.password}</td>
+                                  <td>{users.email}</td>
                                   <td>{users.role}</td>
-
-                                  {users.userStatus ? (
-                                    <td>Activo</td>
-                                  ) : (
-                                    <td>Inactivo</td>
-                                  )}
+                                  <td>
+                                    <select
+                                      className="d-inline-block form-select form-select-sm"
+                                      value={userStatusOptions[users.idUser]}
+                                      onChange={(e) =>
+                                        statusSubmit(e, users.idUser)
+                                      }
+                                    >
+                                      {statusOption.map((option, index) => (
+                                        <option value={option} key={index}>
+                                          {option}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  </td>
                                   <td>
                                     <FontAwesomeIcon icon="pencil-square" />
                                   </td>
