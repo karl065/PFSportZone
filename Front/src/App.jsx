@@ -47,7 +47,6 @@ function App() {
   const [errorPage, setErrorPage] = useState(true);
   const idCart = localStorage.getItem("idCarrito");
   const { pathname } = location;
-  console.log(pathname);
 
   const blockedPath = [
     "/adminUsers",
