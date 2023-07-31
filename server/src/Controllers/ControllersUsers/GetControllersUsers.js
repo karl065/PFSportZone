@@ -1,4 +1,4 @@
-const { Usuarios, Favoritos, Inventarios } = require("../../DB.js");
+const { Usuarios, Favoritos, Inventarios, Reviews } = require("../../DB.js");
 
 const getControllerUser = async () => {
   return await Usuarios.findAll();

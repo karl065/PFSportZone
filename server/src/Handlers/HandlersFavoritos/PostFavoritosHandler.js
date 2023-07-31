@@ -7,7 +7,7 @@ const {
 } = require("../../Controllers/ControllersInventarios/GetInventariosControllers.js");
 const {
   addToFavoritosDB,
-} = require("../../Controllers/ControllersFavoritos/postControllerFavoritos.js");
+} = require("../../Controllers/ControllersFavoritos/PostControllerFavoritos.js");
 
 /**
  * La función `addFavoritesHandler` es una función asíncrona que maneja la solicitud para agregar un

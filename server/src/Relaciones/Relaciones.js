@@ -21,6 +21,7 @@ const relaciones = (models) => {
     Deportes,
     Marcas,
     CarritoInventarios,
+    Reviews,
   } = models;
 
   Categorias.hasMany(Inventarios, {
@@ -33,6 +34,7 @@ const relaciones = (models) => {
   });
 
   // -------------------------------------------------------
+  // Relación entre Usuarios y Favoritos...
   Usuarios.hasMany(Favoritos, {
     foreignKey: "idUser",
     as: "favoritos",
@@ -43,7 +45,7 @@ const relaciones = (models) => {
     as: "usuario",
     onDelete: "CASCADE",
   });
-  //
+  // Relación entre Favoritos e Inventarios
   Favoritos.belongsToMany(Inventarios, {
     through: "Favoritos_Inventarios",
     foreignKey: "idFavorites",
@@ -58,6 +60,28 @@ const relaciones = (models) => {
     as: "favoritos",
     onDelete: "CASCADE",
   });
+  // Relación entre Usuarios y Reviews...
+  Usuarios.hasMany(Reviews, {
+    foreignKey: "idUser",
+    as: "reviews",
+    onDelete: "CASCADE",
+  });
+  Reviews.belongsTo(Usuarios, {
+    foreignKey: "idUser",
+    as: "usuario",
+    onDelete: "CASCADE",
+  });
+  //
+  // Reviews.belongsTo(Inventarios, {
+  //   foreignKey: "id_Inventory",
+  //   as: "inventarios",
+  //   onDelete: "CASCADE",
+  // });
+  // Inventarios.hasMany(Reviews, {
+  //   foreignKey: "id_Inventory",
+  //   as: "reviews",
+  //   onDelete: "CASCADE",
+  // });
   // -------------------------------------------------------
 
   Usuarios.belongsToMany(Inventarios, {
@@ -153,6 +177,7 @@ const relaciones = (models) => {
     Marcas,
     Deportes,
     CarritoInventarios,
+    Reviews,
   };
 };
 module.exports = { relaciones };

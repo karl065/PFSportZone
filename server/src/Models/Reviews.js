@@ -13,9 +13,17 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      comment: {
-        type: DataTypes.TEXT,
+      id_inventory: {
+        type: DataTypes.STRING,
         allowNull: false,
+      },
+      question: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      answer: {
+        type: DataTypes.TEXT,
+        allowNull: true,
       },
       assessment: {
         type: DataTypes.ENUM(
@@ -25,7 +33,7 @@ module.exports = (sequelize) => {
           "Buena",
           "Exclente"
         ),
-        allowNull: false,
+        allowNull: true,
       },
     },
     {

@@ -10,6 +10,7 @@ const productsIncome = require("./ProdsIncomeRoutes/ProdsIncomeRoutes.js");
 const marca = require("./MarcaRoutes/MarcaRoutes.js");
 const mercadopago = require("./RoutesMercadoPago/RoutesMercadoPago.js");
 const favorites = require("../Routes/FavoritosRoutes/FavoritosRoutes.js");
+const reviews = require("./ReviewsRoutes/ReviewsRoutes.js");
 const router = Router();
 
 /* El código utiliza el enrutador Express para definir rutas para diferentes partes de la aplicación. */
@@ -22,7 +23,9 @@ router.use("/deporte", deporte);
 router.use("/carrito", carrito);
 router.use("/ingresarProductos", productsIncome);
 router.use("/marca", marca);
+router.use("/mercadopago", mercadopago);
 
 router.use("/favorites", favorites);
+router.use("/reviews", reviews);
 
 module.exports = router;
