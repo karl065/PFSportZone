@@ -81,9 +81,9 @@ const Detail = () => {
                     >
                       Añadir al carrito
                     </button>
-                    <button className={styles.btn_favorites}>
+                    {/* <button className={styles.btn_favorites}>
                       Añadir a favoritos
-                    </button>
+                    </button> */}
                   </div>
                 </>
               )}
