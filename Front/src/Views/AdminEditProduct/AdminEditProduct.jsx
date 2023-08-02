@@ -43,10 +43,8 @@ const AdminEditProduct = () => {
         (seen[articleName] = true)
       );
     });
-
-    // * Solo quiero mostrar 15
-    const limitedResults = filteredProducts.slice(0, 15);
-    setSearchResults(limitedResults);
+    
+    setSearchResults(filteredProducts);
   };
 
   const handleKeyDown = (event) => {
