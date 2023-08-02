@@ -1,9 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import styles from './Sidebar.module.css';
+import {useEffect} from 'react';
 
 const Sidebar = () => {
-  // const location = useLocation()
+  const navigate = useNavigate();
+  const role = localStorage.getItem('role');
+  useEffect(() => {
+    if (role === 'Cliente') navigate('/');
+  }, []);
+
   return (
     <div>
       <nav
@@ -42,94 +49,110 @@ const Sidebar = () => {
                 <span> Productos</span>
               </Link>
             </li>
-            <hr className="sidebar-divider my-2" />
+            {role !== 'Empleados' ? (
+              <>
+                <hr className="sidebar-divider my-2" />
+                <li
+                  className={`nav-item ${
+                    location.pathname === '/adminUsers' ? styles.active : ''
+                  }`}
+                >
+                  <Link to="/adminUsers">
+                    <FontAwesomeIcon icon="user" />
+                    <span> Usuarios</span>
+                  </Link>
+                </li>
+                {role === 'SuperUser' ? (
+                  <>
+                    <hr className="sidebar-divider my-2" />
+                    <li
+                      className={`nav-item ${
+                        location.pathname === '/adminNewUser'
+                          ? styles.active
+                          : ''
+                      }`}
+                    >
+                      <Link to="/adminNewUser">
+                        <FontAwesomeIcon icon="user-plus" />
+                        <span> Crear Usuario</span>
+                      </Link>
+                    </li>
+                  </>
+                ) : null}
+                {/* <hr className="sidebar-divider my-2" />
             <li
-              className={`nav-item ${
-                location.pathname === '/adminUsers' ? styles.active : ''
-              }`}
+            className={`nav-item ${
+              location.pathname === '/adminEmployes' ? styles.active : ''
+            }`}
             >
-              <Link to="/adminUsers">
-                <FontAwesomeIcon icon="user" />
-                <span> Usuarios</span>
-              </Link>
+            <Link to="/adminEmployes">
+            <FontAwesomeIcon icon="user-circle" />
+            <span> Empleados</span>
+            </Link>
             </li>
             <hr className="sidebar-divider my-2" />
             <li
-              className={`nav-item ${
-                location.pathname === '/adminNewUser' ? styles.active : ''
-              }`}
+            className={`nav-item ${
+              location.pathname === '/adminPagos' ? styles.active : ''
+            }`}
             >
-              <Link to="/adminNewUser">
-                <FontAwesomeIcon icon="user-plus" />
-                <span> Crear Usuario</span>
-              </Link>
-            </li>
-            {/* <hr className="sidebar-divider my-2" />
-            <li
-              className={`nav-item ${
-                location.pathname === '/adminEmployes' ? styles.active : ''
-              }`}
-            >
-              <Link to="/adminEmployes">
-                <FontAwesomeIcon icon="user-circle" />
-                <span> Empleados</span>
-              </Link>
-            </li>
-            <hr className="sidebar-divider my-2" />
-            <li
-              className={`nav-item ${
-                location.pathname === '/adminPagos' ? styles.active : ''
-              }`}
-            >
-              <Link to="/adminPagos">
-                <FontAwesomeIcon icon="money-check-alt" />
-                <span> Pagos</span>
-              </Link>
-            </li> */}
-            <hr className="sidebar-divider my-2" />
-            <li
-              className={`nav-item ${
-                location.pathname === '/adminNewDeportes' ? styles.active : ''
-              }`}
-            >
-              <Link to="/adminNewDeportes">
-                <FontAwesomeIcon icon="fa-passport" />
-                <span> Crear Deporte</span>
-              </Link>
-            </li>
-            <hr className="sidebar-divider my-2" />
-            <li
-              className={`nav-item ${
-                location.pathname === '/adminNewMarca' ? styles.active : ''
-              }`}
-            >
-              <Link to="/adminNewMarca">
-                <FontAwesomeIcon icon="tshirt" />
-                <span> Crear Marca</span>
-              </Link>
-            </li>
-            <hr className="sidebar-divider my-2" />
-            <li
-              className={`nav-item ${
-                location.pathname === '/adminNewCategory' ? styles.active : ''
-              }`}
-            >
-              <Link to="/adminNewCategory">
-                <FontAwesomeIcon icon="fa-layer-group" />
-                <span> Crear Categoria</span>
-              </Link>
-            </li>
-            <hr className="sidebar-divider my-2" />
-            <li
-              className={`nav-item ${
-                location.pathname === '/adminNewProduct' ? styles.active : ''
-              }`}
-            >
-              <Link to="/adminNewProduct">
-                <FontAwesomeIcon icon="shopping-basket" />
-                <span> Crear Producto</span>
-              </Link>
-            </li>
+            <Link to="/adminPagos">
+            <FontAwesomeIcon icon="money-check-alt" />
+            <span> Pagos</span>
+            </Link>
+          </li> */}
+                <hr className="sidebar-divider my-2" />
+                <li
+                  className={`nav-item ${
+                    location.pathname === '/adminNewDeportes'
+                      ? styles.active
+                      : ''
+                  }`}
+                >
+                  <Link to="/adminNewDeportes">
+                    <FontAwesomeIcon icon="fa-passport" />
+                    <span> Crear Deporte</span>
+                  </Link>
+                </li>
+                <hr className="sidebar-divider my-2" />
+                <li
+                  className={`nav-item ${
+                    location.pathname === '/adminNewMarca' ? styles.active : ''
+                  }`}
+                >
+                  <Link to="/adminNewMarca">
+                    <FontAwesomeIcon icon="tshirt" />
+                    <span> Crear Marca</span>
+                  </Link>
+                </li>
+                <hr className="sidebar-divider my-2" />
+                <li
+                  className={`nav-item ${
+                    location.pathname === '/adminNewCategory'
+                      ? styles.active
+                      : ''
+                  }`}
+                >
+                  <Link to="/adminNewCategory">
+                    <FontAwesomeIcon icon="fa-layer-group" />
+                    <span> Crear Categoria</span>
+                  </Link>
+                </li>
+                <hr className="sidebar-divider my-2" />
+                <li
+                  className={`nav-item ${
+                    location.pathname === '/adminNewProduct'
+                      ? styles.active
+                      : ''
+                  }`}
+                >
+                  <Link to="/adminNewProduct">
+                    <FontAwesomeIcon icon="shopping-basket" />
+                    <span> Crear Producto</span>
+                  </Link>
+                </li>
+              </>
+            ) : null}
             <hr className="sidebar-divider my-2" />
             <li
               className={`nav-item ${

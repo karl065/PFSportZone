@@ -87,12 +87,30 @@ export const createUser = (user) => {
 };
 
 export const createProduct = (product) => {
+  const token = localStorage.getItem('token');
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  if (token) {
+    headers['x-auth-token'] = token;
+  }
+
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}inventory`, product);
-    dispatch({
-      type: CREATE_PRODUCT,
-      payload: data,
-    });
+    try {
+      const {data} = await axios.post(
+        `${server.api.baseURL}inventory`,
+        product,
+        {headers: headers}
+      );
+
+      dispatch({
+        type: CREATE_PRODUCT,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 };
 
@@ -126,10 +144,19 @@ export const createDeporte = (deporte) => {
 };
 
 export const editProduct = (newValues, status) => {
+  const token = localStorage.getItem('token');
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  if (token) {
+    headers['x-auth-token'] = token;
+  }
   return async (dispatch) => {
     const {data} = await axios.put(
       `${server.api.baseURL}inventory/${newValues.id_inventory}`,
-      newValues
+      newValues,
+      {headers: headers}
     );
     if (status) {
       dispatch(filterProductsByStatus(status));

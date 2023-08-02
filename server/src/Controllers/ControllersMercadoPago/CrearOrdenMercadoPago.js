@@ -15,30 +15,6 @@ const crearOrdenController = async (Inventarios) => {
       description: prod.description,
     }));
 
-    const urlDev = {
-      success: 'http://localhost:3000/mercadopago/success',
-      failure: 'http://localhost:3000/mercadopago/failure',
-      pending: 'http://localhost:3000/mercadopago/pending',
-    };
-
-    const deployUrls = {
-      success: 'https://backsportzone.onrender.com/mercadopago/success',
-      failure: 'https://backsportzone.onrender.com/mercadopago/failure',
-      pending: 'https://backsportzone.onrender.com/mercadopago/pending',
-    };
-
-    const backUrls = {
-      success: urlDev.success || deployUrls.success,
-      failure: urlDev.failure || deployUrls.failure,
-      pending: urlDev.pending || deployUrls.pending,
-    };
-
-    const notificationDev = 'http://localhost:3000/mercadopago/notification';
-    const notificationDeploy =
-      'https://backsportzone.onrender.com/notification';
-
-    const notificationUrl = notificationDev || notificationDeploy;
-
     const preference = {
       items: carritoItems,
       back_urls: {
