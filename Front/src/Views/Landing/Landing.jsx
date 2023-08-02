@@ -17,6 +17,8 @@ const Landing = () => {
   const dispatch = useDispatch();
   const urlParams = new URLSearchParams(window.location.search);
   const status = urlParams.get('status');
+  const {role} = useSelector((state) => state.app.user);
+
   const fetchData = async () => {
     if (status) {
       const idCarrito = localStorage.getItem('idCarrito');
@@ -63,14 +65,13 @@ const Landing = () => {
     navigate('/login');
   };
 
-  const role = localStorage.getItem('role');
-
   useEffect(() => {
     // Define una función asíncrona dentro de useEffect
 
     // Llama a la función asíncrona dentro de useEffect
     fetchData();
   }, []);
+
   return (
     <div className={styles.container}>
       <ul className={styles.barraSuperior}>

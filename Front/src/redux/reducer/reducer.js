@@ -1,6 +1,8 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable no-case-declarations */
 import {
+  GET_USER,
+  SET_USER,
   GET_USERS,
   GET_INVENTORY,
   SET_LOADING,
@@ -31,12 +33,16 @@ const initialState = {
   marcas: [],
   sports: [],
   displayInventory: [],
+  user: {},
   product: {},
   isLoading: false,
 };
 
 export default function appReducer(state = initialState, {type, payload}) {
   switch (type) {
+    case SET_USER:
+    case GET_USER:
+      return {...state, user: payload};
     case GET_USERS:
       return {...state, users: payload};
     case GET_INVENTORY:

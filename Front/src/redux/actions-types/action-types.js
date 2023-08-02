@@ -1,4 +1,6 @@
 export const SET_LOADING = 'SET_LOADING';
+export const GET_USER = 'GET_USER';
+export const SET_USER = 'SET_USER';
 export const GET_INVENTORY = 'GET_INVENTORY';
 export const GET_CATEGORY = 'GET_CATEGORY';
 export const GET_MARCA = 'GET_MARCA';

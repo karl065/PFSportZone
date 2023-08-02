@@ -1,5 +1,7 @@
 import {
   SET_LOADING,
+  SET_USER,
+  GET_USER,
   GET_USERS,
   GET_INVENTORY,
   GET_SPORTS,
@@ -24,6 +26,38 @@ import {
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
+import {handleLogout} from '../../helpers/helperLogin';
+import {getCart} from './cartActions';
+
+export const getUser = (navigate) => {
+  const token = localStorage.getItem('token');
+  return async (dispatch) => {
+    try {
+      const {data} = await axios.get(`${server.api.baseURL}auth`, {
+        headers: {
+          'x-auth-token': token,
+        },
+      });
+
+      dispatch(getCart(data.carrito.idCar));
+
+      dispatch({
+        type: GET_USER,
+        payload: data,
+      });
+    } catch (error) {
+      handleLogout(navigate);
+    }
+  };
+};
+
+export const setUser = (user) => {
+  console.log('Llego sete usuario', user);
+  return {
+    type: SET_USER,
+    payload: user,
+  };
+};
 
 export const getUsers = () => {
   return async (dispatch) => {

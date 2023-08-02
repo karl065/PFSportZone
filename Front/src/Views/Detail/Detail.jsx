@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Carousel, LoadingSpinner } from "../../Components/index";
 import { Link } from "react-router-dom";
 import { getProductById, setLoading } from "../../redux/actions/actions";
-import { addProduct, getCart } from "../../redux/actions/cartActions";
+import { addProduct } from "../../redux/actions/cartActions";
 import styles from "./Detail.module.css";
 import arrowLeft from "../../assets/arrow-left.svg";
 import { successToast } from "../../helpers/toastNotification";
@@ -14,8 +14,7 @@ const Detail = () => {
   const { id } = useParams();
   const product = useSelector((state) => state.app.product);
   let isLoading = useSelector((state) => state.app.isLoading);
-  const role = localStorage.getItem("role");
-  const idCarrito = localStorage.getItem("idCarrito");
+  const { role, carrito } = useSelector((state) => state.app.user);
 
   const [selectedQuantity, setSelectedQuantity] = useState(1);
 
@@ -38,9 +37,8 @@ const Detail = () => {
 
   const handleAddProduct = async () => {
     await dispatch(
-      addProduct(idCarrito, product.id_inventory, selectedQuantity)
+      addProduct(carrito.idCar, product.id_inventory, selectedQuantity)
     );
-    await dispatch(getCart(idCarrito));
     successToast("Producto añadido correctamente!", 1000);
   };
 
