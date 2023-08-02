@@ -55,6 +55,10 @@ const handleComment = (e) => {
       </span>
         <button>enviar</button>
       </div>
+
+      <div className={Styles.products}>
+        Tus productos:
+      </div>
     </div>
   );
 }

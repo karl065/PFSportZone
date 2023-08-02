@@ -18,7 +18,7 @@ export default function SortAndFilters() {
   const [menuView, setMenuView] = useState(false);
   const dispatch = useDispatch();
   const sports = useSelector((state) => state.app.sports);
-  const marca = useSelector((state) => state.app.marcas);
+  const marcas = useSelector((state) => state.app.marcas);
   const categorys = useSelector((state) => state.app.category);
   const [filters, setFilters] = useState({});
   const [productosFiltrados, setProductosFiltrados] = useState([]);
