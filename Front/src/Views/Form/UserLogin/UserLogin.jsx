@@ -34,7 +34,7 @@ const UserLogin = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      await login(values.email, values.password, navigate);
+      await login(values.email, values.password, navigate, dispatch);
     },
   });
 
@@ -66,10 +66,10 @@ const UserLogin = () => {
 
       // ? Ver si después podemos hacer esto solo cuando no existe un usuario con ese email. y evitar la validación de arriba "23505"
       if (users.find((user) => user.email === newUser.email)) {
-        await login(newUser.email, newUser.password, navigate);
+        await login(newUser.email, newUser.password, navigate, dispatch);
       } else {
         await dispatch(createUser(newUser));
-        await login(newUser.email, newUser.password, navigate);
+        await login(newUser.email, newUser.password, navigate, dispatch);
       }
     } catch (error) {
       swalErrorAuth(error);

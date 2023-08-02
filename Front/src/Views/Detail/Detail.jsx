@@ -14,8 +14,7 @@ const Detail = () => {
   const { id } = useParams();
   const product = useSelector((state) => state.app.product);
   let isLoading = useSelector((state) => state.app.isLoading);
-  const role = localStorage.getItem("role");
-  const idCarrito = localStorage.getItem("idCarrito");
+  const { role, carrito } = useSelector((state) => state.app.user);
 
   const [selectedQuantity, setSelectedQuantity] = useState(1);
 
@@ -38,9 +37,9 @@ const Detail = () => {
 
   const handleAddProduct = async () => {
     await dispatch(
-      addProduct(idCarrito, product.id_inventory, selectedQuantity)
+      addProduct(carrito.idCar, product.id_inventory, selectedQuantity)
     );
-    await dispatch(getCart(idCarrito));
+    await dispatch(getCart(carrito.idCar));
     successToast("Producto añadido correctamente!", 1000);
   };
 
