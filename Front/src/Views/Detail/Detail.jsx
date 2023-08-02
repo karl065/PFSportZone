@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Carousel, LoadingSpinner } from "../../Components/index";
 import { Link } from "react-router-dom";
 import { getProductById, setLoading } from "../../redux/actions/actions";
-import { addProduct, getCart } from "../../redux/actions/cartActions";
+import { addProduct } from "../../redux/actions/cartActions";
 import styles from "./Detail.module.css";
 import arrowLeft from "../../assets/arrow-left.svg";
 import { successToast } from "../../helpers/toastNotification";
@@ -39,7 +39,6 @@ const Detail = () => {
     await dispatch(
       addProduct(carrito.idCar, product.id_inventory, selectedQuantity)
     );
-    await dispatch(getCart(carrito.idCar));
     successToast("Producto añadido correctamente!", 1000);
   };
 
