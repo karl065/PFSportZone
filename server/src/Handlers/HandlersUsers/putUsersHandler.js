@@ -1,11 +1,11 @@
 const {
   putUser,
-} = require('../../Controllers/ControllersUsers/putControllersUsers');
-const bcryptjs = require('bcryptjs');
-const {enviarNotificacionCambioContrasena} = require('../../Mail/Mail');
+} = require("../../Controllers/ControllersUsers/putControllersUsers");
+const bcryptjs = require("bcryptjs");
+const { enviarNotificacionCambioContrasena } = require("../../Mail/Mail");
 
 const putHandlerUser = async (req, res) => {
-  const {id} = req.params;
+  const { id } = req.params;
   const {
     email,
     user,
@@ -28,18 +28,18 @@ const putHandlerUser = async (req, res) => {
 
   try {
     const userData = {
-      ...(email !== undefined && {email}),
-      ...(user !== undefined && {user}),
-      ...(password !== undefined && {password: passwordHash}),
-      ...(role !== undefined && {role}),
-      ...(userStatus !== undefined && {userStatus}),
-      ...(person_type !== undefined && {person_type}),
-      ...(document_type !== undefined && {document_type}),
-      ...(document_number !== undefined && {document_number}),
-      ...(first_name !== undefined && {first_name}),
-      ...(last_name !== undefined && {last_name}),
-      ...(phone !== undefined && {phone}),
-      ...(address !== undefined && {address}),
+      ...(email !== undefined && { email }),
+      ...(user !== undefined && { user }),
+      ...(password !== undefined && { password: passwordHash }),
+      ...(role !== undefined && { role }),
+      ...(userStatus !== undefined && { userStatus }),
+      ...(person_type !== undefined && { person_type }),
+      ...(document_type !== undefined && { document_type }),
+      ...(document_number !== undefined && { document_number }),
+      ...(first_name !== undefined && { first_name }),
+      ...(last_name !== undefined && { last_name }),
+      ...(phone !== undefined && { phone }),
+      ...(address !== undefined && { address }),
     };
 
     // Actualiza los datos del usuario en la base de datos
@@ -47,21 +47,14 @@ const putHandlerUser = async (req, res) => {
 
     // Si se proporcionó una nueva contraseña, envía la notificación de cambio de contraseña
     if (password) {
-      try {
-        await enviarNotificacionCambioContrasena(userUpdate.email);
-        console.log('Notificación de cambio de contraseña enviada.');
-      } catch (error) {
-        console.error(
-          'Error al enviar la notificación de cambio de contraseña:',
-          error
-        );
-      }
+      await enviarNotificacionCambioContrasena(userUpdate.email);
+      console.log("Notificación de cambio de contraseña enviada.");
     }
 
     return res.status(200).json(userUpdate);
   } catch (error) {
-    return res.status(500).json({error: error});
+    return res.status(500).json({ error: error });
   }
 };
 
-module.exports = {putHandlerUser};
+module.exports = { putHandlerUser };

@@ -1,9 +1,24 @@
 const {
   postHandlerCompra,
-} = require('../../Handlers/HandlerMail/postHandlerCompra');
+} = require("../../Handlers/HandlerMail/postHandlerCompra");
+const {
+  postHandlerCompraPendiente,
+} = require("../../Handlers/HandlerMail/postHandlerCompraPendiente");
+const {
+  postHandlerCompraRechazada,
+} = require("../../Handlers/HandlerMail/postHandlerCompraRechazada");
 
-const router = require('express').Router();
+const router = require("express").Router();
 
-router.post('/', postHandlerCompra);
+router.post("/", (req, res) => {
+  const { status } = req.body;
+  if (status === "success") {
+    postHandlerCompra(req, res);
+  } else if (status === "pending") {
+    postHandlerCompraPendiente(req, res);
+  } else {
+    postHandlerCompraRechazada(req, res);
+  }
+});
 
 module.exports = router;
