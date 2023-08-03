@@ -24,6 +24,12 @@ const AdminEditProduct = () => {
   const [hideList, setHideList] = useState(false);
   const inventory = useSelector((state) => state.app.inventory);
 
+  useEffect(() => {
+    if (producto) {
+      setSelectedItem(producto);
+    }
+  }, [producto]);
+
   const handleChange = (event) => {
     setSearchQuery(event.target.value);
     if (hideList) setHideList(false);
@@ -70,14 +76,6 @@ const AdminEditProduct = () => {
       }
     }
   };
-
-  useEffect(() => {
-    if (producto) {
-      setSelectedItem(producto);
-    }
-  }, [producto]);
-
-  
 
   const handleClearSearch = () => {
     setSearchQuery("");

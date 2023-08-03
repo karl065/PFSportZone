@@ -9,6 +9,7 @@ import {
   CREATE_USER,
   CREATE_PRODUCT,
   GET_PRODUCT_ID,
+  CLEAR_PRODUCT,
   FILTER_PRODUCTS_BY_NAME,
   RESET_DISPLAYED_PRODUCTS,
   GET_CATEGORY,
@@ -62,8 +63,8 @@ export const setUser = (user) => {
 export const clearUser = () => {
   return {
     type: CLEAR_USER,
-  }
-}
+  };
+};
 
 export const getUsers = () => {
   return async (dispatch) => {
@@ -201,6 +202,12 @@ export const getProductById = (id) => {
       type: GET_PRODUCT_ID,
       payload: data,
     });
+  };
+};
+
+export const clearProduct = () => {
+  return {
+    type: CLEAR_PRODUCT,
   };
 };
 

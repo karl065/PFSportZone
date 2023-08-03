@@ -9,6 +9,7 @@ import {
   CREATE_USER,
   CREATE_PRODUCT,
   GET_PRODUCT_ID,
+  CLEAR_PRODUCT,
   FILTER_PRODUCTS_BY_NAME,
   RESET_DISPLAYED_PRODUCTS,
   GET_CATEGORY,
@@ -72,6 +73,8 @@ export default function appReducer(state = initialState, { type, payload }) {
       return { ...state, sports: [...state.sports, payload] };
     case GET_PRODUCT_ID:
       return { ...state, product: payload };
+    case CLEAR_PRODUCT:
+      return { ...state, product: {} };
     case EDIT_PRODUCT:
       const indexProduct = state.inventory.findIndex(
         (p) => p.id_inventory === payload.id_inventory
