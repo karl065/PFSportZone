@@ -12,6 +12,7 @@ import {
   editProduct,
   filterProductsByStatus,
 } from "../../redux/actions/actions";
+import {Link} from 'react-router-dom';
 
 library.add(fas);
 
@@ -31,11 +32,16 @@ const AdminProducts = () => {
     "Discontinued",
   ]);
   const dispatch = useDispatch();
-
+  
   const handleStatusChange = (e) => {
-    const { value } = e.target;
+    const {value} = e.target;
+    console.log(value);
     dispatch(filterProductsByStatus(value));
     setStatusSeleccionado(value);
+  };
+
+  const handleEditProduct = (productId) => {
+    dispatch(getProductById(productId));
   };
 
   const statusSubmit = (e, id_inventory) => {
@@ -178,7 +184,7 @@ const AdminProducts = () => {
                                   <td>{inventory.id_inventory}</td>
                                   <td>
                                     <img
-                                      src={inventory?.image[0]}
+                                      src={inventory.image[0]}
                                       alt={inventory.article_name}
                                       width={100}
                                     />
@@ -209,7 +215,9 @@ const AdminProducts = () => {
                                     </select>
                                   </td>
                                   <td>
-                                    <FontAwesomeIcon icon="pencil-square" />
+                                      <Link to="/adminEditProd">
+                                    <FontAwesomeIcon icon="pencil-square" onClick={() => handleEditProduct(inventory.id_inventory)}/>
+                                    </Link>;
                                   </td>
                                 </tr>
                               ))
