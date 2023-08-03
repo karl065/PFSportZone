@@ -3,10 +3,10 @@
 const {
   filterAvailableController,
   filterPriceRange,
-} = require('../../Controllers/FilterUsersControllers/GetPriceRangeFilterController.js');
+} = require("../../Controllers/FilterUsersControllers/GetPriceRangeFilterController.js");
 const {
   filterUsersControllers,
-} = require('../../Controllers/FilterUsersControllers/GetUsersFilterController');
+} = require("../../Controllers/FilterUsersControllers/GetUsersFilterController");
 
 /**
  * El código define dos funciones asíncronas, getFilterHandler y getFilterStockPriceRange, que manejan
@@ -59,7 +59,7 @@ const getFilterHandler = async (req, res) => {
     );
     return res.status(200).json(productsInRange);
   } catch (error) {
-    return res.status(400).json({error: error.message});
+    return res.status(400).json({ error: error.message });
   }
 };
 
