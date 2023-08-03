@@ -1,0 +1,23 @@
+2023/08/03-17:30:58.896 7ed0 Reusing MANIFEST W:\Proyectos\PFSportZone - WilsonCollantesAponte\PFSportZone\server\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2023/08/03-17:30:58.896 7ed0 Recovering log #1052
+2023/08/03-17:30:58.908 7ed0 Reusing old log W:\Proyectos\PFSportZone - WilsonCollantesAponte\PFSportZone\server\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/001052.log 
+2023/08/03-17:31:00.074 7ed0 Compacting 1@1 + 7@2 files
+2023/08/03-17:31:00.207 7ed0 Generated table #1055@1: 54964 keys, 2242707 bytes
+2023/08/03-17:31:00.302 7ed0 Generated table #1056@1: 32541 keys, 2191098 bytes
+2023/08/03-17:31:00.374 7ed0 Generated table #1057@1: 2470 keys, 2150961 bytes
+2023/08/03-17:31:00.451 7ed0 Generated table #1058@1: 31500 keys, 2242133 bytes
+2023/08/03-17:31:00.547 7ed0 Generated table #1059@1: 77662 keys, 2221609 bytes
+2023/08/03-17:31:00.556 7ed0 Generated table #1060@1: 4729 keys, 133985 bytes
+2023/08/03-17:31:00.556 7ed0 Compacted 1@1 + 7@2 files => 11182493 bytes
+2023/08/03-17:31:00.556 7ed0 compacted to: files[ 0 0 6 0 0 0 0 ]
+2023/08/03-17:31:00.557 7ed0 Delete type=2 #1030
+2023/08/03-17:31:00.557 7ed0 Delete type=2 #1031
+2023/08/03-17:31:00.557 7ed0 Delete type=2 #1038
+2023/08/03-17:31:00.557 7ed0 Delete type=2 #1047
+2023/08/03-17:31:00.557 7ed0 Delete type=2 #1048
+2023/08/03-17:31:00.557 7ed0 Delete type=2 #1049
+2023/08/03-17:31:00.557 7ed0 Delete type=2 #1050
+2023/08/03-17:31:00.557 7ed0 Delete type=2 #1053
+2023/08/03-17:36:34.797 da0 Level-0 table #1062: started
+2023/08/03-17:36:34.853 da0 Level-0 table #1062: 902776 bytes OK
+2023/08/03-17:36:34.859 da0 Delete type=0 #1052
