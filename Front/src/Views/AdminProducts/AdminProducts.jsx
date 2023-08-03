@@ -4,15 +4,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "../../Components/Pagination/Pagination";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector, useDispatch } from "react-redux";
 import Sidebar from "../../Components/SideBar/Sidebar";
 import {
   editProduct,
   filterProductsByStatus,
+  getProductById,
 } from "../../redux/actions/actions";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 library.add(fas);
 
@@ -32,10 +33,9 @@ const AdminProducts = () => {
     "Discontinued",
   ]);
   const dispatch = useDispatch();
-  
+
   const handleStatusChange = (e) => {
-    const {value} = e.target;
-    console.log(value);
+    const { value } = e.target;
     dispatch(filterProductsByStatus(value));
     setStatusSeleccionado(value);
   };
@@ -73,6 +73,11 @@ const AdminProducts = () => {
       setDisplayedProducts(filtered);
     }, 500);
   };
+
+  // * Cuando se realize el filtro de actualize con el "nuevo" inventario.
+  useEffect(() => {
+    setDisplayedProducts(inventario);
+  }, [inventario]);
 
   return (
     <div>
@@ -215,9 +220,17 @@ const AdminProducts = () => {
                                     </select>
                                   </td>
                                   <td>
-                                      <Link to="/adminEditProd">
-                                    <FontAwesomeIcon icon="pencil-square" onClick={() => handleEditProduct(inventory.id_inventory)}/>
-                                    </Link>;
+                                    <Link to="/adminEditProd">
+                                      <FontAwesomeIcon
+                                        icon="pencil-square"
+                                        onClick={() =>
+                                          handleEditProduct(
+                                            inventory.id_inventory
+                                          )
+                                        }
+                                      />
+                                    </Link>
+                                    ;
                                   </td>
                                 </tr>
                               ))

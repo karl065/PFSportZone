@@ -113,6 +113,8 @@ const AdminUsers = () => {
         : "Inactivo";
     });
     setUserStatusOptions(initialStatusOptions);
+    // * Cuando se realize el filtro de actualize con los "nuevos" usuarios.
+    setDisplayedUsers(users);
   }, [users]);
 
   return (
