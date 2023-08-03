@@ -52,7 +52,7 @@ export default function SortAndFilters() {
     dispatch(resetDisplayedProducts());
   };
 
-  const handlerSingleFilterClean = (name,e) => {
+  const handlerSingleFilterClean = (name) => {
     setFilters((prevFilters) => {
       // Creamos una copia del estado filters
       const updatedFilters = { ...prevFilters };
@@ -65,9 +65,6 @@ export default function SortAndFilters() {
   
       return updatedFilters;
     });
-
-    const textSelected = e.target
-    const text= textSelected.innerText;
 
     setFiltersSelected((prevFiltersSelected) => {
       // Creamos una copia del estado filters
@@ -201,7 +198,7 @@ export default function SortAndFilters() {
                   return <button 
                   key={index} 
                   value={value}
-                  onClick={(event) => handlerSingleFilterClean(key,event)}>
+                  onClick={() => handlerSingleFilterClean(key)}>
                     {buttonText}
                     </button>
                 }
