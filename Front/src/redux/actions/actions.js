@@ -3,6 +3,7 @@ import {
   SET_USER,
   GET_USER,
   GET_USERS,
+  CLEAR_USER,
   GET_INVENTORY,
   GET_SPORTS,
   CREATE_USER,
@@ -46,18 +47,23 @@ export const getUser = (navigate) => {
         payload: data,
       });
     } catch (error) {
-      handleLogout(navigate);
+      handleLogout(navigate, dispatch);
     }
   };
 };
 
 export const setUser = (user) => {
-  console.log("Llego sete usuario", user);
   return {
     type: SET_USER,
     payload: user,
   };
 };
+
+export const clearUser = () => {
+  return {
+    type: CLEAR_USER,
+  }
+}
 
 export const getUsers = () => {
   return async (dispatch) => {

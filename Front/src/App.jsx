@@ -22,6 +22,7 @@ import {
   AdminNewMarca,
   AdminNewDeportes,
   AdminEditProduct,
+  AdminQuestions,
   AdminPagos,
   Cart,
   ResetPaas,
@@ -93,6 +94,7 @@ function App() {
         <Route path="/adminNewCategory" element={<AdminNewCategory />} />
         <Route path="/adminEditProd" element={<AdminEditProduct />} />
         <Route path="/adminPagos" element={<AdminPagos />} />
+        <Route path="/adminQuestions" element={<AdminQuestions />} />
         {/* <Route path="/favorites"/> */}
         <Route path="/product/:id" element={<Detail />} />
         <Route path="/about" element={<About />} />

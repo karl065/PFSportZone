@@ -8,6 +8,7 @@ import { addProduct } from "../../redux/actions/cartActions";
 import styles from "./Detail.module.css";
 import arrowLeft from "../../assets/arrow-left.svg";
 import { successToast } from "../../helpers/toastNotification";
+import ProductQuestions from "../../Components/ProductQuestions/ProductQuestions";
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -87,6 +88,7 @@ const Detail = () => {
               )}
             </div>
           </div>
+          <ProductQuestions productId={id}/>
         </>
       )}
     </section>

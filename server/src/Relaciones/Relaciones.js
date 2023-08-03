@@ -21,6 +21,7 @@ const relaciones = (models) => {
     Deportes,
     Marcas,
     CarritoInventarios,
+    Preguntas
   } = models;
 
   Categorias.hasMany(Inventarios, {
@@ -105,6 +106,11 @@ const relaciones = (models) => {
     },
     foreignKey: "id_inventory",
   });
+
+  // ? PREGUNTAS
+  Inventarios.hasMany(Preguntas, { foreignKey: 'id_inventory', as: "questions" });
+  Preguntas.belongsTo(Inventarios, { foreignKey: 'id_inventory', as: "product" });
+
   return {
     Personas,
     Usuarios,
@@ -118,6 +124,7 @@ const relaciones = (models) => {
     Marcas,
     Deportes,
     CarritoInventarios,
+    Preguntas,
   };
 };
 module.exports = { relaciones };

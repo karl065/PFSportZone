@@ -18,6 +18,7 @@ import AdminNewDeportes from './AdminNewDeporte/AdminNewDeporte.jsx';
 import AdminNewMarca from './AdminNewMarca/AdminNewMarca.jsx';
 import AdminPagos from './AdminPagos/AdminPagos.jsx';
 import AdminEditProduct from './AdminEditProduct/AdminEditProduct.jsx';
+import AdminQuestions from './AdminQuestions/AdminQuestions.jsx';
 import Cart from './Cart/Cart.jsx';
 import EditProduct from './Form/EditProduct/EditProduct.jsx';
 import ResetPaas from './Form/ResetPaas/ResetPaas.jsx';
@@ -41,6 +42,7 @@ export {
   AdminNewCategory,
   AdminEditProduct,
   AdminPagos,
+  AdminQuestions,
   Cart,
   AdminNewDeportes,
   AdminNewMarca,

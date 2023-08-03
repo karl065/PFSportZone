@@ -142,6 +142,17 @@ const Sidebar = () => {
               </Link>
             </li>
             <hr className="sidebar-divider my-2" />
+            <li
+              className={`nav-item ${
+                location.pathname === '/adminQuestions' ? styles.active : ''
+              }`}
+            >
+              <Link to="/adminQuestions">
+                <FontAwesomeIcon icon="fa-circle-question" />
+                <span> Preguntas</span>
+              </Link>
+            </li>
+            <hr className="sidebar-divider my-2" />
             <li className="nav-item">
               <Link to="/">
                 <FontAwesomeIcon icon="unlock-alt" />
