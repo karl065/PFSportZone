@@ -3,13 +3,16 @@ const {
 } = require("../../Controllers/ControllersReviews/PutControllerReviews.js");
 
 const putReviewHandler = async (req, res) => {
-  const { idReview, question, answer } = req.body;
-  let updateData;
+  const { idReview } = req.query;
+  const { like, dislike, evaluation } = req.body;
 
-  if (question !== undefined) updateData = { question: question };
-  if (answer !== undefined) updateData = { answer: answer };
   try {
-    const putRev = await putReview(idReview, updateData);
+    const reviews = {
+      ...(like !== undefined && { like }),
+      ...(dislike !== undefined && { dislike }),
+      ...(evaluation !== undefined && { evaluation }),
+    };
+    const putRev = await putReview(idReview, reviews);
     return res.status(200).json(putRev);
   } catch (error) {
     return res.status(400).json({ error: error.message });

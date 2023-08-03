@@ -17,22 +17,20 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      question: {
+      message: {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      answer: {
-        type: DataTypes.TEXT,
+      like: {
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
-      assessment: {
-        type: DataTypes.ENUM(
-          "Deficiente",
-          "Mala",
-          "Aceptable",
-          "Buena",
-          "Exclente"
-        ),
+      dislike: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      evaluation: {
+        type: DataTypes.ENUM("1", "2", "3", "4", "5"),
         allowNull: true,
       },
     },
