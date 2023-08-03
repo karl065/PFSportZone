@@ -64,7 +64,7 @@ const NavBar = (props) => {
             )}
             <li
               className={styles.logout}
-              onClick={() => handleLogout(navigate)}
+              onClick={() => handleLogout(navigate, dispatch)}
             >
               Salir
             </li>

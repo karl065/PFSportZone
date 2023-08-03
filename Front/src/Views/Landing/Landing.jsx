@@ -70,7 +70,7 @@ const Landing = () => {
           <Link to={"/adminProducts"}>Panel Admin</Link>
         ) : null}
         {isLoggedIn() ? (
-          <li onClick={() => handleLogout(navigate)}>Salir</li>
+          <li onClick={() => handleLogout(navigate, dispatch)}>Salir</li>
         ) : (
           <NavLink to="/register">
             <p>Registrarse</p>

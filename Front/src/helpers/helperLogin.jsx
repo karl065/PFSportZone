@@ -3,7 +3,7 @@ import server from '../Connections/Server';
 import Swal from 'sweetalert2';
 import {signOut} from 'firebase/auth';
 import {auth} from '../firebase/firebaseConfig';
-import { setUser } from '../redux/actions/actions';
+import { clearUser, setUser } from '../redux/actions/actions';
 
 // * Reutilizable para logearse, retorna una promesa para manejar error y mostrar un sweet alert o no.
 const login = async (email, password, navigate, dispatch) => {
@@ -44,9 +44,10 @@ const isLoggedIn = () => {
 };
 
 // * La función `logout` elimina el elemento 'token' del localStorage.
-const handleLogout = async (navigate) => {
+const handleLogout = async (navigate, dispatch) => {
   try {
     await signOut(auth);
+    dispatch(clearUser());
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     localStorage.removeItem('idCarrito');
