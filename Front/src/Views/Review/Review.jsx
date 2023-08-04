@@ -1,19 +1,26 @@
 /* eslint-disable no-unused-vars */
+import axios from 'axios';
 import {useState} from 'react';
 import Styles from './Review.module.css';
 import {Rating} from '@micahlt/react-simple-star-rating';
+import server from '../../Connections/Server';
 
 const Review = () => {
-
+  const id_inventory = "cb01";
+  const idUser = Number(localStorage.getItem('idUser'));
   const [formReview, setFormReview] = useState({
-    rating: 0,
-    comment: ''
+    idUser: idUser,
+    id_inventory: id_inventory,
+    message: '',
+    evaluation: 0
   })
 
   const handleRating = (number) => {
     setFormReview({
-      rating: number,
-      comment: ''
+    idUser: idUser,
+    id_inventory: id_inventory,
+    message: '',
+    evaluation: number
     })
 }
 
@@ -23,6 +30,15 @@ const handleComment = (e) => {
     [e.target.name] : e.target.value
   })
 }
+const handleSubmitReview = async() => {
+  try {
+    const post= await axios.post(`${server.api.baseURL}review`, formReview);
+    console.log(post.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   console.log(formReview);
   return (
     <div className={Styles.container}>
@@ -46,14 +62,14 @@ const handleComment = (e) => {
       <span>
         <label htmlFor="comment">danos tu opinion:</label>
         <textarea 
-        name="comment" 
+        name="message" 
         id="comment" 
         cols="50" 
         rows="10" 
         value={formReview.comment}
         onChange={handleComment}></textarea>
       </span>
-        <button>enviar</button>
+        <button onClick={handleSubmitReview}>enviar</button>
       </div>
 
       <div className={Styles.products}>

@@ -22,6 +22,7 @@ const Detail = () => {
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(getProductById(id)).then(() => dispatch(setLoading(false)));
+    console.log(product);
   }, [dispatch, id]);
 
   const incrementQuantity = () => {
