@@ -72,7 +72,7 @@ const relaciones = (models) => {
     onDelete: "CASCADE",
   });
 
-  Inventarios.hasOne(Reviews, {
+  Inventarios.hasMany(Reviews, {
     foreignKey: "id_inventory",
     as: "reviews",
   });

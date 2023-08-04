@@ -4,10 +4,15 @@ import {useState} from 'react';
 import Styles from './Review.module.css';
 import {Rating} from '@micahlt/react-simple-star-rating';
 import server from '../../Connections/Server';
+import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Review = () => {
-  const id_inventory = "cb01";
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const id_inventory = id;
   const idUser = Number(localStorage.getItem('idUser'));
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formReview, setFormReview] = useState({
     idUser: idUser,
     id_inventory: id_inventory,
@@ -23,19 +28,55 @@ const Review = () => {
     evaluation: number
     })
 }
+  const handleReset = () => {
+    setFormReview({
+    idUser: idUser,
+    id_inventory: id_inventory,
+    message: '',
+    evaluation: 0
+    })
+}
 
 const handleComment = (e) => {
   setFormReview({
     ...formReview,
     [e.target.name] : e.target.value
   })
-}
-const handleSubmitReview = async() => {
+};
+
+const handleSubmitReview = () => {
+  if (isSubmitting) {
+    return;
+  }
+
+  setIsSubmitting(true);
+
   try {
-    const post= await axios.post(`${server.api.baseURL}review`, formReview);
-    console.log(post.data);
+    axios.post(`${server.api.baseURL}review`, formReview)
+      .then(() => {
+        Swal.fire('¡Buen trabajo!', 'Review creada exitosamente', 'success');
+        handleReset();
+        navigate(`/product/${id}`);
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Error creando una review. Intente nuevamente.',
+        });
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   } catch (error) {
     console.log(error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Error creando una review. Intente nuevamente.',
+    });
+    setIsSubmitting(false);
   }
 };
 
