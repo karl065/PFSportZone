@@ -6,12 +6,13 @@ import {Rating} from '@micahlt/react-simple-star-rating';
 import server from '../../Connections/Server';
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { useSelector } from 'react-redux';
 
 const Review = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const id_inventory = id;
-  const idUser = Number(localStorage.getItem('idUser'));
+  const idUser = useSelector(state => state.app.user.idUser);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formReview, setFormReview] = useState({
     idUser: idUser,
