@@ -13,7 +13,11 @@ const getControllerUserByEmail = async (email) => {
 };
 
 const getUserId = async (id) => {
-  return await Usuarios.findByPk(id);
+  const user = Usuarios.findByPk(id);
+
+  if(!user) throw new Error(`User with id ${id} not found`);
+
+  return user;
 };
 
 module.exports = {getControllerUser, getControllerUserByEmail, getUserId};

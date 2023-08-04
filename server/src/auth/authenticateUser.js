@@ -1,7 +1,7 @@
-const {Usuarios, Carrito} = require('../DB.js');
-const bcryptjs = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const {SECRETA} = process.env;
+const { Usuarios, Carrito } = require("../DB.js");
+const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { SECRETA } = process.env;
 
 /**
  * La función `authenticateUser` es una función asíncrona que toma un correo electrónico y una
@@ -20,8 +20,8 @@ const {SECRETA} = process.env;
 const authenticateUser = async (email, password) => {
   try {
     const user = await Usuarios.findOne({
-      where: {email: email},
-      include: {model: Carrito, as: 'carrito'},
+      where: { email: email },
+      include: { model: Carrito, as: "carrito" },
     });
 
     const passwordValid = await bcryptjs.compare(password, user.password);
@@ -29,9 +29,9 @@ const authenticateUser = async (email, password) => {
     if (!user || !passwordValid) {
       throw new Error("Usuario o email incorrectos");
     }
-    
+
     const payload = {
-      user: {id: user.idUser},
+      user: { id: user.idUser },
     };
 
     return new Promise((resolve, reject) => {
@@ -39,11 +39,11 @@ const authenticateUser = async (email, password) => {
         payload,
         SECRETA,
         {
-          expiresIn: '30d',
+          expiresIn: "30d",
         },
         (err, token) => {
           if (err) {
-            reject({msg: 'Error al crear el Token'});
+            reject({ msg: "Error al crear el Token" });
           }
           const auth = {
             token,
@@ -57,8 +57,44 @@ const authenticateUser = async (email, password) => {
       );
     });
   } catch (error) {
-    return error.message;
+    throw error;
   }
 };
 
-module.exports = {authenticateUser};
+const authenticateThirdUser = async (email) => {
+  try {
+    const user = await Usuarios.findOne({
+      where: { email: email },
+      include: { model: Carrito, as: "carrito" },
+    });
+
+    if (!user) {
+      throw new Error("Usuario no encontrado");
+    }
+
+    const payload = {
+      user: { id: user.idUser },
+    };
+
+    const token = jwt.sign(payload, SECRETA, {
+      expiresIn: "30d",
+    });
+
+    const userData = {
+      id: user.idUser,
+      user: user.user,
+      email: user.email,
+      role: user.role,
+      carrito: user.carrito,
+    };
+
+    return { token, user: userData };
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = {
+  authenticateUser,
+  authenticateThirdUser,
+};

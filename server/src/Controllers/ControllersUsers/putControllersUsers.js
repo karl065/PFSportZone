@@ -8,7 +8,7 @@ const putUser = async (updateData, id) => {
     const user = await Usuarios.findByPk(id);
     return user;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 

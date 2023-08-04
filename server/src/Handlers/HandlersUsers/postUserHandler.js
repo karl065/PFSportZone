@@ -19,19 +19,18 @@ const { enviarNotificacionUsuarioNuevo } = require("../../Mail/Mail");
  * creado. si hay un error
  */
 const postUserDbHandler = async (req, res) => {
-  const { email, user, password, role, userStatus } = req.body;
-  if (!email || !user) {
-    return res.status(404).send("Los campos no deben estar vacíos...!");
-  }
   try {
+    const { email, user, password, role, userStatus } = req.body;
+
     const dataUser = await createUserDb(
       email,
       user,
       password,
       role,
-      userStatus
+      userStatus,
     );
-    // Envía la notificación de usuario nuevo después de crear exitosamente al usuario en la base de datos
+
+    // * Envía la notificación de usuario nuevo después de crear exitosamente al usuario en la base de datos
     try {
       await enviarNotificacionUsuarioNuevo(email);
       console.log("Notificación de usuario nuevo enviada.");

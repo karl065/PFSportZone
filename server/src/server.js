@@ -9,13 +9,12 @@ const server = express();
 server.use(morgan('dev'));
 server.use(express.json());
 server.use(helmet());
+
+// Cross-Origin-Opener-Policy configuration
 server.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", 'https://http2.mlstatic.com'],
-    },
-  })
+  helmet.crossOriginOpenerPolicy({
+    policy: "same-origin-allow-popups",
+  }),
 );
 
 server.use(cors());

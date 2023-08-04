@@ -17,7 +17,7 @@ const authenticatedUser = async (idUser) => {
 
     return user;
   } catch (error) {
-    return error.message;
+    throw error;
   }
 };
 
