@@ -1,4 +1,4 @@
-const {Usuarios} = require('../DB.js');
+const {Usuarios, Carrito} = require('../DB.js');
 
 /**
  * La función `authenticatedUser` recupera un usuario por su ID y devuelve el objeto de usuario, o un
@@ -9,13 +9,15 @@ const {Usuarios} = require('../DB.js');
  */
 const authenticatedUser = async (idUser) => {
   try {
-    const user = await Usuarios.findByPk(idUser);
-
+    const user = await Usuarios.findByPk(idUser, {
+      include: {model: Carrito, as: 'carrito'},
+    });
+    
     if(!user) throw new Error("User not found");
 
     return user;
   } catch (error) {
-    return error.message;
+    throw error;
   }
 };
 

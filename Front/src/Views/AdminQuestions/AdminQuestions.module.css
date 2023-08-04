@@ -1,0 +1,159 @@
+.container {
+  display: flex;
+  min-height: fit-content;
+}
+
+.questions_container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem 2rem;
+  background-color: #eceeef;
+  max-height: 48rem;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.questions_container h1 {
+  text-align: center;
+  text-shadow: 0px 0px 8px white;
+  color: #424242;
+  letter-spacing: 3px;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.secondary_title {
+  text-shadow: 0px 0px 0px rgb(0, 0, 0);
+  color: #95b13d;
+  letter-spacing: 3px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  width: fit-content;
+  background-color: #f5f6f7;
+  padding: 0.5rem 2rem;
+  box-shadow: 0px 0px 3px rgb(214, 214, 214);
+  align-self: center;
+  margin: auto 0;
+}
+
+.cards_container,
+.card_box {
+  display: flex;
+  flex-direction: column;
+}
+
+.cards_container {
+  gap: 1rem;
+  flex: 1;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  height: fit-content;
+  gap: 2rem;
+  cursor: pointer;
+  background-color: rgb(19, 19, 19);
+  position: relative;
+}
+
+.deleteBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgb(187, 37, 37);
+  font-size: 1.2rem;
+  color: white;
+  letter-spacing: 2px;
+}
+
+.question_date{
+  position: absolute;
+  bottom: -5px;
+  right: 0;
+  color: rgb(168, 168, 168);
+}
+
+.card img {
+  object-fit: cover;
+  object-position: center; 
+  width: 10%;
+  height: 100%;
+  border-right: 2px solid rgb(102, 102, 102);
+}
+
+.card_info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.card_info h3 {
+  font-size: 1.8rem;
+  color: rgb(206, 206, 206);
+  word-break: break-all;
+}
+
+.card_info p {
+  font-size: 1.5rem;
+  border-left: 2px solid grey;
+  padding-left: 10px;
+  max-height: 5rem;
+  width: 100%;
+  overflow-y: scroll;
+  color: white;
+  word-break: break-all;
+}
+
+.card_info p::-webkit-scrollbar{
+  background: transparent;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input_box {
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  border: 0.2px solid black;
+}
+
+.input_box textarea {
+  flex-grow: 1;
+  font-size: 1.1rem;
+  height: 100%;
+  outline: none;
+}
+
+.input_box textarea::placeholder {
+  color: rgb(43, 42, 42);
+}
+
+.input_box textarea:focus {
+  border: 2px solid #c0f322;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+}
+
+.btnSubmit {
+  font-size: 1.5rem;
+  height: 100%;
+  background-color: #c0f322;
+  border-left: 1px solid black;
+}
+
+.btnSubmit:hover {
+  background-color: #68d112;
+  color: white;
+}

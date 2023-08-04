@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect,useState } from "react";
 import Sidebar from "../../Components/SideBar/Sidebar";
 import EditProduct from "../Form/EditProduct/EditProduct";
 import styles from "./AdminEditProduct.module.css";
@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 const AdminEditProduct = () => {
   const dispatch = useDispatch();
   const [selectedItem, setSelectedItem] = useState({});
-
+  const producto = useSelector((state) => state.app.product);
+  
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
@@ -22,6 +23,12 @@ const AdminEditProduct = () => {
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [hideList, setHideList] = useState(false);
   const inventory = useSelector((state) => state.app.inventory);
+
+  useEffect(() => {
+    if (producto) {
+      setSelectedItem(producto);
+    }
+  }, [producto]);
 
   const handleChange = (event) => {
     setSearchQuery(event.target.value);

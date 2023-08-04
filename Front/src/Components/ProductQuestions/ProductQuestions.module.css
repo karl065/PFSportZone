@@ -1,0 +1,120 @@
+.container {
+  margin-top: 4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  box-shadow: 0px 0px 3px rgb(141, 141, 141);
+  background-color: #f5f5f5;
+}
+
+.title{
+  margin-bottom: 1rem;
+  text-align: center;
+  text-shadow: 0px 0px 8px white;
+  color: #424242;
+  letter-spacing: 3px;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.secondary_title{
+  font-size: 1.6rem;
+  color: rgb(94, 93, 93);
+}
+
+.questions_container{
+  max-height: calc(5 * 7rem);
+  overflow-y: scroll;
+  margin-top: 1.5rem;
+  border: 1px solid grey;
+  padding: 1rem;
+  box-shadow: 0px 0px 5px black inset;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.question_box {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 1.4rem;
+  position: relative;
+  word-break: break-all;
+}
+
+.btnDelete{
+  position: absolute;
+  top: -1rem;
+  right: 0;
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  width: fit-content;
+  letter-spacing: 3px;
+  border: 1px solid rgb(44, 44, 44);
+}
+
+.btnDelete:hover{
+  background-color: red;
+}
+
+.message {
+  border-left: 2px solid black;
+}
+
+.response {
+  border-left: 2px solid grey;
+}
+
+.message,
+.response {
+  padding-left: 15px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form label {
+  font-size: 1.8rem;
+  color: #131a00;
+}
+
+.input_box {
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  border: 0.2px solid black;
+}
+
+.input_box input {
+  flex-grow: 1;
+  height: 100%;
+  outline: none;
+  font-size: 1.3rem;
+}
+
+.input_box input:focus {
+  border: 2px solid #c0f322;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+}
+
+.btnSubmit {
+  font-size: 1.5rem;
+  height: 100%;
+  background-color: #c0f322;
+  border-left: 1px solid black;
+}
+
+.btnSubmit:hover{
+  background-color: #68d112;
+  color: white;
+}

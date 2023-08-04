@@ -11,7 +11,7 @@ const Card = ({ product }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartId = useSelector((state) => state.cart.id);
-  const role = localStorage.getItem("role");
+  const { role } = useSelector((state) => state.app.user);
   const [redirectDetail, setRedirectDetail] = useState(true);
 
   const handleCardClick = () => {

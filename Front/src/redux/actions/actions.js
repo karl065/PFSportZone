@@ -1,11 +1,15 @@
 import {
   SET_LOADING,
+  SET_USER,
+  GET_USER,
   GET_USERS,
+  CLEAR_USER,
   GET_INVENTORY,
   GET_SPORTS,
   CREATE_USER,
   CREATE_PRODUCT,
   GET_PRODUCT_ID,
+  CLEAR_PRODUCT,
   FILTER_PRODUCTS_BY_NAME,
   RESET_DISPLAYED_PRODUCTS,
   GET_CATEGORY,
@@ -21,13 +25,50 @@ import {
   EDIT_PRODUCT,
   UPDATE_USERS_STATUS,
   UPDATE_ITEM_STATUS,
-} from '../actions-types/action-types';
-import server from '../../Connections/Server';
-import axios from 'axios';
+} from "../actions-types/action-types";
+import server from "../../Connections/Server";
+import axios from "axios";
+import { handleLogout } from "../../helpers/helperLogin";
+import { getCart } from "./cartActions";
+
+export const getUser = (navigate) => {
+  const token = localStorage.getItem("token");
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`${server.api.baseURL}auth`, {
+        headers: {
+          "x-auth-token": token,
+        },
+      });
+
+      dispatch(getCart(data.carrito.idCar));
+
+      dispatch({
+        type: GET_USER,
+        payload: data,
+      });
+    } catch (error) {
+      handleLogout(navigate, dispatch);
+    }
+  };
+};
+
+export const setUser = (user) => {
+  return {
+    type: SET_USER,
+    payload: user,
+  };
+};
+
+export const clearUser = () => {
+  return {
+    type: CLEAR_USER,
+  };
+};
 
 export const getUsers = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}users`);
+    const { data } = await axios.get(`${server.api.baseURL}users`);
     data.sort((a, b) => a.idUser - b.idUser);
     dispatch({
       type: GET_USERS,
@@ -38,7 +79,7 @@ export const getUsers = () => {
 
 export const getInventory = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}inventory`);
+    const { data } = await axios.get(`${server.api.baseURL}inventory`);
     dispatch({
       type: GET_INVENTORY,
       payload: data,
@@ -48,7 +89,7 @@ export const getInventory = () => {
 
 export const getCategory = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}category`);
+    const { data } = await axios.get(`${server.api.baseURL}category`);
     dispatch({
       type: GET_CATEGORY,
       payload: data,
@@ -58,7 +99,7 @@ export const getCategory = () => {
 
 export const getSports = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}deporte`);
+    const { data } = await axios.get(`${server.api.baseURL}deporte`);
     dispatch({
       type: GET_SPORTS,
       payload: data,
@@ -68,7 +109,7 @@ export const getSports = () => {
 
 export const getMarca = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}marca`);
+    const { data } = await axios.get(`${server.api.baseURL}marca`);
     dispatch({
       type: GET_MARCA,
       payload: data,
@@ -78,7 +119,7 @@ export const getMarca = () => {
 
 export const createUser = (user) => {
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}users`, user);
+    const { data } = await axios.post(`${server.api.baseURL}users`, user);
     dispatch({
       type: CREATE_USER,
       payload: data,
@@ -88,7 +129,10 @@ export const createUser = (user) => {
 
 export const createProduct = (product) => {
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}inventory`, product);
+    const { data } = await axios.post(
+      `${server.api.baseURL}inventory`,
+      product
+    );
     dispatch({
       type: CREATE_PRODUCT,
       payload: data,
@@ -98,7 +142,10 @@ export const createProduct = (product) => {
 
 export const createCategory = (category) => {
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}category`, category);
+    const { data } = await axios.post(
+      `${server.api.baseURL}category`,
+      category
+    );
     dispatch({
       type: CREATE_CATEGORY,
       payload: data,
@@ -108,7 +155,7 @@ export const createCategory = (category) => {
 
 export const createMarca = (marca) => {
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}marca`, marca);
+    const { data } = await axios.post(`${server.api.baseURL}marca`, marca);
     dispatch({
       type: CREATE_MARCA,
       payload: data,
@@ -117,7 +164,7 @@ export const createMarca = (marca) => {
 };
 export const createDeporte = (deporte) => {
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}deporte`, deporte);
+    const { data } = await axios.post(`${server.api.baseURL}deporte`, deporte);
     dispatch({
       type: CREATE_DEPORTE,
       payload: data,
@@ -127,7 +174,7 @@ export const createDeporte = (deporte) => {
 
 export const editProduct = (newValues, status) => {
   return async (dispatch) => {
-    const {data} = await axios.put(
+    const { data } = await axios.put(
       `${server.api.baseURL}inventory/${newValues.id_inventory}`,
       newValues
     );
@@ -150,11 +197,17 @@ export const filterProductsByName = (name) => {
 
 export const getProductById = (id) => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}inventory/${id}`);
+    const { data } = await axios.get(`${server.api.baseURL}inventory/${id}`);
     dispatch({
       type: GET_PRODUCT_ID,
       payload: data,
     });
+  };
+};
+
+export const clearProduct = () => {
+  return {
+    type: CLEAR_PRODUCT,
   };
 };
 
@@ -187,7 +240,7 @@ export const orderProductsByAbc = (order) => {
 
 export const filterProductsByStatus = (status) => {
   return async (dispatch) => {
-    const {data} = await axios.get(
+    const { data } = await axios.get(
       `${server.api.baseURL}filters?status=${status}`
     );
     dispatch({
@@ -216,16 +269,16 @@ export const filterUsersByRoleAndStatus = (role, userStatus) => {
         if (
           value !== undefined &&
           value !== null &&
-          value !== '' &&
-          value !== 'default'
+          value !== "" &&
+          value !== "default"
         ) {
           return `${key}=${value}`;
         }
         return null; // Si el valor no es válido, se devuelve null
       })
       .filter((query) => query !== null) // Filtrar los valores nulos
-      .join('&');
-    const {data} = await axios.get(
+      .join("&");
+    const { data } = await axios.get(
       `${server.api.baseURL}filters?${queryString}`
     );
     data.sort((a, b) => a.idUser - b.idUser);
@@ -238,7 +291,7 @@ export const filterUsersByRoleAndStatus = (role, userStatus) => {
 
 export const updateItemStatus = (itemId, newStatus) => ({
   type: UPDATE_ITEM_STATUS,
-  payload: {itemId, newStatus},
+  payload: { itemId, newStatus },
 });
 export const updateUsersStatus = (idUser, newStatus, role, userStatus) => {
   return async (dispatch) => {
@@ -246,7 +299,7 @@ export const updateUsersStatus = (idUser, newStatus, role, userStatus) => {
     if (role || userStatus) {
       dispatch(filterUsersByRoleAndStatus(role, userStatus));
     } else {
-      const {data} = await axios.get(`${server.api.baseURL}users`);
+      const { data } = await axios.get(`${server.api.baseURL}users`);
       data.sort((a, b) => a.idUser - b.idUser);
       dispatch({
         type: UPDATE_USERS_STATUS,
