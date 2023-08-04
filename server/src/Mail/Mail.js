@@ -6,14 +6,14 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: "manuelf.borrego@gmail.com", // CREADO O REGISTRADO EN NODEMAILER
+    user: "dianamtm55@gmail.com", // CREADO O REGISTRADO EN NODEMAILER
     pass: PSWMAILS,
   },
 });
 
 const enviarNotificacionUsuarioNuevo = async (email) => {
   const mensaje = {
-    from: "manuelf.borrego@gmail.com",
+    from: "dianamtm55@gmail.com",
     to: email,
     subject: "Bienvenido a nuestra aplicación",
     text: "¡Gracias por registrarte en nuestra aplicación! Esperamos que disfrutes tu experiencia.",
@@ -29,7 +29,7 @@ const enviarNotificacionUsuarioNuevo = async (email) => {
 
 const enviarNotificacionCambioContrasena = async (email) => {
   const mensaje = {
-    from: "manuelf.borrego@gmail.com",
+    from: "dianamtm55@gmail.com",
     to: email,
     subject: "Cambio de contraseña",
     text: "Tu contraseña ha sido cambiada exitosamente. Si no realizaste este cambio, contacta con nosotros.",
@@ -47,7 +47,7 @@ const enviarNotificacionCambioContrasena = async (email) => {
 };
 const enviarNotificacionCompra = async (email, article_name) => {
   const mensaje = {
-    from: "manuelf.borrego@gmail.com",
+    from: "dianamtm55@gmail.com",
     to: email,
     subject: "Confirmación de compra",
     text: `Gracias por tu compra. Has adquirido el artículo: ${article_name}.`,
@@ -60,8 +60,43 @@ const enviarNotificacionCompra = async (email, article_name) => {
     return error.message;
   }
 };
+
+const enviarNotificacionCompraPendiente = async (email, article_name) => {
+  const mensaje = {
+    from: "dianamtm55@gmail.com",
+    to: email,
+    subject: "Compra pendiente",
+    text: `Su compra se encuentra Pendiente de autorizacion ${article_name}.`,
+  };
+
+  try {
+    await transporter.sendMail(mensaje);
+    return "Compra pendiente";
+  } catch (error) {
+    return error.message;
+  }
+};
+
+const enviarNotificacionCompraRechazada = async (email, article_name) => {
+  const mensaje = {
+    from: "dianamtm55@gmail.com",
+    to: email,
+    subject: "Compra rechazada",
+    text: `Su compra fue rechazada ${article_name}.`,
+  };
+
+  try {
+    await transporter.sendMail(mensaje);
+    return "Compra rechazada";
+  } catch (error) {
+    return error.message;
+  }
+};
+
 module.exports = {
   enviarNotificacionUsuarioNuevo,
   enviarNotificacionCambioContrasena,
   enviarNotificacionCompra,
+  enviarNotificacionCompraPendiente,
+  enviarNotificacionCompraRechazada,
 };

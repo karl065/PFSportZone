@@ -20,21 +20,30 @@ const getAllReview = async () => {
       ],
     });
     return getAll;
-  } catch (error) {}
+  } catch (error) {
+    return error.message;
+  }
 };
 
 const getReviewByUser = async (idUser, idReview) => {
-  const review = await Usuarios.findByPk(idUser, {
-    where: { idUser: idUser },
-    include: [
-      {
-        model: Reviews,
-        as: "reviews",
-      },
-    ],
-  });
-
-  return review;
+  try {
+    const review = await Usuarios.findByPk(idUser, {
+      where: { idUser: idUser },
+      include: [
+        {
+          model: Reviews,
+          as: "reviews",
+        },
+        {
+          model: Inventarios,
+          as: "inventarios",
+        },
+      ],
+    });
+    return review;
+  } catch (error) {
+    return error.message;
+  }
 };
 
 const getReviewById = async (idReview) => {
