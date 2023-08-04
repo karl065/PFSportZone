@@ -1,4 +1,4 @@
-const {Usuarios} = require('../../DB.js');
+const { Usuarios, Favoritos, Inventarios, Reviews } = require("../../DB.js");
 
 const getControllerUser = async () => {
   return await Usuarios.findAll();
@@ -13,11 +13,25 @@ const getControllerUserByEmail = async (email) => {
 };
 
 const getUserId = async (id) => {
-  const user = Usuarios.findByPk(id);
-
-  if(!user) throw new Error(`User with id ${id} not found`);
-
+  const user = await Usuarios.findByPk(id, {
+    include: [
+      {
+        model: Favoritos,
+        as: "favoritos",
+        include: [
+          {
+            model: Inventarios,
+            as: "inventarios",
+          },
+        ],
+      },
+    ],
+  });
   return user;
 };
 
-module.exports = {getControllerUser, getControllerUserByEmail, getUserId};
+module.exports = {
+  getControllerUser,
+  getControllerUserByEmail,
+  getUserId,
+};

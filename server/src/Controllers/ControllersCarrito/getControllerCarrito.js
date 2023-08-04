@@ -27,7 +27,7 @@ const getCarritoID = async (id) => {
       include: [
         {
           model: Usuarios,
-          as: 'usuario',
+          as: "usuario",
         },
         {
           model: Inventarios,

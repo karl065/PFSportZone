@@ -18,17 +18,11 @@ export default function SortAndFilters() {
   const [menuView, setMenuView] = useState(false);
   const dispatch = useDispatch();
   const sports = useSelector((state) => state.app.sports);
-  const marca = useSelector((state) => state.app.marcas);
+  const marcas = useSelector((state) => state.app.marcas);
   const categorys = useSelector((state) => state.app.category);
-  const [filters, setFilters] = useState({
-    id_categorias: '',
-    idDeportes: '',
-    minPrice: '',
-    maxPrice: '',
-    genre: '',
-    idMarca: '',
-  });
+  const [filters, setFilters] = useState({});
   const [productosFiltrados, setProductosFiltrados] = useState([]);
+  const [filtersSelected,setFiltersSelected] = useState({});
 
   //?FUNCIONES PARA LOS ORDERS
   const handleOrderByPrice = (e) => {
@@ -44,19 +38,47 @@ export default function SortAndFilters() {
   //*funciones para capturar los valores de los selects y tambien para limpiar los filtros
   const handleFiltersChange = async (e) => {
     setFilters({...filters, [e.target.name]: e.target.value});
+
+    const selectedOption = e.target.options[e.target.selectedIndex];
+    const selectedText = selectedOption.textContent;
+    setFiltersSelected({
+      ...filtersSelected,
+      [e.target.name]: selectedText});
   };
 
   const handleFiltersClean = () => {
-    setFilters({
-      id_categorias: 'default',
-      idDeportes: 'default',
-      minPrice: 'default',
-      maxPrice: 'default',
-      genre: 'default',
-      idMarca: 'default',
-    });
+    setFilters({});
+    setFiltersSelected({});
     dispatch(resetDisplayedProducts());
   };
+
+  const handlerSingleFilterClean = (name) => {
+    setFilters((prevFilters) => {
+      // Creamos una copia del estado filters
+      const updatedFilters = { ...prevFilters };
+  
+      // Eliminamos la propiedad que coincide con el nombre
+      delete updatedFilters[name];
+  
+      // Asignamos el valor por defecto a la propiedad eliminada
+      updatedFilters[name] = 'default';
+  
+      return updatedFilters;
+    });
+
+    setFiltersSelected((prevFiltersSelected) => {
+      // Creamos una copia del estado filters
+      const updatedFilters = { ...prevFiltersSelected };
+  
+      // Eliminamos la propiedad que coincide con el nombre
+      delete updatedFilters[name];
+  
+      // Asignamos el valor por defecto a la propiedad eliminada
+      updatedFilters[name] = 'default';
+  
+      return updatedFilters;
+    });
+}
 
   //*funcion para que al ir modificando filters se sigan agregando querys a la request para filtrar
   const fetchFilteredProducts = async (filters) => {
@@ -164,9 +186,28 @@ export default function SortAndFilters() {
             <button onClick={handleFiltersClean}>eliminar filtros</button>
           </span>
           <p>Filtros elegidos:</p>
+          {
+            Object.keys(filters).map((key,index)=>{
+              const value = filters[key];
+              if(
+                value !== undefined && 
+                value !== null && 
+                value !== "" && 
+                value !== 'default' ) {
+                  const buttonText = Object.values(filtersSelected)[index];
+                  return <button 
+                  key={index} 
+                  value={value}
+                  onClick={() => handlerSingleFilterClean(key)}>
+                    {buttonText}
+                    </button>
+                }
+                return null;
+            })
+          }
           <br />
 
-          <label htmlFor="filters">por tipo de prenda:</label>
+          <label htmlFor="filters">por tipo de producto:</label>
           <select
             value={filters.id_categorias}
             name="id_categorias"
@@ -223,8 +264,8 @@ export default function SortAndFilters() {
             onChange={(e) => handleFiltersChange(e)}
           >
             <option value="default">Elige una opcion</option>
-            {marca?.length &&
-              marca.map((marc, index) => {
+            {marcas?.length &&
+              marcas.map((marc, index) => {
                 return (
                   <option value={marc.idMarca} key={index}>
                     {marc.name}
@@ -244,7 +285,9 @@ export default function SortAndFilters() {
             <option value="0">0</option>
             <option value="1000">1.000</option>
             <option value="5000">5.000</option>
+            <option value="10000">10.000</option>
             <option value="20000">20.000</option>
+            <option value="30000">30.000</option>
             <option value="40000">40.000</option>
             <option value="50000">50.000</option>
           </select>
@@ -260,6 +303,9 @@ export default function SortAndFilters() {
             <option value="1000">1.000</option>
             <option value="5000">5.000</option>
             <option value="10000">10.000</option>
+            <option value="20000">20.000</option>
+            <option value="30000">30.000</option>
+            <option value="40000">40.000</option>
             <option value="50000">50.000</option>
             <option value="Infinity">mas de 50.000</option>
           </select>
