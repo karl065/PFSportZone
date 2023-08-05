@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const users = require("./UsersRoutes/UsersRoutes.js");
+const sales = require("./SalesRoutes/SalesRoutes.js");
 const auth = require("./AuthRoutes/authRoutes.js");
 const inventory = require("./InventariosRoutes/InventariosRoutes.js");
 const filters = require("./FilterRoutes/FilterRoutes.js");
@@ -17,6 +18,7 @@ const router = Router();
 
 /* El código utiliza el enrutador Express para definir rutas para diferentes partes de la aplicación. */
 router.use("/users", users);
+router.use("/sales", sales);
 router.use("/auth", auth);
 router.use("/inventory", inventory);
 router.use("/filters", filters);

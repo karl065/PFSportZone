@@ -3,7 +3,9 @@ import {
   SET_USER,
   GET_USER,
   GET_USERS,
+  EDIT_USER,
   CLEAR_USER,
+  CLEAR_USERED,
   GET_INVENTORY,
   GET_SPORTS,
   CREATE_USER,
@@ -12,6 +14,7 @@ import {
   CLEAR_PRODUCT,
   FILTER_PRODUCTS_BY_NAME,
   RESET_DISPLAYED_PRODUCTS,
+  RESET_DISPLAYED_USERS,
   GET_CATEGORY,
   CREATE_CATEGORY,
   ORDER_PRODUCTS_BY_PRICE,
@@ -25,6 +28,7 @@ import {
   EDIT_PRODUCT,
   UPDATE_USERS_STATUS,
   UPDATE_ITEM_STATUS,
+  GET_SALES,
 } from "../actions-types/action-types";
 import server from "../../Connections/Server";
 import axios from "axios";
@@ -66,12 +70,43 @@ export const clearUser = () => {
   };
 };
 
+export const clearUserEd = () => {
+  return {
+    type: CLEAR_USERED,
+  };
+};
+
 export const getUsers = () => {
   return async (dispatch) => {
     const { data } = await axios.get(`${server.api.baseURL}users`);
     data.sort((a, b) => a.idUser - b.idUser);
     dispatch({
       type: GET_USERS,
+      payload: data,
+    });
+  };
+};
+
+export const getSales = () => {
+  return async (dispatch) => {
+    const { data } = await axios.get(`${server.api.baseURL}sales`);
+    console.log(data);
+    data.sort((a, b) => a.id_sales - b.id_sales);
+    dispatch({
+      type: GET_SALES,
+      payload: data,
+    });
+  };
+};
+
+export const editUser = (newValues) => {
+  return async (dispatch) => {
+    const { data } = await axios.put(
+      `${server.api.baseURL}users/${newValues.idUser}`,
+      newValues
+    );
+    dispatch({
+      type: EDIT_USER,
       payload: data,
     });
   };
@@ -214,6 +249,12 @@ export const clearProduct = () => {
 export const resetDisplayedProducts = () => {
   return {
     type: RESET_DISPLAYED_PRODUCTS,
+  };
+};
+
+export const resetDisplayedUsers = () => {
+  return {
+    type: RESET_DISPLAYED_USERS,
   };
 };
 

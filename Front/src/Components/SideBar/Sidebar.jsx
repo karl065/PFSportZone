@@ -1,20 +1,33 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Link} from 'react-router-dom';
 import styles from './Sidebar.module.css';
+import React, { useState } from 'react';
 
 const Sidebar = () => {
-  // const location = useLocation()
+  
+
+    const [sidebarOpen, setSidebarOpen] = useState(true);
+  
+    const handleSidebarToggle = () => {
+      setSidebarOpen(!sidebarOpen);
+    };
+
+
   return (
     <div>
+      
       <nav
-        className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+        className={`navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 ${
+          sidebarOpen ? styles.open : styles.closed
+        }`}
         style={{
           background: '#749900',
           position: 'relative',
           overflow: 'visible',
-          height: '600px',
+          height: '100%',
         }}
       >
+        
         <div className="container-fluid d-flex flex-column p-3">
           <a
             className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
@@ -64,15 +77,11 @@ const Sidebar = () => {
                 <span> Crear Usuario</span>
               </Link>
             </li>
-            {/* <hr className="sidebar-divider my-2" />
-            <li
-              className={`nav-item ${
-                location.pathname === '/adminEmployes' ? styles.active : ''
-              }`}
-            >
-              <Link to="/adminEmployes">
+            <hr className="sidebar-divider my-2" />
+            <li>
+              <Link to="/adminEditUser">
                 <FontAwesomeIcon icon="user-circle" />
-                <span> Empleados</span>
+                <span> Editar Usuario</span>
               </Link>
             </li>
             <hr className="sidebar-divider my-2" />
@@ -81,11 +90,11 @@ const Sidebar = () => {
                 location.pathname === '/adminPagos' ? styles.active : ''
               }`}
             >
-              <Link to="/adminPagos">
+              <Link to="/adminSales">
                 <FontAwesomeIcon icon="money-check-alt" />
-                <span> Pagos</span>
+                <span> Ventas</span>
               </Link>
-            </li> */}
+            </li>
             <hr className="sidebar-divider my-2" />
             <li
               className={`nav-item ${
@@ -142,24 +151,20 @@ const Sidebar = () => {
               </Link>
             </li>
             <hr className="sidebar-divider my-2" />
-            <li
-              className={`nav-item ${
-                location.pathname === '/adminQuestions' ? styles.active : ''
-              }`}
-            >
-              <Link to="/adminQuestions">
-                <FontAwesomeIcon icon="fa-circle-question" />
-                <span> Preguntas</span>
-              </Link>
-            </li>
-            <hr className="sidebar-divider my-2" />
             <li className="nav-item">
               <Link to="/">
                 <FontAwesomeIcon icon="unlock-alt" />
                 <span> Salir</span>
               </Link>
             </li>
+            
           </ul>
+      
+          <div className="text-center d-none d-md-inline" style={{'marginTop': '20px'}}>
+            <button id="sidebarToggle" onClick={handleSidebarToggle} className="btn rounded-circle border-0" type="button" style={{background: '#a4da03',width: '40px',height: '40px'}}>
+            <FontAwesomeIcon icon="chevron-left" />
+              </button>
+            </div>
         </div>
       </nav>
     </div>

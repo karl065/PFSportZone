@@ -1,16 +1,20 @@
 import React, { useEffect,useState } from "react";
 import Sidebar from "../../Components/SideBar/Sidebar";
-import EditProduct from "../Form/EditProduct/EditProduct";
-import styles from "./AdminEditProduct.module.css";
+import EditUser from "../Form/EditUser/EditUser";
+import styles from "./AdminEditUser.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import {resetDisplayedProducts} from '../../redux/actions/actions';
+import {resetDisplayedUsers} from '../../redux/actions/actions';
+import { useLocation } from "react-router-dom";
 
-const AdminEditProduct = () => {
+const AdminEditUser = () => {
   const dispatch = useDispatch();
   const [selectedItem, setSelectedItem] = useState({});
-  const producto = useSelector((state) => state.app.product);
+  const user = location.state?.user || null;
+  const userEd = useSelector((state) => state.app.userEd);
+
   
   const handleItemClick = (item) => {
+   
     setSelectedItem(item);
   };
 
@@ -23,18 +27,18 @@ const AdminEditProduct = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [hideList, setHideList] = useState(false);
-  const inventory = useSelector((state) => state.app.inventory);
+  const users = useSelector((state) => state.app.users);
 
   useEffect(() => {
-    if (producto) {
-      setSelectedItem(producto);
+    if (userEd) {
+      setSelectedItem(userEd);
     }
-  }, [producto]);
+  }, [userEd]);
 
   const handleChange = (event) => {
     setSearchQuery(event.target.value);
     if (hideList) setHideList(false);
-    if (!event.target.value) dispatch(resetDisplayedProducts());
+    if (!event.target.value) dispatch(resetDisplayedUsers());
     setTimeout(handleListSuggestions(event.target.value), 300);
   };
 
@@ -42,17 +46,17 @@ const AdminEditProduct = () => {
     const seen = {};
 
     // * Filtrado para la lista de sugerencias que no repitan los nombres idénticos.
-    const filteredProducts = inventory.filter((product) => {
-      const articleName = product.article_name.toLowerCase();
+    const filteredUsers = users.filter((user) => {
+      const email = user.email.toLowerCase();
       const search = query.toLowerCase().trim();
       return (
-        articleName.includes(search) &&
-        !seen[articleName] &&
-        (seen[articleName] = true)
+        email.includes(search) &&
+        !seen[email] &&
+        (seen[email] = true)
       );
     });
     
-    setSearchResults(filteredProducts);
+    setSearchResults(filteredUsers);
   };
 
   const handleKeyDown = (event) => {
@@ -60,14 +64,14 @@ const AdminEditProduct = () => {
       event.preventDefault();
       setHighlightedIndex((prevIndex) => {
         const newIndex = Math.min(prevIndex + 1, searchResults.length - 1);
-        setSearchQuery(searchResults[newIndex].article_name);
+        setSearchQuery(searchResults[newIndex].email);
         return newIndex;
       });
     } else if (event.key === "ArrowUp" && searchResults.length) {
       event.preventDefault();
       setHighlightedIndex((prevIndex) => {
         const newIndex = Math.max(prevIndex - 1, 0);
-        setSearchQuery(searchResults[newIndex].article_name);
+        setSearchQuery(searchResults[newIndex].email);
         return newIndex;
       });
     } else if (event.key === "Enter") {
@@ -77,6 +81,17 @@ const AdminEditProduct = () => {
       }
     }
   };
+
+
+
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+      setSelectedItem(user);
+    }
+  }, [user]);
+
+  
 
   const handleClearSearch = () => {
     setSearchQuery("");
@@ -91,7 +106,7 @@ const AdminEditProduct = () => {
     <div className={styles.view_container}>
       <Sidebar />
       <div className={styles.body_container}>
-        <h1>EDITAR PRODUCTO</h1>
+        <h1>EDITAR USUARIO</h1>
         <div className={styles.container}>
           <div className={styles.bar} onBlur={handleBlur}>
             <input
@@ -100,7 +115,7 @@ const AdminEditProduct = () => {
               onChange={handleChange}
               onKeyDown={handleKeyDown}
               onFocus={() => setHideList(false)}
-              placeholder="Buscar producto..."
+              placeholder="Buscar usuario..."
             />
             {/* Mostrar resultados posibles/sugerencias según el input */}
             {!hideList && searchResults.length && (
@@ -110,14 +125,14 @@ const AdminEditProduct = () => {
               >
                 {searchResults.map((item, index) => (
                   <li
-                    key={item.id_inventory}
+                    key={item.idUser}
                     onClick={() => handleItemClick(item)}
                     onMouseEnter={() => setHighlightedIndex(index)}
                     className={
                       index === highlightedIndex ? styles.highlighted : ""
                     }
                   >
-                    {item.article_name}
+                    {item.email}
                   </li>
                 ))}
               </ul>
@@ -136,10 +151,10 @@ const AdminEditProduct = () => {
             />
           </button>
         </div>
-        <EditProduct product={selectedItem} onSubmitSuccess={handleSubmitSuccess} />
+        <EditUser user={selectedItem} onSubmitSuccess={handleSubmitSuccess} />
       </div>
     </div>
   );
 };
 
-export default AdminEditProduct;
+export default AdminEditUser;

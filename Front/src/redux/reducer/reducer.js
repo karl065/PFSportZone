@@ -4,6 +4,8 @@ import {
   GET_USER,
   SET_USER,
   GET_USERS,
+  GET_SALES,
+  EDIT_USER,
   GET_INVENTORY,
   SET_LOADING,
   CREATE_USER,
@@ -12,6 +14,7 @@ import {
   CLEAR_PRODUCT,
   FILTER_PRODUCTS_BY_NAME,
   RESET_DISPLAYED_PRODUCTS,
+  RESET_DISPLAYED_USERS,
   GET_CATEGORY,
   CREATE_CATEGORY,
   GET_SPORTS,
@@ -26,16 +29,19 @@ import {
   EDIT_PRODUCT,
   UPDATE_USERS_STATUS,
   CLEAR_USER,
+  CLEAR_USERED,
 } from "../actions-types/action-types";
 
 const initialState = {
   users: [],
+  sales: [],
   inventory: [],
   category: [],
   marcas: [],
   sports: [],
   displayInventory: [],
   user: {},
+  userEd: {},
   product: {},
   isLoading: false,
 };
@@ -47,8 +53,25 @@ export default function appReducer(state = initialState, { type, payload }) {
       return { ...state, user: payload };
     case CLEAR_USER:
       return { ...state, user: {} };
+    case CLEAR_USERED:
+      return { ...state, userEd: {} };
     case GET_USERS:
       return { ...state, users: payload };
+    case GET_SALES:
+        return { ...state, sales: payload };
+    case EDIT_USER:
+      const indexUser = state.users.findIndex(
+        (p) => p.idUser === payload.idUser
+      );
+      const updatedUser = [...state.users];
+    
+      updatedUser[indexUser] = payload;
+      
+      return {
+        ...state,
+        users: updatedUser,
+        userEd: payload,
+      };
     case GET_INVENTORY:
       return { ...state, inventory: payload, displayInventory: payload };
     case GET_CATEGORY:
@@ -133,6 +156,8 @@ export default function appReducer(state = initialState, { type, payload }) {
       return { ...state, isLoading: payload };
     case RESET_DISPLAYED_PRODUCTS:
       return { ...state, displayInventory: [...state.inventory] };
+      case RESET_DISPLAYED_USERS:
+        return { ...state, displayUsers: [...state.users] };
     case FILTER_USERS_BY_ROLE_AND_STATUS:
       return { ...state, users: payload };
     case UPDATE_USERS_STATUS:
