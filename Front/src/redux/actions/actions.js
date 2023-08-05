@@ -90,7 +90,6 @@ export const getUsers = () => {
 export const getSales = () => {
   return async (dispatch) => {
     const { data } = await axios.get(`${server.api.baseURL}sales`);
-    console.log(data);
     data.sort((a, b) => a.id_sales - b.id_sales);
     dispatch({
       type: GET_SALES,
