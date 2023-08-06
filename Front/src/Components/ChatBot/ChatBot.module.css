@@ -1,0 +1,35 @@
+.main {
+  background-color: rgb(162, 249, 255);
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  width: 370px;
+  padding: 10px;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  /* padding: 1rem; */
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin-left: 0%;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  margin-right: 5rem;
+}
+
+.textArea1 {
+  margin-left: 7rem;
+}
+
+.send {
+  margin-right: 6rem;
+}

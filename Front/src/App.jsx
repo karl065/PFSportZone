@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useEffect} from 'react';
-import {Routes, Route, useLocation} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
-import {NavBar} from './Components';
+import { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { NavBar } from "./Components";
 import {
   Landing,
   Home,
@@ -25,7 +25,7 @@ import {
   AdminPagos,
   Cart,
   ResetPaas,
-} from './Views';
+} from "./Views";
 import {
   getCategory,
   getInventory,
@@ -33,18 +33,18 @@ import {
   getSports,
   getUsers,
   setLoading,
-} from './redux/actions/actions';
-import {getCart} from './redux/actions/cartActions';
-import {useState} from 'react';
-import {ToastContainer} from 'react-toastify';
-import SettingsUser from './Components/SettingsUser/SettingsUser';
+} from "./redux/actions/actions";
+import { getCart } from "./redux/actions/cartActions";
+import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import SettingsUser from "./Components/SettingsUser/SettingsUser";
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   // * Estado para no mostrar la nav en la pagina 404
   const [errorPage, setErrorPage] = useState(true);
-  const idCart = localStorage.getItem('idCarrito');
+  const idCart = localStorage.getItem("idCarrito");
 
   // * Estado para el despligue del menu de usuario
   let [deployMenu, setDeployMenu] = useState(false);
@@ -70,7 +70,7 @@ function App() {
 
   return (
     <div className="App">
-      {location.pathname !== '/' && errorPage && (
+      {location.pathname !== "/" && errorPage && (
         <NavBar
           deployMenu={() => {
             setDeployMenu(!deployMenu);
