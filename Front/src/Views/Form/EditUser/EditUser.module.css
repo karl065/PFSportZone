@@ -1,9 +1,12 @@
+/* Estilos mejorados para el formulario */
 .form {
   display: grid;
-  grid-template-columns: 60% auto;
+  grid-template-columns: 1fr auto;
   gap: 2rem;
-  background-color: #c4c6bd;
+  background-color: #749900;
   padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .all_inputs_container,
@@ -14,16 +17,20 @@
 }
 
 .readOnly input {
-  color: white;
-  font-size: 1.5rem !important;
+  color: #fff;
+  font-size: 1.5rem;
   background-color: #393939;
   outline: none;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
 }
 
 .readOnly label {
-  font-size: 1.5rem !important;
+  font-size: 1.5rem;
   letter-spacing: 2px;
-  color: black;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .selects_container {
@@ -37,8 +44,9 @@
 
 .input_container label {
   font-size: 1.3rem;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 2px;
+  color: #333;
 }
 
 .input_container input,
@@ -46,6 +54,9 @@
 .selects_container select {
   font-size: 1.1rem;
   font-weight: 400;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .error {
@@ -62,22 +73,34 @@
 
 .image_box {
   position: relative;
-  border: 2px solid black;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-right: 1rem;
 }
 
 .image_box img {
   width: 120px;
   height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
 .image_box button {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 30%;
-  background-color: red;
+  top: 5px;
+  right: 5px;
+  width: 30px;
+  height: 30px;
+  background-color: #e74c3c;
   color: white;
   font-family: inherit;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .cloudinary_field {
@@ -89,28 +112,36 @@
   background-color: #749900;
   color: white;
   font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.btnReset:active {
-  background-color: #6d8f07ae;
-  color: white;
-  font-size: 1.1rem;
+.btnReset:hover {
+  background-color: #6d8f07;
 }
 
 .btnSubmit {
-  background-color: black;
+  background-color: #333;
   color: white;
   font-size: 1.5rem;
   width: 100%;
   justify-self: center;
   padding: 1rem 4rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.btnSubmit:active {
+.btnSubmit:hover {
   background-color: #393939;
 }
 
 .btnSubmit:disabled {
-  background-color: #3939398e;
+  background-color: #393939;
+  opacity: 0.8;
   cursor: not-allowed;
 }

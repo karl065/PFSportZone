@@ -1,3 +1,6 @@
+import "bootstrap/dist/css/bootstrap.min.css";
+import 'simple-line-icons/css/simple-line-icons.css';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
@@ -49,12 +52,13 @@ export const UserRegister = () => {
 
   const handleSubmit = async (values) => {
     // ? Implementar como un componente loading que tenga un fondo tipo swal, centrado en la pantalla y cargue un spinner.
+    console.log(values);
     try {
       const newUser = {
         ...values,
         userStatus: true,
       };
-
+      
       await dispatch(createUser(newUser));
       Swal.fire('Buen trabajo!', 'Registrado con éxito!', 'success');
       if (location.pathname === '/register') {
@@ -72,7 +76,10 @@ export const UserRegister = () => {
   };
 
   return (
-    <div className={styles.form_wrapper}>
+    <div id="wrapper" style={{display: 'inlineFlex', width: '100%'}}>
+    <div id="content-wrapper" className="d-flex flex-column" style={{"width": "100%"}}>
+       <div id="content" style={{width: '100%', background: 'var(- -bs-emphasis-color)'}}>
+        <div className="container-fluid" style={{height: '800px',width: '100%',display: 'block' ,position: 'absolute',fontSize: "20px",paddingRight: '0px'}}>
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
@@ -80,74 +87,92 @@ export const UserRegister = () => {
       >
         {({errors}) => (
           <>
-            <Form className={styles.form}>
-              {(!role || role === "Cliente") && <p className={styles.loginParagraph}>
-                Ya tiene una cuenta?
-                <Link to="/login" className={styles.loginText}>
-                  Ingrese
+            <Form style={{width: '360px',marginLeft: '0px',background: '#485e00',fontFamily: "Nunito, sansSerif",borderBottomColor: 'rgba(133, 135, 150, 0.65)', height: '520px', marginTop: '10px'}}>
+            <hr style={{height: '6px', marginBottom: '0px', marginTop: '0px'}} />
+            <div className="col-md-8" style={{width: '340px',paddingLeft: '0px',textAlign: 'center',background: 'rgb(32, 29, 38)', marginTop: '0px', marginRight: '10px', marginBottom: '10px', paddingTop: '0px', paddingRight: '0px', marginLeft: '8px'}}>
+            <hr style={{color: 'rgb(225,228,252)',textAlign: 'center'}}/>
+              {(!role || role === "Cliente") && <p style={{fontSize: '20px',color: 'rgb(255,255,255)',marginTop: '1px'}}>
+                Ya tiene una cuenta?     
+                <Link to="/login" style={{fontSize: '20px',color: 'rgb(163, 160, 245)',marginTop: '1px'}}> Ingrese
                 </Link>
               </p>}
-              <h1 className={styles.title}>REGISTRO</h1>
-              <div className={styles.field}>
-                <label>Email</label>
-                <Field
-                  name="email"
-                  placeholder="Email"
-                  className={styles.input}
-                />
-                <ErrorMessage
-                  name="email"
-                  component="span"
-                  className={styles.error}
-                />
-              </div>
+              <hr />
+                    <h1 style={{fontSize: '24px',color: '#ffffff',marginTop: '5px', textShadow: '1px 1px var(- -bs-emphasis-color)'}}>CREAR USUARIO</h1>
+                    <hr style={{color: 'rgb(225,228,252)',textAlign: 'center'}}/>
+              <div className="form-group mb-3" style={{marginLeft: '30px',width: '80%',marginRight: '30px'}}>
+                  <div style={{display: '-ms-flexbox',  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
+                      <i className="icon-envelope"
+									          style={{marginRight: '8px', color: '#485e00', width: '57px', paddingTop: '10px', paddingLeft: '3px', boxShadow: 'inset 0px 0px 3px var(- -bs-secondary-color)', fontSize: '25px', height: '44px'}}></i>
+                            <Field                                
+                                style={{background: 'rgba(255, 255, 255, 0)',width: '240px', borderColor: 'rgba(133, 135, 150, 0)', borderBottomColor: '#ffffff', padding: '10px', outline: 'none', borderRadius: '0',color: 'rgb(255, 255, 255)'}}
+                                name="email"
+                                placeholder="Email"
+                                type="text"
+                                autoComplete="off"
+                              />
+                  </div>
 
-              <div className={styles.field}>
-                <label>Usuario</label>
-                <Field
-                  name="user"
-                  placeholder="Usuario"
-                  className={styles.input}
-                />
-                <ErrorMessage
-                  name="user"
-                  component="span"
-                  className={styles.error}
-                />
-              </div>
+                  <div style={{display: '-ms-flexbox',  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
+                  <i className="icon-user"
+									          style={{marginRight: '8px', color: '#485e00', width: '57px', paddingTop: '10px', paddingLeft: '3px', boxShadow: 'inset 0px 0px 3px var(- -bs-secondary-color)', fontSize: '25px', height: '44px'}}></i>     
+                      <Field 
+                        style={{background: 'rgba(255, 255, 255, 0)',width: '240px', borderColor: 'rgba(133, 135, 150, 0)', borderBottomColor: '#ffffff', padding: '10px', outline: 'none', borderRadius: '0',color: 'rgb(255, 255, 255)'}}
+                        name="user"
+                        placeholder="Usuario"
+                        autoComplete="off"
+                      />
+                      {/* <ErrorMessage
+                        name="user"
+                        component="span"
+                        className={styles.error}
+                      /> */}
+                      
+                </div>
 
-              <div className={styles.field}>
-                <label>Contraseña</label>
+                <div style={{display: '-ms-flexbox',  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
+                <i className="icon-user"
+									          style={{marginRight: '8px', color: '#485e00', width: '57px', paddingTop: '10px', paddingLeft: '3px', boxShadow: 'inset 0px 0px 3px var(- -bs-secondary-color)', fontSize: '25px', height: '44px'}}></i>      
+               
                 <Field
+                  style={{background: 'rgba(255, 255, 255, 0)',width: '240px', borderColor: 'rgba(133, 135, 150, 0)', borderBottomColor: '#ffffff', padding: '10px', outline: 'none', borderRadius: '0',color: 'rgb(255, 255, 255)'}}
                   type="password"
                   name="password"
                   placeholder="Contraseña"
-                  className={styles.input}
+                  autoComplete="off"
                 />
                 <ErrorMessage
                   name="password"
                   component="span"
                   className={styles.error}
                 />
+                
               </div>
-              <div className={styles.field}>
-                <label>Confirmar contraseña</label>
+              <div style={{display: '-ms-flexbox',  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
+              <i className="icon-user"
+									          style={{marginRight: '8px', color: '#485e00', width: '57px', paddingTop: '10px', paddingLeft: '3px', boxShadow: 'inset 0px 0px 3px var(- -bs-secondary-color)', fontSize: '25px', height: '44px'}}></i>
+                
                 <Field
+                  style={{background: 'rgba(255, 255, 255, 0)',width: '240px', borderColor: 'rgba(133, 135, 150, 0)', borderBottomColor: '#ffffff', padding: '10px', outline: 'none', borderRadius: '0',color: 'rgb(255, 255, 255)'}}
                   name="passwordConfirmation"
                   type="password"
-                  placeholder="Confirmar contraeña"
-                  className={styles.input}
+                  placeholder="Confirmar contraseña"
+                  autoComplete="off"
+                  
                 />
                 <ErrorMessage
                   name="passwordConfirmation"
                   component="span"
                   className={styles.error}
                 />
+                
               </div>
               {urlCurrent === '/adminNewUser' ? (
-                <div className={styles.field}>
-                  <label>Rol</label>
-                  <Field as="select" name="role" className={styles.role_select}>
+                <div className="row" style={{marginTop: '10px',marginBottom: '10px'}}>
+                  <div className="col">
+                                  <label className="col-form-label" style={{width: '200px',textAlign: 'center',color: 'rgba(255,255,255,0.58)' ,fontSize: '20px'}}>Rol</label>
+                            </div>
+                <div className="col" style={{height: '38px'}}>
+                  <Field as="select" name="role"  className="form-select" style={{height: '38px',width: '250px',fontSize: '20px',textAlign: 'center'}}>
                     <option value="">Seleccione un Rol</option>
                     <option value="Cliente">Cliente</option>
                     <option value="Empleados">Empleado</option>
@@ -158,19 +183,33 @@ export const UserRegister = () => {
                     component="span"
                     className={styles.error}
                   />
+                  </div>
                 </div>
               ) : null}
-              <button
-                type="submit"
-                className={styles.btnSubmit}
-                disabled={Object.keys(errors).length > 0}
-              >
-                {(!role || role === "Cliente") ? "Registrarse" : "Registrar"}
-              </button>
+              
+              <hr style={{color: 'rgb(225,228,252)',textAlign: 'center'}} />
+                        <div className="row" style={{marginTop: '10px'}}>
+                            <div className="col" style={{height: '38px',paddingLeft: '0px',paddingRight: '0px'}}>
+                              <button type="submit"
+        
+                disabled={Object.keys(errors).length > 0}  style={{width: '180px', height: '44px', marginLeft: '20px', background: 'rgb(64, 94, 0)', fontSize: '20px', borderRadius: '0px',  fontFamily: 'Nunito', fontWeight: 'bold',color: 'rgb(255, 255, 255)'}}>{(!role || role === "Cliente") ? "REGISTRARSE" : "REGISTRAR"}</button></div>
+                        </div>
+                        <hr />
+              </div>
+              </div>
             </Form>
           </>
         )}
       </Formik>
+     
+      </div>
+      <img
+        className={styles.image}
+        src="https://res.cloudinary.com/dpjeltekx/image/upload/v1689812951/PF/image1_xrg2b8.png"
+        alt="imagen-landing"
+      />
+      </div>
+    </div>
     </div>
   );
 };

@@ -34,17 +34,8 @@ const EditUser = ({user, onSubmitSuccess}) => {
       .required('Mail requerido')
       .test('has-3-letters', 'Debe contener al menos 3 letras', (value) =>
       /^(.*[a-zA-Z@].*){3,}$/.test(value)),
-    document_number: Yup.number()
-      .integer('Debe ser un entero')
-      .required('Documento requerido')
-      .min(0, 'El documento debe ser positivo')
-      .transform((value) => (isNaN(value) ? undefined : Number(value))),
-    address: Yup.string()
-      .required('Dirección requerida')
-      .min(10, 'Muy corto!. Al menos 20 caracteres.')
-      .max(1500, 'Muy largo!. No mas de 1500 caracteres.'),
-    
-   
+
+
   });
 
   // const handleDeleteImage = (images, imgUrl, setFieldValue) => {
@@ -53,8 +44,9 @@ const EditUser = ({user, onSubmitSuccess}) => {
   // };
 
   const handleSubmit = async (values) => {
+    console.log("click");
     try {
-      console.log(values);
+      
       await dispatch(editUser(values));
       Swal.fire('Buen trabajo!', 'Usuario editado correctamente!', 'success');
       onSubmitSuccess();
@@ -84,8 +76,8 @@ const EditUser = ({user, onSubmitSuccess}) => {
           email: user?.email || '',
           document_number: user?.document_number || '',
           document_type: user?.document_type || [],
-          address: user?.address || '',
-          role: user?.role || '',
+          // address: user?.address || '',
+          // role: user?.role || '',
          
         }}
         onSubmit={handleSubmit}
@@ -131,34 +123,6 @@ const EditUser = ({user, onSubmitSuccess}) => {
                   className={styles.error}
                 />
               </div>
-
-              
-
-              {/* <div className={styles.input_container}>
-                <label># Documento</label>
-
-                <Field name="document_number" placeholder="document_number" />
-                <ErrorMessage
-                  name="document_number"
-                  component="span"
-                  className={styles.error}
-                />
-              </div> */}
-
-              {/* <div className={styles.input_container}>
-                <label>Dirección</label>
-                <Field
-                  as="textarea"
-                  name="address"
-                  placeholder="Dirección"
-                  rows="4"
-                />
-                <ErrorMessage
-                  name="address"
-                  component="span"
-                  className={styles.error}
-                />
-              </div> */}
             </div>
             
             <div className={styles.selects_container}>
@@ -177,7 +141,7 @@ const EditUser = ({user, onSubmitSuccess}) => {
                   className={styles.error}
                 />
               </div>
-              <div className={styles.input_container}>
+              <div className={`${styles.input_container} ${styles.readOnly}`}>
                 <label>Tipo Documento</label>
                 <Field
                   name="document_type"
@@ -190,23 +154,6 @@ const EditUser = ({user, onSubmitSuccess}) => {
                   className={styles.error}
                 />
               </div>
-
-              {/* <div className={styles.input_container}>
-                <label>Marca</label>
-                <Field as="select" name="idMarca">
-                  <option value="">Seleccione una marca</option>
-                  {marcas.map((marca, index) => (
-                    <option value={marca.idMarca} key={index}>
-                      {marca.name}
-                    </option>
-                  ))}
-                </Field>
-                <ErrorMessage
-                  name="idMarca"
-                  component="span"
-                  className={styles.error}
-                />
-              </div> */}
               <div className={styles.input_container}>
                 <label>Correo</label>
 
@@ -218,83 +165,8 @@ const EditUser = ({user, onSubmitSuccess}) => {
                 />
               </div>
 
-              {/* <div className={styles.input_container}>
-                <label>Deporte</label>
-                <Field as="select" name="idDeportes">
-                  <option value="">Seleccione un deporte</option>
-                  {sports.map((sport, index) => (
-                    <option value={sport.idDeportes} key={index}>
-                      {sport.deporteName}
-                    </option>
-                  ))}
-                </Field>
-                <ErrorMessage
-                  name="idDeportes"
-                  component="span"
-                  className={styles.error}
-                />
-              </div> */}
-
-              {/* <div className={styles.input_container}>
-                <label>Genero</label>
-                <Field as="select" name="genre">
-                  <option value="">Seleccione un genero</option>
-                  {genero.map((gen, index) => (
-                    <option value={gen} key={index}>
-                      {gen}
-                    </option>
-                  ))}
-                </Field>
-                <ErrorMessage
-                  name="genre"
-                  component="span"
-                  className={styles.error}
-                />
-              </div> */}
-
-              {/* {user && Object.keys(user).length ? (
-                <div className={styles.cloudinary_field}>
-                  <div>
-                    <CloudinaryWidget
-                      fieldName="image"
-                      setFieldValue={setFieldValue}
-                      images={values.image}
-                    />
-                    {errors.image && (
-                      <span className={styles.error}>{errors.image}</span>
-                    )}
-                  </div>
-                  <div className={styles.images_container}>
-                    {values.image &&
-                      values.image.map((image, index) => (
-                        <div key={index} className={styles.image_box}>
-                          <img src={image} alt="Product image" />
-                          <button
-                            type="button"
-                            onClick={() =>
-                              handleDeleteImage(
-                                values.image,
-                                image,
-                                setFieldValue
-                              )
-                            }
-                          >
-                            X
-                          </button>
-                        </div>
-                      ))}
-                  </div>
-                </div>
-              ) : null} */}
             </div>
 
-            {/* <button
-              type="button"
-              className={styles.btnReset}
-              onClick={resetForm}
-            >
-              Reiniciar valores del producto
-            </button> */}
             <button
               type="submit"
               className={styles.btnSubmit}

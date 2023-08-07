@@ -42,7 +42,7 @@ const AdminUsers = () => {
     // * Debounce => Luego de que el input cambie y pasen 500 ms sin escribir se realiza el filtrado
     debounceTimeout.current = setTimeout(() => {
       const filtered = users.filter((user) =>
-        user?.user.toLowerCase().includes(searchTerm.toLowerCase())
+        user?.date.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setDisplayedUsers(filtered);
     }, 500);

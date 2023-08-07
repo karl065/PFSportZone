@@ -8,5 +8,6 @@
 
 .closed {
   width: 130px; /* Tamaño cerrado del navbar */
+  height: 20px;
   /* Agrega aquí cualquier otro estilo necesario cuando la barra lateral está cerrada */
 }

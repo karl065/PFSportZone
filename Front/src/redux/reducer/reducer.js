@@ -4,7 +4,6 @@ import {
   GET_USER,
   SET_USER,
   GET_USERS,
-  GET_SALES,
   EDIT_USER,
   GET_INVENTORY,
   SET_LOADING,
@@ -30,6 +29,8 @@ import {
   UPDATE_USERS_STATUS,
   CLEAR_USER,
   CLEAR_USERED,
+  GET_SALES,
+  UPDATE_SALES_STATUS,
 } from "../actions-types/action-types";
 
 const initialState = {
@@ -162,6 +163,19 @@ export default function appReducer(state = initialState, { type, payload }) {
       return { ...state, users: payload };
     case UPDATE_USERS_STATUS:
       return { ...state, users: payload };
+    case UPDATE_SALES_STATUS:
+      const indexSale = state.sales.findIndex(
+        (p) => p.id_sale === payload.id_sale
+      );
+      const updatedSale = [...state.sales];
+    
+      updatedSale[indexSale] = payload;
+      
+      return {
+        ...state,
+        sales: updatedSale,
+      };
+      
     default:
       return { ...state };
   }

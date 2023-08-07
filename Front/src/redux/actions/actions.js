@@ -29,6 +29,7 @@ import {
   UPDATE_USERS_STATUS,
   UPDATE_ITEM_STATUS,
   GET_SALES,
+  UPDATE_SALES_STATUS,
 } from "../actions-types/action-types";
 import server from "../../Connections/Server";
 import axios from "axios";
@@ -93,6 +94,19 @@ export const getSales = () => {
     data.sort((a, b) => a.id_sales - b.id_sales);
     dispatch({
       type: GET_SALES,
+      payload: data,
+    });
+  };
+};
+
+export const updateSaleStatus = (idSale, status) => {
+  return async (dispatch) => {
+    const { data } = await axios.put(
+      `${server.api.baseURL}sales/${idSale}`,
+      status
+    );
+    dispatch({
+      type: UPDATE_SALES_STATUS,
       payload: data,
     });
   };

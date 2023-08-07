@@ -8,6 +8,7 @@ import Pagination from "../../Components/Pagination/Pagination";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {
+  updateSaleStatus,
   filterUsersByRoleAndStatus,
   getSales,
 } from "../../redux/actions/actions";
@@ -16,14 +17,13 @@ library.add(fas);
 const AdminSales = () => {
   const dispatch = useDispatch();
   const sales = useSelector((state) => state.app.sales);
-  const [displayedSales, setDisplayedUsers] = useState(sales);
+  const [displayedSales, setDisplayedSales] = useState(sales);
   const searchInputRef = useRef(null);
   const debounceTimeout = useRef(null);
 
-  const [roleSeleccionado, setRoleSeleccionado] = useState("");
   const [statusSeleccionado, setStatusSeleccionado] = useState("");
   const [statusOption, setStatusOption] = useState(["Pending", "In Progress", "Rejected", "Paid"]);
-  const [userStatusOptions, setUserStatusOptions] = useState({});
+  const [salesStatusOptions, setSalesStatusOptions] = useState({});
 
   const [page, setPage] = useState(1);
   const [amountPerPage, setAmountPerPage] = useState(10);
@@ -37,78 +37,70 @@ const AdminSales = () => {
     clearTimeout(debounceTimeout.current);
      debounceTimeout.current = setTimeout(() => {
       const filtered = sales.filter((sale) =>
-        sale?.sale.toLowerCase().includes(searchTerm.toLowerCase())
+        sale?.date.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setDisplayedUsers(filtered);
+      setDisplayedSales(filtered);
     }, 500);
   };
 
   const applyFilters = () => {
-    if (roleSeleccionado || statusSeleccionado) {
-      dispatch(
-        filterUsersByRoleAndStatus(roleSeleccionado, statusSeleccionado)
-      );
+    if (statusSeleccionado) {
+      const searchTerm=statusSeleccionado;
+      const filtered = sales.filter((sale) =>
+      sale?.status.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setDisplayedSales(filtered);
     } else {
       dispatch(getSales());
     }
   };
 
-  const handleRoleChange = (e) => {
-    const { value } = e.target;
-    setRoleSeleccionado(value);
-  };
+  
 
   const handleStatusChange = (e) => {
     const { value } = e.target;
     setStatusSeleccionado(value);
   };
 
-  const statusSubmit = (e, idUser) => {
+  const statusSubmit = (e, idSale) => {
     e.preventDefault();
-    if (e.target.value === "Inactivo") {
-      if (roleSeleccionado || statusSeleccionado) {
-        dispatch(
-          updateUsersStatus(
-            idUser,
-            { userStatus: false },
-            roleSeleccionado,
-            statusSeleccionado
-          )
-        );
-      } else {
-        dispatch(updateUsersStatus(idUser, { userStatus: false }));
-      }
-    } else if (e.target.value === "Activo") {
-      if (roleSeleccionado || statusSeleccionado) {
-        dispatch(
-          updateUsersStatus(
-            idUser,
-            { userStatus: true },
-            roleSeleccionado,
-            statusSeleccionado
-          )
-        );
-      } else {
-        dispatch(updateUsersStatus(idUser, { userStatus: true }));
-      }
-    }
+    const newStatus = e.target.value;
+    dispatch(
+      updateSaleStatus(idSale,{ status: e.target.value }));
+      setSalesStatusOptions((prevStatusOptions) => ({
+        ...prevStatusOptions,
+        [idSale]: newStatus,
+      })); 
   };
 
   useEffect(() => {
     applyFilters();
-  }, [roleSeleccionado, statusSeleccionado]);
+  }, [statusSeleccionado]);
 
   useEffect(() => {
     // Populate userStatusOptions with initial user statuses
     const initialStatusOptions = {};
     sales.forEach((sale) => {
-      initialStatusOptions[sales.id_sale] = sale.status
-        ? "Activo"
-        : "Inactivo";
+     
+      switch (sale.status) {
+        case "Pending":
+          initialStatusOptions[sale.id_sales] = sale.status;
+          break;
+        case "In Progress":
+          initialStatusOptions[sale.id_sales] = sale.status;
+          break;
+        case "Rejected":
+          initialStatusOptions[sale.id_sales] = sale.status;
+          break;
+        case "Paid":
+          initialStatusOptions[sale.id_sales] = sale.status;
+          break;
+      }
     });
-    setUserStatusOptions(initialStatusOptions);
+    
+    setSalesStatusOptions(initialStatusOptions);
     // * Cuando se realize el filtro de actualize con los "nuevos" usuarios.
-    setDisplayedUsers(sales);
+    setDisplayedSales(sales);
   }, [sales]);
   
   return (
@@ -123,28 +115,20 @@ const AdminSales = () => {
          <div id="content">
             <div className="container-fluid" style={{ display: "block" }}>
               <div className="d-sm-flex justify-content-between align-items-center mb-4">
-                <h3 className="text-dark mb-4">Pagos</h3>
-                <div>
-                  <select
-                    // value={roleSeleccionado}
-                    style={{ height: "38px", marginTop: "10px" }}
-                    onChange={handleRoleChange}
-                  >
-                    <option value="">Filtrar por role</option>
-                    <option value="Cliente">Cliente</option>
-                    <option value="Empleados">Empleados</option>
-                    <option value="Admin">Admin</option>
-                  </select>
-                </div>
+                <h3 className="text-dark mb-4">Ventas</h3>
+                
                 <div>
                   <select
                     // value={statusSeleccionado}
                     style={{ height: "38px", marginTop: "10px" }}
                     onChange={handleStatusChange}
                   >
+                  
                     <option value="">Filtrar por estado</option>
-                    <option value="true">Activo</option>
-                    <option value="false">Inactivo</option>
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="Paid">Paid</option>
                   </select>
                   </div>
               </div>
@@ -179,10 +163,12 @@ const AdminSales = () => {
                     >
                       <label className="form-label">
                         <input
-                          className="form-control form-control-sm"
-                          type="search"
-                          aria-controls="dataTable"
-                          placeholder="Search"
+                         className="form-control form-control-sm"
+                         type="search"
+                         aria-controls="dataTable"
+                         placeholder="Busqueda por fecha"
+                         onChange={handleChange}
+                         ref={searchInputRef}
                         />
                       </label>
                     </div>
@@ -228,12 +214,10 @@ const AdminSales = () => {
                                   <td>{sales.date}</td>
                                   <td>{sales.tax}</td>
                                   <td>{sales.total_amount}</td>
-                                  <td>{sales.status}</td>
-                                  <td>{sales.id_usuarios}</td>
                                   <td>
                                     <select
                                       className="d-inline-block form-select form-select-sm"
-                                      value={userStatusOptions[sales.id_sales]}
+                                      value={salesStatusOptions[sales.id_sales]}
                                       onChange={(e) =>
                                         statusSubmit(e, sales.id_sales)
                                       }
@@ -245,18 +229,7 @@ const AdminSales = () => {
                                       ))}
                                     </select>
                                   </td>
-                                  <td>
-                                  <Link to="/adminEditUser">
-                                      <FontAwesomeIcon
-                                        icon="pencil-square"
-                                        onClick={() =>
-                                          handleEditUser(
-                                            sales
-                                          )
-                                        }
-                                      />
-                                    </Link>
-                                  </td>
+                                  <td>{sales.id_usuarios}</td>
                                 </tr>
                               ))
                           ) : (
