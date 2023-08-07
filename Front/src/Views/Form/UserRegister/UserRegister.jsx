@@ -87,9 +87,9 @@ export const UserRegister = () => {
       >
         {({errors}) => (
           <>
-            <Form style={{width: '360px',marginLeft: '0px',background: '#485e00',fontFamily: "Nunito, sansSerif",borderBottomColor: 'rgba(133, 135, 150, 0.65)', height: '520px', marginTop: '10px'}}>
+            <Form style={{width: '360px',marginLeft: '0px',background: '#485e00',fontFamily: "Nunito, sansSerif",borderBottomColor: 'rgba(133, 135, 150, 0.65)', height: '600px', marginTop: '10px'}}>
             <hr style={{height: '6px', marginBottom: '0px', marginTop: '0px'}} />
-            <div className="col-md-8" style={{width: '340px',paddingLeft: '0px',textAlign: 'center',background: 'rgb(32, 29, 38)', marginTop: '0px', marginRight: '10px', marginBottom: '10px', paddingTop: '0px', paddingRight: '0px', marginLeft: '8px'}}>
+            <div className="col-md-8" style={{width: '340px',paddingLeft: '0px',textAlign: 'center',background: 'rgb(32, 29, 38)', marginTop: '0px', marginRight: '10px', marginBottom: '10px', paddingTop: '0px', paddingRight: '0px', marginLeft: '8px',borderRadius: '16px'}}>
             <hr style={{color: 'rgb(225,228,252)',textAlign: 'center'}}/>
               {(!role || role === "Cliente") && <p style={{fontSize: '20px',color: 'rgb(255,255,255)',marginTop: '1px'}}>
                 Ya tiene una cuenta?     
@@ -110,6 +110,11 @@ export const UserRegister = () => {
                                 type="text"
                                 autoComplete="off"
                               />
+                              <ErrorMessage
+                        name="email"
+                        component="span"
+                        className={styles.error}
+                      />
                   </div>
 
                   <div style={{display: '-ms-flexbox',  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
@@ -121,16 +126,16 @@ export const UserRegister = () => {
                         placeholder="Usuario"
                         autoComplete="off"
                       />
-                      {/* <ErrorMessage
+                      <ErrorMessage
                         name="user"
                         component="span"
                         className={styles.error}
-                      /> */}
+                      />
                       
                 </div>
 
                 <div style={{display: '-ms-flexbox',  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
-                <i className="icon-user"
+                <i className="icon-key"
 									          style={{marginRight: '8px', color: '#485e00', width: '57px', paddingTop: '10px', paddingLeft: '3px', boxShadow: 'inset 0px 0px 3px var(- -bs-secondary-color)', fontSize: '25px', height: '44px'}}></i>      
                
                 <Field
@@ -148,7 +153,7 @@ export const UserRegister = () => {
                 
               </div>
               <div style={{display: '-ms-flexbox',  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
-              <i className="icon-user"
+              <i className="icon-key"
 									          style={{marginRight: '8px', color: '#485e00', width: '57px', paddingTop: '10px', paddingLeft: '3px', boxShadow: 'inset 0px 0px 3px var(- -bs-secondary-color)', fontSize: '25px', height: '44px'}}></i>
                 
                 <Field
@@ -167,23 +172,24 @@ export const UserRegister = () => {
                 
               </div>
               {urlCurrent === '/adminNewUser' ? (
-                <div className="row" style={{marginTop: '10px',marginBottom: '10px'}}>
-                  <div className="col">
-                                  <label className="col-form-label" style={{width: '200px',textAlign: 'center',color: 'rgba(255,255,255,0.58)' ,fontSize: '20px'}}>Rol</label>
-                            </div>
-                <div className="col" style={{height: '38px'}}>
-                  <Field as="select" name="role"  className="form-select" style={{height: '38px',width: '250px',fontSize: '20px',textAlign: 'center'}}>
-                    <option value="">Seleccione un Rol</option>
-                    <option value="Cliente">Cliente</option>
-                    <option value="Empleados">Empleado</option>
-                    <option value="Admin">Admin</option>
+                <div style={{display: '-ms-flexbox',  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
+                   <i className="icon-chart"
+									          style={{marginRight: '8px', color: '#485e00', width: '57px', paddingTop: '10px', paddingLeft: '3px', boxShadow: 'inset 0px 0px 3px var(- -bs-secondary-color)', fontSize: '25px', height: '44px'}}></i>
+                
+                
+                  <Field as="select" name="role"  className="form-select" 
+                  style={{background: 'rgba(255, 255, 255, 0)',width: '360px', borderColor: 'rgba(133, 135, 150, 0)', borderBottomColor: '#ffffff', padding: '10px', outline: 'none', borderRadius: '0',color: 'rgb(255, 255, 255)',fontSize: '20px'}}>
+                    <option style={{backgroundColor: 'rgb(32, 29, 38)',color: '#ffffff',fontSize: '20px'}} value="" >Seleccione un Rol</option>
+                    <option style={{backgroundColor: 'rgb(32, 29, 38)',color: '#ffffff',fontSize: '20px'}}  value="Cliente">Cliente</option>
+                    <option style={{backgroundColor: 'rgb(32, 29, 38)',color: '#ffffff',fontSize: '20px'}}  value="Empleados">Empleado</option>
+                    <option style={{backgroundColor: 'rgb(32, 29, 38)',color: '#ffffff',fontSize: '20px'}}  value="Admin">Admin</option>
                   </Field>
                   <ErrorMessage
                     name="role"
                     component="span"
                     className={styles.error}
                   />
-                  </div>
+                 
                 </div>
               ) : null}
               
