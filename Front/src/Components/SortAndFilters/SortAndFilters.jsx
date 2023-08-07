@@ -147,7 +147,7 @@ export default function SortAndFilters() {
           id="ordenamientos"
           onChange={handleOrderByPrice}
         >
-          <option value="default">precio</option>
+          <option value="default">Precio</option>
           <option value="PA">mas barato a mas caro</option>
           <option value="PD">mas caro a mas barato</option>
         </select>
@@ -156,7 +156,7 @@ export default function SortAndFilters() {
           id="ordenamientos"
           onChange={handleOrderByAbc}
         >
-          <option value="default">alfabeticamente</option>
+          <option value="default">Abc</option>
           <option value="ABCA">abc ascendente</option>
           <option value="ABCD">abc descendente</option>
         </select>
@@ -168,7 +168,7 @@ export default function SortAndFilters() {
           className={Styles.button_onMenu}
         >
           <FontAwesomeIcon icon={faSliders} className={Styles.button_onMenu} />
-          filtrar por
+          Filtrar por
         </button>
         <br />
         <div
@@ -183,7 +183,7 @@ export default function SortAndFilters() {
                 className={Styles.arrowButton}
               />
             </button>
-            <button onClick={handleFiltersClean}>eliminar filtros</button>
+            <button onClick={handleFiltersClean}>Eliminar filtros</button>
           </span>
           <p>Filtros elegidos:</p>
           {
@@ -207,7 +207,7 @@ export default function SortAndFilters() {
           }
           <br />
 
-          <label htmlFor="filters">por tipo de producto:</label>
+          <label htmlFor="filters">Por tipo de producto:</label>
           <select
             value={filters.id_categorias}
             name="id_categorias"
@@ -225,7 +225,7 @@ export default function SortAndFilters() {
               })}
           </select>
 
-          <label htmlFor="filters">por deporte:</label>
+          <label htmlFor="filters">Por deporte:</label>
           <select
             value={filters.idDeportes}
             name="idDeportes"
@@ -243,7 +243,7 @@ export default function SortAndFilters() {
               })}
           </select>
 
-          <label htmlFor="filters">por genero:</label>
+          <label htmlFor="filters">Por genero:</label>
           <select
             value={filters.genre}
             name="genre"
@@ -256,7 +256,7 @@ export default function SortAndFilters() {
             <option value="Unisex">Unisex</option>
           </select>
 
-          <label htmlFor="filters">por marcas:</label>
+          <label htmlFor="filters">Por marcas:</label>
           <select
             value={filters.idMarca}
             name="idMarca"
@@ -274,7 +274,7 @@ export default function SortAndFilters() {
               })}
           </select>
 
-          <label htmlFor="filters">precio minimo:</label>
+          <label htmlFor="filters">Precio minimo:</label>
           <select
             value={filters.minPrice}
             name="minPrice"
@@ -292,7 +292,7 @@ export default function SortAndFilters() {
             <option value="50000">50.000</option>
           </select>
 
-          <label htmlFor="filters">precio maximo:</label>
+          <label htmlFor="filters">Precio maximo:</label>
           <select
             value={filters.maxPrice}
             name="maxPrice"
@@ -312,7 +312,7 @@ export default function SortAndFilters() {
 
           <br />
           <button className={Styles.applyButton} onClick={closeMenuFilters}>
-            Aplicar Filtros({productosFiltrados.length} resultados)
+            Aplicar Filtros({productosFiltrados.length} Resultados)
           </button>
         </div>
       </div>

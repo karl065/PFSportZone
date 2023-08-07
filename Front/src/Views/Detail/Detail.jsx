@@ -95,30 +95,38 @@ const Detail = () => {
                       Añadir al carrito
                     </button>
                     <button className={styles.btn_favorites} onClick={handleRedirectReview}>
-                      opinar del producto
+                      Opinar Del Producto
                     </button>
                   </div>
                 </>
               )}
-              <h3>rating general</h3>
-                <Rating 
-                initialValue={ratingGeneral}
-                readonly={true}
-                allowFraction={true}
-                />
-              <h3>opiniones del producto</h3>
-              <ul>
-                {
-                product.reviews?.length 
-                ? product.reviews.map((review,index)=>{
-                  return (
-                      <li key={index}>{review.message}</li>
-                  )
-                })
-                : null
-              }
-              </ul>
               
+              
+                  {
+                    product.reviews.length ?
+                    <div>
+                      <h3>Rating General</h3>
+                    <Rating 
+                    initialValue={ratingGeneral}
+                    readonly={true}
+                    allowFraction={true}
+                    />
+                  <h3>Opiniones Del Producto</h3>
+                  <ul>
+                    {
+                    product.reviews?.length 
+                    ? product.reviews.map((review,index)=>{
+                      return (
+                          <li key={index}>{review.message}</li>
+                      )
+                    })
+                    : null
+                  }
+                  </ul>
+                    </div>
+                    
+                  : null
+                  }
             </div>
           </div>
           <ProductQuestions productId={id}/>

@@ -97,21 +97,21 @@ const handleSubmitReview = () => {
 
       <div className={Styles.form}>
         <span>
-          <label htmlFor="stars">califica tu producto:</label>
+          <label htmlFor="stars">Califica tu producto:</label>
           <Rating onClick={handleRating} />
         </span>
 
       <span>
-        <label htmlFor="comment">danos tu opinion:</label>
+        <label htmlFor="comment">Danos tu opinión:</label>
         <textarea 
         name="message" 
         id="comment" 
-        cols="50" 
+        cols="35" 
         rows="10" 
         value={formReview.comment}
         onChange={handleComment}></textarea>
       </span>
-        <button onClick={handleSubmitReview}>enviar</button>
+        <button onClick={handleSubmitReview}>Enviar</button>
       </div>
 
       <div className={Styles.products}>
