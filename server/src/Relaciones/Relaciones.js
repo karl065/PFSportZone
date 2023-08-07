@@ -21,7 +21,7 @@ const relaciones = (models) => {
     Deportes,
     Marcas,
     CarritoInventarios,
-    Preguntas
+    Preguntas,
     Reviews,
   } = models;
 
@@ -159,8 +159,14 @@ const relaciones = (models) => {
   });
 
   // ? PREGUNTAS
-  Inventarios.hasMany(Preguntas, { foreignKey: 'id_inventory', as: "questions" });
-  Preguntas.belongsTo(Inventarios, { foreignKey: 'id_inventory', as: "product" });
+  Inventarios.hasMany(Preguntas, {
+    foreignKey: "id_inventory",
+    as: "questions",
+  });
+  Preguntas.belongsTo(Inventarios, {
+    foreignKey: "id_inventory",
+    as: "product",
+  });
 
   return {
     Personas,

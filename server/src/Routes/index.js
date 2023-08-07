@@ -9,6 +9,7 @@ const carrito = require("./CarritoRoutes/CarritoRoutes.js");
 const productsIncome = require("./ProdsIncomeRoutes/ProdsIncomeRoutes.js");
 const marca = require("./MarcaRoutes/MarcaRoutes.js");
 const mercadopago = require("./RoutesMercadoPago/RoutesMercadoPago.js");
+const mails = require("./MailsRoutes/MailsRoutes.js");
 const favorites = require("../Routes/FavoritosRoutes/FavoritosRoutes.js");
 const reviews = require("./ReviewsRoutes/ReviewsRoutes.js");
 const sales = require("./SalesRoutes/SalesRoutes.js");
@@ -27,5 +28,9 @@ router.use("/ingresarProductos", productsIncome);
 router.use("/marca", marca);
 router.use("/mercadopago", mercadopago);
 router.use("/mails", mails);
+
+router.use("/favorites", favorites);
+router.use("/review", reviews);
+router.use("/sales", sales);
 
 module.exports = router;
