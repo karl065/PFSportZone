@@ -99,7 +99,7 @@ export const UserRegister = () => {
                     <h1 style={{fontSize: '24px',color: '#ffffff',marginTop: '5px', textShadow: '1px 1px var(- -bs-emphasis-color)'}}>CREAR USUARIO</h1>
                     <hr style={{color: 'rgb(225,228,252)',textAlign: 'center'}}/>
               <div className="form-group mb-3" style={{marginLeft: '30px',width: '80%',marginRight: '30px'}}>
-                  <div style={{display: '-ms-flexbox',  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
+                  <div style={{ display: 'flex',  width: '100%',  marginBottom: '15px'}}>
                       <i className="icon-envelope"
 									          style={{marginRight: '8px', color: '#485e00', width: '57px', paddingTop: '10px', paddingLeft: '3px', boxShadow: 'inset 0px 0px 3px var(- -bs-secondary-color)', fontSize: '25px', height: '44px'}}></i>
                             <Field                                
@@ -116,7 +116,7 @@ export const UserRegister = () => {
                       />
                   </div>
 
-                  <div style={{display: '-ms-flexbox',  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
+                  <div style={{  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
                   <i className="icon-user"
 									          style={{marginRight: '8px', color: '#485e00', width: '57px', paddingTop: '10px', paddingLeft: '3px', boxShadow: 'inset 0px 0px 3px var(- -bs-secondary-color)', fontSize: '25px', height: '44px'}}></i>     
                       <Field 
@@ -133,7 +133,7 @@ export const UserRegister = () => {
                       
                 </div>
 
-                <div style={{display: '-ms-flexbox',  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
+                <div style={{  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
                 <i className="icon-key"
 									          style={{marginRight: '8px', color: '#485e00', width: '57px', paddingTop: '10px', paddingLeft: '3px', boxShadow: 'inset 0px 0px 3px var(- -bs-secondary-color)', fontSize: '25px', height: '44px'}}></i>      
                
@@ -151,7 +151,7 @@ export const UserRegister = () => {
                 />
                 
               </div>
-              <div style={{display: '-ms-flexbox',  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
+              <div style={{  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
               <i className="icon-key"
 									          style={{marginRight: '8px', color: '#485e00', width: '57px', paddingTop: '10px', paddingLeft: '3px', boxShadow: 'inset 0px 0px 3px var(- -bs-secondary-color)', fontSize: '25px', height: '44px'}}></i>
                 
@@ -171,7 +171,7 @@ export const UserRegister = () => {
                 
               </div>
               {urlCurrent === '/adminNewUser' ? (
-                <div style={{display: '-ms-flexbox',  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
+                <div style={{  display: 'flex',  width: '100%',  marginBottom: '15px'}}>
                    <i className="icon-chart"
 									          style={{marginRight: '8px', color: '#485e00', width: '57px', paddingTop: '10px', paddingLeft: '3px', boxShadow: 'inset 0px 0px 3px var(- -bs-secondary-color)', fontSize: '25px', height: '44px'}}></i>
                 
