@@ -52,7 +52,6 @@ export const UserRegister = () => {
 
   const handleSubmit = async (values) => {
     // ? Implementar como un componente loading que tenga un fondo tipo swal, centrado en la pantalla y cargue un spinner.
-    console.log(values);
     try {
       const newUser = {
         ...values,

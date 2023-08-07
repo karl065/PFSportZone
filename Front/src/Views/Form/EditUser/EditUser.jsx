@@ -8,7 +8,6 @@ import { clearUserEd, editUser } from "../../../redux/actions/actions";
 import { useEffect } from "react";
 const EditUser = ({user, onSubmitSuccess}) => {
   const dispatch = useDispatch();
- // console.log(user);
 
  
   const SignupSchema = Yup.object().shape({
@@ -44,7 +43,6 @@ const EditUser = ({user, onSubmitSuccess}) => {
   // };
 
   const handleSubmit = async (values) => {
-    console.log("click");
     try {
       
       await dispatch(editUser(values));

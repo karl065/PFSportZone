@@ -86,7 +86,6 @@ const AdminEditUser = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       setSelectedItem(user);
     }
   }, [user]);
