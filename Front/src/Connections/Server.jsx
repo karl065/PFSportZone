@@ -8,6 +8,7 @@ const server = {
     baseURL: "https://backsportzone.onrender.com/",
   },
 };
+
 // const server = {
 //   api: {
 //     baseURL: "http://localhost:3000/",

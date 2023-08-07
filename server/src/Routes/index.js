@@ -28,6 +28,7 @@ router.use("/ingresarProductos", productsIncome);
 router.use("/marca", marca);
 router.use("/mercadopago", mercadopago);
 router.use("/mails", mails);
+router.use("/questions", preguntas);
 
 router.use("/favorites", favorites);
 router.use("/review", reviews);
