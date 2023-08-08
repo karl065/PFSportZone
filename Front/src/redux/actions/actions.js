@@ -3,11 +3,13 @@ import {
   SET_USER,
   GET_USER,
   GET_USERS,
+  CLEAR_USER,
   GET_INVENTORY,
   GET_SPORTS,
   CREATE_USER,
   CREATE_PRODUCT,
   GET_PRODUCT_ID,
+  CLEAR_PRODUCT,
   FILTER_PRODUCTS_BY_NAME,
   RESET_DISPLAYED_PRODUCTS,
   GET_CATEGORY,
@@ -49,7 +51,7 @@ export const getUser = (navigate) => {
         payload: data,
       });
     } catch (error) {
-      handleLogout(navigate);
+      handleLogout(navigate, dispatch);
     }
   };
 };
@@ -58,6 +60,12 @@ export const setUser = (user) => {
   return {
     type: SET_USER,
     payload: user,
+  };
+};
+
+export const clearUser = () => {
+  return {
+    type: CLEAR_USER,
   };
 };
 
@@ -219,6 +227,12 @@ export const getProductById = (id) => {
       type: GET_PRODUCT_ID,
       payload: data,
     });
+  };
+};
+
+export const clearProduct = () => {
+  return {
+    type: CLEAR_PRODUCT,
   };
 };
 

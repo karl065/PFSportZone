@@ -8,6 +8,7 @@
 
 
 .order_container select{
+  width: 100px;
   border: transparent;
   border-radius: 10px;
   cursor: pointer;
@@ -64,6 +65,7 @@
 
 .menu_filters_active button{
   background: #BEF31B;
+  font-weight: bold;
   padding: 10px;
 }
 

@@ -24,6 +24,8 @@ const postUserDbHandler = async (req, res) => {
     return res.status(404).send('Los campos no deben estar vacíos...!');
   }
   try {
+    const {email, user, password, role, userStatus} = req.body;
+
     const dataUser = await createUserDb(
       email,
       user,
@@ -31,7 +33,8 @@ const postUserDbHandler = async (req, res) => {
       role,
       userStatus
     );
-    // Envía la notificación de usuario nuevo después de crear exitosamente al usuario en la base de datos
+
+    // * Envía la notificación de usuario nuevo después de crear exitosamente al usuario en la base de datos
     await enviarNotificacionUsuarioNuevo(email);
     return res.status(201).json(dataUser);
   } catch (error) {

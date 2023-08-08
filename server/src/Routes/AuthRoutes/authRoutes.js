@@ -2,7 +2,7 @@ const express = require('express');
 
 const {authMiddle} = require('../../Middleware/authMiddle');
 const {
-  handlerAuthenticate,
+  handlerAuthenticate, handlerThirdAuthenticate,
 } = require('../../Handlers/HandlerAuth/HandlerAuthenticate');
 const {
   handlerAuthenticated,
@@ -14,6 +14,7 @@ const router = express.Router();
 raíz ("/") del servidor. Cuando se realiza una solicitud POST a esta URL, se ejecutará la función
 `handlerAuthenticate`. */
 router.post('/', handlerAuthenticate);
+router.post('/third-user', handlerThirdAuthenticate);
 /* El código `router.get('/', authMiddle, handlerAuthenticated);` define una ruta para una solicitud
 GET a la URL raíz ("/") del servidor. Cuando se realiza una solicitud GET a esta URL, primero
 ejecutará la función de middleware `authMiddle` y luego la función `handlerAuthenticated`. */

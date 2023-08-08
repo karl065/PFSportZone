@@ -22,6 +22,7 @@ import {
   AdminNewMarca,
   AdminNewDeportes,
   AdminEditProduct,
+  AdminQuestions,
   AdminPagos,
   Cart,
   ResetPaas,
@@ -42,6 +43,7 @@ import {useState} from 'react';
 import {ToastContainer} from 'react-toastify';
 import SettingsUser from './Components/SettingsUser/SettingsUser';
 import AccountClient from './Views/AccountClient/AccountClient';
+import Favorites from './Views/favorites/Favorites';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -101,13 +103,14 @@ function App() {
         <Route path="/adminNewCategory" element={<AdminNewCategory />} />
         <Route path="/adminEditProd" element={<AdminEditProduct />} />
         <Route path="/adminPagos" element={<AdminPagos />} />
-        {/* <Route path="/favorites"/> */}
+        <Route path="/adminQuestions" element={<AdminQuestions />} />
+        <Route path="/favorites" element={<Favorites />} />
         <Route path="/product/:id" element={<Detail />} />
         <Route path="/about" element={<About />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/Compra" element={<Compra />} />
         <Route path="/detalleCompra" element={<DetalleCompra />} />
-        <Route path="/review" element={<Review />} />
+        <Route path="/review/:id" element={<Review />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="*" element={<Error setErrorPage={setErrorPage} />} />
       </Routes>

@@ -1,6 +1,7 @@
 export const SET_LOADING = 'SET_LOADING';
 export const GET_USER = 'GET_USER';
 export const SET_USER = 'SET_USER';
+export const CLEAR_USER = 'CLEAR_USER';
 export const GET_INVENTORY = 'GET_INVENTORY';
 export const GET_CATEGORY = 'GET_CATEGORY';
 export const GET_MARCA = 'GET_MARCA';
@@ -12,6 +13,7 @@ export const GET_USERS = 'GET_USERS';
 export const CREATE_USER = 'CREATE_USER';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const GET_PRODUCT_ID = 'GET_PRODUCT_ID';
+export const CLEAR_PRODUCT = 'CLEAR_PRODUCT';
 export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 export const FILTER_PRODUCTS_BY_NAME = 'FILTER_PRODUCTS_BY_NAME';
 export const RESET_DISPLAYED_PRODUCTS = 'RESET_DISPLAYED_PRODUCTS';

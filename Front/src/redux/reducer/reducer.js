@@ -1,5 +1,4 @@
 /* eslint-disable no-case-declarations */
-/* eslint-disable no-case-declarations */
 import {
   GET_USER,
   SET_USER,
@@ -9,6 +8,7 @@ import {
   CREATE_USER,
   CREATE_PRODUCT,
   GET_PRODUCT_ID,
+  CLEAR_PRODUCT,
   FILTER_PRODUCTS_BY_NAME,
   RESET_DISPLAYED_PRODUCTS,
   GET_CATEGORY,
@@ -25,6 +25,7 @@ import {
   EDIT_PRODUCT,
   UPDATE_USERS_STATUS,
   GET_VENTAS,
+  CLEAR_USER,
 } from '../actions-types/action-types';
 
 const initialState = {
@@ -46,6 +47,8 @@ export default function appReducer(state = initialState, {type, payload}) {
     case SET_USER:
     case GET_USER:
       return {...state, user: payload, comprasUsuario: payload.ventas};
+    case CLEAR_USER:
+      return {...state, user: {}};
     case GET_USERS:
       return {...state, users: payload};
     case GET_INVENTORY:
@@ -72,6 +75,8 @@ export default function appReducer(state = initialState, {type, payload}) {
       return {...state, sports: [...state.sports, payload]};
     case GET_PRODUCT_ID:
       return {...state, product: payload};
+    case CLEAR_PRODUCT:
+      return {...state, product: {}};
     case EDIT_PRODUCT:
       const indexProduct = state.inventory.findIndex(
         (p) => p.id_inventory === payload.id_inventory

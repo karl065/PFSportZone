@@ -22,6 +22,8 @@ const relaciones = (models) => {
     Marcas,
     CarritoInventarios,
     VentasInventarios,
+    Reviews,
+    Preguntas,
   } = models;
 
   Categorias.hasMany(Inventarios, {
@@ -31,6 +33,54 @@ const relaciones = (models) => {
   Inventarios.belongsTo(Categorias, {
     foreignKey: 'id_categories',
     as: 'categorias',
+  });
+
+  // -------------------------------------------------------
+  // Relación entre Usuarios y Favoritos...
+  Usuarios.hasMany(Favoritos, {
+    foreignKey: 'idUser',
+    as: 'favoritos',
+    onDelete: 'CASCADE',
+  });
+  Favoritos.belongsTo(Usuarios, {
+    foreignKey: 'idUser',
+    as: 'usuario',
+    onDelete: 'CASCADE',
+  });
+  // Relación entre Favoritos e Inventarios
+  Favoritos.belongsToMany(Inventarios, {
+    through: 'Favoritos_Inventarios',
+    foreignKey: 'idFavorites',
+    otherKey: 'id_inventory',
+    as: 'inventarios',
+    onDelete: 'CASCADE',
+  });
+  Inventarios.belongsToMany(Favoritos, {
+    through: 'Favoritos_Inventarios',
+    foreignKey: 'id_inventory',
+    otherKey: 'idFavorites',
+    as: 'favoritos',
+    onDelete: 'CASCADE',
+  });
+  // Relación entre Usuarios y Reviews...
+  Usuarios.hasMany(Reviews, {
+    foreignKey: 'idUser',
+    as: 'reviews',
+    onDelete: 'CASCADE',
+  });
+  Reviews.belongsTo(Usuarios, {
+    foreignKey: 'idUser',
+    as: 'usuario',
+    onDelete: 'CASCADE',
+  });
+
+  Inventarios.hasMany(Reviews, {
+    foreignKey: 'id_inventory',
+    as: 'reviews',
+  });
+  Reviews.belongsTo(Inventarios, {
+    foreignKey: 'id_inventory',
+    as: 'inventarios',
   });
 
   Usuarios.belongsToMany(Inventarios, {
@@ -116,6 +166,11 @@ const relaciones = (models) => {
     },
     foreignKey: 'id_inventory',
   });
+
+  // ? PREGUNTAS
+  Inventarios.hasMany(Preguntas, {foreignKey: 'id_inventory', as: 'questions'});
+  Preguntas.belongsTo(Inventarios, {foreignKey: 'id_inventory', as: 'product'});
+
   return {
     Personas,
     Usuarios,

@@ -63,8 +63,44 @@ const authenticateUser = async (email, password) => {
       );
     });
   } catch (error) {
-    return error.message;
+    throw error;
   }
 };
 
-module.exports = {authenticateUser};
+const authenticateThirdUser = async (email) => {
+  try {
+    const user = await Usuarios.findOne({
+      where: {email: email},
+      include: {model: Carrito, as: 'carrito'},
+    });
+
+    if (!user) {
+      throw new Error('Usuario no encontrado');
+    }
+
+    const payload = {
+      user: {id: user.idUser},
+    };
+
+    const token = jwt.sign(payload, SECRETA, {
+      expiresIn: '30d',
+    });
+
+    const userData = {
+      id: user.idUser,
+      user: user.user,
+      email: user.email,
+      role: user.role,
+      carrito: user.carrito,
+    };
+
+    return {token, user: userData};
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = {
+  authenticateUser,
+  authenticateThirdUser,
+};

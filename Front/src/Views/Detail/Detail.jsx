@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {Carousel, LoadingSpinner} from '../../Components/index';
 import {Link} from 'react-router-dom';
@@ -8,9 +9,12 @@ import {addProduct} from '../../redux/actions/cartActions';
 import styles from './Detail.module.css';
 import arrowLeft from '../../assets/arrow-left.svg';
 import {successToast} from '../../helpers/toastNotification';
+import {Rating} from '@micahlt/react-simple-star-rating';
+import ProductQuestions from '../../Components/ProductQuestions/ProductQuestions';
 
 const Detail = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {id} = useParams();
   const product = useSelector((state) => state.app.product);
   let isLoading = useSelector((state) => state.app.isLoading);
@@ -18,9 +22,23 @@ const Detail = () => {
 
   const [selectedQuantity, setSelectedQuantity] = useState(1);
 
+  const ratingArray = product.reviews?.map((review) => {
+    let ratingNumber = Number(review?.evaluation);
+    return ratingNumber;
+  });
+
+  const ratingGeneral =
+    ratingArray?.reduce((acc, actualValue) => acc + actualValue, 0) /
+    ratingArray?.length;
+
+  const handleRedirectReview = () => {
+    navigate(`/review/${id}`);
+  };
+
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(getProductById(id)).then(() => dispatch(setLoading(false)));
+    console.log(product.reviews);
   }, [dispatch, id]);
 
   const incrementQuantity = () => {
@@ -79,14 +97,37 @@ const Detail = () => {
                     >
                       Añadir al carrito
                     </button>
-                    {/* <button className={styles.btn_favorites}>
-                      Añadir a favoritos
-                    </button> */}
+                    <button
+                      className={styles.btn_favorites}
+                      onClick={handleRedirectReview}
+                    >
+                      Opinar Del Producto
+                    </button>
                   </div>
                 </>
               )}
+
+              {product.reviews?.length ? (
+                <div>
+                  <h3>Rating General</h3>
+                  <Rating
+                    initialValue={ratingGeneral}
+                    readonly={true}
+                    allowFraction={true}
+                  />
+                  <h3>Opiniones Del Producto</h3>
+                  <ul>
+                    {product.reviews?.length
+                      ? product.reviews.map((review, index) => {
+                          return <li key={index}>{review.message}</li>;
+                        })
+                      : null}
+                  </ul>
+                </div>
+              ) : null}
             </div>
           </div>
+          <ProductQuestions productId={id} />
         </>
       )}
     </section>
