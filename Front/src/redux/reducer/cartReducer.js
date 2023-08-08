@@ -1,18 +1,22 @@
 import {
   GET_CART,
+  MERGE_CARTS,
   ADD_PRODUCT,
   DELETE_PRODUCT,
   DELETE_ALL_PRODUCT,
-  UPDATE_CART,
-} from '../actions-types/cartTypes';
+  CLEAR_CART,
+  GET_LOCAL_CART,
+  SET_LOCAL_CART,
+} from "../actions-types/cartTypes";
 
 const initialState = {
   id: null,
   products: [],
   total: 0,
+  localCart: [],
 };
 
-const cartReducer = (state = initialState, {type, payload}) => {
+const cartReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_CART:
       return {
@@ -22,31 +26,33 @@ const cartReducer = (state = initialState, {type, payload}) => {
         total: payload.total,
       };
     case ADD_PRODUCT:
-      return {
-        ...state,
-        products: payload.Inventarios,
-        total: payload.total,
-      };
-    case UPDATE_CART:
-      return {
-        ...state,
-        products: payload.Inventarios,
-        total: payload.total,
-      }
+    case MERGE_CARTS:
     case DELETE_PRODUCT:
-      return {
-        ...state,
-        products: payload.Inventarios,
-        total: payload.total,
-      };
     case DELETE_ALL_PRODUCT:
       return {
         ...state,
         products: payload.Inventarios,
         total: payload.total,
       };
+    case CLEAR_CART:
+      return {
+        ...state,
+        id: null,
+        products: [],
+        total: 0,
+        localCart: [],
+      };
+    case GET_LOCAL_CART:
+      const cart = localStorage.getItem("localCart");
+      return { ...state, localCart: cart ? JSON.parse(cart) : [] };
+    case SET_LOCAL_CART:
+      localStorage.setItem("localCart", JSON.stringify(payload));
+      return {
+        ...state,
+        localCart: payload,
+      };
     default:
-      return {...state};
+      return { ...state };
   }
 };
 
