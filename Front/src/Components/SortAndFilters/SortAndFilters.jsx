@@ -253,7 +253,7 @@ export default function SortAndFilters() {
             id="filters"
             onChange={(e) => handleFiltersChange(e)}
           >
-            <option value="default">Elige una opcion</option>
+            <option value="default">Elige una opción</option>
             <option value="Men">Hombre</option>
             <option value="Women">Mujer</option>
             <option value="Unisex">Unisex</option>
@@ -266,7 +266,7 @@ export default function SortAndFilters() {
             id="filters"
             onChange={(e) => handleFiltersChange(e)}
           >
-            <option value="default">Elige una opcion</option>
+            <option value="default">Elige una opción</option>
             {marcas?.length &&
               marcas.map((marc, index) => {
                 return (
@@ -277,14 +277,14 @@ export default function SortAndFilters() {
               })}
           </select>
 
-          <label htmlFor="filters">Precio minimo:</label>
+          <label htmlFor="filters">Precio mínimo:</label>
           <select
             value={filters.minPrice}
             name="minPrice"
             id="filters"
             onChange={(e) => handleFiltersChange(e)}
           >
-            <option value="default">Elige una opcion</option>
+            <option value="default">Elige una opción</option>
             <option value="0">0</option>
             <option value="1000">1.000</option>
             <option value="5000">5.000</option>
@@ -295,14 +295,14 @@ export default function SortAndFilters() {
             <option value="50000">50.000</option>
           </select>
 
-          <label htmlFor="filters">Precio maximo:</label>
+          <label htmlFor="filters">Precio máximo:</label>
           <select
             value={filters.maxPrice}
             name="maxPrice"
             id="filters"
             onChange={(e) => handleFiltersChange(e)}
           >
-            <option value="default">Elige una opcion</option>
+            <option value="default">Elige una opción</option>
             <option value="1000">1.000</option>
             <option value="5000">5.000</option>
             <option value="10000">10.000</option>
