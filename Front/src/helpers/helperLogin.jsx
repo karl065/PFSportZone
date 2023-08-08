@@ -11,15 +11,9 @@ const login = async (email, password, navigate) => {
       email,
       password,
     });
-    if (data.msg) {
-      return Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: data.msg,
-      });
-    }
 
     localStorage.setItem('token', data.token);
+    localStorage.setItem('idUser', data.id);
     localStorage.setItem('role', data.role);
     localStorage.setItem('idCarrito', data.carrito.idCar);
 
@@ -30,7 +24,11 @@ const login = async (email, password, navigate) => {
       navigate('/home');
     }
   } catch (error) {
-    return error;
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Email o contraseña incorrectos.',
+    });
   }
 };
 

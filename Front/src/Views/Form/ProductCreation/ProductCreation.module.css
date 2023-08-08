@@ -83,6 +83,32 @@
   position: relative;
 }
 
+.images_container {
+  max-width: 100%;
+  display: flex;
+  overflow: auto;
+}
+
+.image_box {
+  position: relative;
+  border: 2px solid black;
+}
+
+.image_box img {
+  width: 120px;
+  height: 100px;
+}
+
+.image_box button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30%;
+  background-color: red;
+  color: white;
+  font-family: inherit;
+}
+
 .input {
   flex: 1;
   font-size: 1.2rem;

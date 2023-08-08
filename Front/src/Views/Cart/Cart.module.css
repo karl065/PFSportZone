@@ -4,10 +4,15 @@
   /* align-items: center; */
   justify-content: center;
   padding: 2rem;
+  position: relative;
 }
 
 .empty {
   background-color: rgba(128, 128, 128, 0.342);
+}
+
+.loading_container{
+  padding: 0;
 }
 
 .cart_section {

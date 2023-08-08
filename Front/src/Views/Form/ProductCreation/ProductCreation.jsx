@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import {useDispatch, useSelector} from 'react-redux';
 import {createProduct} from '../../../redux/actions/actions';
@@ -6,6 +7,7 @@ import * as Yup from 'yup';
 import styles from './ProductCreation.module.css';
 import Swal from 'sweetalert2';
 import {useNavigate} from 'react-router-dom';
+import {useState} from 'react';
 
 const initialValues = {
   id_inventory: '',
@@ -14,6 +16,7 @@ const initialValues = {
   purchase_price: '',
   stock: '',
   image: [],
+  genre: '',
   description: '',
   id_categories: '',
   idMarca: '',
@@ -26,58 +29,70 @@ export const ProductCreation = () => {
   const sports = useSelector((state) => state.app.sports);
   const marcas = useSelector((state) => state.app.marcas);
   const navigate = useNavigate();
+  const genero = ['Man', 'Women', 'Unisex'];
 
   const SignupSchema = Yup.object().shape({
     id_inventory: Yup.string()
-      .required('Product Identifier required')
-      .min(3, 'At least 3 digits'),
+      .required('ID del producto requerido')
+      .min(3, 'Al menos 3 dígitos'),
     article_name: Yup.string()
-      .required('Required product name')
-      .min(2, 'Too Short!. At leas 2 characters.')
-      .max(80, 'Too Long!. No more than 80 characters.')
-      .test('has-3-letters', 'Must contain at least 3 letters', (value) =>
+      .required('Nombre de producto requerido')
+      .min(2, 'Al menos 2 caracteres.')
+      .max(80, 'Muy largo!. No mas de 80 caracteres.')
+      .test('has-3-letters', 'Debe contener al menos 3 letras', (value) =>
         /^(.*[a-zA-Z].*){3,}$/.test(value)
       ),
     selling_price: Yup.number()
-      .required('Required selling price')
-      .min(0.1, 'Minimum Price: 0.1')
+      .required('Precio de venta requerido')
+      .min(0.1, 'Mínimo: $0.1')
       .transform((value) => (isNaN(value) ? undefined : Number(value))),
     purchase_price: Yup.number()
-      .required('Required purchase price')
-      .min(0.1, 'Minimum Price: 0.1')
+      .required('Precio de compra requerido')
+      .min(0.1, 'Mínimo: $0.1')
       .transform((value) => (isNaN(value) ? undefined : Number(value))),
     stock: Yup.number()
-      .integer('Must be an integer')
-      .required('Required stock')
-      .min(0, 'Stock must be positive')
+      .integer('Debe ser un entero')
+      .required('Stock requerido')
+      .min(0, 'El stock debe ser positivo')
       .transform((value) => (isNaN(value) ? undefined : Number(value))),
     description: Yup.string()
-      .required('Description required')
-      .min(20, 'Too Short!. At least 20 characters')
-      .max(1500, 'Too Long!. No more than 1500 characters.'),
+      .required('Descripción requerida')
+      .min(20, 'Muy corto!. Al menos 20 caracteres.')
+      .max(1500, 'Muy largo!. No mas de 1500 caracteres.'),
     image: Yup.array()
       .of(Yup.string())
-      .min(1, 'At least one image is required')
-      .max(5, 'Maximum of 5 images per product'),
+      .min(1, 'Es necesaria una imagen')
+      .max(5, 'Máximo de 5 imágenes por producto'),
+    genre: Yup.string()
+      .oneOf(
+        genero.map((gen) => gen),
+        'No es un genero'
+      )
+      .required('Seleccione un genero'),
     id_categories: Yup.number()
       .oneOf(
         category.map((category) => category.id_categories),
-        'Not a valid category'
+        'No es una categoría'
       )
-      .required('Select one category'),
+      .required('Seleccione una categoría'),
     idMarca: Yup.number()
       .oneOf(
         marcas.map((marca) => marca.idMarca),
-        'Not a valid marca'
+        'No es una marca'
       )
-      .required('Select one Marca'),
+      .required('Seleccione una marca'),
     idDeportes: Yup.number()
       .oneOf(
         sports.map((sport) => sport.idDeportes),
-        'Not a valid Sport'
+        'No es un deporte'
       )
-      .required('Select one sport'),
+      .required('Seleccione un deporte'),
   });
+
+  const handleDeleteImage = (images, imgUrl, setFieldValue) => {
+    const filteredUrls = images.filter((image) => image !== imgUrl);
+    setFieldValue('image', filteredUrls);
+  };
 
   const handleSubmit = (values, {resetForm}) => {
     try {
@@ -87,7 +102,7 @@ export const ProductCreation = () => {
           status: 'Available',
         })
       ).then(() => {
-        Swal.fire('Good job!', 'Product created!', 'success');
+        Swal.fire('Buen trabajo!', 'Producto creado correctamente!', 'success');
         resetForm();
         navigate('/adminProducts');
       });
@@ -95,7 +110,7 @@ export const ProductCreation = () => {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Fail creating a product. Please try again later.',
+        text: 'Error creando un producto. Intente nuevamente.',
       });
     }
   };
@@ -107,14 +122,14 @@ export const ProductCreation = () => {
         onSubmit={handleSubmit}
         validationSchema={SignupSchema}
       >
-        {({errors, setFieldValue}) => (
+        {({errors, values, setFieldValue}) => (
           <Form className={styles.form}>
-            <h1 className={styles.title}>NEW PRODUCT</h1>
+            <h1 className={styles.title}>NUEVO PRODUCTO</h1>
             <div className={styles.field_container}>
               <div className={styles.select_container}>
-                <label>Category</label>
+                <label>Categoría</label>
                 <Field as="select" name="id_categories">
-                  <option value="">Select a category</option>
+                  <option value="">Seleccione una categoría</option>
                   {category.map((cat, index) => (
                     <option value={cat.id_categories} key={index}>
                       {cat.categoryName}
@@ -128,9 +143,25 @@ export const ProductCreation = () => {
                 />
               </div>
               <div className={styles.select_container}>
-                <label>Sport</label>
+                <label>Genero</label>
+                <Field as="select" name="genre">
+                  <option value="">Seleccione un genero</option>
+                  {genero.map((gen, index) => (
+                    <option value={gen} key={index}>
+                      {gen}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="genre"
+                  component="span"
+                  className={styles.error}
+                />
+              </div>
+              <div className={styles.select_container}>
+                <label>Deporte</label>
                 <Field as="select" name="idDeportes">
-                  <option value="">Select a sport</option>
+                  <option value="">Seleccione un deporte</option>
                   {sports.map((sport, index) => (
                     <option value={sport.idDeportes} key={index}>
                       {sport.deporteName}
@@ -146,7 +177,7 @@ export const ProductCreation = () => {
               <div className={styles.select_container}>
                 <label>Marca</label>
                 <Field as="select" name="idMarca">
-                  <option value="">Select a marca</option>
+                  <option value="">Seleccione una marca</option>
                   {marcas.map((marca, index) => (
                     <option value={marca.idMarca} key={index}>
                       {marca.name}
@@ -163,7 +194,7 @@ export const ProductCreation = () => {
                 <label>ID</label>
                 <Field
                   name="id_inventory"
-                  placeholder="Product Code"
+                  placeholder="Código de Producto"
                   className={styles.input}
                 />
                 <ErrorMessage
@@ -174,11 +205,11 @@ export const ProductCreation = () => {
               </div>
             </div>
             <div className={styles.field_container}>
-              <label>Name</label>
+              <label>Nombre</label>
               <div className={styles.input_box}>
                 <Field
                   name="article_name"
-                  placeholder="Product name"
+                  placeholder="Nombre del producto"
                   className={styles.input}
                 />
                 <ErrorMessage
@@ -189,11 +220,11 @@ export const ProductCreation = () => {
               </div>
             </div>
             <div className={styles.field_container}>
-              <label>Selling price</label>
+              <label>Precio de venta</label>
               <div className={styles.input_box}>
                 <Field
                   name="selling_price"
-                  placeholder="Selling price"
+                  placeholder="Precio de venta"
                   className={styles.input}
                 />
                 <ErrorMessage
@@ -205,11 +236,11 @@ export const ProductCreation = () => {
             </div>
 
             <div className={styles.field_container}>
-              <label>Purchase price</label>
+              <label>Precio de compra</label>
               <div className={styles.input_box}>
                 <Field
                   name="purchase_price"
-                  placeholder="Min 0.1"
+                  placeholder="Mínimo 0.1"
                   className={styles.input}
                 />
                 <ErrorMessage
@@ -240,22 +271,37 @@ export const ProductCreation = () => {
                 <CloudinaryWidget
                   fieldName="image"
                   setFieldValue={setFieldValue}
+                  images={values.image}
                 />
-                <ErrorMessage
-                  name="image"
-                  component="span"
-                  className={styles.error}
-                />
+                {errors.image && (
+                  <span className={styles.error}>{errors.image}</span>
+                )}
+              </div>
+              <div className={styles.images_container}>
+                {values.image &&
+                  values.image.map((image, index) => (
+                    <div key={index} className={styles.image_box}>
+                      <img src={image} alt="Product image" />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleDeleteImage(values.image, image, setFieldValue)
+                        }
+                      >
+                        X
+                      </button>
+                    </div>
+                  ))}
               </div>
             </div>
 
             <div className={styles.field_container}>
-              <label>Description</label>
+              <label>Descripción</label>
               <div className={styles.input_box}>
                 <Field
                   as="textarea"
                   name="description"
-                  placeholder="Product description"
+                  placeholder="Descripción del producto"
                   className={styles.input}
                   rows="4"
                 />
@@ -272,7 +318,7 @@ export const ProductCreation = () => {
               className={styles.btnSubmit}
               disabled={Object.keys(errors).length > 0}
             >
-              Submit
+              Enviar
             </button>
           </Form>
         )}

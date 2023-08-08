@@ -60,11 +60,11 @@ const Sidebar = () => {
               }`}
             >
               <Link to="/adminNewUser">
-                <FontAwesomeIcon icon="user" />
+                <FontAwesomeIcon icon="user-plus" />
                 <span> Crear Usuario</span>
               </Link>
             </li>
-            <hr className="sidebar-divider my-2" />
+            {/* <hr className="sidebar-divider my-2" />
             <li
               className={`nav-item ${
                 location.pathname === '/adminEmployes' ? styles.active : ''
@@ -85,22 +85,22 @@ const Sidebar = () => {
                 <FontAwesomeIcon icon="money-check-alt" />
                 <span> Pagos</span>
               </Link>
-            </li>
+            </li> */}
             <hr className="sidebar-divider my-2" />
             <li
               className={`nav-item ${
-                location.pathname === '/adminNewCategory' ? styles.active : ''
+                location.pathname === '/adminNewDeportes' ? styles.active : ''
               }`}
             >
               <Link to="/adminNewDeportes">
-                <FontAwesomeIcon icon="tshirt" />
+                <FontAwesomeIcon icon="fa-passport" />
                 <span> Crear Deporte</span>
               </Link>
             </li>
             <hr className="sidebar-divider my-2" />
             <li
               className={`nav-item ${
-                location.pathname === '/adminNewCategory' ? styles.active : ''
+                location.pathname === '/adminNewMarca' ? styles.active : ''
               }`}
             >
               <Link to="/adminNewMarca">
@@ -115,7 +115,7 @@ const Sidebar = () => {
               }`}
             >
               <Link to="/adminNewCategory">
-                <FontAwesomeIcon icon="tshirt" />
+                <FontAwesomeIcon icon="fa-layer-group" />
                 <span> Crear Categoria</span>
               </Link>
             </li>
@@ -126,7 +126,7 @@ const Sidebar = () => {
               }`}
             >
               <Link to="/adminNewProduct">
-                <FontAwesomeIcon icon="tshirt" />
+                <FontAwesomeIcon icon="shopping-basket" />
                 <span> Crear Producto</span>
               </Link>
             </li>

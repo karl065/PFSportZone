@@ -6,12 +6,16 @@
     top: 11.7%;
     right: 0%;
     width: 30%;
-    aspect-ratio: 1;
+    aspect-ratio: 1.3;
+    overflow: hidden;
 }
 .closeBtn{
     position: absolute;
     color: aliceblue;
     background-color: rgb(240, 66, 66);
+}
+.closeBtn:hover{
+    color: rgb(240, 66, 66);
 }
 .SettingsUserfalse hr,
 .SettingsUsertrue hr{
@@ -24,6 +28,7 @@
 .imageuser{
     width: 40%;
     margin-left: 30%;
+    margin-bottom: 0.11rem;
 }
 
 .SettingsUserfalse{
@@ -41,6 +46,7 @@
   }
   
 .SettingsUsertrue{
+    z-index: 1000;
     animation: right-slide 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) forwards;
 }
 @keyframes right-slide {
@@ -65,4 +71,77 @@
 .elementSettings:hover{
     transition: all 300ms;
     background-color: rgba(171, 170, 170, 0.256);
+}
+
+.elementLogout{
+    background-color: red;
+    position: absolute;
+    bottom: 0%;
+    right: 0%;
+    padding: 1rem;
+    width: fit-content;
+    text-transform: capitalize;
+}
+
+.account{
+    color: rgb(255, 255, 255);
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: rgb(90, 90, 97);
+    padding-bottom: 0.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.account span{
+    display: flex;
+    transform: scale(1);
+    transition: all 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.account:hover span{
+    color: rgb(35, 187, 111);
+    transition: all 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration-color: rgba(90, 90, 97, 0);
+    transform: scale(1.2, 1.1);
+}
+.userName{
+    margin-bottom: 1rem;
+    text-align: center;
+    cursor: default;
+}
+
+/* <---------------------------------------------------> */
+@media only screen and (min-width: 1921px){
+    .SettingsUserfalse,
+    .SettingsUsertrue{
+        top: 9.3%;
+        right: 0%;
+        width: 20%;
+        aspect-ratio: 1.31;
+    }
+}
+@media only screen and (max-width: 1368px){
+    .SettingsUserfalse,
+    .SettingsUsertrue{
+        top: 11.9%;
+        right: 0%;
+        width: 50%;
+        aspect-ratio: 1.31;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .SettingsUserfalse,
+    .SettingsUsertrue{
+        top: 13.1%;
+        right: 10%;
+        width: 80%;
+        aspect-ratio: 1.31;
+    }
+    .elementLogout{
+        padding: .3rem;
+        border-top-left-radius: 10px;
+    }
+    .account{
+        font-size: 4cqw;
+    }
 }

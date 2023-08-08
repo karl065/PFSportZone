@@ -21,7 +21,7 @@ import {
   AdminNewCategory,
   AdminNewMarca,
   AdminNewDeportes,
-  AdminEditProd,
+  AdminEditProduct,
   AdminPagos,
   Cart,
   ResetPaas,
@@ -36,7 +36,9 @@ import {
 } from './redux/actions/actions';
 import {getCart} from './redux/actions/cartActions';
 import {useState} from 'react';
+import {ToastContainer} from 'react-toastify';
 import SettingsUser from './Components/SettingsUser/SettingsUser';
+import AccountClient from './Views/AccountClient/AccountClient';
 
 function App() {
   const dispatch = useDispatch();
@@ -46,7 +48,7 @@ function App() {
   const idCart = localStorage.getItem('idCarrito');
 
   // * Estado para el despligue del menu de usuario
-  let [deployMenu, setDeployMenu] = useState(false)
+  let [deployMenu, setDeployMenu] = useState(false);
 
   // * Carga inicial de los datos necesarios para la app.
   useEffect(() => {
@@ -61,19 +63,31 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(setLoading(true));
-    dispatch(getCart(idCart)).then(() => dispatch(setLoading(false)));
+    if (idCart) {
+      dispatch(setLoading(true));
+      dispatch(getCart(idCart)).then(() => dispatch(setLoading(false)));
+    }
   }, [idCart]);
 
   return (
     <div className="App">
-      {location.pathname !== '/' && errorPage && <NavBar  deployMenu={()=>{setDeployMenu(!deployMenu)}}/>}
+      {location.pathname !== '/' && errorPage && (
+        <NavBar
+          deployMenu={() => {
+            setDeployMenu(!deployMenu);
+          }}
+        />
+      )}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<UserLogin />} />
-        <Route path="/resetpass" element={<ResetPaas setErrorPage={setErrorPage} />} />
+        <Route
+          path="/resetpass"
+          element={<ResetPaas setErrorPage={setErrorPage} />}
+        />
         <Route path="/register" element={<UserRegister />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/Account/client" element={<AccountClient setErrorPage={setErrorPage} />} />
         <Route path="/adminUsers" element={<AdminUsers />} />
         <Route path="/adminProducts" element={<AdminProducts />} />
         <Route path="/adminEmployes" element={<AdminEmployes />} />
@@ -82,7 +96,7 @@ function App() {
         <Route path="/adminNewDeportes" element={<AdminNewDeportes />} />
         <Route path="/adminNewUser" element={<AdminNewUsers />} />
         <Route path="/adminNewCategory" element={<AdminNewCategory />} />
-        <Route path="/adminEditProd" element={<AdminEditProd />} />
+        <Route path="/adminEditProd" element={<AdminEditProduct />} />
         <Route path="/adminPagos" element={<AdminPagos />} />
         {/* <Route path="/favorites"/> */}
         <Route path="/product/:id" element={<Detail />} />
@@ -92,7 +106,13 @@ function App() {
         <Route path="/faq" element={<Faq />} />
         <Route path="*" element={<Error setErrorPage={setErrorPage} />} />
       </Routes>
-     <SettingsUser bool={deployMenu} deployMenu={()=>{setDeployMenu(!deployMenu)}} />
+      <SettingsUser
+        bool={deployMenu}
+        deployMenu={() => {
+          setDeployMenu(!deployMenu);
+        }}
+      />
+      <ToastContainer />
     </div>
   );
 }

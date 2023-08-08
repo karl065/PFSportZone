@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { LoadingSpinner } from "../../Components/index";
+import { Carousel, LoadingSpinner } from "../../Components/index";
 import { Link } from "react-router-dom";
 import { getProductById, setLoading } from "../../redux/actions/actions";
 import { addProduct, getCart } from "../../redux/actions/cartActions";
 import styles from "./Detail.module.css";
 import arrowLeft from "../../assets/arrow-left.svg";
+import { successToast } from "../../helpers/toastNotification";
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -36,8 +37,11 @@ const Detail = () => {
   };
 
   const handleAddProduct = async () => {
-    await dispatch(addProduct(idCarrito, product.id_inventory, selectedQuantity));
+    await dispatch(
+      addProduct(idCarrito, product.id_inventory, selectedQuantity)
+    );
     await dispatch(getCart(idCarrito));
+    successToast("Producto añadido correctamente!", 1000);
   };
 
   return (
@@ -54,18 +58,12 @@ const Detail = () => {
             />
           </Link>
           <div className={styles.detail}>
-            {product.image && (
-              <img
-                src={product.image[0]}
-                alt={product.article_name}
-                className={styles.img}
-              />
-            )}
+            {product.image && <Carousel slides={product.image} />}
             <div className={styles.info_container}>
               <h1>{product.article_name}</h1>
               <h2>${product.selling_price}</h2>
               <div className={styles.description_box}>
-                <h3>Description</h3>
+                <h3>Descripción</h3>
                 <p>{product.description}</p>
               </div>
               <p className={styles.stock_p}>Stock: {product.stock}</p>
@@ -81,11 +79,11 @@ const Detail = () => {
                       className={styles.btn_cart}
                       onClick={handleAddProduct}
                     >
-                      Add to cart
+                      Añadir al carrito
                     </button>
-                    <button className={styles.btn_favorites}>
-                      Add to favorite
-                    </button>
+                    {/* <button className={styles.btn_favorites}>
+                      Añadir a favoritos
+                    </button> */}
                   </div>
                 </>
               )}

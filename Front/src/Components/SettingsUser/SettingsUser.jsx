@@ -1,22 +1,30 @@
-import React from 'react'
-import style from './SettingsUser.module.css'
-import { useNavigate } from 'react-router-dom'
-const SettingsUser = (props) => {
+/* eslint-disable react/prop-types */
+import style from './SettingsUser.module.css';
+import {Link, useNavigate} from 'react-router-dom';
+import {handleLogout} from '../../helpers/helperLogin';
 
-  const urlimage = 'https://res.cloudinary.com/dpjeltekx/image/upload/v1690818714/PF/WhatsApp_Image_2023-07-31_at_10.39.59_uatatn.jpg'
-  const navigate = useNavigate()
+
+
+const SettingsUser = (props) => {
+  
+
+  const urlimage =
+    'https://res.cloudinary.com/dpjeltekx/image/upload/v1690818714/PF/WhatsApp_Image_2023-07-31_at_10.39.59_uatatn.jpg';
+  const navigate = useNavigate();
 
   return (
-    <div className={style[`SettingsUser${props.bool}`]}>
-        <button className={style.closeBtn} onClick={props.deployMenu}>✕</button>
-        <hr />
-        <h1 style={{textAlign:'center'}}>Settings</h1>
-          <img className={style.imageuser} src={urlimage} alt="UserImage" />
-        <hr />
-        <button className={style.elementSettings} onClick={()=>{navigate('/login/resetpass')}} >Actualizar contraseña</button>
-        <hr />
-    </div>
-  )
-}
+    <aside className={style[`SettingsUser${props.bool}`]}>
+      <button className={`${style.elementSettings} ${style.elementLogout}`} onClick={() => {handleLogout(navigate()); props.deployMenu();}}> Cerrar sesion</button>
+      <button className={style.closeBtn} onClick={props.deployMenu}>
+        ✕
+      </button>
+      <hr />
+      <h1 style={{textAlign: 'center'}}>Settings</h1>
+      <img className={style.imageuser} src={urlimage} alt="UserImage" />
+      <h3 className={style.userName}>user</h3>
+      <p className={style.account}><Link to={'/Account/client'}><span onClick={() => {props.deployMenu();}}>Mi cuenta →</span></Link></p>
+    </aside>
+  );
+};
 
-export default SettingsUser
+export default SettingsUser;
