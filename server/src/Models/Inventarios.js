@@ -28,7 +28,7 @@ module.exports = (sequelize) => {
         type: DataTypes.ARRAY(DataTypes.STRING),
       },
       genre: {
-        type: DataTypes.ENUM("Man", "Women", "Unisex"),
+        type: DataTypes.ENUM("Men", "Women", "Unisex"),
       },
       stage: {
         type: DataTypes.ENUM("Children", "Adults"),

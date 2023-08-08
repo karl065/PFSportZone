@@ -17,28 +17,32 @@ const getAllCarrito = async () => {
       ],
     });
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
 const getCarritoID = async (id) => {
   try {
-    return await Carrito.findByPk(id, {
+    const carrito = await Carrito.findByPk(id, {
       include: [
         {
           model: Usuarios,
-          as: 'usuario',
+          as: "usuario",
         },
         {
           model: Inventarios,
           through: {
-            attributes: ['cant', 'precioPorUnd', 'precioPorCant'],
+            attributes: ['id', 'cant', 'precioPorUnd', 'precioPorCant'],
           },
         },
       ],
     });
+
+    if (!carrito) throw new Error('Carrito no encontrado');
+
+    return carrito;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 

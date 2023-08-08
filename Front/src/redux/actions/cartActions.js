@@ -7,11 +7,10 @@ import {
 import axios from 'axios';
 import server from '../../Connections/Server';
 
-export const getCart = () => {
-  const idCarrito = localStorage.getItem('idCarrito');
+export const getCart = (idCart) => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}carrito/${idCarrito}`);
-    // * Elimina el atributo usuario de la respuesta.
+    const {data} = await axios.get(`${server.api.baseURL}carrito/${idCart}`);
+
     dispatch({
       type: GET_CART,
       payload: data,
