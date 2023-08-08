@@ -1,23 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Koulen&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Koulen&display=swap");
 
 .container {
   background: linear-gradient(180deg, #b5e423 0%, hsl(0, 0%, 1%) 80.87%);
   background-color: #b5e423;
-  font-family: 'Koulen', cursive;
+  /* font-family: "Koulen", cursive; */
+  font-family: "Singapore Sling Expanded";
   display: flex;
   flex-direction: column;
 }
 
-
-.titles{
-    display: inline-flex;
-    flex-direction: column;
-    color: black;
-    margin:20px
+.titles {
+  display: inline-flex;
+  flex-direction: column;
+  color: black;
+  margin: 20px;
 }
 .titles h1 {
   font-size: 8rem;
-  text-shadow: -1px 4px 2px rgba(0,0,0,0.6);
+  text-shadow: -1px 4px 2px rgba(0, 0, 0, 0.6);
   margin: 0;
 }
 .titles h3 {
@@ -35,7 +35,7 @@
   height: 2.5rem;
   transform: rotate(-0.572deg);
   flex-shrink: 0;
-  font-family: 'Koulen', cursive;
+  font-family: "Koulen", cursive;
   font-size: 1.5rem;
   border: transparent;
   border-radius: 10px;
@@ -50,20 +50,20 @@
   flex-shrink: 0;
 }
 
-.barraSuperior{
+.barraSuperior {
   border: transparent;
   display: flex;
   justify-content: space-around;
   padding: 1.2rem;
   font-size: 1.5rem;
-  background-color: rgba(0, 0, 0, 0.920);
-  color:whitesmoke
+  background-color: rgba(0, 0, 0, 0.92);
+  color: whitesmoke;
 }
-.barraSuperior p{
+.barraSuperior p {
   color: whitesmoke;
   text-decoration: none;
 }
-.footerContainer{
+.footerContainer {
   overflow: hidden;
   width: 100%;
   height: auto;

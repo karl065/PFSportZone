@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Koulen&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Koulen&display=swap');*/
 
 * {
   box-sizing: border-box;
@@ -9,7 +9,8 @@ html {
   margin: 0;
   min-height: 100vh;
   line-height: 1.4;
-  font-family: 'Koulen', cursive;
+  /* font-family: 'Koulen', cursive; */
+  font-family: "Singapore Sling Expanded";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
