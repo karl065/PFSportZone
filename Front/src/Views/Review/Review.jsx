@@ -113,10 +113,6 @@ const handleSubmitReview = () => {
       </span>
         <button onClick={handleSubmitReview}>Enviar</button>
       </div>
-
-      <div className={Styles.products}>
-        Tus productos:
-      </div>
     </div>
   );
 }

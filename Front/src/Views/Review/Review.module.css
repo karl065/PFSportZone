@@ -50,11 +50,3 @@
     background: black;
     color: whitesmoke;
 }
-
-.products{
-    border: 1px solid red;
-    height: 500px;
-    width: 400px;
-    text-align: center;
-    font-size: 23px;
-}
