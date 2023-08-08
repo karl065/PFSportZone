@@ -1,19 +1,26 @@
 .main {
-  background-color: rgb(162, 249, 255);
+  /* background-color: rgb(104, 255, 172); */
+  background-color: rgb(160, 189, 201);
   position: absolute;
-  right: 50%;
-  top: 50%;
+  right: 5%;
+  top: 800px;
   overflow-wrap: break-word;
   word-wrap: break-word;
   width: 370px;
+  height: 370px;
   padding: 10px;
+  overflow-y: scroll;
+  border-radius: 1rem;
+}
+
+.main::-webkit-scrollbar {
+  display: none;
 }
 
 .right {
   display: flex;
   flex-direction: column;
   text-align: right;
-  /* padding: 1rem; */
 }
 
 .left {
@@ -28,8 +35,18 @@
 
 .textArea1 {
   margin-left: 7rem;
+  border-radius: 5px;
 }
 
 .send {
   margin-right: 6rem;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin-left: 0%;
+  margin-bottom: 6px;
+  border-radius: 5px;
 }

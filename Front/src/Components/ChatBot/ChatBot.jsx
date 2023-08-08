@@ -82,6 +82,7 @@ function ChatBot() {
           name="Informacion de inventario"
           value={JSON.stringify({ path: "inventory", filter: "article_name" })}
           onClick={callResponse}
+          className={m.button}
         >
           Informacion de inventario
         </button>
@@ -89,6 +90,7 @@ function ChatBot() {
           name="Con respecto a las categorias"
           value={JSON.stringify({ path: "category", filter: "categoryName" })}
           onClick={callResponse}
+          className={m.button}
         >
           Con respecto a las categorias
         </button>
@@ -96,6 +98,7 @@ function ChatBot() {
           name="Acerca de los deportes incluidos"
           value={JSON.stringify({ path: "deporte", filter: "deporteName" })}
           onClick={callResponse}
+          className={m.button}
         >
           Acerca de los deportes incluidos
         </button>
@@ -103,6 +106,7 @@ function ChatBot() {
           name="Sobre nuestas marcas"
           value={JSON.stringify({ path: "marca", filter: "name" })}
           onClick={callResponse}
+          className={m.button}
         >
           Sobre nuestas marcas
         </button>
@@ -118,11 +122,19 @@ function ChatBot() {
       ) : null}
       {myResponse[0] ? (
         <div className={m.left}>
-          <button name="Acerca de los métodos de pago" onClick={callResponse}>
+          <button
+            name="Acerca de los métodos de pago"
+            onClick={callResponse}
+            className={m.button}
+          >
             Acerca de los métodos de pago
           </button>
 
-          <button name="Acerca de nosotros" onClick={callResponse}>
+          <button
+            name="Acerca de nosotros"
+            onClick={callResponse}
+            className={m.button}
+          >
             Acerca de nosotros
           </button>
         </div>
@@ -139,7 +151,7 @@ function ChatBot() {
           <button
             name="Deja tu feedback"
             onClick={callResponse}
-            className={m.left}
+            className={m.button}
           >
             Deja tu feedback
           </button>
