@@ -6,19 +6,21 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import server from '../../../../Connections/Server';
 import Swal from 'sweetalert2';
+import {useSelector} from 'react-redux';
 
-const ResetPaas = (props) => {
-  const idUser = localStorage.getItem('idUser');
-  
+const ResetPaas = () => {
+  const {idUser, email} = useSelector((state) => state.app.user);
 
   const navigate = useNavigate();
 
   const [pass, setPass] = useState('');
   const [confirmacion, setConfirmacion] = useState('');
+  const [passOld, setPassOld] = useState('');
 
   const SubmitFunction = async (e) => {
     e.preventDefault();
     try {
+      await axios.post(`${server.api.baseURL}auth`, {password: passOld, email});
       await axios.put(`${server.api.baseURL}users/${idUser}`, {password: pass});
       Swal.fire(
         'Buen trabajo!',
@@ -30,7 +32,7 @@ const ResetPaas = (props) => {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Error actualizando la contraseña. Intente nuevamente.',
+        text: 'La contraseña anterior no es correcta',
       });
     }
   };
@@ -40,12 +42,28 @@ const ResetPaas = (props) => {
       <section className={style.bodycontainer}>
         <form className={style.form} onSubmit={SubmitFunction}>
           <h2 style={{textAlign: 'center'}}>Actualiza tu contraseña</h2>
-          <div style={{display:'grid'}}>
+          <div style={{display: 'grid'}}>
             <img
-              style={{margin:'auto'}}
+              style={{margin: 'auto'}}
               className={style.imageForm}
               src="https://res.cloudinary.com/dpjeltekx/image/upload/v1690818126/PF/sports-activity-7162545-5818789_opmt5e.png"
               alt=""
+            />
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <label htmlFor="Password">Contraseña anterior</label>
+            <input
+              id="Password"
+              type="password"
+              onChange={(e) => setPassOld(e.target.value)}
+              value={passOld}
             />
           </div>
           <div
@@ -80,8 +98,10 @@ const ResetPaas = (props) => {
               value={confirmacion}
             />
           </div>
-          <div style={{display:'grid', paddingTop:'2rem'}}>
-            <button type="submit" className={style.sbmBtn}>Actualizar</button>
+          <div style={{display: 'grid', paddingTop: '2rem'}}>
+            <button type="submit" className={style.sbmBtn}>
+              Actualizar
+            </button>
           </div>
         </form>
       </section>

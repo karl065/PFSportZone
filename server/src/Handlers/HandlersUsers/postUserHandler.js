@@ -24,8 +24,6 @@ const postUserDbHandler = async (req, res) => {
     return res.status(404).send('Los campos no deben estar vacíos...!');
   }
   try {
-    const {email, user, password, role, userStatus} = req.body;
-
     const dataUser = await createUserDb(
       email,
       user,

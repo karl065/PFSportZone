@@ -22,7 +22,7 @@ export default function SortAndFilters() {
   const categorys = useSelector((state) => state.app.category);
   const [filters, setFilters] = useState({});
   const [productosFiltrados, setProductosFiltrados] = useState([]);
-  const [filtersSelected,setFiltersSelected] = useState({});
+  const [filtersSelected, setFiltersSelected] = useState({});
 
   //?FUNCIONES PARA LOS ORDERS
   const handleOrderByPrice = (e) => {
@@ -43,7 +43,8 @@ export default function SortAndFilters() {
     const selectedText = selectedOption.textContent;
     setFiltersSelected({
       ...filtersSelected,
-      [e.target.name]: selectedText});
+      [e.target.name]: selectedText,
+    });
   };
 
   const handleFiltersClean = () => {
@@ -55,30 +56,30 @@ export default function SortAndFilters() {
   const handlerSingleFilterClean = (name) => {
     setFilters((prevFilters) => {
       // Creamos una copia del estado filters
-      const updatedFilters = { ...prevFilters };
-  
+      const updatedFilters = {...prevFilters};
+
       // Eliminamos la propiedad que coincide con el nombre
       delete updatedFilters[name];
-  
+
       // Asignamos el valor por defecto a la propiedad eliminada
       updatedFilters[name] = 'default';
-  
+
       return updatedFilters;
     });
 
     setFiltersSelected((prevFiltersSelected) => {
       // Creamos una copia del estado filters
-      const updatedFilters = { ...prevFiltersSelected };
-  
+      const updatedFilters = {...prevFiltersSelected};
+
       // Eliminamos la propiedad que coincide con el nombre
       delete updatedFilters[name];
-  
+
       // Asignamos el valor por defecto a la propiedad eliminada
       updatedFilters[name] = 'default';
-  
+
       return updatedFilters;
     });
-}
+  };
 
   //*funcion para que al ir modificando filters se sigan agregando querys a la request para filtrar
   const fetchFilteredProducts = async (filters) => {
@@ -186,25 +187,27 @@ export default function SortAndFilters() {
             <button onClick={handleFiltersClean}>Eliminar filtros</button>
           </span>
           <p>Filtros elegidos:</p>
-          {
-            Object.keys(filters).map((key,index)=>{
-              const value = filters[key];
-              if(
-                value !== undefined && 
-                value !== null && 
-                value !== "" && 
-                value !== 'default' ) {
-                  const buttonText = Object.values(filtersSelected)[index];
-                  return <button 
-                  key={index} 
+          {Object.keys(filters).map((key, index) => {
+            const value = filters[key];
+            if (
+              value !== undefined &&
+              value !== null &&
+              value !== '' &&
+              value !== 'default'
+            ) {
+              const buttonText = Object.values(filtersSelected)[index];
+              return (
+                <button
+                  key={index}
                   value={value}
-                  onClick={() => handlerSingleFilterClean(key)}>
-                    {buttonText}
-                    </button>
-                }
-                return null;
-            })
-          }
+                  onClick={() => handlerSingleFilterClean(key)}
+                >
+                  {buttonText}
+                </button>
+              );
+            }
+            return null;
+          })}
           <br />
 
           <label htmlFor="filters">Por tipo de producto:</label>
@@ -251,7 +254,7 @@ export default function SortAndFilters() {
             onChange={(e) => handleFiltersChange(e)}
           >
             <option value="default">Elige una opcion</option>
-            <option value="Man">Hombre</option>
+            <option value="Men">Hombre</option>
             <option value="Women">Mujer</option>
             <option value="Unisex">Unisex</option>
           </select>
