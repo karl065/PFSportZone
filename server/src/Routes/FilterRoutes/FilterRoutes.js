@@ -1,9 +1,9 @@
 const {
   getFilterHandler,
-} = require('../../Filters/Handlers/FilterUsersHandlers/GetFilterHandler.js');
+} = require("../../Filters/Handlers/FilterUsersHandlers/GetFilterHandler.js");
 
-const router = require('express').Router();
+const router = require("express").Router();
 
-router.get('/', getFilterHandler);
+router.get("/", getFilterHandler);
 
 module.exports = router;

@@ -1,0 +1,30 @@
+.Direction{
+    background-color: rgb(255, 255, 255);
+    width: 70%;
+    height:10vh;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    padding-right: 1.5rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-flow: row nowrap;
+    box-shadow: 0px 0px 23px -13px rgba(0, 0, 0, 0.703);
+    position: relative;
+}
+.Dicon{
+    height: 100%;
+    aspect-ratio: 1;
+    background-color: aquamarine;
+    border-radius: 100vmax;
+    margin-right:5% ;
+}
+.DinfoContainer{
+    flex-grow: 1;
+}
+.Points{
+    font-size: 6dvb;
+    position: absolute;
+    right: 0.5rem;
+    cursor: pointer;
+    background-color: transparent;
+}

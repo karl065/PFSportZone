@@ -1,7 +1,7 @@
 const {
   createUserDb,
-} = require("../../Controllers/ControllersUsers/postUserController");
-const { enviarNotificacionUsuarioNuevo } = require("../../Mail/Mail");
+} = require('../../Controllers/ControllersUsers/postUserController');
+const {enviarNotificacionUsuarioNuevo} = require('../../Mail/Mail');
 
 /**
  * La función `postUserDbHandler` es una función asíncrona que maneja la creación de un usuario en una
@@ -19,9 +19,9 @@ const { enviarNotificacionUsuarioNuevo } = require("../../Mail/Mail");
  * creado. si hay un error
  */
 const postUserDbHandler = async (req, res) => {
-  const { email, user, password, role, userStatus } = req.body;
+  const {email, user, password, role, userStatus} = req.body;
   if (!email || !user) {
-    return res.status(404).send("Los campos no deben estar vacíos...!");
+    return res.status(404).send('Los campos no deben estar vacíos...!');
   }
   try {
     const dataUser = await createUserDb(
@@ -31,19 +31,13 @@ const postUserDbHandler = async (req, res) => {
       role,
       userStatus
     );
-    // Envía la notificación de usuario nuevo después de crear exitosamente al usuario en la base de datos
-    try {
-      await enviarNotificacionUsuarioNuevo(email);
-      console.log("Notificación de usuario nuevo enviada.");
-    } catch (error) {
-      console.error("Error al enviar la notificación de usuario nuevo:", error);
-    }
 
-    console.log(dataUser);
+    // * Envía la notificación de usuario nuevo después de crear exitosamente al usuario en la base de datos
+    await enviarNotificacionUsuarioNuevo(email);
     return res.status(201).json(dataUser);
   } catch (error) {
-    return res.status(400).json({ error: error.message });
+    return res.status(400).json({error: error.message});
   }
 };
 
-module.exports = { postUserDbHandler };
+module.exports = {postUserDbHandler};

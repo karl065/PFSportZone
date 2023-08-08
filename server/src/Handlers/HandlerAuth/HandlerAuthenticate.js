@@ -1,4 +1,7 @@
-const { authenticateUser } = require("../../auth/authenticateUser");
+const {
+  authenticateUser,
+  authenticateThirdUser,
+} = require("../../auth/authenticateUser");
 
 /**
  * La función `handlerAuthenticate` es una función asíncrona que maneja la autenticación del usuario al
@@ -23,4 +26,14 @@ const handlerAuthenticate = async (req, res) => {
   }
 };
 
-module.exports = { handlerAuthenticate };
+const handlerThirdAuthenticate = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await authenticateThirdUser(email);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = { handlerAuthenticate, handlerThirdAuthenticate };

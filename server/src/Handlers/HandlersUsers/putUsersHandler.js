@@ -47,15 +47,8 @@ const putHandlerUser = async (req, res) => {
 
     // Si se proporcionó una nueva contraseña, envía la notificación de cambio de contraseña
     if (password) {
-      try {
-        await enviarNotificacionCambioContrasena(userUpdate.email);
-        console.log('Notificación de cambio de contraseña enviada.');
-      } catch (error) {
-        console.error(
-          'Error al enviar la notificación de cambio de contraseña:',
-          error
-        );
-      }
+      await enviarNotificacionCambioContrasena(userUpdate.email);
+      console.log('Notificación de cambio de contraseña enviada.');
     }
 
     return res.status(200).json(userUpdate);

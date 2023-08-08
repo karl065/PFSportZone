@@ -1,11 +1,15 @@
 import {
   SET_LOADING,
+  SET_USER,
+  GET_USER,
   GET_USERS,
+  CLEAR_USER,
   GET_INVENTORY,
   GET_SPORTS,
   CREATE_USER,
   CREATE_PRODUCT,
   GET_PRODUCT_ID,
+  CLEAR_PRODUCT,
   FILTER_PRODUCTS_BY_NAME,
   RESET_DISPLAYED_PRODUCTS,
   GET_CATEGORY,
@@ -21,9 +25,49 @@ import {
   EDIT_PRODUCT,
   UPDATE_USERS_STATUS,
   UPDATE_ITEM_STATUS,
+  GET_VENTAS,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
+import {handleLogout} from '../../helpers/helperLogin';
+import {getCart} from './cartActions';
+
+export const getUser = (navigate) => {
+  const token = localStorage.getItem('token');
+  return async (dispatch) => {
+    try {
+      const {data} = await axios.get(`${server.api.baseURL}auth`, {
+        headers: {
+          'x-auth-token': token,
+        },
+      });
+      console.log(data);
+      // if (data.carrito.idCar) {
+      dispatch(getCart(data.carrito.idCar));
+      // }
+
+      dispatch({
+        type: GET_USER,
+        payload: data,
+      });
+    } catch (error) {
+      handleLogout(navigate, dispatch);
+    }
+  };
+};
+
+export const setUser = (user) => {
+  return {
+    type: SET_USER,
+    payload: user,
+  };
+};
+
+export const clearUser = () => {
+  return {
+    type: CLEAR_USER,
+  };
+};
 
 export const getUsers = () => {
   return async (dispatch) => {
@@ -87,12 +131,30 @@ export const createUser = (user) => {
 };
 
 export const createProduct = (product) => {
+  const token = localStorage.getItem('token');
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  if (token) {
+    headers['x-auth-token'] = token;
+  }
+
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}inventory`, product);
-    dispatch({
-      type: CREATE_PRODUCT,
-      payload: data,
-    });
+    try {
+      const {data} = await axios.post(
+        `${server.api.baseURL}inventory`,
+        product,
+        {headers: headers}
+      );
+
+      dispatch({
+        type: CREATE_PRODUCT,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 };
 
@@ -126,11 +188,21 @@ export const createDeporte = (deporte) => {
 };
 
 export const editProduct = (newValues, status) => {
+  const token = localStorage.getItem('token');
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  if (token) {
+    headers['x-auth-token'] = token;
+  }
   return async (dispatch) => {
     const {data} = await axios.put(
       `${server.api.baseURL}inventory/${newValues.id_inventory}`,
-      newValues
+      newValues,
+      {headers: headers}
     );
+    dispatch(getInventory());
     if (status) {
       dispatch(filterProductsByStatus(status));
     }
@@ -155,6 +227,12 @@ export const getProductById = (id) => {
       type: GET_PRODUCT_ID,
       payload: data,
     });
+  };
+};
+
+export const clearProduct = () => {
+  return {
+    type: CLEAR_PRODUCT,
   };
 };
 
@@ -252,6 +330,21 @@ export const updateUsersStatus = (idUser, newStatus, role, userStatus) => {
         type: UPDATE_USERS_STATUS,
         payload: data,
       });
+    }
+  };
+};
+
+export const getCompras = () => {
+  return async (dispatch) => {
+    try {
+      const {data} = await axios.get(`${server.api.baseURL}ventas`);
+      console.log(data);
+      dispatch({
+        type: GET_VENTAS,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error.message);
     }
   };
 };

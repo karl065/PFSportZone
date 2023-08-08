@@ -1,17 +1,19 @@
 /* eslint-disable react/prop-types */
+import axios from 'axios';
+import server from '../../Connections/Server';
 import { useNavigate } from "react-router-dom";
 import styles from "./Card.module.css";
 import { useState } from "react";
 import { addProduct } from "../../redux/actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
-import { successToast } from "../../helpers/toastNotification";
+import { errorToast, successToast } from "../../helpers/toastNotification";
 
 const Card = ({ product }) => {
   const { id_inventory, article_name, selling_price, stock, image } = product;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartId = useSelector((state) => state.cart.id);
-  const role = localStorage.getItem("role");
+  const { role, idUser } = useSelector((state) => state.app.user);
   const [redirectDetail, setRedirectDetail] = useState(true);
 
   const handleCardClick = () => {
@@ -21,6 +23,18 @@ const Card = ({ product }) => {
   const handleAddToCart = async () => {
     await dispatch(addProduct(cartId, id_inventory, 1));
     successToast("Producto añadido correctamente!", 1500);
+  };
+
+  const handleAddToFavorites = async() => {
+    try {
+      const info = {idUser,id_Inventory:id_inventory};
+      console.log(info)
+      await axios.post(`${server.api.baseURL}favorites`, info);
+    successToast("Producto añadido correctamente!", 1500);
+    } catch (error) {
+      errorToast(`${error.message}`,1500);
+    }
+    
   };
 
   return (
@@ -40,6 +54,16 @@ const Card = ({ product }) => {
             className={styles.addCartBtn}
           >
             Añadir al carrito
+          </button>
+        )}
+        {role === "Cliente" && (
+          <button
+            onMouseOver={() => setRedirectDetail(false)}
+            onMouseLeave={() => setRedirectDetail(true)}
+            onClick={handleAddToFavorites}
+            className={styles.addCartBtn}
+          >
+            Añadir a favoritos
           </button>
         )}
       </div>

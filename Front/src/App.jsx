@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useEffect} from 'react';
-import {Routes, Route, useLocation} from 'react-router-dom';
+import {Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {NavBar} from './Components';
 import {
@@ -22,32 +22,42 @@ import {
   AdminNewMarca,
   AdminNewDeportes,
   AdminEditProduct,
+  AdminQuestions,
   AdminPagos,
   Cart,
   ResetPaas,
+  Compra,
+  DetalleCompra,
 } from './Views';
 import {
   getCategory,
+  getCompras,
   getInventory,
   getMarca,
   getSports,
+  getUser,
   getUsers,
   setLoading,
 } from './redux/actions/actions';
-import {getCart} from './redux/actions/cartActions';
 import {useState} from 'react';
 import {ToastContainer} from 'react-toastify';
 import SettingsUser from './Components/SettingsUser/SettingsUser';
+import AccountClient from './Views/AccountClient/AccountClient';
+import Favorites from './Views/favorites/Favorites';
 
 function App() {
+  const token = localStorage.getItem('token');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   // * Estado para no mostrar la nav en la pagina 404
   const [errorPage, setErrorPage] = useState(true);
-  const idCart = localStorage.getItem('idCarrito');
-
-  // * Estado para el despligue del menu de usuario
+  // * Estado para el despliegue del menu de usuario
   let [deployMenu, setDeployMenu] = useState(false);
+
+  useEffect(() => {
+    if (token) dispatch(getUser(navigate));
+  }, [token]);
 
   // * Carga inicial de los datos necesarios para la app.
   useEffect(() => {
@@ -58,16 +68,9 @@ function App() {
       dispatch(getSports()),
       dispatch(getMarca()),
       dispatch(getInventory()),
+      dispatch(getCompras()),
     ]).then(() => dispatch(setLoading(false)));
   }, [dispatch]);
-
-  useEffect(() => {
-    if (idCart) {
-      dispatch(setLoading(true));
-      dispatch(getCart(idCart)).then(() => dispatch(setLoading(false)));
-    }
-  }, [idCart]);
-
   return (
     <div className="App">
       {location.pathname !== '/' && errorPage && (
@@ -86,6 +89,10 @@ function App() {
         />
         <Route path="/register" element={<UserRegister />} />
         <Route path="/home" element={<Home />} />
+        <Route
+          path="/Account/client"
+          element={<AccountClient setErrorPage={setErrorPage} />}
+        />
         <Route path="/adminUsers" element={<AdminUsers />} />
         <Route path="/adminProducts" element={<AdminProducts />} />
         <Route path="/adminEmployes" element={<AdminEmployes />} />
@@ -96,11 +103,14 @@ function App() {
         <Route path="/adminNewCategory" element={<AdminNewCategory />} />
         <Route path="/adminEditProd" element={<AdminEditProduct />} />
         <Route path="/adminPagos" element={<AdminPagos />} />
-        {/* <Route path="/favorites"/> */}
+        <Route path="/adminQuestions" element={<AdminQuestions />} />
+        <Route path="/favorites" element={<Favorites />} />
         <Route path="/product/:id" element={<Detail />} />
         <Route path="/about" element={<About />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/review" element={<Review />} />
+        <Route path="/Compra" element={<Compra />} />
+        <Route path="/detalleCompra" element={<DetalleCompra />} />
+        <Route path="/review/:id" element={<Review />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="*" element={<Error setErrorPage={setErrorPage} />} />
       </Routes>

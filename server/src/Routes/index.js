@@ -10,6 +10,10 @@ const productsIncome = require('./ProdsIncomeRoutes/ProdsIncomeRoutes.js');
 const marca = require('./MarcaRoutes/MarcaRoutes.js');
 const mercadopago = require('./RoutesMercadoPago/RoutesMercadoPago.js');
 const mails = require('./MailsRoutes/MailsRoutes.js');
+const ventas = require('./VentasRoutes/VentasRoutes.js');
+const favorites = require('../Routes/FavoritosRoutes/FavoritosRoutes.js');
+const reviews = require('./ReviewsRoutes/ReviewsRoutes.js');
+const preguntas = require('./PreguntasRoutes/PreguntasRoutes.js');
 const router = Router();
 
 /* El código utiliza el enrutador Express para definir rutas para diferentes partes de la aplicación. */
@@ -24,5 +28,9 @@ router.use('/ingresarProductos', productsIncome);
 router.use('/marca', marca);
 router.use('/mercadopago', mercadopago);
 router.use('/mails', mails);
+router.use('/ventas', ventas);
+router.use('/favorites', favorites);
+router.use('/review', reviews);
+router.use('/questions', preguntas);
 
 module.exports = router;
