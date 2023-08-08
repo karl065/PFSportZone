@@ -3,6 +3,8 @@ import { SearchBar } from "../index";
 import { resetDisplayedProducts } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn, handleLogout } from "../../helpers/helperLogin";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faHeart} from '@fortawesome/free-solid-svg-icons';
 import styles from "./NavBar.module.css";
 import cartIcon from "../../assets/shopping-cart.svg";
 
@@ -51,7 +53,14 @@ const NavBar = (props) => {
         {isLoggedIn() ? (
           <>
             {role === "Cliente" && (
-              <li className={styles.cart_item}>
+              <div className={styles.clientIcons}>
+                <li className={styles.favorites_item}>
+                <Link to="/favorites">
+                <FontAwesomeIcon icon={faHeart} className={styles.item}/>
+                </Link>
+              </li>
+
+                <li className={styles.cart_item}>
                 <Link to="/cart">
                   <img
                     src={cartIcon}
@@ -61,6 +70,8 @@ const NavBar = (props) => {
                 </Link>
                 {cartLength > 0 && <span>{cartLength}</span>}
               </li>
+              </div>
+              
             )}
             <li
               className={styles.logout}

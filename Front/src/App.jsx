@@ -39,6 +39,7 @@ import {
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import SettingsUser from "./Components/SettingsUser/SettingsUser";
+import Favorites from "./Views/favorites/Favorites";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -95,7 +96,7 @@ function App() {
         <Route path="/adminEditProd" element={<AdminEditProduct />} />
         <Route path="/adminPagos" element={<AdminPagos />} />
         <Route path="/adminQuestions" element={<AdminQuestions />} />
-        {/* <Route path="/favorites"/> */}
+        <Route path="/favorites" element={<Favorites />}/>
         <Route path="/product/:id" element={<Detail />} />
         <Route path="/about" element={<About />} />
         <Route path="/cart" element={<Cart />} />

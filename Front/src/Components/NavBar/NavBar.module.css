@@ -99,3 +99,19 @@ li > .cart_img {
   background-image: var(--bgimage);
   cursor: pointer;
 }
+
+.clientIcons{
+  display: inline-flex;
+  justify-content: space-evenly;
+}
+
+.favorites_item{
+  display: inline-flex;
+  align-items: center;
+}
+
+.item{
+  width: 2rem;
+  height: 2rem;
+  color: rgba(190, 243, 27, 0.97);
+}
