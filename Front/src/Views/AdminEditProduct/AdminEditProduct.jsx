@@ -43,7 +43,6 @@ const AdminEditProduct = () => {
         (seen[articleName] = true)
       );
     });
-
     setSearchResults(filteredProducts);
   };
 

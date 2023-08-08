@@ -41,6 +41,7 @@ import {
 import {useState} from 'react';
 import {ToastContainer} from 'react-toastify';
 import SettingsUser from './Components/SettingsUser/SettingsUser';
+import AccountClient from './Views/AccountClient/AccountClient';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -49,7 +50,7 @@ function App() {
   const location = useLocation();
   // * Estado para no mostrar la nav en la pagina 404
   const [errorPage, setErrorPage] = useState(true);
-  // * Estado para el despligue del menu de usuario
+  // * Estado para el despliegue del menu de usuario
   let [deployMenu, setDeployMenu] = useState(false);
 
   useEffect(() => {
@@ -68,7 +69,6 @@ function App() {
       dispatch(getCompras()),
     ]).then(() => dispatch(setLoading(false)));
   }, [dispatch]);
-
   return (
     <div className="App">
       {location.pathname !== '/' && errorPage && (
@@ -87,6 +87,10 @@ function App() {
         />
         <Route path="/register" element={<UserRegister />} />
         <Route path="/home" element={<Home />} />
+        <Route
+          path="/Account/client"
+          element={<AccountClient setErrorPage={setErrorPage} />}
+        />
         <Route path="/adminUsers" element={<AdminUsers />} />
         <Route path="/adminProducts" element={<AdminProducts />} />
         <Route path="/adminEmployes" element={<AdminEmployes />} />

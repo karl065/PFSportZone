@@ -82,6 +82,12 @@ const Landing = () => {
     }
   }, [id]);
 
+  useEffect(() => {
+    // Define una función asíncrona dentro de useEffect
+
+    // Llama a la función asíncrona dentro de useEffect
+    fetchData();
+  }, []);
   return (
     <div className={styles.container}>
       <ul className={styles.barraSuperior}>

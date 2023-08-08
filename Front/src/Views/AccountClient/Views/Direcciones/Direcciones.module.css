@@ -1,0 +1,28 @@
+.Direcciones{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding-bottom:2rem ;
+    box-sizing: border-box;
+}
+.direcContainer{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;   
+}
+.btnAdd{
+    background-color: transparent;
+    aspect-ratio: 1;
+    width: auto;
+    height: auto;
+    font-size: 8cqw;
+    line-height: 0.7;
+    color: rgb(69, 69, 69);
+    margin-bottom: 30%;
+}
+

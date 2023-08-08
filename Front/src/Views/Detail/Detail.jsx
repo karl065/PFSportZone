@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Carousel, LoadingSpinner } from "../../Components/index";
-import { Link } from "react-router-dom";
-import { getProductById, setLoading } from "../../redux/actions/actions";
-import { addProduct } from "../../redux/actions/cartActions";
-import styles from "./Detail.module.css";
-import arrowLeft from "../../assets/arrow-left.svg";
-import { successToast } from "../../helpers/toastNotification";
+import {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {Carousel, LoadingSpinner} from '../../Components/index';
+import {Link} from 'react-router-dom';
+import {getProductById, setLoading} from '../../redux/actions/actions';
+import {addProduct} from '../../redux/actions/cartActions';
+import styles from './Detail.module.css';
+import arrowLeft from '../../assets/arrow-left.svg';
+import {successToast} from '../../helpers/toastNotification';
 
 const Detail = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const {id} = useParams();
   const product = useSelector((state) => state.app.product);
   let isLoading = useSelector((state) => state.app.isLoading);
-  const { role, carrito } = useSelector((state) => state.app.user);
+  const {role, carrito} = useSelector((state) => state.app.user);
 
   const [selectedQuantity, setSelectedQuantity] = useState(1);
 
@@ -39,7 +39,7 @@ const Detail = () => {
     await dispatch(
       addProduct(carrito.idCar, product.id_inventory, selectedQuantity)
     );
-    successToast("Producto añadido correctamente!", 1000);
+    successToast('Producto añadido correctamente!', 1000);
   };
 
   return (
@@ -65,7 +65,7 @@ const Detail = () => {
                 <p>{product.description}</p>
               </div>
               <p className={styles.stock_p}>Stock: {product.stock}</p>
-              {role === "Cliente" && (
+              {role === 'Cliente' && (
                 <>
                   <div className={styles.stock_box}>
                     <button onClick={decrementQuantity}>-</button>
