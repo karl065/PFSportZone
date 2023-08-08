@@ -1,6 +1,6 @@
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import * as Yup from 'yup';
 import styles from './UserRegister.module.css';
 import Swal from 'sweetalert2';
@@ -21,7 +21,7 @@ export const UserRegister = () => {
   const location = useLocation();
 
   const urlCurrent = location.pathname;
-  const role = localStorage.getItem('role');
+  const role = useSelector(state => state.app.user);
 
   const SignupSchema = Yup.object().shape({
     email: Yup.string()

@@ -7,11 +7,13 @@
 
 .empty h2 {
   font-size: 2.5rem;
+  font-weight: 700;
   color: rgb(88, 88, 88);
 }
 
 .empty h3 {
-  font-size: 1.7rem;
+  font-weight: 500;
+  font-size: 1.5rem;
 }
 
 .empty_info {
