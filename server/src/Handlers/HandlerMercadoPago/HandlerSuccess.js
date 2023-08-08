@@ -49,10 +49,12 @@ const success = async (req, res) => {
     );
     await delAllCarrito(external_reference);
 
-    // res.redirect(`https://frontsportzone.onrender.com/detalleCompra?id=${dataValues.id_sales}&&status=${status}`);
     res.redirect(
-      `http://localhost:5173/detalleCompra?id=${dataValues.id_sales}&&status=${status}`
+      `https://frontsportzone.onrender.com/detalleCompra?id=${dataValues.id_sales}&&status=${status}`
     );
+    // res.redirect(
+    //   `http://localhost:5173/detalleCompra?id=${dataValues.id_sales}&&status=${status}`
+    // );
     // res.send('Pago realizado');
   } catch (error) {
     return res.status(500).json({error: error.message});
