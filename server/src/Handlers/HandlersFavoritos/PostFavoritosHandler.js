@@ -27,7 +27,7 @@ const {
  * addToFavor
  */
 const addFavoritesHandler = async (req, res) => {
-  const { idUser, id_Inventory, comment } = req.body;
+  const { idUser, id_Inventory } = req.body;
   // console.log(idUser, id_Inventory, comment);
   try {
     const user = await getUserId(idUser);
@@ -52,7 +52,6 @@ const addFavoritesHandler = async (req, res) => {
     const addToFavorites = await addToFavoritosDB(
       idUser,
       id_Inventory,
-      comment
     );
     return res.status(201).json(addToFavorites);
   } catch (error) {

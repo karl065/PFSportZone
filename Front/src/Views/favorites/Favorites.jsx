@@ -1,7 +1,10 @@
-import React from 'react'
-import Styles from './Favorites.module.css'
+import React from 'react';
+import {useSelector} from 'react-redux';
+import Styles from './Favorites.module.css';
 
 export default function Favorites() {
+  const user = useSelector(state => state.app.user);
+  console.log(user);
   return (
     <>
     <div>
