@@ -1,4 +1,4 @@
-const { Carrito, Usuarios, Inventarios } = require("../../DB");
+const {Carrito, Usuarios, Inventarios} = require('../../DB');
 
 const getAllCarrito = async () => {
   try {
@@ -6,12 +6,12 @@ const getAllCarrito = async () => {
       include: [
         {
           model: Usuarios,
-          as: "usuario",
+          as: 'usuario',
         },
         {
           model: Inventarios,
           through: {
-            attributes: ["cant", "precioPorUnd", "precioPorCant"],
+            attributes: ['cant', 'precioPorUnd', 'precioPorCant'],
           },
         },
       ],
@@ -32,13 +32,13 @@ const getCarritoID = async (id) => {
         {
           model: Inventarios,
           through: {
-            attributes: ["cant", "precioPorUnd", "precioPorCant"],
+            attributes: ['id', 'cant', 'precioPorUnd', 'precioPorCant'],
           },
         },
       ],
     });
 
-    if (!carrito) throw new Error("Carrito no encontrado");
+    if (!carrito) throw new Error('Carrito no encontrado');
 
     return carrito;
   } catch (error) {

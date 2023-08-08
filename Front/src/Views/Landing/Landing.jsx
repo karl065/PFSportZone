@@ -4,13 +4,13 @@ import {useNavigate, NavLink, Link} from 'react-router-dom';
 import {isLoggedIn, handleLogout} from '../../helpers/helperLogin';
 import styles from './Landing.module.css';
 import Footer from '../../Components/Footer/Footer';
-import {useDispatch} from 'react-redux';
-import {deleteAllProduct} from '../../redux/actions/cartActions';
+import {useDispatch, useSelector} from 'react-redux';
+// import {deleteAllProduct} from '../../redux/actions/cartActions';
 import axios from 'axios';
 import server from '../../Connections/Server';
 import {useEffect} from 'react';
 import Swal from 'sweetalert2';
-import {getInventory} from '../../redux/actions/actions';
+import {/*editProduct,*/ getUser} from '../../redux/actions/actions';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -18,33 +18,36 @@ const Landing = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const status = urlParams.get('status');
   const {role} = useSelector((state) => state.app.user);
+  const {id} = useSelector((state) => state.cart);
 
   const fetchData = async () => {
     if (status) {
-      const idCarrito = localStorage.getItem('idCarrito');
+      // const idCarrito = localStorage.getItem('idCarrito');
+      console.log(id);
       try {
-        const {data} = await axios.get(
-          `${server.api.baseURL}carrito/${idCarrito}`
-        );
-        for (const item of data.Inventarios) {
-          const {id_inventory, CarritoInventarios} = item;
-          const newStock = item.stock - CarritoInventarios.cant;
-          // Hacer la solicitud PUT al endpoint de inventario para actualizar el stock
-          try {
-            await axios.put(`${server.api.baseURL}inventory/${id_inventory}`, {
-              stock: newStock,
-            });
-          } catch (error) {
-            console.log(
-              'Error al actualizar el stock del artículo:',
-              error.message
-            );
-            // Aquí puedes manejar el error según lo que necesites
-          }
-        }
+        const {data} = await axios.get(`${server.api.baseURL}carrito/${id}`);
+        console.log(data);
+        // for (const item of data.Inventarios) {
+        //   const {id_inventory, CarritoInventarios} = item;
+        //   const newStock = item.stock - CarritoInventarios.cant;
+        //   // Hacer la solicitud PUT al endpoint de inventario para actualizar el stock
+        //   try {
+        //     const dataStock = {
+        //       id_inventory,
+        //       stock: newStock,
+        //     };
+        //     dispatch(editProduct(dataStock));
+        //   } catch (error) {
+        //     console.log(
+        //       'Error al actualizar el stock del artículo:',
+        //       error.message
+        //     );
+        //     // Aquí puedes manejar el error según lo que necesites
+        //   }
+        // }
         Swal.fire('Buen trabajo!', `Compra Exitosa`, 'success');
-        dispatch(getInventory());
-        dispatch(deleteAllProduct());
+
+        // dispatch(deleteAllProduct());
         const mail = {
           email: data.usuario.email,
           article_name: data.Inventarios[0].article_name,
@@ -66,11 +69,18 @@ const Landing = () => {
   };
 
   useEffect(() => {
+    dispatch(getUser(navigate));
     // Define una función asíncrona dentro de useEffect
 
     // Llama a la función asíncrona dentro de useEffect
-    fetchData();
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      fetchData();
+      // dispatch(getInventory());
+    }
+  }, [id]);
 
   return (
     <div className={styles.container}>

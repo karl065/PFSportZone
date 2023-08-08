@@ -24,6 +24,7 @@ import {
   GET_MARCA,
   EDIT_PRODUCT,
   UPDATE_USERS_STATUS,
+  GET_VENTAS,
 } from '../actions-types/action-types';
 
 const initialState = {
@@ -32,6 +33,8 @@ const initialState = {
   category: [],
   marcas: [],
   sports: [],
+  ventas: [],
+  comprasUsuario: [],
   displayInventory: [],
   user: {},
   product: {},
@@ -42,7 +45,7 @@ export default function appReducer(state = initialState, {type, payload}) {
   switch (type) {
     case SET_USER:
     case GET_USER:
-      return {...state, user: payload};
+      return {...state, user: payload, comprasUsuario: payload.ventas};
     case GET_USERS:
       return {...state, users: payload};
     case GET_INVENTORY:
@@ -131,6 +134,8 @@ export default function appReducer(state = initialState, {type, payload}) {
       return {...state, users: payload};
     case UPDATE_USERS_STATUS:
       return {...state, users: payload};
+    case GET_VENTAS:
+      return {...state, ventas: payload};
     default:
       return {...state};
   }

@@ -1,19 +1,20 @@
-import styles from "./Cart.module.css";
-import { useSelector } from "react-redux";
-import EmptyCart from "./EmptyCart";
-import CartItem from "./CartItem/CartItem";
-import MercadoPago from "../../Components/MercadoPago/MercadoPago";
-import { LoadingSpinner } from "../../Components";
+import styles from './Cart.module.css';
+import {useSelector} from 'react-redux';
+import EmptyCart from './EmptyCart';
+import CartItem from './CartItem/CartItem';
+import MercadoPago from '../../Components/MercadoPago/MercadoPago';
+import {LoadingSpinner} from '../../Components';
 
 const Cart = () => {
   const userProducts = useSelector((state) => state.cart.products);
   const totalCart = useSelector((state) => state.cart.total);
   const cartId = useSelector((state) => state.cart.id);
   let cartLength = userProducts?.length;
-
   return (
     <section
-      className={`${styles.cart_wrapper} ${!cartLength && styles.empty} ${!cartId ? styles.loading_container : ""}`}
+      className={`${styles.cart_wrapper} ${!cartLength && styles.empty} ${
+        !cartId ? styles.loading_container : ''
+      }`}
     >
       {!cartId ? (
         <LoadingSpinner />
@@ -50,7 +51,7 @@ const Cart = () => {
                   <h2>Total</h2>
                   <p>${totalCart}</p>
                 </div>
-                <MercadoPago Inventarios={userProducts} />
+                <MercadoPago Inventarios={userProducts} cartId={cartId} />
               </div>
             </>
           )}

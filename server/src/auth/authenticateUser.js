@@ -1,4 +1,4 @@
-const {Usuarios, Carrito} = require('../DB.js');
+const {Usuarios, Carrito, Ventas} = require('../DB.js');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {SECRETA} = process.env;
@@ -21,15 +21,20 @@ const authenticateUser = async (email, password) => {
   try {
     const user = await Usuarios.findOne({
       where: {email: email},
-      include: {model: Carrito, as: 'carrito'},
+      include: [
+        {model: Carrito, as: 'carrito'},
+        {
+          model: Ventas,
+          as: 'ventas',
+        },
+      ],
     });
-
     const passwordValid = await bcryptjs.compare(password, user.password);
 
     if (!user || !passwordValid) {
-      throw new Error("Usuario o email incorrectos");
+      throw new Error('Usuario o email incorrectos');
     }
-    
+
     const payload = {
       user: {id: user.idUser},
     };
@@ -51,6 +56,7 @@ const authenticateUser = async (email, password) => {
             email: user.email,
             role: user.role,
             carrito: user.carrito,
+            ventas: user.ventas,
           };
           resolve(auth);
         }

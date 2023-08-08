@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { NavBar } from "./Components";
+import {useEffect} from 'react';
+import {Routes, Route, useLocation, useNavigate} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {NavBar} from './Components';
 import {
   Landing,
   Home,
@@ -25,22 +25,25 @@ import {
   AdminPagos,
   Cart,
   ResetPaas,
-} from "./Views";
+  Compra,
+  DetalleCompra,
+} from './Views';
 import {
   getCategory,
+  getCompras,
   getInventory,
   getMarca,
   getSports,
   getUser,
   getUsers,
   setLoading,
-} from "./redux/actions/actions";
-import { useState } from "react";
-import { ToastContainer } from "react-toastify";
-import SettingsUser from "./Components/SettingsUser/SettingsUser";
+} from './redux/actions/actions';
+import {useState} from 'react';
+import {ToastContainer} from 'react-toastify';
+import SettingsUser from './Components/SettingsUser/SettingsUser';
 
 function App() {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,7 +53,7 @@ function App() {
   let [deployMenu, setDeployMenu] = useState(false);
 
   useEffect(() => {
-    if(token) dispatch(getUser(navigate))
+    if (token) dispatch(getUser(navigate));
   }, [token]);
 
   // * Carga inicial de los datos necesarios para la app.
@@ -62,12 +65,13 @@ function App() {
       dispatch(getSports()),
       dispatch(getMarca()),
       dispatch(getInventory()),
+      dispatch(getCompras()),
     ]).then(() => dispatch(setLoading(false)));
   }, [dispatch]);
 
   return (
     <div className="App">
-      {location.pathname !== "/" && errorPage && (
+      {location.pathname !== '/' && errorPage && (
         <NavBar
           deployMenu={() => {
             setDeployMenu(!deployMenu);
@@ -97,6 +101,8 @@ function App() {
         <Route path="/product/:id" element={<Detail />} />
         <Route path="/about" element={<About />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/Compra" element={<Compra />} />
+        <Route path="/detalleCompra" element={<DetalleCompra />} />
         <Route path="/review" element={<Review />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="*" element={<Error setErrorPage={setErrorPage} />} />

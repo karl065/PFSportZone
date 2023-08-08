@@ -21,6 +21,8 @@ import AdminEditProduct from './AdminEditProduct/AdminEditProduct.jsx';
 import Cart from './Cart/Cart.jsx';
 import EditProduct from './Form/EditProduct/EditProduct.jsx';
 import ResetPaas from './Form/ResetPaas/ResetPaas.jsx';
+import Compra from './DetailCompra/Compra.jsx';
+import DetalleCompra from './DetailCompra/DetalleCompra/DetalleCompra.jsx';
 
 export {
   Landing,
@@ -46,4 +48,6 @@ export {
   AdminNewMarca,
   EditProduct,
   ResetPaas,
+  Compra,
+  DetalleCompra,
 };

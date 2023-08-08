@@ -1,0 +1,74 @@
+.card {
+    position: relative;
+    display: inline-block;
+    margin: 30px;
+    justify-content: center;
+    border-radius: 10%;
+    border: 3px solid black;
+    box-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
+    transition: transform 0.3s ease;
+    background-size: cover;
+    background-position: center;
+    width: 250px;
+    height: 500px;
+}
+
+.card:hover {
+    transform: scale(1.1);
+}
+
+.columnas {
+    display: flex;
+    flex-direction: column;
+}
+
+.filas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card h1 {
+    text-align: center;
+    font-size: 30px;
+    color: black;
+    font-weight: bold;
+    text-shadow:
+        -1px -1px 0 white,
+        1px -1px 0 white,
+        -1px 1px 0 white,
+        1px 1px 0 white,
+        0 0 2px white,
+        /* Ajusta este valor para cambiar la intensidad del borde blanco */
+        2px 2px 2px black,
+        2px 2px 25px black,
+        0 0 5px black;
+}
+
+.card h2 {
+    text-align: center;
+    font-size: 30px;
+    color: black;
+    font-weight: bold;
+    text-shadow:
+        -1px -1px 0 white,
+        1px -1px 0 white,
+        -1px 1px 0 white,
+        1px 1px 0 white,
+        0 0 2px white,
+        /* Ajusta este valor para cambiar la intensidad del borde blanco */
+        2px 2px 2px black,
+        2px 2px 25px black,
+        0 0 5px black;
+    margin: 35px;
+    text-transform: uppercase;
+}
+
+.imagen {
+    margin: 20px;
+    border: 2px solid black;
+    box-shadow: 2px 2px 2px black, 2px 2px 25px black, 0 0 5px black;
+    border-radius: 25%;
+    width: 200px;
+    height: 200px;
+}

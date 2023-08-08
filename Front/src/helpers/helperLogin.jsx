@@ -3,18 +3,17 @@ import server from '../Connections/Server';
 import Swal from 'sweetalert2';
 import {signOut} from 'firebase/auth';
 import {auth} from '../firebase/firebaseConfig';
-import { setUser } from '../redux/actions/actions';
+import {setUser} from '../redux/actions/actions';
 
 // * Reutilizable para logearse, retorna una promesa para manejar error y mostrar un sweet alert o no.
 const login = async (email, password, navigate, dispatch) => {
-  try {;
+  try {
     const {data} = await axios.post(`${server.api.baseURL}auth`, {
       email,
       password,
     });
 
     dispatch(setUser(data));
-
     localStorage.setItem('token', data.token);
     localStorage.setItem('idCarrito', data.carrito.idCar);
 

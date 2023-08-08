@@ -23,6 +23,7 @@ import {
   EDIT_PRODUCT,
   UPDATE_USERS_STATUS,
   UPDATE_ITEM_STATUS,
+  GET_VENTAS,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
@@ -38,8 +39,10 @@ export const getUser = (navigate) => {
           'x-auth-token': token,
         },
       });
-
+      console.log(data);
+      // if (data.carrito.idCar) {
       dispatch(getCart(data.carrito.idCar));
+      // }
 
       dispatch({
         type: GET_USER,
@@ -52,7 +55,6 @@ export const getUser = (navigate) => {
 };
 
 export const setUser = (user) => {
-  console.log('Llego sete usuario', user);
   return {
     type: SET_USER,
     payload: user,
@@ -192,6 +194,7 @@ export const editProduct = (newValues, status) => {
       newValues,
       {headers: headers}
     );
+    dispatch(getInventory());
     if (status) {
       dispatch(filterProductsByStatus(status));
     }
@@ -313,6 +316,21 @@ export const updateUsersStatus = (idUser, newStatus, role, userStatus) => {
         type: UPDATE_USERS_STATUS,
         payload: data,
       });
+    }
+  };
+};
+
+export const getCompras = () => {
+  return async (dispatch) => {
+    try {
+      const {data} = await axios.get(`${server.api.baseURL}ventas`);
+      console.log(data);
+      dispatch({
+        type: GET_VENTAS,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error.message);
     }
   };
 };
