@@ -103,7 +103,7 @@ const Detail = () => {
               
               
                   {
-                    product.reviews.length ?
+                    product.reviews?.length ?
                     <div>
                       <h3>Rating General</h3>
                     <Rating 
