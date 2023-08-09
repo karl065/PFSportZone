@@ -13,9 +13,9 @@ const login = async (email, password, navigate, dispatch) => {
       password,
     });
 
-    dispatch(setUser(data));
     localStorage.setItem('token', data.token);
     localStorage.setItem('idCarrito', data?.carrito?.idCar);
+    dispatch(setUser(data));
 
     const role = data.role;
     if (role === 'SuperUser' || role === 'Admin' || role === 'Empleados') {

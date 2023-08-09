@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "../../Components/SideBar/Sidebar";
-import axios from "axios";
-import server from "../../Connections/Server";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import Swal from "sweetalert2";
-import styles from "./AdminQuestions.module.css";
-import { useSelector } from "react-redux";
+import {useEffect, useState} from 'react';
+import Sidebar from '../../Components/SideBar/Sidebar';
+import axios from 'axios';
+import server from '../../Connections/Server';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import * as Yup from 'yup';
+import Swal from 'sweetalert2';
+import styles from './AdminQuestions.module.css';
+import {useSelector} from 'react-redux';
 
 const AdminQuestions = () => {
   const [unansweredQuestions, setUnansweredQuestions] = useState([]);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
-  const { role } = useSelector((state) => state.app.user);
-  const canDeleteQuestion = role === "Admin" || role === "SuperUser";
+  const {role} = useSelector((state) => state.app.user);
+  const canDeleteQuestion = role === 'Admin' || role === 'SuperUser';
 
   useEffect(() => {
-    axios.get(`${server.api.baseURL}questions`).then(({ data }) => {
+    axios.get(`${server.api.baseURL}questions`).then(({data}) => {
       setUnansweredQuestions(data);
     });
   }, []);
 
   const validationSchema = Yup.object({
     response: Yup.string()
-      .required("Este campo es obligatorio")
-      .min(5, "Muy corto!. Al menos 2 caracteres")
-      .max(1000, "Muy largo! No mas de 1000 caracteres")
-      .test("has-2-letters", "Debe contener al menos 2 letras", (value) =>
+      .required('Este campo es obligatorio')
+      .min(5, 'Muy corto!. Al menos 2 caracteres')
+      .max(1000, 'Muy largo! No mas de 1000 caracteres')
+      .test('has-2-letters', 'Debe contener al menos 2 letras', (value) =>
         /^(.*[a-zA-Z].*){2,}$/.test(value)
       ),
   });
@@ -40,13 +40,13 @@ const AdminQuestions = () => {
 
   const handleDeleteQuestion = async (questionId) => {
     const result = await Swal.fire({
-      title: "¿Estás seguro de eliminar esta pregunta?",
-      text: "No podrás revertir esta acción",
-      icon: "warning",
+      title: '¿Estás seguro de eliminar esta pregunta?',
+      text: 'No podrás revertir esta acción',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, eliminar",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
     });
 
     // * Confirmo asi que enviamos la solicitud delete.
@@ -75,9 +75,9 @@ const AdminQuestions = () => {
       setUnansweredQuestions(filteredQuestions);
     } catch (error) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Hubo error subiendo la respuesta. Intente nuevamente",
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Hubo error subiendo la respuesta. Intente nuevamente',
       });
     }
   };
@@ -89,8 +89,8 @@ const AdminQuestions = () => {
         <h1>PREGUNTAS 🤔</h1>
         <div className={styles.cards_container}>
           {unansweredQuestions.length > 0 ? (
-            unansweredQuestions.map((question) => (
-              <div className={styles.card_box}>
+            unansweredQuestions.map((question, index) => (
+              <div className={styles.card_box} key={index}>
                 <div
                   className={styles.card}
                   onClick={() => handleCardClick(question.id)}
@@ -111,12 +111,14 @@ const AdminQuestions = () => {
                       Eliminar
                     </button>
                   )}
-                  <span className={styles.question_date}>Hecha el dia: {question.createdAt}</span>
+                  <span className={styles.question_date}>
+                    Hecha el dia: {question.createdAt}
+                  </span>
                 </div>
                 <div>
                   {selectedQuestion === question.id && (
                     <Formik
-                      initialValues={{ response: "" }}
+                      initialValues={{response: ''}}
                       validationSchema={validationSchema}
                       onSubmit={(values) =>
                         handleSubmit(question.id, values.response)

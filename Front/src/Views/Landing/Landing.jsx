@@ -10,8 +10,8 @@ import axios from 'axios';
 import server from '../../Connections/Server';
 import {useEffect} from 'react';
 import Swal from 'sweetalert2';
-import {/*editProduct,*/ getUser} from '../../redux/actions/actions';
-import ChatBot from '../../Components/ChatBot/ChatBot';
+// import {/*editProduct,*/ getUser} from '../../redux/actions/actions';
+// import ChatBot from '../../Components/ChatBot/ChatBot';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -69,12 +69,12 @@ const Landing = () => {
     navigate('/login');
   };
 
-  useEffect(() => {
-    dispatch(getUser(navigate));
-    // Define una función asíncrona dentro de useEffect
+  // useEffect(() => {
+  //   dispatch(getUser(navigate));
+  //   // Define una función asíncrona dentro de useEffect
 
-    // Llama a la función asíncrona dentro de useEffect
-  }, []);
+  //   // Llama a la función asíncrona dentro de useEffect
+  // }, []);
 
   useEffect(() => {
     if (id) {
@@ -121,7 +121,7 @@ const Landing = () => {
         {!isLoggedIn() && <button onClick={toLogIn}>Ingresar</button>}
       </div>
 
-      <ChatBot />
+      {/* <ChatBot /> */}
 
       <img
         className={styles.image}

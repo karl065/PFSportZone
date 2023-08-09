@@ -57,7 +57,7 @@ function App() {
   let [deployMenu, setDeployMenu] = useState(false);
 
   useEffect(() => {
-    if (token) dispatch(getUser(navigate));
+    if (token) dispatch(getUser(navigate, token));
   }, [token]);
 
   // * Carga inicial de los datos necesarios para la app.

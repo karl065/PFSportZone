@@ -37,8 +37,7 @@ import axios from 'axios';
 import {handleLogout} from '../../helpers/helperLogin';
 import {getCart} from './cartActions';
 
-export const getUser = (navigate) => {
-  const token = localStorage.getItem('token');
+export const getUser = (navigate, token) => {
   return async (dispatch) => {
     try {
       const {data} = await axios.get(`${server.api.baseURL}auth`, {
@@ -56,6 +55,7 @@ export const getUser = (navigate) => {
         payload: data,
       });
     } catch (error) {
+      console.log(error);
       handleLogout(navigate, dispatch);
     }
   };
@@ -93,7 +93,7 @@ export const getUsers = () => {
 
 export const getSales = () => {
   return async (dispatch) => {
-    const {data} = await axios.get(`${server.api.baseURL}sales`);
+    const {data} = await axios.get(`${server.api.baseURL}ventas`);
     data.sort((a, b) => a.id_sales - b.id_sales);
     dispatch({
       type: GET_SALES,
