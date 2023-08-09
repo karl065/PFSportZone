@@ -22,6 +22,7 @@ const crearOrdenController = async (Inventarios, cartId) => {
         failure: 'https://backsportzone.onrender.com/mercadopago/failure',
         pending: 'https://backsportzone.onrender.com/mercadopago/pending',
       },
+      auto_return: 'approved',
       notification_url:
         'https://backsportzone.onrender.com/mercadopago/notification',
     };
