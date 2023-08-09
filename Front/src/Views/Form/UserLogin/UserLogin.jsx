@@ -2,7 +2,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { login, thirdLogin } from "../../../helpers/helperLogin";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase/firebaseConfig";
 import {
   FacebookAuthProvider,
@@ -228,6 +228,12 @@ const UserLogin = () => {
                             </button>
                           </div>
                           <hr />
+                          <p className={styles.loginParagraph}>
+                            Aun no tiene cuenta?
+                            <Link to="/register" className={styles.loginText}>
+                              Registrese
+                            </Link>
+                          </p>
                           {/* <p className={styles.PassO}><Link to={'/login/resetpass'}>Olvidaste tu contraseña?</Link></p>
                           <hr /> */}
                         </form>

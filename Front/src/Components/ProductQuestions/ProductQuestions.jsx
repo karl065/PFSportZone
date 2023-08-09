@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import styles from "./ProductQuestions.module.css";
 import axios from "axios";
 import server from "../../Connections/Server";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
+import { isLoggedIn } from "../../helpers/helperLogin";
+import styles from "./ProductQuestions.module.css";
 
-const ProductQuestions = ({ productId }) => {
-  const [productQuestions, setProductQuestions] = useState([]);
+const ProductQuestions = ({ productQuestions, setProductQuestions }) => {
   const { role } = useSelector((state) => state.app.user);
   const canDeleteQuestion = role === "Admin" || role === "SuperUser";
 
@@ -21,12 +20,6 @@ const ProductQuestions = ({ productId }) => {
         /^(.*[a-zA-Z].*){2,}$/.test(value)
       ),
   });
-
-  useEffect(() => {
-    axios
-      .get(`${server.api.baseURL}questions/${productId}`)
-      .then(({ data }) => setProductQuestions(data));
-  }, [productId]);
 
   const handleDeleteQuestion = async (questionId) => {
     const result = await Swal.fire({
@@ -70,7 +63,7 @@ const ProductQuestions = ({ productId }) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Preguntas y respuestas</h1>
-      {role === "Cliente" && (
+      {(!isLoggedIn() || role === "Cliente") && (
         <Formik
           initialValues={{ message: "" }}
           validationSchema={validationSchema}
@@ -84,7 +77,11 @@ const ProductQuestions = ({ productId }) => {
                 Enviar
               </button>
             </div>
-            <ErrorMessage component="span" name="message" className={styles.error} />
+            <ErrorMessage
+              component="span"
+              name="message"
+              className={styles.error}
+            />
           </Form>
         </Formik>
       )}
@@ -97,7 +94,10 @@ const ProductQuestions = ({ productId }) => {
                 <p className={styles.response}>R: {question.response}</p>
               )}
               {canDeleteQuestion && (
-                <button onClick={() => handleDeleteQuestion(question.id)} className={styles.btnDelete}>
+                <button
+                  onClick={() => handleDeleteQuestion(question.id)}
+                  className={styles.btnDelete}
+                >
                   ELIMINAR
                 </button>
               )}

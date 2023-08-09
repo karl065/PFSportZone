@@ -11,7 +11,7 @@
   background-color: rgba(128, 128, 128, 0.342);
 }
 
-.loading_container{
+.loading_container {
   padding: 0;
 }
 
@@ -62,7 +62,7 @@
   font-weight: 200;
 }
 
-.total_p{
+.total_p {
   font-size: 8rem;
 }
 
@@ -72,11 +72,11 @@
   justify-content: space-between;
 }
 
-.checkout_box .p{
+.checkout_box .p {
   font-size: 1.4rem;
 }
 
-.total{
+.total {
   font-size: 1.8rem;
 }
 
@@ -86,4 +86,19 @@
   font-size: 1.5rem;
   background-color: #393939;
   color: white;
+}
+
+.btnCartLogin {
+  width: 100%;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-align: center;
+  background-color: #23a103;
+  border: 2px solid green;
+  color: white;
+}
+
+.btnCartLogin:active {
+  background-color: #146101;
 }

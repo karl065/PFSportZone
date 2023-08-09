@@ -11,8 +11,9 @@
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 25rem;
-  padding: 1rem 1rem;
+  max-width: 39rem;
+  padding: 1.12rem 0.75rem;
+  font-size: 1.3rem;
   border-radius: 20px;
   background-color: #fff;
   border: none;
@@ -33,16 +34,18 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  top: 0;
-  transform: translate(-0.76rem, 3rem);
+  top: 1rem;
+  transform: translate(-0.76rem, 3.5rem);
   z-index: 999;
   background-color: #fff;
   width: 100%;
+  border-radius: 15px;
+  overflow: hidden;
   color: black;
   list-style: none;
   padding: 0;
   border-radius: 5px;
-  border:transparent
+  border: transparent
 }
 
 .resultsList li {
@@ -60,10 +63,13 @@
 }
 
 .btnClear {
-  background-color: rgb(119, 3, 3);
+  background-color: rgb(173, 0, 0);
   color: white;
-  height: 24px;
-  width: 24px;
+  font-weight: 600;
+  height: 34px;
+  width: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 999px;
-  margin-left: auto;
 }
