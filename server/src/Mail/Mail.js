@@ -45,17 +45,28 @@ const enviarNotificacionCambioContrasena = async (email) => {
     );
   }
 };
-const enviarNotificacionCompra = async (email, article_name) => {
+
+const enviarNotificacionCompra = async (email, productos) => {
+  if (!Array.isArray(productos)) {
+    console.log('No se proporcionó una lista de productos válida.');
+  }
+
+  if (productos.length === 0) {
+    console.log('No se han adquirido productos.');
+  }
+
   const mensaje = {
-    from: "manuelf.borrego@gmail.com",
+    from: 'dianamtm55@gmail.com',
     to: email,
-    subject: "Confirmación de compra",
-    text: `Gracias por tu compra. Has adquirido el artículo: ${article_name}.`,
+    subject: 'Confirmación de compra',
+    text: `Gracias por tu compra. Has adquirido ${
+      productos.length === 1 ? 'el artículo' : 'los artículos'
+    }: ${productos.join(', ')}.`,
   };
 
   try {
     await transporter.sendMail(mensaje);
-    return "Compra Exitosa";
+    return 'Compra Exitosa';
   } catch (error) {
     return error.message;
   }
