@@ -11,6 +11,7 @@ import server from '../../Connections/Server';
 import {useEffect} from 'react';
 import Swal from 'sweetalert2';
 import {/*editProduct,*/ getUser} from '../../redux/actions/actions';
+import ChatBot from '../../Components/ChatBot/ChatBot';
 
 const Landing = () => {
   const navigate = useNavigate();

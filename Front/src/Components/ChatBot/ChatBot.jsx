@@ -1,33 +1,31 @@
-import { useEffect, useState } from "react";
-import m from "./ChatBot.module.css";
-import axios from "axios";
+import {useEffect, useState} from 'react';
+import m from './ChatBot.module.css';
+import axios from 'axios';
 
-function ChatBot() {
+const ChatBot = () => {
   const [change, setChange] = useState(false);
   const [myResponse, setMyResponse] = useState([]);
   const [botResponse, setBotResponse] = useState([]);
   const [checkSend, setCheckSend] = useState(false);
 
   async function callResponse(event) {
-    const { name } = event.target;
+    const {name} = event.target;
     setCheckSend(false);
 
     const myResponse1 = [
-      "Informacion de inventario",
-      "Con respecto a las categorias",
-      "Acerca de los deportes incluidos",
-      "Sobre nuestas marcas",
+      'Informacion de inventario',
+      'Con respecto a las categorias',
+      'Acerca de los deportes incluidos',
+      'Sobre nuestas marcas',
     ];
 
-    const myResponse2 = ["Acerca de los métodos de pago", "Acerca de nosotros"];
+    const myResponse2 = ['Acerca de los métodos de pago', 'Acerca de nosotros'];
 
-    const myResponse3 = ["Deja tu feedback"];
+    const myResponse3 = ['Deja tu feedback'];
 
     if (myResponse1.includes(name)) {
-      const { path, filter } = JSON.parse(event.target.value);
-      const { data } = await axios(
-        `https://backsportzone.onrender.com/${path}`
-      );
+      const {path, filter} = JSON.parse(event.target.value);
+      const {data} = await axios(`https://backsportzone.onrender.com/${path}`);
       const resBot = data.map((val1) => val1[filter]);
       myResponse[0] = name;
       botResponse[0] = resBot;
@@ -37,15 +35,15 @@ function ChatBot() {
     }
     if (myResponse2.includes(name)) {
       const resBot = {
-        res1: "Siéntase seguro de efectuar cuaplquier pago, puesto que está respaldado por Mercado Pago",
-        res2: "Somos un grupo de 8 personas los creadores de esta página, como proyecto final del bootcamp Henry",
+        res1: 'Siéntase seguro de efectuar cuaplquier pago, puesto que está respaldado por Mercado Pago',
+        res2: 'Somos un grupo de 8 personas los creadores de esta página, como proyecto final del bootcamp Henry',
       };
 
       myResponse[1] = name;
-      if (name === "Acerca de los métodos de pago") {
+      if (name === 'Acerca de los métodos de pago') {
         botResponse[1] = resBot.res1;
       }
-      if (name === "Acerca de nosotros") {
+      if (name === 'Acerca de nosotros') {
         botResponse[1] = resBot.res2;
       }
       setMyResponse(myResponse.slice(0, 2));
@@ -54,11 +52,11 @@ function ChatBot() {
     }
     if (myResponse3.includes(name)) {
       const resBot = {
-        res1: "feedback",
+        res1: 'feedback',
       };
 
       myResponse[2] = name;
-      if (name === "Deja tu feedback") {
+      if (name === 'Deja tu feedback') {
         botResponse[2] = resBot.res1;
       }
 
@@ -71,7 +69,7 @@ function ChatBot() {
   console.log(botResponse);
 
   useEffect(() => {
-    console.log("init");
+    console.log('init');
   }, [change, checkSend]);
 
   return (
@@ -80,7 +78,7 @@ function ChatBot() {
       <div className={m.left}>
         <button
           name="Informacion de inventario"
-          value={JSON.stringify({ path: "inventory", filter: "article_name" })}
+          value={JSON.stringify({path: 'inventory', filter: 'article_name'})}
           onClick={callResponse}
           className={m.button}
         >
@@ -88,7 +86,7 @@ function ChatBot() {
         </button>
         <button
           name="Con respecto a las categorias"
-          value={JSON.stringify({ path: "category", filter: "categoryName" })}
+          value={JSON.stringify({path: 'category', filter: 'categoryName'})}
           onClick={callResponse}
           className={m.button}
         >
@@ -96,19 +94,19 @@ function ChatBot() {
         </button>
         <button
           name="Acerca de los deportes incluidos"
-          value={JSON.stringify({ path: "deporte", filter: "deporteName" })}
+          value={JSON.stringify({path: 'deporte', filter: 'deporteName'})}
           onClick={callResponse}
           className={m.button}
         >
           Acerca de los deportes incluidos
         </button>
         <button
-          name="Sobre nuestas marcas"
-          value={JSON.stringify({ path: "marca", filter: "name" })}
+          name="Sobre nuestras marcas"
+          value={JSON.stringify({path: 'marca', filter: 'name'})}
           onClick={callResponse}
           className={m.button}
         >
-          Sobre nuestas marcas
+          Sobre nuestras marcas
         </button>
       </div>
 
@@ -179,6 +177,6 @@ function ChatBot() {
       ) : null}
     </div>
   );
-}
+};
 
 export default ChatBot;
