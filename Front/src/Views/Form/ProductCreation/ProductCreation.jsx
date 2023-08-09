@@ -175,7 +175,7 @@ export const ProductCreation = () => {
                 />
               </div>
               <div className={styles.select_container}>
-                <label>Brand</label>
+                <label>Marca</label>
                 <Field as="select" name="idMarca">
                   <option value="">Seleccione una marca</option>
                   {marcas.map((marca, index) => (
