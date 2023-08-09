@@ -21,9 +21,19 @@ const login = async (email, password, navigate, dispatch) => {
       password,
     });
 
+    // ? Si el estado del usuario es false[inactivo] le muestra este SWAL Y no lo deja logearse.
+    if(!data.status){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Tu cuenta ha sido deshabilita indefinidamente. Para mas detalles contáctenos a la brevedad.',
+      });
+      return;
+    }
+
+    dispatch(setUser(data));
     localStorage.setItem('token', data.token);
     localStorage.setItem('idCarrito', data?.carrito?.idCar);
-    dispatch(setUser(data));
 
     // * Merge del carrito local con el del usuario si tiene al menos un elemento.
     const localCart = getLocalCart();
@@ -59,6 +69,16 @@ const thirdLogin = async (email, navigate, dispatch) => {
       email,
     });
 
+    // ? Si el estado del usuario es false[inactivo] le muestra este SWAL Y no lo deja logearse.
+    if(!data.user.status){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Tu cuenta ha sido deshabilita indefinidamente. Para mas detalles contáctenos a la brevedad.',
+      });
+      return;
+    }
+
     // * Llega id, email, user, role, carrito.
     dispatch(setUser(data.user));
 
@@ -79,7 +99,6 @@ const thirdLogin = async (email, navigate, dispatch) => {
       navigate('/home');
     }
   } catch (error) {
-    console.error(error);
     Swal.fire({
       icon: 'error',
       title: 'Oops...',

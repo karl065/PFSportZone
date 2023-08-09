@@ -2,20 +2,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   min-height: 100vh;
-  /* background-color: #c4c6bd; */
-  background-color: #749900;
+  /* background-color: #42b73a; */
+  background: url("https://res.cloudinary.com/dpjeltekx/image/upload/v1691598015/PF/ctteomzfysdj0korzoyf.png");
+  background-size: cover;
+  background-position: center;
 }
 
-.form {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 4rem;
-  background-color: rgb(255, 255, 255);
-  width: 100%;
+.form_container {
   margin: 2rem;
+  padding: 2rem;
+  background-color: #365518;
+  width: 100%;
   /* 1150px aprox */
   max-height: 72rem;
   /* 720px */
@@ -24,6 +22,15 @@
   box-shadow: 0px 3px 15px 5px rgba(65, 65, 65, 0.3);
   -webkit-box-shadow: 0px 3px 15px 5px rgba(65, 65, 65, 0.3);
   -moz-box-shadow: 0px 3px 15px 5px rgba(65, 65, 65, 0.3);
+  color: white;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 4rem;
+  background-color: #201d26;
 }
 
 .title {
@@ -40,23 +47,35 @@
   align-items: center;
   gap: 1rem;
   color: #858383;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 .loginText {
-  color: blue;
+  color: rgb(0, 119, 255);
   text-decoration: underline;
+}
+
+.icon{
+  color: #2f9407;
+  font-size: 2rem;
 }
 
 .field {
   display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 80%;
+}
+
+.field div {
+  flex: 1;
+  display: flex;
   flex-direction: column;
   position: relative;
-  width: 70%;
   gap: 1rem;
 }
 
-.role_select{
+.role_select {
   padding: 0.4rem 2rem;
   font-size: 1rem;
 }
@@ -70,11 +89,16 @@
 .input {
   flex: 1;
   font-size: 1.2rem;
+  font-weight: 600;
   padding: 0.8rem;
   background-color: #d9d9d9;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border: none;
   outline: none;
+}
+
+.input::placeholder{
+  font-weight: 500;
 }
 
 .error {
@@ -86,7 +110,7 @@
 }
 
 .btnSubmit {
-  background-color: #393939;
+  background-color: #22861b;
   font-family: inherit;
   color: white;
   font-size: 1.5rem;
@@ -98,58 +122,6 @@
 }
 
 .btnSubmit:disabled {
-  background-color: #3939398e;
+  background-color: #90997479;
   cursor: not-allowed;
-}
-
-
-
-.rf-register-form {
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 10px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.rf-input-container {
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  margin-bottom: 15px;
-}
-
-.rg-form {
-  margin: auto;
-}
-
-.rf-icon {
-  padding: 10px;
-  background: dodgerblue;
-  color: white;
-  min-width: 50px;
-  text-align: center;
-}
-
-.rf-input-field {
-  width: 100%;
-  padding: 10px;
-  outline: none;
-  border-radius: 0;
-}
-
-.rf-input-field:focus {
-  border: 2px solid dodgerblue;
-}
-
-.rf-btn {
-  background-color: dodgerblue;
-  color: white;
-  padding: 15px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-  border-radius: 0;
 }

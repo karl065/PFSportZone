@@ -3,12 +3,12 @@
   background-color: rgb(160, 189, 201);
   position: absolute;
   right: 5%;
-  top: 800px;
+  top: 50rem;
   overflow-wrap: break-word;
   word-wrap: break-word;
-  width: 370px;
-  height: 370px;
-  padding: 10px;
+  width: 23.12rem;
+  height: 23.12rem;
+  padding: 0.6rem;
   overflow-y: scroll;
   border-radius: 1rem;
 }
@@ -28,8 +28,8 @@
   flex-direction: column;
   width: fit-content;
   margin-left: 0%;
-  margin-top: 6px;
-  margin-bottom: 6px;
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
   margin-right: 5rem;
 }
 
@@ -47,6 +47,6 @@
   flex-direction: column;
   width: fit-content;
   margin-left: 0%;
-  margin-bottom: 6px;
+  margin-bottom: 0.4rem;
   border-radius: 5px;
 }
