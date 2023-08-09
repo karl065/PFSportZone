@@ -71,8 +71,25 @@ const enviarNotificacionCompra = async (email, productos) => {
     return error.message;
   }
 };
+
+const enviarNotificacionPendiente = async (email, ticket) => {
+  const mensaje = {
+    from: 'dianamtm55@gmail.com',
+    to: email,
+    subject: 'Pago Pendiente',
+    text: `Gracias por tu compra, en el siguiente enlace podrás encontrar los pasos a seguir para hacer tu compra efectiva, ${ticket}`,
+  };
+
+  try {
+    await transporter.sendMail(mensaje);
+    return 'Pago Pendiente';
+  } catch (error) {
+    return error.message;
+  }
+};
 module.exports = {
   enviarNotificacionUsuarioNuevo,
   enviarNotificacionCambioContrasena,
   enviarNotificacionCompra,
+  enviarNotificacionPendiente,
 };
