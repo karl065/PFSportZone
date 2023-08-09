@@ -28,11 +28,12 @@ const {
  */
 const addFavoritesHandler = async (req, res) => {
   const {idUser, id_Inventory} = req.body;
-  console.log(idUser, id_Inventory);
+  // console.log(idUser, id_Inventory);
   try {
     const user = await getUserId(idUser);
+    console.log('esto es user ', user);
     const product = await getInventariosById(id_Inventory);
-
+    console.log('esto es product ', product);
     // Se verifica existencia del Usuario...
     if (!user) {
       return res.status(404).json({message: 'Usuario no encontrado...!'});

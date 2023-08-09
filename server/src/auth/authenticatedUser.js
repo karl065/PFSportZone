@@ -1,4 +1,4 @@
-const {Usuarios, Carrito, Ventas} = require('../DB.js');
+const {Usuarios, Carrito, Ventas, Favoritos} = require('../DB.js');
 
 /**
  * La función `authenticatedUser` recupera un usuario por su ID y devuelve el objeto de usuario, o un
@@ -15,6 +15,10 @@ const authenticatedUser = async (idUser) => {
         {
           model: Ventas,
           as: 'ventas',
+        },
+        {
+          model: Favoritos,
+          as: 'favoritos',
         },
       ],
     });

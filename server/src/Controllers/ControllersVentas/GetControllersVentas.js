@@ -6,7 +6,7 @@ const getAllVentasController = async () => {
       include: [
         {
           model: Usuarios,
-          as: 'ventas',
+          as: 'usuario',
         },
         {model: Inventarios},
       ],
@@ -23,7 +23,7 @@ const getVentasIdController = async (id_sales) => {
       include: [
         {
           model: Usuarios,
-          as: 'ventas',
+          as: 'usuario',
         },
         {model: Inventarios},
       ],

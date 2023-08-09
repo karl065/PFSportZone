@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-// import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -12,8 +9,10 @@ import Sidebar from "../../Components/SideBar/Sidebar";
 import {
   filterUsersByRoleAndStatus,
   getUsers,
+  editUser,
   updateUsersStatus,
 } from "../../redux/actions/actions";
+import { Link } from "react-router-dom";
 
 library.add(fas);
 const AdminUsers = () => {
@@ -43,7 +42,7 @@ const AdminUsers = () => {
     // * Debounce => Luego de que el input cambie y pasen 500 ms sin escribir se realiza el filtrado
     debounceTimeout.current = setTimeout(() => {
       const filtered = users.filter((user) =>
-        user?.user.toLowerCase().includes(searchTerm.toLowerCase())
+        user?.date.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setDisplayedUsers(filtered);
     }, 500);
@@ -67,6 +66,10 @@ const AdminUsers = () => {
   const handleStatusChange = (e) => {
     const { value } = e.target;
     setStatusSeleccionado(value);
+  };
+
+  const handleEditUser = (userEd) => {
+    dispatch(editUser(userEd));
   };
 
   const statusSubmit = (e, idUser) => {
@@ -249,7 +252,16 @@ const AdminUsers = () => {
                                     </select>
                                   </td>
                                   <td>
-                                    <FontAwesomeIcon icon="pencil-square" />
+                                  <Link to="/adminEditUser">
+                                      <FontAwesomeIcon
+                                        icon="pencil-square"
+                                        onClick={() =>
+                                          handleEditUser(
+                                            users
+                                          )
+                                        }
+                                      />
+                                    </Link>
                                   </td>
                                 </tr>
                               ))

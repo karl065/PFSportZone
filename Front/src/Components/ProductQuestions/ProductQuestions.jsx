@@ -1,42 +1,41 @@
-import React, { useEffect, useState } from "react";
-import styles from "./ProductQuestions.module.css";
-import axios from "axios";
-import server from "../../Connections/Server";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import Swal from "sweetalert2";
-import { useSelector } from "react-redux";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import axios from 'axios';
+import server from '../../Connections/Server';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import * as Yup from 'yup';
+import Swal from 'sweetalert2';
+import {useSelector} from 'react-redux';
+import {isLoggedIn} from '../../helpers/helperLogin';
+import styles from './ProductQuestions.module.css';
 
-const ProductQuestions = ({ productId }) => {
-  const [productQuestions, setProductQuestions] = useState([]);
-  const { role } = useSelector((state) => state.app.user);
-  const canDeleteQuestion = role === "Admin" || role === "SuperUser";
+const ProductQuestions = ({
+  productQuestions,
+  setProductQuestions,
+  productId,
+}) => {
+  const {role} = useSelector((state) => state.app.user);
+  const canDeleteQuestion = role === 'Admin' || role === 'SuperUser';
 
   const validationSchema = Yup.object({
     message: Yup.string()
-      .required("No puede enviar una pregunta vacía")
-      .min(5, "Muy corto!. Al menos 5 caracteres")
-      .max(500, "Muy largo! No mas de 500 caracteres")
-      .test("has-2-letters", "Debe contener al menos 2 letras", (value) =>
+      .required('No puede enviar una pregunta vacía')
+      .min(5, 'Muy corto!. Al menos 5 caracteres')
+      .max(500, 'Muy largo! No mas de 500 caracteres')
+      .test('has-2-letters', 'Debe contener al menos 2 letras', (value) =>
         /^(.*[a-zA-Z].*){2,}$/.test(value)
       ),
   });
 
-  useEffect(() => {
-    axios
-      .get(`${server.api.baseURL}questions/${productId}`)
-      .then(({ data }) => setProductQuestions(data));
-  }, [productId]);
-
   const handleDeleteQuestion = async (questionId) => {
     const result = await Swal.fire({
-      title: "¿Estás seguro de eliminar esta pregunta?",
-      text: "No podrás revertir esta acción",
-      icon: "warning",
+      title: '¿Estás seguro de eliminar esta pregunta?',
+      text: 'No podrás revertir esta acción',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, eliminar",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
     });
 
     // * Confirmo asi que enviamos la solicitud delete.
@@ -50,18 +49,18 @@ const ProductQuestions = ({ productId }) => {
     }
   };
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = (values, {resetForm}) => {
     axios
       .post(`${server.api.baseURL}questions`, {
         id_inventory: productId,
         message: values.message,
       })
-      .then(({ data }) => setProductQuestions([data, ...productQuestions]))
+      .then(({data}) => setProductQuestions([data, ...productQuestions]))
       .catch((err) => {
         Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "La pregunta no pudo subirse, intente nuevamente.",
+          icon: 'error',
+          title: 'Oops...',
+          text: 'La pregunta no pudo subirse, intente nuevamente.',
         });
       });
     resetForm();
@@ -70,9 +69,9 @@ const ProductQuestions = ({ productId }) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Preguntas y respuestas</h1>
-      {role === "Cliente" && (
+      {(!isLoggedIn() || role === 'Cliente') && (
         <Formik
-          initialValues={{ message: "" }}
+          initialValues={{message: ''}}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
@@ -84,7 +83,11 @@ const ProductQuestions = ({ productId }) => {
                 Enviar
               </button>
             </div>
-            <ErrorMessage component="span" name="message" className={styles.error} />
+            <ErrorMessage
+              component="span"
+              name="message"
+              className={styles.error}
+            />
           </Form>
         </Formik>
       )}
@@ -97,7 +100,10 @@ const ProductQuestions = ({ productId }) => {
                 <p className={styles.response}>R: {question.response}</p>
               )}
               {canDeleteQuestion && (
-                <button onClick={() => handleDeleteQuestion(question.id)} className={styles.btnDelete}>
+                <button
+                  onClick={() => handleDeleteQuestion(question.id)}
+                  className={styles.btnDelete}
+                >
                   ELIMINAR
                 </button>
               )}

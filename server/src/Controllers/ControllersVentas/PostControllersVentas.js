@@ -21,7 +21,7 @@ const crearVenta = async (status, cantProd, total, idUser, Inventario) => {
       include: [
         {
           model: Usuarios,
-          as: 'ventas',
+          as: 'usuario',
         },
         {model: Inventarios},
       ],

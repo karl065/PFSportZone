@@ -142,182 +142,184 @@ export default function SortAndFilters() {
     <div className={Styles.container}>
       <div className={Styles.order_container}>
         <label htmlFor="ordenamientos">ordenar por:</label>
-        <br />
-        <select
-          name="ordenamientos"
-          id="ordenamientos"
-          onChange={handleOrderByPrice}
-        >
-          <option value="default">Precio</option>
-          <option value="PA">mas barato a mas caro</option>
-          <option value="PD">mas caro a mas barato</option>
-        </select>
-        <select
-          name="ordenamientos"
-          id="ordenamientos"
-          onChange={handleOrderByAbc}
-        >
-          <option value="default">Abc</option>
-          <option value="ABCA">abc ascendente</option>
-          <option value="ABCD">abc descendente</option>
-        </select>
+        <div className={Styles.select_box}>
+          <select
+            name="ordenamientos"
+            id="ordenamientos"
+            onChange={handleOrderByPrice}
+          >
+            <option value="default">precio</option>
+            <option value="PA">mas barato a mas caro</option>
+            <option value="PD">mas caro a mas barato</option>
+          </select>
+          <select
+            name="ordenamientos"
+            id="ordenamientos"
+            onChange={handleOrderByAbc}
+          >
+            <option value="default">alfabeticamente</option>
+            <option value="ABCA">abc ascendente</option>
+            <option value="ABCD">abc descendente</option>
+          </select>
+        </div>
       </div>
 
       <div className={Styles.filters_container}>
         <button
-          onClick={handleViewFiltersAndOrdereds}
+          onClick={() => setMenuView(!menuView)}
           className={Styles.button_onMenu}
         >
-          <FontAwesomeIcon icon={faSliders} className={Styles.button_onMenu} />
+          <FontAwesomeIcon icon={faSliders} />
           Filtrar por
         </button>
-        <br />
-        <div
-          className={
-            menuView ? Styles.menu_filters_active : Styles.menuDisabled
-          }
-        >
-          <span>
-            <button onClick={closeMenuFilters}>
-              <FontAwesomeIcon
-                icon={faArrowLeft}
-                className={Styles.arrowButton}
-              />
-            </button>
-            <button onClick={handleFiltersClean}>Eliminar filtros</button>
-          </span>
-          <p>Filtros elegidos:</p>
-          {Object.keys(filters).map((key, index) => {
-            const value = filters[key];
-            if (
-              value !== undefined &&
-              value !== null &&
-              value !== '' &&
-              value !== 'default'
-            ) {
-              const buttonText = Object.values(filtersSelected)[index];
-              return (
-                <button
-                  key={index}
-                  value={value}
-                  onClick={() => handlerSingleFilterClean(key)}
-                >
-                  {buttonText}
-                </button>
-              );
+
+        {menuView && (
+          <div
+            className={
+              menuView ? Styles.menu_filters_active : Styles.menuDisabled
             }
-            return null;
-          })}
-          <br />
-
-          <label htmlFor="filters">Por tipo de producto:</label>
-          <select
-            value={filters.id_categorias}
-            name="id_categorias"
-            id="filters"
-            onChange={(e) => handleFiltersChange(e)}
           >
-            <option value="default">Elige una opcion</option>
-            {categorys?.length &&
-              categorys.map((category, index) => {
+            <span>
+              <button onClick={closeMenuFilters}>
+                <FontAwesomeIcon
+                  icon={faArrowLeft}
+                  className={Styles.arrowButton}
+                />
+              </button>
+              <button onClick={handleFiltersClean}>Eliminar filtros</button>
+            </span>
+
+            <label>Filtros elegidos:</label>
+            {Object.keys(filters).map((key, index) => {
+              const value = filters[key];
+              if (
+                value !== undefined &&
+                value !== null &&
+                value !== '' &&
+                value !== 'default'
+              ) {
+                const buttonText = Object.values(filtersSelected)[index];
                 return (
-                  <option value={category.id_categories} key={index}>
-                    {category.categoryName}
-                  </option>
+                  <button
+                    key={index}
+                    value={value}
+                    onClick={() => handlerSingleFilterClean(key)}
+                  >
+                    {buttonText}
+                  </button>
                 );
-              })}
-          </select>
+              }
+              return null;
+            })}
 
-          <label htmlFor="filters">Por deporte:</label>
-          <select
-            value={filters.idDeportes}
-            name="idDeportes"
-            id="filters"
-            onChange={(e) => handleFiltersChange(e)}
-          >
-            <option value="default">Elige una opcion</option>
-            {sports?.length &&
-              sports.map((sport, index) => {
-                return (
-                  <option value={sport.idDeportes} key={index}>
-                    {sport.deporteName}
-                  </option>
-                );
-              })}
-          </select>
+            <label htmlFor="filters">Tipo de producto</label>
+            <select
+              value={filters.id_categorias}
+              name="id_categorias"
+              id="filters"
+              onChange={(e) => handleFiltersChange(e)}
+            >
+              <option value="default">Elige una opcion</option>
+              {categorys?.length &&
+                categorys.map((category, index) => {
+                  return (
+                    <option value={category.id_categories} key={index}>
+                      {category.categoryName}
+                    </option>
+                  );
+                })}
+            </select>
 
-          <label htmlFor="filters">Por genero:</label>
-          <select
-            value={filters.genre}
-            name="genre"
-            id="filters"
-            onChange={(e) => handleFiltersChange(e)}
-          >
-            <option value="default">Elige una opción</option>
-            <option value="Men">Hombre</option>
-            <option value="Women">Mujer</option>
-            <option value="Unisex">Unisex</option>
-          </select>
+            <label htmlFor="filters">Deporte</label>
+            <select
+              value={filters.idDeportes}
+              name="idDeportes"
+              id="filters"
+              onChange={(e) => handleFiltersChange(e)}
+            >
+              <option value="default">Elige una opcion</option>
+              {sports?.length &&
+                sports.map((sport, index) => {
+                  return (
+                    <option value={sport.idDeportes} key={index}>
+                      {sport.deporteName}
+                    </option>
+                  );
+                })}
+            </select>
 
-          <label htmlFor="filters">Por marcas:</label>
-          <select
-            value={filters.idMarca}
-            name="idMarca"
-            id="filters"
-            onChange={(e) => handleFiltersChange(e)}
-          >
-            <option value="default">Elige una opción</option>
-            {marcas?.length &&
-              marcas.map((marc, index) => {
-                return (
-                  <option value={marc.idMarca} key={index}>
-                    {marc.name}
-                  </option>
-                );
-              })}
-          </select>
+            <label htmlFor="filters">Genero</label>
+            <select
+              value={filters.genre}
+              name="genre"
+              id="filters"
+              onChange={(e) => handleFiltersChange(e)}
+            >
+              <option value="default">Elige una opcion</option>
+              <option value="Man">Hombre</option>
+              <option value="Women">Mujer</option>
+              <option value="Unisex">Unisex</option>
+            </select>
 
-          <label htmlFor="filters">Precio mínimo:</label>
-          <select
-            value={filters.minPrice}
-            name="minPrice"
-            id="filters"
-            onChange={(e) => handleFiltersChange(e)}
-          >
-            <option value="default">Elige una opción</option>
-            <option value="0">0</option>
-            <option value="1000">1.000</option>
-            <option value="5000">5.000</option>
-            <option value="10000">10.000</option>
-            <option value="20000">20.000</option>
-            <option value="30000">30.000</option>
-            <option value="40000">40.000</option>
-            <option value="50000">50.000</option>
-          </select>
+            <label htmlFor="filters">Marca</label>
+            <select
+              value={filters.idMarca}
+              name="idMarca"
+              id="filters"
+              onChange={(e) => handleFiltersChange(e)}
+            >
+              <option value="default">Elige una opcion</option>
+              {marcas?.length &&
+                marcas.map((marc, index) => {
+                  return (
+                    <option value={marc.idMarca} key={index}>
+                      {marc.name}
+                    </option>
+                  );
+                })}
+            </select>
 
-          <label htmlFor="filters">Precio máximo:</label>
-          <select
-            value={filters.maxPrice}
-            name="maxPrice"
-            id="filters"
-            onChange={(e) => handleFiltersChange(e)}
-          >
-            <option value="default">Elige una opción</option>
-            <option value="1000">1.000</option>
-            <option value="5000">5.000</option>
-            <option value="10000">10.000</option>
-            <option value="20000">20.000</option>
-            <option value="30000">30.000</option>
-            <option value="40000">40.000</option>
-            <option value="50000">50.000</option>
-            <option value="Infinity">mas de 50.000</option>
-          </select>
+            <label htmlFor="filters">precio minimo</label>
+            <select
+              value={filters.minPrice}
+              name="minPrice"
+              id="filters"
+              onChange={(e) => handleFiltersChange(e)}
+            >
+              <option value="default">Elige una opcion</option>
+              <option value="0">0</option>
+              <option value="1000">1.000</option>
+              <option value="5000">5.000</option>
+              <option value="10000">10.000</option>
+              <option value="20000">20.000</option>
+              <option value="30000">30.000</option>
+              <option value="40000">40.000</option>
+              <option value="50000">50.000</option>
+            </select>
 
-          <br />
-          <button className={Styles.applyButton} onClick={closeMenuFilters}>
-            Aplicar Filtros({productosFiltrados.length} Resultados)
-          </button>
-        </div>
+            <label htmlFor="filters">precio maximo</label>
+            <select
+              value={filters.maxPrice}
+              name="maxPrice"
+              id="filters"
+              onChange={(e) => handleFiltersChange(e)}
+            >
+              <option value="default">Elige una opcion</option>
+              <option value="1000">1.000</option>
+              <option value="5000">5.000</option>
+              <option value="10000">10.000</option>
+              <option value="20000">20.000</option>
+              <option value="30000">30.000</option>
+              <option value="40000">40.000</option>
+              <option value="50000">50.000</option>
+              <option value="Infinity">mas de 50.000</option>
+            </select>
+
+            {/* <button className={Styles.applyButton} onClick={closeMenuFilters}>
+              Aplicar Filtros({productosFiltrados.length} resultados)
+            </button> */}
+          </div>
+        )}
       </div>
     </div>
   );
