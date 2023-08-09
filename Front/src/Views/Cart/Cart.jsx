@@ -6,7 +6,9 @@ import MercadoPago from '../../Components/MercadoPago/MercadoPago';
 import {LoadingSpinner} from '../../Components';
 import {isLoggedIn} from '../../helpers/helperLogin';
 import LocalCart from './LocalCart/LocalCart';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import Modal from './ModalPendiente';
 
 const Cart = () => {
   const localCart = useSelector((state) => state.cart.localCart);
@@ -15,7 +17,29 @@ const Cart = () => {
   const cartId = useSelector((state) => state.cart.id);
   const isLoading = useSelector((state) => state.app.isLoading);
   let cartLength = isLoggedIn() ? userProducts?.length : localCart.length;
+  const location = useLocation();
 
+  const [ticket, setTicket] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    // Obtener el ticket de la URL usando propiedades de búsqueda
+    const fullUrl = location.pathname + location.search;
+    const searchParams = new URLSearchParams(fullUrl);
+    const ticketParam = searchParams.get('urlticket');
+    console.log(ticketParam);
+    if (ticketParam) {
+      setTicket(ticketParam);
+      setIsModalOpen(true);
+      // Aquí puedes abrir el modal con la URL que contiene el ticket
+      // Lógica para abrir el modal aquí
+    }
+  }, []);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setTicket('');
+  };
   return (
     <section
       className={`${styles.cart_wrapper} ${!cartLength && styles.empty} ${
@@ -77,6 +101,7 @@ const Cart = () => {
           )}
         </div>
       )}
+      <Modal isOpen={isModalOpen} onClose={closeModal} ticket={ticket} />
     </section>
   );
 };
