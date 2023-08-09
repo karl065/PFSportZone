@@ -1,0 +1,34 @@
+body{
+    background: #c4c6bd;
+}
+.favorites{
+    display: inline-flex;
+    gap:20px;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+
+.favSingle{
+    border: transparent;
+    border-radius: 10px;
+    width: 200px;
+    height: 370px;
+    text-align: center;
+    background: linear-gradient(to top, #b5e423 0%, rgba(180, 208, 93, 0) 80.87%);
+}
+.favSingle img{
+    width: 100%;
+    height: 50%;
+    border-radius: 5px 5px 0px 0px;
+    cursor: pointer;
+}
+
+.favSingle button{
+    margin-top: 5px;
+}
+
+.addToCart{
+    border: 2px solid black;
+    border-radius: 5px;
+    font-weight: 500;
+}
