@@ -75,6 +75,7 @@ function App() {
       dispatch(getCompras()),
     ]).finally(() => dispatch(setLoading(false)));
   }, [dispatch]);
+  
   return (
     <div className="App">
       {isLoading ? (
