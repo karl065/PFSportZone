@@ -5,6 +5,7 @@ import {isLoggedIn, handleLogout} from '../../helpers/helperLogin';
 import styles from './Landing.module.css';
 import Footer from '../../Components/Footer/Footer';
 import {useDispatch, useSelector} from 'react-redux';
+import {ChatBot} from '../../Components/';
 const Landing = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const Landing = () => {
         {!isLoggedIn() && <button onClick={toLogIn}>Ingresar</button>}
       </div>
 
-      {/* <ChatBot /> */}
+      <ChatBot />
 
       <img
         className={styles.image}
