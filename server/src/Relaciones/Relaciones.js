@@ -96,7 +96,7 @@ const relaciones = (models) => {
   });
   Ventas.belongsTo(Usuarios, {
     foreignKey: 'idUser',
-    as: 'ventas',
+    as: 'usuario',
   });
 
   Ventas.belongsToMany(Inventarios, {

@@ -1,0 +1,93 @@
+.view_container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.body_container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0.2rem 2rem;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  gap: 1rem;
+  color: black;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 39rem;
+  padding: 1.12rem 0.75rem;
+  border-radius: 20px;
+  background-color: #141414;
+  border: none;
+  position: relative;
+}
+
+.bar input {
+  border: none;
+  outline: none;
+  width: 100%;
+  background-color: #141414;
+  color: white;
+}
+
+.bar input::placeholder {
+  color: white;
+}
+
+.bar button {
+  margin-left: auto;
+}
+
+.resultsList {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  transform: translate(-0.76rem, 3rem);
+  z-index: 999;
+  background-color: #141414;
+  width: 100%;
+  max-height: calc(
+    6 * 3.5rem
+  ); /* Asumiendo que cada elemento de la lista tiene una altura de 2.5rem */
+  overflow-y: auto;
+  color: white;
+  list-style: none;
+  padding: 0;
+}
+
+.resultsList li {
+  cursor: pointer;
+  padding: 1rem;
+  border-bottom: 2px solid white;
+}
+
+.highlighted {
+  background-color: black;
+}
+
+.btnSearch {
+  background-color: black;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+}
+
+.btnClear {
+  background-color: rgb(119, 3, 3);
+  color: white;
+  height: 24px;
+  width: 24px;
+  border-radius: 999px;
+  margin-left: auto;
+}

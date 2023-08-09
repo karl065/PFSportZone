@@ -1,0 +1,52 @@
+.main {
+  /* background-color: rgb(104, 255, 172); */
+  background-color: rgb(160, 189, 201);
+  position: absolute;
+  right: 5%;
+  top: 800px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  width: 370px;
+  height: 370px;
+  padding: 10px;
+  overflow-y: scroll;
+  border-radius: 1rem;
+}
+
+.main::-webkit-scrollbar {
+  display: none;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin-left: 0%;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  margin-right: 5rem;
+}
+
+.textArea1 {
+  margin-left: 7rem;
+  border-radius: 5px;
+}
+
+.send {
+  margin-right: 6rem;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin-left: 0%;
+  margin-bottom: 6px;
+  border-radius: 5px;
+}

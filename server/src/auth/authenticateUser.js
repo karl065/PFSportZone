@@ -1,4 +1,4 @@
-const {Usuarios, Carrito, Ventas} = require('../DB.js');
+const {Usuarios, Carrito, Ventas, Favoritos} = require('../DB.js');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {SECRETA} = process.env;
@@ -26,6 +26,10 @@ const authenticateUser = async (email, password) => {
         {
           model: Ventas,
           as: 'ventas',
+        },
+        {
+          model: Favoritos,
+          as: 'favoritos',
         },
       ],
     });
@@ -71,7 +75,17 @@ const authenticateThirdUser = async (email) => {
   try {
     const user = await Usuarios.findOne({
       where: {email: email},
-      include: {model: Carrito, as: 'carrito'},
+      include: [
+        {model: Carrito, as: 'carrito'},
+        {
+          model: Ventas,
+          as: 'ventas',
+        },
+        {
+          model: Favoritos,
+          as: 'favoritos',
+        },
+      ],
     });
 
     if (!user) {

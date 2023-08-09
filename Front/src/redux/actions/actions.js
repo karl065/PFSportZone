@@ -3,7 +3,9 @@ import {
   SET_USER,
   GET_USER,
   GET_USERS,
+  EDIT_USER,
   CLEAR_USER,
+  CLEAR_USERED,
   GET_INVENTORY,
   GET_SPORTS,
   CREATE_USER,
@@ -12,6 +14,7 @@ import {
   CLEAR_PRODUCT,
   FILTER_PRODUCTS_BY_NAME,
   RESET_DISPLAYED_PRODUCTS,
+  RESET_DISPLAYED_USERS,
   GET_CATEGORY,
   CREATE_CATEGORY,
   ORDER_PRODUCTS_BY_PRICE,
@@ -26,14 +29,15 @@ import {
   UPDATE_USERS_STATUS,
   UPDATE_ITEM_STATUS,
   GET_VENTAS,
+  GET_SALES,
+  UPDATE_SALES_STATUS,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
 import {handleLogout} from '../../helpers/helperLogin';
 import {getCart} from './cartActions';
 
-export const getUser = (navigate) => {
-  const token = localStorage.getItem('token');
+export const getUser = (navigate, token) => {
   return async (dispatch) => {
     try {
       const {data} = await axios.get(`${server.api.baseURL}auth`, {
@@ -41,16 +45,15 @@ export const getUser = (navigate) => {
           'x-auth-token': token,
         },
       });
-      console.log(data);
-      // if (data.carrito.idCar) {
+
       dispatch(getCart(data.carrito.idCar));
-      // }
 
       dispatch({
         type: GET_USER,
         payload: data,
       });
     } catch (error) {
+      console.log(error);
       handleLogout(navigate, dispatch);
     }
   };
@@ -69,12 +72,55 @@ export const clearUser = () => {
   };
 };
 
+export const clearUserEd = () => {
+  return {
+    type: CLEAR_USERED,
+  };
+};
+
 export const getUsers = () => {
   return async (dispatch) => {
     const {data} = await axios.get(`${server.api.baseURL}users`);
     data.sort((a, b) => a.idUser - b.idUser);
     dispatch({
       type: GET_USERS,
+      payload: data,
+    });
+  };
+};
+
+export const getSales = () => {
+  return async (dispatch) => {
+    const {data} = await axios.get(`${server.api.baseURL}ventas`);
+    data.sort((a, b) => a.id_sales - b.id_sales);
+    dispatch({
+      type: GET_SALES,
+      payload: data,
+    });
+  };
+};
+
+export const updateSaleStatus = (idSale, status) => {
+  return async (dispatch) => {
+    const {data} = await axios.put(
+      `${server.api.baseURL}sales/${idSale}`,
+      status
+    );
+    dispatch({
+      type: UPDATE_SALES_STATUS,
+      payload: data,
+    });
+  };
+};
+
+export const editUser = (newValues) => {
+  return async (dispatch) => {
+    const {data} = await axios.put(
+      `${server.api.baseURL}users/${newValues.idUser}`,
+      newValues
+    );
+    dispatch({
+      type: EDIT_USER,
       payload: data,
     });
   };
@@ -242,6 +288,12 @@ export const resetDisplayedProducts = () => {
   };
 };
 
+export const resetDisplayedUsers = () => {
+  return {
+    type: RESET_DISPLAYED_USERS,
+  };
+};
+
 export const setLoading = (isLoading) => {
   return {
     type: SET_LOADING,
@@ -338,7 +390,6 @@ export const getCompras = () => {
   return async (dispatch) => {
     try {
       const {data} = await axios.get(`${server.api.baseURL}ventas`);
-      console.log(data);
       dispatch({
         type: GET_VENTAS,
         payload: data,

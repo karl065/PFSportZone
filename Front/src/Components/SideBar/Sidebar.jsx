@@ -79,28 +79,18 @@ const Sidebar = () => {
                     </li>
                   </>
                 ) : null}
-                {/* <hr className="sidebar-divider my-2" />
-            <li
-            className={`nav-item ${
-              location.pathname === '/adminEmployes' ? styles.active : ''
-            }`}
-            >
-            <Link to="/adminEmployes">
-            <FontAwesomeIcon icon="user-circle" />
-            <span> Empleados</span>
-            </Link>
-            </li>
-            <hr className="sidebar-divider my-2" />
-            <li
-            className={`nav-item ${
-              location.pathname === '/adminPagos' ? styles.active : ''
-            }`}
-            >
-            <Link to="/adminPagos">
-            <FontAwesomeIcon icon="money-check-alt" />
-            <span> Pagos</span>
-            </Link>
-          </li> */}
+
+                <hr className="sidebar-divider my-2" />
+                <li
+                  className={`nav-item ${
+                    location.pathname === '/adminSales' ? styles.active : ''
+                  }`}
+                >
+                  <Link to="/adminSales">
+                    <FontAwesomeIcon icon="money-check-alt" />
+                    <span> Ventas</span>
+                  </Link>
+                </li>
                 <hr className="sidebar-divider my-2" />
                 <li
                   className={`nav-item ${
