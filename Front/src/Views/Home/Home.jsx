@@ -8,7 +8,7 @@ import { LoadingSpinner } from "../../Components";
 import Pagination from "../../Components/Pagination/Pagination";
 import SortAndFilters from "../../Components/SortAndFilters/SortAndFilters";
 import Styles from "./Home.module.css";
-import { resetDisplayedProducts } from "../../redux/actions/actions";
+// import { resetDisplayedProducts } from "../../redux/actions/actions";
 
 const Home = (props) => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const Home = (props) => {
 
   return (
     <div className={Styles.container}>
-      {displayInventory.length > 0 && <SortAndFilters setPage={setPage} />}
+      <SortAndFilters setPage={setPage}/>
       {isLoading ? (
         <LoadingSpinner />
       ) : (
@@ -36,26 +36,19 @@ const Home = (props) => {
                 (page - 1) * amountPerPage + amountPerPage
               )
               .map((item, index) => {
-                if (
-                  !(
-                    item.stock === 0 ||
-                    item.status === "Discontinued" ||
-                    item.status === "Not Available"
-                  )
-                ) {
+                if (item.stock > 0 && item.status !== "Discontinued" && item.status !== "Not Available") {
                   return <Card key={index} product={item} />;
                 }
-                return null;
               })
           ) : (
             <div className={Styles.no_matches_box}>
               <h3>Sin resultados... ☹️</h3>
-              <button
+              {/* <button
                 className={Styles.resetBtn}
                 onClick={() => dispatch(resetDisplayedProducts())}
               >
                 Volver a cargar
-              </button>
+              </button> */}
             </div>
           )}
         </div>
