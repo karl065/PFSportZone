@@ -12,7 +12,6 @@ const mercadopago = require("./RoutesMercadoPago/RoutesMercadoPago.js");
 const mails = require("./MailsRoutes/MailsRoutes.js");
 const favorites = require("../Routes/FavoritosRoutes/FavoritosRoutes.js");
 const reviews = require("./ReviewsRoutes/ReviewsRoutes.js");
-const sales = require("./SalesRoutes/SalesRoutes.js");
 const preguntas = require("./PreguntasRoutes/PreguntasRoutes.js");
 const router = Router();
 
@@ -32,6 +31,5 @@ router.use("/questions", preguntas);
 
 router.use("/favorites", favorites);
 router.use("/review", reviews);
-router.use("/sales", sales);
 
 module.exports = router;
