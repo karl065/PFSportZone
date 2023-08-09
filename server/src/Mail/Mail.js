@@ -94,10 +94,27 @@ const enviarNotificacionCompraRechazada = async (email, article_name) => {
   }
 };
 
+const enviarNotificacionArticulo = async (email, article_name, stock) => {
+  const mensaje = {
+    from: "dianamtm55@gmail.com",
+    to: email,
+    subject: "Articulo con poco stock",
+    text: `El articulo ${article_name}, cuenta con solo ${stock} .`,
+  };
+
+  try {
+    await transporter.sendMail(mensaje);
+    return "Articulo notificado";
+  } catch (error) {
+    return error.message;
+  }
+};
+
 module.exports = {
   enviarNotificacionUsuarioNuevo,
   enviarNotificacionCambioContrasena,
   enviarNotificacionCompra,
   enviarNotificacionCompraPendiente,
   enviarNotificacionCompraRechazada,
+  enviarNotificacionArticulo,
 };
