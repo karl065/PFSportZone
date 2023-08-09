@@ -17,6 +17,7 @@ const crearOrdenController = async (Inventarios, cartId) => {
 
     const preference = {
       items: carritoItems,
+      external_reference: cartId.toString(),
       back_urls: {
         success: 'https://backsportzone.onrender.com/mercadopago/success',
         failure: 'https://backsportzone.onrender.com/mercadopago/failure',
