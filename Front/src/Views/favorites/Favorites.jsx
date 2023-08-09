@@ -30,10 +30,10 @@ const redirectToDetail = (idProduct) => {
             return (
               <span className={Styles.favSingle} key={index}>
                 <img src={fav.image[0]} alt={fav.article_name} onClick={()=>redirectToDetail(fav.id_inventory)}/>
-                <h2>{fav.article_name}</h2>
-                <h3>{fav.marcas?.name}</h3>
+                <h3>{fav.article_name}</h3>
+                <h4>{fav.marcas?.name}</h4>
                 <h4>${fav.selling_price}</h4>
-                <h5>Disponibles: {fav.stock}</h5>
+                <h6>Disponibles: {fav.stock}</h6>
                 <button className={Styles.addToCart}>Añadir al carrito</button>
               </span>
             )
