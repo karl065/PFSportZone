@@ -24,7 +24,7 @@ const Home = (props) => {
 
   return (
     <div className={Styles.container}>
-      {displayInventory.length > 0 && <SortAndFilters setPage={setPage} />}
+      <SortAndFilters setPage={setPage}/>
       {isLoading ? (
         <LoadingSpinner />
       ) : (
@@ -36,16 +36,9 @@ const Home = (props) => {
                 (page - 1) * amountPerPage + amountPerPage
               )
               .map((item, index) => {
-                if (
-                  !(
-                    item.stock === 0 ||
-                    item.status === "Discontinued" ||
-                    item.status === "Not Available"
-                  )
-                ) {
+                if (item.stock > 0 && item.status !== "Discontinued" && item.status !== "Not Available") {
                   return <Card key={index} product={item} />;
                 }
-                return null;
               })
           ) : (
             <div className={Styles.no_matches_box}>
