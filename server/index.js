@@ -10,14 +10,12 @@ const {
   inicializarDeportes,
 } = require('./src/Controllers/ControllersDeportes/PostControllerDeportes.js');
 const server = require('./src/server');
-const client = require('./src/.Bot-whatsapp');
 const PORT = 3000;
 //
 conn.sync().then(() => {
   server.listen(PORT, async () => {
     superUser();
     inicializarDeportes();
-    client.initialize();
     console.log(`Corriendo en el puerto: ${PORT}`);
   });
 });
