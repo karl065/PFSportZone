@@ -55,10 +55,13 @@
   border: transparent;
   text-transform: uppercase;
   justify-self: flex-end;
+  background-color: #BEF31B;
+  color: rgb(17, 17, 17);
+  border-radius: 8px;
 }
 
 .button_onMenu:hover {
-  color: gray;
+  background-color: #dff98d;
 }
 
 .filters_container {
