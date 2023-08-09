@@ -65,7 +65,7 @@ const Cart = () => {
                       <h2>Total</h2>
                       <p>${totalCart}</p>
                     </div>
-                    <MercadoPago Inventarios={userProducts} />
+                    <MercadoPago Inventarios={userProducts} cartId={cartId} />
                   </>
                 ) : (
                   <Link to="/login" className={styles.btnCartLogin}>

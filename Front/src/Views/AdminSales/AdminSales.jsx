@@ -32,7 +32,6 @@ const AdminSales = () => {
   const handleChange = (event) => {
     handleSearch(event.target.value);
   };
-  console.log(sales);
   const handleSearch = (searchTerm) => {
     clearTimeout(debounceTimeout.current);
     debounceTimeout.current = setTimeout(() => {

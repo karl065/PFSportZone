@@ -59,8 +59,6 @@ const thirdLogin = async (email, navigate, dispatch) => {
       email,
     });
 
-    console.log('Data del thirdLogin => ', data);
-
     // * Llega id, email, user, role, carrito.
     dispatch(setUser(data.user));
 

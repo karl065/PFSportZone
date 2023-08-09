@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios";
-import { useState } from "react";
-import styles from "./CloudinaryWidget.module.css";
+import axios from 'axios';
+import {useState} from 'react';
+import styles from './CloudinaryWidget.module.css';
 
 const MAX_IMAGES = 5;
 
-const CloudinaryWidget = ({ fieldName, setFieldValue, images }) => {
-  const cloudName = "dpjeltekx";
-  const uploadPreset = "PFSportZone";
+const CloudinaryWidget = ({fieldName, setFieldValue, images}) => {
+  const cloudName = 'dpjeltekx';
+  const uploadPreset = 'PFSportZone';
   const [uploadedImage, setUploadedImage] = useState([]);
 
   const handleUpload = async (event) => {
@@ -20,8 +20,8 @@ const CloudinaryWidget = ({ fieldName, setFieldValue, images }) => {
     try {
       // Preparar el formulario para subir la imagen con Cloudinary
       const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", uploadPreset);
+      formData.append('file', file);
+      formData.append('upload_preset', uploadPreset);
 
       // Realizar la solicitud POST a la API de Cloudinary
       const response = await axios.post(
@@ -30,7 +30,6 @@ const CloudinaryWidget = ({ fieldName, setFieldValue, images }) => {
       );
 
       // El resultado de la solicitud contiene información sobre la imagen subida
-      //   console.log('Imagen subida:', response.data);
 
       // Guardar el public_id y la URL de la imagen subida en el estado del componente
       setUploadedImage([
@@ -45,10 +44,10 @@ const CloudinaryWidget = ({ fieldName, setFieldValue, images }) => {
       // * Guardo las url en un array y se la paso a los valores del formulario.
       setFieldValue(fieldName, [...images, response.data.url]);
     } catch (error) {
-      console.error("Error al subir la imagen:", error);
+      console.error('Error al subir la imagen:', error);
     }
   };
-  
+
   return (
     <div className={styles.container}>
       {/* Botón para seleccionar la imagen */}
@@ -58,7 +57,7 @@ const CloudinaryWidget = ({ fieldName, setFieldValue, images }) => {
         <input
           type="file"
           accept="image/*"
-          style={{ display: "none" }}
+          style={{display: 'none'}}
           onChange={handleUpload}
         />
       </label>

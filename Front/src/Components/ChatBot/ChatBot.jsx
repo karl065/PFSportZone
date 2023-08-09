@@ -65,8 +65,6 @@ const ChatBot = () => {
       setChange(!change);
     }
   }
-  console.log(myResponse);
-  console.log(botResponse);
 
   useEffect(() => {
     console.log('init');

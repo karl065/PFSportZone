@@ -4,7 +4,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {Carousel, LoadingSpinner} from '../../Components/index';
 import {Link} from 'react-router-dom';
-import {getProductById, setLoading} from '../../redux/actions/actions';
+import {getProductById} from '../../redux/actions/actions';
 import {addProduct} from '../../redux/actions/cartActions';
 import styles from './Detail.module.css';
 import arrowLeft from '../../assets/arrow-left.svg';
@@ -142,6 +142,7 @@ const Detail = () => {
           <ProductQuestions
             productQuestions={productQuestions}
             setProductQuestions={setProductQuestions}
+            productId={product.id_inventory}
           />
         </>
       )}

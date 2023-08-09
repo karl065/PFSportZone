@@ -45,10 +45,8 @@ export const getUser = (navigate, token) => {
           'x-auth-token': token,
         },
       });
-      console.log(data);
-      // if (data.carrito.idCar) {
+
       dispatch(getCart(data.carrito.idCar));
-      // }
 
       dispatch({
         type: GET_USER,
@@ -392,7 +390,6 @@ export const getCompras = () => {
   return async (dispatch) => {
     try {
       const {data} = await axios.get(`${server.api.baseURL}ventas`);
-      console.log(data);
       dispatch({
         type: GET_VENTAS,
         payload: data,

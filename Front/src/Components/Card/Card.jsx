@@ -15,7 +15,6 @@ const Card = ({product}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const {id_inventory, article_name, selling_price, stock, image} = product;
   const {addToLocalCart} = useLocalCart();
   const cartId = useSelector((state) => state.cart.id);
   const {role, idUser} = useSelector((state) => state.app.user);
@@ -33,17 +32,15 @@ const Card = ({product}) => {
       await dispatch(addProduct(cartId, id_inventory, 1));
       successToast('Producto añadido correctamente!', 1500);
     }
-
-    const handleAddToFavorites = async () => {
-      try {
-        const info = {idUser, id_Inventory: id_inventory};
-        console.log(info);
-        await axios.post(`${server.api.baseURL}favorites`, info);
-        successToast('Producto añadido correctamente!', 1500);
-      } catch (error) {
-        errorToast(`${error.message}`, 1500);
-      }
-    };
+  };
+  const handleAddToFavorites = async () => {
+    try {
+      const info = {idUser, id_Inventory: id_inventory};
+      await axios.post(`${server.api.baseURL}favorites`, info);
+      successToast('Producto añadido correctamente!', 1500);
+    } catch (error) {
+      errorToast(`${error.message}`, 1500);
+    }
   };
 
   return (
