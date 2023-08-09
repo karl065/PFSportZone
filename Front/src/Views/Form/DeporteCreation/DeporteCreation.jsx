@@ -1,5 +1,5 @@
 import {Formik, Form, Field, ErrorMessage} from 'formik';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {createDeporte} from '../../../redux/actions/actions';
 import * as Yup from 'yup';
 import styles from './DeporteCreation.module.css';
@@ -13,6 +13,7 @@ const initialValues = {
 export const DeporteCreation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {sports} = useSelector((state) => state.app);
 
   const SignupSchema = Yup.object().shape({
     deporteName: Yup.string()
@@ -21,7 +22,18 @@ export const DeporteCreation = () => {
       .max(80, 'Muy largo!. No mas de 80 caracteres')
       .test('has-3-letters', 'Debe contener al menos 3 letras', (value) =>
         /^(.*[a-zA-Z].*){3,}$/.test(value)
-      ),
+      )
+      .test('unique-deporte', 'Este deporte ya existe', async function (value) {
+        // Aquí puedes realizar la validación de existencia en la lista de deportes
+        const sportsList = []; // Obtén la lista de deportes del contexto
+        for (const i of sports) {
+          sportsList.push(i.deporteName.toUpperCase);
+        }
+        if (!sportsList) {
+          return true; // Si no tienes la lista, no hagas la validación
+        }
+        return !sportsList.some((sport) => sport === value.toUpperCase);
+      }),
   });
 
   const handleSubmit = (values, {resetForm}) => {
