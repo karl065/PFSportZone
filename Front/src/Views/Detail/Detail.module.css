@@ -117,3 +117,38 @@
 .btn_favorites {
   background-color: #d9d9d9;
 }
+
+.buttonsReview{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.buttonsReview button{
+  border: transparent;
+  border-radius: 5px;
+}
+.buttonsReview p{
+padding: 8px;
+text-align: center;
+}
+.reviewComment{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+  height: 80px;
+}
+.reviewComment p{
+  text-align: center;
+  font-size: 20px;
+}
+.reviewComment:hover{
+  background-color:rgba(190, 243, 27, 0.97);
+  font-weight: bold;
+}
+
+.review{
+  background-color: #c4c6bd;
+  border-radius: 5px;
+}

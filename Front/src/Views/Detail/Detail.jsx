@@ -76,7 +76,7 @@ const Detail = () => {
       successToast('Producto añadido correctamente!', 1000);
     }
   };
-
+  console.log(product.reviews)
   return (
     <section className={styles.detail_wrapper}>
       {isLoading ? (
@@ -123,20 +123,38 @@ const Detail = () => {
                   </div>
                 </>
               )}
-              <h3>rating general</h3>
+              {
+                product.reviews?.length
+                ? <div>
+                  <h3>Rating General</h3>
               <Rating
                 initialValue={ratingGeneral}
                 readonly={true}
                 allowFraction={true}
               />
-              <h3>opiniones del producto</h3>
-              <ul>
-                {product.reviews?.length
-                  ? product.reviews.map((review, index) => {
-                      return <li key={index}>{review.message}</li>;
-                    })
-                  : null}
-              </ul>
+              <h3>Opiniones del Producto</h3>
+                {
+                  product.reviews?.map((review,index)=>{
+                    return (
+                      <div className={styles.review}>
+                        <span key={index} className={styles.reviewComment}>
+                        <p>{review.message}</p>
+                        <div className={styles.buttonsReview}>
+                        <button>Like</button>
+                        <p>{review.like}</p>
+                        <button>Dislike</button>
+                        <p>{review.like}</p>
+                        </div>
+                      </span> 
+                      </div>
+                      
+                    )
+                  })
+                }
+                  </div>
+              : null
+              }
+              
             </div>
           </div>
           <ProductQuestions
