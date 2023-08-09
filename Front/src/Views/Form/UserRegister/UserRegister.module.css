@@ -5,7 +5,7 @@
   flex-direction: column;
   min-height: 100vh;
   /* background-color: #c4c6bd; */
-  background-color: #42b73a;
+  background-color: #749900;
 }
 
 .form {
@@ -27,7 +27,8 @@
 }
 
 .title {
-  font-size: 4rem;
+  font-size: 3.4rem;
+  font-weight: 600;
   letter-spacing: 4px;
   margin-bottom: 0;
   margin-top: 4rem;
@@ -49,11 +50,10 @@
 
 .field {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   position: relative;
   width: 70%;
-  gap: 1.4rem;
+  gap: 1rem;
 }
 
 .role_select{
@@ -62,9 +62,9 @@
 }
 
 .form label {
-  width: 25%;
   font-size: 1.5rem;
   letter-spacing: 3px;
+  font-weight: 500;
 }
 
 .input {
@@ -90,6 +90,7 @@
   font-family: inherit;
   color: white;
   font-size: 1.5rem;
+  font-weight: 600;
   width: 15.4375rem;
   height: 3.875rem;
   border: none;
@@ -99,4 +100,56 @@
 .btnSubmit:disabled {
   background-color: #3939398e;
   cursor: not-allowed;
+}
+
+
+
+.rf-register-form {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.rf-input-container {
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.rg-form {
+  margin: auto;
+}
+
+.rf-icon {
+  padding: 10px;
+  background: dodgerblue;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}
+
+.rf-input-field {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  border-radius: 0;
+}
+
+.rf-input-field:focus {
+  border: 2px solid dodgerblue;
+}
+
+.rf-btn {
+  background-color: dodgerblue;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  border-radius: 0;
 }

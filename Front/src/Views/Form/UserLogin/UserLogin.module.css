@@ -5,6 +5,18 @@
   justify-content: center;
 }
 
+.loginParagraph {
+  gap: 1rem;
+  color: #858383;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.loginText {
+  color: blue;
+  text-decoration: underline;
+}
+
 .externalAuthButtons {
   display: flex;
   flex-direction: column;

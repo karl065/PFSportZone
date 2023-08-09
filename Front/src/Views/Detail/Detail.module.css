@@ -37,7 +37,7 @@
 }
 
 .info_container h1 {
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .info_container h2 {
@@ -86,7 +86,7 @@
   background-color: rgba(190, 243, 27, 0.97);
 }
 
-.stock_box span{
+.stock_box span {
   width: 3ch;
   text-align: center;
 }

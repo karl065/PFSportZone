@@ -1,13 +1,13 @@
 /* Estas líneas de código están importando funciones de diferentes archivos de controlador. */
 const {
   getUserId,
-} = require("../../Controllers/ControllersUsers/GetControllersUsers.js");
+} = require('../../Controllers/ControllersUsers/GetControllersUsers.js');
 const {
   getInventariosById,
-} = require("../../Controllers/ControllersInventarios/GetInventariosControllers.js");
+} = require('../../Controllers/ControllersInventarios/GetInventariosControllers.js');
 const {
   addToFavoritosDB,
-} = require("../../Controllers/ControllersFavoritos/PostControllerFavoritos.js");
+} = require('../../Controllers/ControllersFavoritos/PostControllerFavoritos.js');
 
 /**
  * La función `addFavoritesHandler` es una función asíncrona que maneja la solicitud para agregar un
@@ -27,36 +27,33 @@ const {
  * addToFavor
  */
 const addFavoritesHandler = async (req, res) => {
-  const { idUser, id_Inventory, comment } = req.body;
-  // console.log(idUser, id_Inventory, comment);
+  const {idUser, id_Inventory} = req.body;
+  // console.log(idUser, id_Inventory);
   try {
     const user = await getUserId(idUser);
+    console.log('esto es user ', user);
     const product = await getInventariosById(id_Inventory);
-
+    console.log('esto es product ', product);
     // Se verifica existencia del Usuario...
     if (!user) {
-      return res.status(404).json({ message: "Usuario no encontrado...!" });
+      return res.status(404).json({message: 'Usuario no encontrado...!'});
     }
     // Se verifica la existencia y/o disponibilidad del producto...
     if (!product) {
-      return res.status(404).json({ message: "Producto no encontrado...!" });
+      return res.status(404).json({message: 'Producto no encontrado...!'});
     } else if (
-      product.status === "Not Available" ||
-      product.status === "Discontinued"
+      product.status === 'Not Available' ||
+      product.status === 'Discontinued'
     ) {
       return res
         .status(404)
-        .json({ message: "Producto no disponible o descontinuado...!" });
+        .json({message: 'Producto no disponible o descontinuado...!'});
     }
 
-    const addToFavorites = await addToFavoritosDB(
-      idUser,
-      id_Inventory,
-      comment
-    );
+    const addToFavorites = await addToFavoritosDB(idUser, id_Inventory);
     return res.status(201).json(addToFavorites);
   } catch (error) {
-    return res.status(400).json({ error: error.message });
+    return res.status(400).json({error: error.message});
   }
 };
 

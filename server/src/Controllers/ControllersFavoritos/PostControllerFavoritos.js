@@ -15,7 +15,7 @@ const { Favoritos, Inventarios } = require("../../DB");
  * @returns ya sea la cadena "Ya existe este favorito" si ya existe un favorito existente, o está
  * devolviendo el objeto favorito recién creado si se agregó con éxito a la base de datos.
  */
-const addToFavoritosDB = async (idUser, id_inventory, comment) => {
+const addToFavoritosDB = async (idUser, id_inventory) => {
   const existingFavorite = await Favoritos.findOne({
     where: { idUser: idUser, InventarioIdInventory: id_inventory },
   });
@@ -27,7 +27,6 @@ const addToFavoritosDB = async (idUser, id_inventory, comment) => {
   const addFav = await Favoritos.create({
     idUser: idUser,
     InventarioIdInventory: id_inventory,
-    comment: comment,
   });
   await addFav.addInventarios(product);
   const newFavorite = await Favoritos.findByPk(addFav.idFavorites);

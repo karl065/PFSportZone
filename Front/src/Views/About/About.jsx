@@ -5,14 +5,23 @@ import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 const integrantes = [
   {
-    nombre: "nombre",
-    descripcion: "texto aca",
+    nombre: "Carlos Javier Castellanos",
+    descripcion:
+      "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
+    foto: "link de foto aca",
+    linkedin: "https://www.linkedin.com/in/carlos-castellanos-73253b25b/",
+  },
+  {
+    nombre: "Kevin Jesus Mamani Capuma",
+    descripcion:
+      "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
     linkedin: "link aca",
   },
   {
-    nombre: "nombre",
-    descripcion: "texto aca",
+    nombre: "Diana Marcela Tabares Marin",
+    descripcion:
+      "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
     linkedin: "link aca",
   },
@@ -24,27 +33,28 @@ const integrantes = [
     linkedin: "https://www.linkedin.com/in/facundo-cataldo-9a0031272/",
   },
   {
-    nombre: "nombre",
-    descripcion: "texto aca",
+    nombre: "Manuel Felipe Borrego Sterling",
+    descripcion:
+      "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
     linkedin: "link aca",
   },
   {
-    nombre: "Manuel F. Borrego S.",
-    descripcion:
-      "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
+    nombre: "nombre",
+    descripcion: "texto aca",
     foto: "link de foto aca",
     linkedin:
       "https://www.linkedin.com/in/manuel-f-borrego-sterling-555480267/",
   },
   {
-    nombre: "nombre",
-    descripcion: "texto aca",
+    nombre: "Roberto Saúl Hernández Velasco",
+    descripcion:
+      "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
     linkedin: "link aca",
   },
   {
-    nombre: "nombre",
+    nombre: "Wilson Alonso Collantes Aponte",
     descripcion: "texto aca",
     foto: "link de foto aca",
     linkedin: "link aca",

@@ -230,7 +230,7 @@ const AdminProducts = () => {
                                         }
                                       />
                                     </Link>
-                                    ;
+                                    
                                   </td>
                                 </tr>
                               ))

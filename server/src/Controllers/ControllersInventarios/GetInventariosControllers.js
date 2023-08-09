@@ -71,7 +71,7 @@ const getInventariosById = async (id) => {
       {
         model: Reviews,
         as: "reviews",
-      },
+      }, 
     ],
   });
 };
