@@ -23,11 +23,12 @@ import {
   AdminNewDeportes,
   AdminEditProduct,
   AdminQuestions,
-  AdminPagos,
+  AdminSales,
   Cart,
   ResetPaas,
   Compra,
   DetalleCompra,
+  AdminEditUser,
 } from './Views';
 import {
   getCategory,
@@ -102,7 +103,8 @@ function App() {
         <Route path="/adminNewUser" element={<AdminNewUsers />} />
         <Route path="/adminNewCategory" element={<AdminNewCategory />} />
         <Route path="/adminEditProd" element={<AdminEditProduct />} />
-        <Route path="/adminPagos" element={<AdminPagos />} />
+        <Route path="/adminEditUser" element={<AdminEditUser />} />
+        <Route path="/adminSales" element={<AdminSales />} />
         <Route path="/adminQuestions" element={<AdminQuestions />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/product/:id" element={<Detail />} />

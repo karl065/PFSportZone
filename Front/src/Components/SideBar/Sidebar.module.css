@@ -1,3 +1,13 @@
 .active {
   color: var(--bs-gray-dark);
 }
+.open {
+  width: 170px; /* Tamaño abierto del navbar */
+  /* Agrega aquí cualquier otro estilo necesario cuando la barra lateral está abierta */
+}
+
+.closed {
+  width: 130px; /* Tamaño cerrado del navbar */
+  height: 20px;
+  /* Agrega aquí cualquier otro estilo necesario cuando la barra lateral está cerrada */
+}
