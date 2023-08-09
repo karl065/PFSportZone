@@ -153,7 +153,7 @@ export const UserRegister = () => {
                   <Field
                     name="passwordConfirmation"
                     type="password"
-                    placeholder="Confirmar contraeña"
+                    placeholder="Confirmar contraseña"
                     className={styles.input}
                   />
                   <ErrorMessage
