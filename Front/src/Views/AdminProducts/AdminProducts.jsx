@@ -38,6 +38,7 @@ const AdminProducts = () => {
     const { value } = e.target;
     dispatch(filterProductsByStatus(value));
     setStatusSeleccionado(value);
+    if(page !== 1) setPage(1);
   };
 
   const handleEditProduct = (productId) => {
@@ -71,6 +72,7 @@ const AdminProducts = () => {
         product.article_name.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setDisplayedProducts(filtered);
+      if(page !== 1) setPage(1);
     }, 500);
   };
 
@@ -120,9 +122,10 @@ const AdminProducts = () => {
                           <label className="form-label">
                             <select
                               className="d-inline-block form-select form-select-sm"
-                              onChange={(e) =>
-                                setAmountPerPage(Number(e.target.value))
-                              }
+                              onChange={(e) => {
+                                setAmountPerPage(Number(e.target.value));
+                                setPage(1);
+                              }}
                             >
                               <option defaultValue="10">10</option>
                               <option value="25">25</option>
@@ -230,7 +233,6 @@ const AdminProducts = () => {
                                         }
                                       />
                                     </Link>
-                                    
                                   </td>
                                 </tr>
                               ))

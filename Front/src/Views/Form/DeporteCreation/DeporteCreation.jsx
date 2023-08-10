@@ -1,5 +1,5 @@
 import {Formik, Form, Field, ErrorMessage} from 'formik';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {createDeporte} from '../../../redux/actions/actions';
 import * as Yup from 'yup';
 import styles from './DeporteCreation.module.css';
@@ -13,6 +13,7 @@ const initialValues = {
 export const DeporteCreation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {sports} = useSelector((state) => state.app);
 
   const SignupSchema = Yup.object().shape({
     deporteName: Yup.string()
@@ -21,7 +22,18 @@ export const DeporteCreation = () => {
       .max(80, 'Muy largo!. No mas de 80 caracteres')
       .test('has-3-letters', 'Debe contener al menos 3 letras', (value) =>
         /^(.*[a-zA-Z].*){3,}$/.test(value)
-      ),
+      )
+      .test(
+        'no-special-chars',
+        'No se permiten caracteres especiales',
+        (value) => /^[a-zA-Z0-9\s]+$/.test(value)
+      )
+      .test('unique-sport', 'Este deporte ya existe', (value) => {
+        return !sports.some(
+          (sport) =>
+            sport.deporteName.toLowerCase() === value.trim().toLowerCase()
+        );
+      }),
   });
 
   const handleSubmit = (values, {resetForm}) => {

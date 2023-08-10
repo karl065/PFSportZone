@@ -1,6 +1,7 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import m from './ChatBot.module.css';
 import axios from 'axios';
+import server from '../../Connections/Server';
 
 const ChatBot = () => {
   const [change, setChange] = useState(false);
@@ -26,7 +27,7 @@ const ChatBot = () => {
 
     if (myResponse1.includes(name)) {
       const {path, filter} = JSON.parse(event.target.value);
-      const {data} = await axios(`https://backsportzone.onrender.com/${path}`);
+      const {data} = await axios(`${server.api.baseURL}${path}`);
       const resBot = data.map((val1) => val1[filter]);
       myResponse[0] = name;
       botResponse[0] = resBot;
@@ -36,7 +37,7 @@ const ChatBot = () => {
     }
     if (myResponse2.includes(name)) {
       const resBot = {
-        res1: 'Siéntase seguro de efectuar cuaplquier pago, puesto que está respaldado por Mercado Pago',
+        res1: 'Siéntase seguro de efectuar cualquier pago, puesto que está respaldado por Mercado Pago',
         res2: 'Somos un grupo de 8 personas los creadores de esta página, como proyecto final del bootcamp Henry',
       };
 
@@ -66,10 +67,6 @@ const ChatBot = () => {
       setChange(!change);
     }
   }
-
-  // useEffect(() => {
-  //   console.log('init');
-  // }, [change, checkSend]);
 
   return (
     <div className={m.toggle}  >
