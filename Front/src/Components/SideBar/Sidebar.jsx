@@ -82,7 +82,7 @@ const Sidebar = () => {
                   </>
                 ) : null}
 
-                <hr className="sidebar-divider my-2" />
+{/*                 <hr className="sidebar-divider my-2" />
                 <li
                   className={`nav-item ${
                     location.pathname === '/adminSales' ? styles.active : ''
@@ -92,7 +92,7 @@ const Sidebar = () => {
                     <FontAwesomeIcon icon="money-check-alt" />
                     <span> Ventas</span>
                   </Link>
-                </li>
+                </li> */}
                 <hr className="sidebar-divider my-2" />
                 <li
                   className={`nav-item ${
