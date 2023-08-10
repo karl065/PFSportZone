@@ -64,7 +64,6 @@ const Detail = () => {
 
   // * Obtiene las preguntas y el nuevo producto.
   useEffect(() => {
-    console.log('Mensaje para ver cuantas veces se escibre useEffect');
     Promise.all([
       dispatch(getProductById(id)),
       axios
@@ -131,9 +130,9 @@ const Detail = () => {
               {(!isLoggedIn() || role === 'Cliente') && (
                 <>
                   <div className={styles.stock_box}>
-                    <button onClick={decrementQuantity}>-</button>
+                    <button onClick={decrementQuantity} disabled={selectedQuantity <= 1}>-</button>
                     <span>{selectedQuantity}</span>
-                    <button onClick={incrementQuantity}>+</button>
+                    <button onClick={incrementQuantity} disabled={selectedQuantity >= product.stock}>+</button>
                   </div>
                   <div className={styles.buttons_box}>
                     <button

@@ -38,6 +38,8 @@
 
 .info_container h1 {
   font-size: 3rem;
+  text-transform: capitalize;
+  font-weight: 700;
 }
 
 .info_container h2 {
@@ -72,6 +74,7 @@
 
 .stock_p {
   font-size: 1.3rem;
+  font-weight: 600;
 }
 
 .stock_box {
@@ -84,6 +87,11 @@
 
 .stock_box button {
   background-color: rgba(190, 243, 27, 0.97);
+}
+
+.stock_box button:disabled {
+  cursor: default;
+  background-color: rgba(189, 243, 27, 0.41);
 }
 
 .stock_box span {
@@ -104,6 +112,8 @@
   padding: 0.2rem 0.4rem;
   font-size: 1.3rem;
   width: fit-content;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .btn_cart {

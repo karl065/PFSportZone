@@ -8,6 +8,7 @@ const ChatBot = () => {
   const [myResponse, setMyResponse] = useState([]);
   const [botResponse, setBotResponse] = useState([]);
   const [checkSend, setCheckSend] = useState(false);
+  const [showBot, setShowBot] = useState(false);
 
   async function callResponse(event) {
     const {name} = event.target;
@@ -17,7 +18,7 @@ const ChatBot = () => {
       'Informacion de inventario',
       'Con respecto a las categorias',
       'Acerca de los deportes incluidos',
-      'Sobre nuestas marcas',
+      'Sobre nuestras marcas',
     ];
 
     const myResponse2 = ['Acerca de los métodos de pago', 'Acerca de nosotros'];
@@ -68,108 +69,112 @@ const ChatBot = () => {
   }
 
   return (
-    <div className={m.main}>
-      <h1>Chat-Bot</h1>
-      <div className={m.left}>
-        <button
-          name="Informacion de inventario"
-          value={JSON.stringify({path: 'inventory', filter: 'article_name'})}
-          onClick={callResponse}
-          className={m.button}
-        >
-          Informacion de inventario
-        </button>
-        <button
-          name="Con respecto a las categorias"
-          value={JSON.stringify({path: 'category', filter: 'categoryName'})}
-          onClick={callResponse}
-          className={m.button}
-        >
-          Con respecto a las categorias
-        </button>
-        <button
-          name="Acerca de los deportes incluidos"
-          value={JSON.stringify({path: 'deporte', filter: 'deporteName'})}
-          onClick={callResponse}
-          className={m.button}
-        >
-          Acerca de los deportes incluidos
-        </button>
-        <button
-          name="Sobre nuestras marcas"
-          value={JSON.stringify({path: 'marca', filter: 'name'})}
-          onClick={callResponse}
-          className={m.button}
-        >
-          Sobre nuestras marcas
-        </button>
-      </div>
-
-      {myResponse[0] ? <div className={m.right}>{myResponse[0]}</div> : null}
-      {myResponse[0] ? (
-        <div className={m.left}>
-          {botResponse[0]?.map((val) => {
-            return <li key={val}>{val}</li>;
-          })}
-        </div>
-      ) : null}
-      {myResponse[0] ? (
-        <div className={m.left}>
-          <button
-            name="Acerca de los métodos de pago"
-            onClick={callResponse}
-            className={m.button}
-          >
-            Acerca de los métodos de pago
-          </button>
-
-          <button
-            name="Acerca de nosotros"
-            onClick={callResponse}
-            className={m.button}
-          >
-            Acerca de nosotros
-          </button>
-        </div>
-      ) : null}
-
-      {myResponse[1] ? <div className={m.right}>{myResponse[1]}</div> : null}
-      {myResponse[1] ? <div className={m.left}>{botResponse[1]}</div> : null}
-      {myResponse[1] ? (
-        <div className={m.left}>
-          <div name="">
-            Si necesitas información en específico te recomendamos navegar por
-            nuestra página
-          </div>
-          <button
-            name="Deja tu feedback"
-            onClick={callResponse}
-            className={m.button}
-          >
-            Deja tu feedback
-          </button>
-        </div>
-      ) : null}
-
-      {myResponse[2] ? <div className={m.right}>{myResponse[2]}</div> : null}
-      {myResponse[2] ? (
-        <div className={m.right}>
-          <textarea className={m.textArea1} />
-          {!checkSend ? (
-            <button
-              className={m.textArea1}
-              name="Enviar"
-              onClick={() => {
-                setCheckSend(true);
-              }}
-            >
-              Enviar
-            </button>
-          ) : (
-            <div className={m.send}>Enviado</div>
-          )}
-        </div>
-      ) : null}
+    <div className={m.toggle}  >
+{<button onClick={()=>{setShowBot(!showBot)}} className={m.button} >{showBot?'Ocultar':'Bot'} </button>}
+      {showBot? 
+      <div className={m.main} >
+         <h1>Chat-Bot</h1>
+         <div className={m.left}>
+           <button
+             name="Informacion de inventario"
+             value={JSON.stringify({path: 'inventory', filter: 'article_name'})}
+             onClick={callResponse}
+             className={m.button}
+           >
+             Informacion de inventario
+           </button>
+           <button
+             name="Con respecto a las categorias"
+             value={JSON.stringify({path: 'category', filter: 'categoryName'})}
+             onClick={callResponse}
+             className={m.button}
+           >
+             Con respecto a las categorias
+           </button>
+           <button
+             name="Acerca de los deportes incluidos"
+             value={JSON.stringify({path: 'deporte', filter: 'deporteName'})}
+             onClick={callResponse}
+             className={m.button}
+           >
+             Acerca de los deportes incluidos
+           </button>
+           <button
+             name="Sobre nuestras marcas"
+             value={JSON.stringify({path: 'marca', filter: 'name'})}
+             onClick={callResponse}
+             className={m.button}
+           >
+             Sobre nuestras marcas
+           </button>        
+         </div>
+   
+         {myResponse[0] ? <div className={m.right}>{myResponse[0]}</div> : null}
+         {myResponse[0] ? (
+           <div className={m.left}>
+             {botResponse[0]?.map((val,index) => {
+               return <li key={index}>{val}</li>;
+             })}
+           </div>
+         ) : null}
+         {myResponse[0] ? (
+           <div className={m.left}>
+             <button
+               name="Acerca de los métodos de pago"
+               onClick={callResponse}
+               className={m.button}
+             >
+               Acerca de los métodos de pago
+             </button>
+   
+             <button
+               name="Acerca de nosotros"
+               onClick={callResponse}
+               className={m.button}
+             >
+               Acerca de nosotros
+             </button>
+           </div>
+         ) : null}
+   
+         {myResponse[1] ? <div className={m.right}>{myResponse[1]}</div> : null}
+         {myResponse[1] ? <div className={m.left}>{botResponse[1]}</div> : null}
+         {myResponse[1] ? (
+           <div className={m.left}>
+             <div name="">
+               Si necesitas información en específico te recomendamos navegar por
+               nuestra página
+             </div>
+             <button
+               name="Deja tu feedback"
+               onClick={callResponse}
+               className={m.button}
+             >
+               Deja tu feedback
+             </button>
+           </div>
+         ) : null}
+   
+         {myResponse[2] ? <div className={m.right}>{myResponse[2]}</div> : null}
+         {myResponse[2] ? (
+           <div className={m.right}>
+             <textarea className={m.textArea1} />
+             {!checkSend ? (
+               <button
+                 className={m.textArea1}
+                 name="Enviar"
+                 onClick={() => {
+                   setCheckSend(true);
+                 }}
+               >
+                 Enviar
+               </button>
+             ) : (
+               <div className={m.send}>Enviado</div>
+             )}
+           </div>
+         ) : null}
+       </div>:null}
     </div>
   );
 };
