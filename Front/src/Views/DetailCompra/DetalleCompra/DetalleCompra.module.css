@@ -1,0 +1,26 @@
+.container h1{
+    margin: 10px
+}
+
+.purchaseDetail{
+    display:inline-flex;
+    justify-content: space-evenly;
+    width: 500px;
+    height: 370px;
+    margin-left: 10px;
+    flex-wrap: wrap;
+    gap:20px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.productDetail{
+    border:transparent;
+    background-color: rgb(177, 241, 27);
+}
+.productDetail img{
+    width: 350px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color:rgb(177, 241, 27);
+}

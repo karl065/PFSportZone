@@ -42,6 +42,16 @@ const Detail = () => {
     navigate(`/review/${id}`);
   };
 
+  const handlerLike = async(idReview,likes) => {
+    let like = {like: likes + 1}
+  await axios.put(`${server.api.baseURL}review/${idReview}`,like);
+  };
+
+  const handlerDislike = async(idReview,dislikes) => {
+    let dislike = {dislike: dislikes + 1 }
+  await axios.put(`${server.api.baseURL}review/${idReview}`,dislike);
+  };
+
   // * Obtiene las preguntas y el nuevo producto.
   useEffect(() => {
     console.log('Mensaje para ver cuantas veces se escibre useEffect');
@@ -140,10 +150,10 @@ const Detail = () => {
                         <span key={index} className={styles.reviewComment}>
                         <p>{review.message}</p>
                         <div className={styles.buttonsReview}>
-                        <button>Like</button>
-                        <p>{review.like}</p>
-                        <button>Dislike</button>
-                        <p>{review.like}</p>
+                        <button onClick={()=>handlerLike(review.idReview,review.like)}>Like</button>
+                        <p>{review.like !== 0 ? review.like : null}</p>
+                        <button onClick={()=>handlerDislike(review.idReview,review.dislike)}>Dislike</button>
+                        <p>{review.dislike !== 0 ? review.dislike : null}</p>
                         </div>
                       </span> 
                       </div>

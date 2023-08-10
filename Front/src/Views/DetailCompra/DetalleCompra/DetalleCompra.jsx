@@ -42,26 +42,27 @@ const DetalleCompra = () => {
   }, [id]);
   return (
     <div className={styles.container}>
-      <h1>detalle compra</h1>
+      <h1>Detalle de la compra:</h1>
       {ventas.map((prod, index) => (
-        <div key={index}>
-          <h1>{prod.id_inventory}</h1>
+        <div key={index} className={styles.purchaseDetail}>
+          <div className={styles.productDetail}>
+          <h2>Id:{prod.id_inventory}</h2>
+          <h1>{prod.article_name}</h1>
           <img src={prod.image[0]} width={300} alt={prod.article_name} />
-          <div>
-            <h1>{prod.article_name}</h1>
           </div>
-          <div>
+          
+          <div className={styles.infoSale}>
             <div className={styles.filas}>
               <label>Cantidad:</label>
               <h3>{prod.VentasInventarios.cant}</h3>
             </div>
             <div className={styles.filas}>
               <label>Precio:</label>
-              <h3>{prod.selling_price}</h3>
+              <h3>${prod.selling_price}</h3>
             </div>
             <div className={styles.filas}>
               <label>Total:</label>
-              <h3>{prod.VentasInventarios.precioPorCant}</h3>
+              <h3>${prod.VentasInventarios.precioPorCant}</h3>
             </div>
             <div className={styles.filas}>
               <label>Estado:</label>

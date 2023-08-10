@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Direcciones from './Views/Direcciones/Direcciones';
 import Favorites from '../../Views/favorites/Favorites';
 import Formasdepago from './Views/Formas de pago/Formas de pago';
-import MisCompras from './Views/MisCompras/MisCompras';
+import Compra from '../../Views/DetailCompra/Compra';
 import NuevaDireccion from './Views/NuevaDireccion/NuevaDireccion'
 import EditInfo from './Views/EditInfo/EditInfo';
 import ResetPass from './Views/ResetPass/ResetPass';
@@ -71,7 +71,7 @@ const AccountClient = (props) => {
                 <div className={style.imageUser} style={{'--BgColorUser': `${BgColorUser}`}}><p className={style.userIconText}>{userName[0]}</p></div>
                 <hr />
                 <section className={style.containerEc}>
-                  <button onClick={()=>{setView((<MisCompras />)); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImageCompras}')`, '--BgColor': 'rgba(114, 174, 226, 0.659)'}} ><p className={style.eleText}>Mis compras</p></button>
+                  <button onClick={()=>{setView((<Compra />)); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImageCompras}')`, '--BgColor': 'rgba(114, 174, 226, 0.659)'}} ><p className={style.eleText}>Mis compras</p></button>
                   <button onClick={()=>{setView(<Direcciones/>); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImageDirecciones}')`, '--BgColor': 'rgba(225, 220, 133, 1)'}} ><p className={style.eleText}>direcciones</p></button>
                   <button onClick={()=>{setView(<Favorites/>); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImagePago}')`, '--BgColor': 'rgb(252, 131, 118)'}} ><p className={style.eleText}>Favoritos</p></button>
                 <hr style={{width:'100%'}} />

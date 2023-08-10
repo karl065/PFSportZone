@@ -141,11 +141,16 @@ text-align: center;
 }
 .reviewComment p{
   text-align: center;
-  font-size: 20px;
+  overflow: auto;
+  font-size: 15px;
 }
 .reviewComment:hover{
   background-color:rgba(190, 243, 27, 0.97);
   font-weight: bold;
+}
+.reviewComment button:hover{
+  background: #000;
+  color: whitesmoke;
 }
 
 .review{
