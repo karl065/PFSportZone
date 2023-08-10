@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useEffect} from 'react';
-import {Routes, Route, useLocation, useNavigate} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {LoadingSpinner, NavBar} from './Components';
+import { useEffect } from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { LoadingSpinner, NavBar } from "./Components";
 import {
   Landing,
   Home,
@@ -29,7 +29,7 @@ import {
   Compra,
   DetalleCompra,
   AdminEditUser,
-} from './Views';
+} from "./Views";
 import {
   getCategory,
   getCompras,
@@ -39,16 +39,17 @@ import {
   getUser,
   getUsers,
   setLoading,
-} from './redux/actions/actions';
-import {getLocalCart} from './redux/actions/cartActions';
-import {useState} from 'react';
-import {ToastContainer} from 'react-toastify';
-import SettingsUser from './Components/SettingsUser/SettingsUser';
-import AccountClient from './Views/AccountClient/AccountClient';
-import Favorites from './Views/favorites/Favorites';
+} from "./redux/actions/actions";
+import { getLocalCart } from "./redux/actions/cartActions";
+import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import SettingsUser from "./Components/SettingsUser/SettingsUser";
+import AccountClient from "./Views/AccountClient/AccountClient";
+import Favorites from "./Views/favorites/Favorites";
+import { isLoggedIn } from "./helpers/helperLogin";
 
 function App() {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -57,6 +58,7 @@ function App() {
   // * Estado para el despliegue del menu de usuario
   let [deployMenu, setDeployMenu] = useState(false);
   const isLoading = useSelector((state) => state.app.isLoading);
+  const { role } = useSelector((state) => state.app.user);
 
   useEffect(() => {
     if (token) dispatch(getUser(navigate, token));
@@ -75,14 +77,14 @@ function App() {
       dispatch(getCompras()),
     ]).finally(() => dispatch(setLoading(false)));
   }, [dispatch]);
-  
+
   return (
     <div className="App">
       {isLoading ? (
         <LoadingSpinner />
       ) : (
         <>
-          {location.pathname !== '/' && errorPage && (
+          {location.pathname !== "/" && errorPage && (
             <NavBar
               deployMenu={() => {
                 setDeployMenu(!deployMenu);
@@ -102,18 +104,28 @@ function App() {
               path="/Account/client"
               element={<AccountClient setErrorPage={setErrorPage} />}
             />
-            <Route path="/adminUsers" element={<AdminUsers />} />
-            <Route path="/adminProducts" element={<AdminProducts />} />
-            <Route path="/adminEmployes" element={<AdminEmployes />} />
-            <Route path="/adminNewProduct" element={<AdminNewProduct />} />
-            <Route path="/adminNewMarca" element={<AdminNewMarca />} />
-            <Route path="/adminNewDeportes" element={<AdminNewDeportes />} />
-            <Route path="/adminNewUser" element={<AdminNewUsers />} />
-            <Route path="/adminNewCategory" element={<AdminNewCategory />} />
-            <Route path="/adminEditProd" element={<AdminEditProduct />} />
-            <Route path="/adminEditUser" element={<AdminEditUser />} />
-            <Route path="/adminSales" element={<AdminSales />} />
-            <Route path="/adminQuestions" element={<AdminQuestions />} />
+            {isLoggedIn() && role && role !== "Cliente" && (
+              <>
+                <Route path="/adminUsers" element={<AdminUsers />} />
+                <Route path="/adminProducts" element={<AdminProducts />} />
+                <Route path="/adminEmployes" element={<AdminEmployes />} />
+                <Route path="/adminNewProduct" element={<AdminNewProduct />} />
+                <Route path="/adminNewMarca" element={<AdminNewMarca />} />
+                <Route
+                  path="/adminNewDeportes"
+                  element={<AdminNewDeportes />}
+                />
+                <Route path="/adminNewUser" element={<AdminNewUsers />} />
+                <Route
+                  path="/adminNewCategory"
+                  element={<AdminNewCategory />}
+                />
+                <Route path="/adminEditProd" element={<AdminEditProduct />} />
+                <Route path="/adminEditUser" element={<AdminEditUser />} />
+                <Route path="/adminSales" element={<AdminSales />} />
+                <Route path="/adminQuestions" element={<AdminQuestions />} />
+              </>
+            )}
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/product/:id" element={<Detail />} />
             <Route path="/about" element={<About />} />

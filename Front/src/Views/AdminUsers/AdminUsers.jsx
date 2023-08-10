@@ -42,7 +42,7 @@ const AdminUsers = () => {
     // * Debounce => Luego de que el input cambie y pasen 500 ms sin escribir se realiza el filtrado
     debounceTimeout.current = setTimeout(() => {
       const filtered = users.filter((user) =>
-        user?.date.toLowerCase().includes(searchTerm.toLowerCase())
+        user?.user.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setDisplayedUsers(filtered);
     }, 500);
@@ -53,6 +53,7 @@ const AdminUsers = () => {
       dispatch(
         filterUsersByRoleAndStatus(roleSeleccionado, statusSeleccionado)
       );
+      if (page !== 1) setPage(1);
     } else {
       dispatch(getUsers());
     }
@@ -170,9 +171,10 @@ const AdminUsers = () => {
                           <label className="form-label">
                             <select
                               className="d-inline-block form-select form-select-sm"
-                              onChange={(e) =>
-                                setAmountPerPage(Number(e.target.value))
-                              }
+                              onChange={(e) => {
+                                setAmountPerPage(Number(e.target.value));
+                                setPage(1);
+                              }}
                             >
                               <option defaultValue="10">10</option>
                               <option value="25">25</option>
@@ -252,14 +254,10 @@ const AdminUsers = () => {
                                     </select>
                                   </td>
                                   <td>
-                                  <Link to="/adminEditUser">
+                                    <Link to="/adminEditUser">
                                       <FontAwesomeIcon
                                         icon="pencil-square"
-                                        onClick={() =>
-                                          handleEditUser(
-                                            users
-                                          )
-                                        }
+                                        onClick={() => handleEditUser(users)}
                                       />
                                     </Link>
                                   </td>

@@ -25,12 +25,16 @@ export const UserRegister = () => {
 
   const urlCurrent = location.pathname;
   const role = useSelector((state) => state.app.user);
+  const { users } = useSelector((state) => state.app);
 
   const SignupSchema = Yup.object().shape({
     email: Yup.string()
       .trim()
       .required("Email requerido")
-      .email("No es un email"),
+      .email("No es un email")
+      .test("unique-email", "El email ya esta registrado", (value) => {
+        return !users.some((user) => user.email === value.trim());
+      }),
     user: Yup.string()
       .trim()
       .required("Usuario requerido")
@@ -165,18 +169,24 @@ export const UserRegister = () => {
               </div>
               {urlCurrent === "/adminNewUser" ? (
                 <div className={styles.field}>
-                  <label>Rol</label>
-                  <Field as="select" name="role" className={styles.role_select}>
-                    <option value="">Seleccione un Rol</option>
-                    <option value="Cliente">Cliente</option>
-                    <option value="Empleados">Empleado</option>
-                    <option value="Admin">Admin</option>
-                  </Field>
-                  <ErrorMessage
-                    name="role"
-                    component="span"
-                    className={styles.error}
-                  />
+                  <div>
+                    <label>Rol</label>
+                    <Field
+                      as="select"
+                      name="role"
+                      className={styles.role_select}
+                    >
+                      <option value="">Seleccione un Rol</option>
+                      <option value="Cliente">Cliente</option>
+                      <option value="Empleados">Empleado</option>
+                      <option value="Admin">Admin</option>
+                    </Field>
+                    <ErrorMessage
+                      name="role"
+                      component="span"
+                      className={styles.error}
+                    />
+                  </div>
                 </div>
               ) : null}
               <button
