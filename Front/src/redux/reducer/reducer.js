@@ -32,6 +32,8 @@ import {
   GET_SALES,
   UPDATE_SALES_STATUS,
   GET_FAVORITES,
+  ADD_FAVORITOS,
+  GET_FAVORITOS,
 } from '../actions-types/action-types';
 
 const initialState = {
@@ -46,6 +48,7 @@ const initialState = {
   displayInventory: [],
   user: {},
   favorites: [],
+  favoritos: [],
   userEd: {},
   product: {},
   isLoading: false,
@@ -56,6 +59,8 @@ export default function appReducer(state = initialState, {type, payload}) {
     case SET_USER:
     case GET_USER:
       return {...state, user: payload, comprasUsuario: payload.ventas};
+    case GET_FAVORITOS:
+      return {...state, favoritos: payload};
     case CLEAR_USER:
       return {...state, user: {}};
     case CLEAR_USERED:
@@ -103,6 +108,8 @@ export default function appReducer(state = initialState, {type, payload}) {
       return {...state, product: payload};
     case CLEAR_PRODUCT:
       return {...state, product: {}};
+    case ADD_FAVORITOS:
+      return {...state, favoritos: [...state.favoritos, payload]};
     case EDIT_PRODUCT:
       const indexProduct = state.inventory.findIndex(
         (p) => p.id_inventory === payload.id_inventory
@@ -114,10 +121,10 @@ export default function appReducer(state = initialState, {type, payload}) {
         inventory: updatedInventory,
       };
     case GET_FAVORITES:
-      return{
+      return {
         ...state,
-        favorites: payload
-      }
+        favorites: payload,
+      };
     case FILTER_PRODUCTS_BY_NAME:
       const filteredInventory = state.inventory.filter((product) =>
         product.article_name.toLowerCase().includes(payload.toLowerCase())

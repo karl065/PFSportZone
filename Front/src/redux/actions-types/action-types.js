@@ -32,3 +32,5 @@ export const GET_VENTAS = 'GET_VENTAS';
 export const GET_SALES = 'GET_SALES';
 export const UPDATE_SALES_STATUS = 'UPDATE_USERS_STATUS';
 export const GET_FAVORITES = 'GET_FAVORITES';
+export const ADD_FAVORITOS = 'ADD_FAVORITOS';
+export const GET_FAVORITOS = 'GET_FAVORITOS';

@@ -32,6 +32,8 @@ import {
   GET_SALES,
   UPDATE_SALES_STATUS,
   GET_FAVORITES,
+  ADD_FAVORITOS,
+  GET_FAVORITOS,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
@@ -404,6 +406,48 @@ export const getCompras = () => {
 export const getFavorites = (favorites) => {
   return {
     type: GET_FAVORITES,
-    payload: favorites
-  }
-}
+    payload: favorites,
+  };
+};
+
+export const addFavoritos = (idUser, id_Inventory) => {
+  return async (dispatch) => {
+    try {
+      const {data} = await axios.post(`${server.api.baseURL}favorites`, {
+        idUser,
+        id_Inventory,
+      });
+      const response = await axios.get(
+        `${server.api.baseURL}inventory/${data.InventarioIdInventory}`
+      );
+      dispatch({
+        type: ADD_FAVORITOS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const getFavoritos = (user) => {
+  return async (dispatch) => {
+    try {
+      // console.log(user);
+      const favoritos = [];
+      for (const i of user.favoritos) {
+        const {data} = await axios.get(
+          `${server.api.baseURL}inventory/${i.InventarioIdInventory}`
+        );
+        favoritos.push(data);
+      }
+
+      dispatch({
+        type: GET_FAVORITOS,
+        payload: favoritos,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
