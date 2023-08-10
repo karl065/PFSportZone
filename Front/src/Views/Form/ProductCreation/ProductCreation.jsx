@@ -34,7 +34,8 @@ export const ProductCreation = () => {
   const SignupSchema = Yup.object().shape({
     id_inventory: Yup.string()
       .required('ID del producto requerido')
-      .min(3, 'Al menos 3 dígitos'),
+      .min(3, 'Al menos 3 dígitos')
+      .max(10, 'Máximo de 10 dígitos'),
     article_name: Yup.string()
       .required('Nombre de producto requerido')
       .min(2, 'Al menos 2 caracteres.')

@@ -25,12 +25,16 @@ export const UserRegister = () => {
 
   const urlCurrent = location.pathname;
   const role = useSelector((state) => state.app.user);
+  const {users} = useSelector((state) => state.app);
 
   const SignupSchema = Yup.object().shape({
     email: Yup.string()
       .trim()
       .required('Email requerido')
-      .email('No es un email'),
+      .email('No es un email')
+      .test('unique-email', 'El email ya esta registrado', (value) => {
+        return !users.some((user) => user.email === value.trim());
+      }),
     user: Yup.string()
       .trim()
       .required('Usuario requerido')
