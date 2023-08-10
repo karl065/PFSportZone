@@ -8,7 +8,7 @@ import {clearProduct, getProductById} from '../../redux/actions/actions';
 import {addProduct} from '../../redux/actions/cartActions';
 import styles from './Detail.module.css';
 import arrowLeft from '../../assets/arrow-left.svg';
-import {successToast} from '../../helpers/toastNotification';
+import {successToast,errorToast} from '../../helpers/toastNotification';
 import {Rating} from '@micahlt/react-simple-star-rating';
 import ProductQuestions from '../../Components/ProductQuestions/ProductQuestions';
 import {isLoggedIn} from '../../helpers/helperLogin';
@@ -23,12 +23,14 @@ const Detail = () => {
   const {addToLocalCart} = useLocalCart();
   const {id} = useParams();
   const product = useSelector((state) => state.app.product);
-  const {role, carrito} = useSelector((state) => state.app.user);
+  const {role, carrito, idUser} = useSelector((state) => state.app.user);
   const [isLoading, setIsLoading] = useState(true);
 
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [productQuestions, setProductQuestions] = useState([]);
 
+
+//* calcula el rating general de las reviews del producto
   const ratingArray = product.reviews?.map((review) => {
     let ratingNumber = Number(review?.evaluation);
     return ratingNumber;
@@ -38,10 +40,18 @@ const Detail = () => {
     ratingArray?.reduce((acc, actualValue) => acc + actualValue, 0) /
     ratingArray?.length;
 
-  const handleRedirectReview = () => {
-    navigate(`/review/${id}`);
+  //* agrega el producto a la lista de favoritos
+  const handleAddToFavorites = async () => {
+    try {
+      const info = {idUser, id_Inventory: product.id_inventory};
+      await axios.post(`${server.api.baseURL}favorites`, info);
+      successToast('Producto añadido correctamente!', 1500);
+    } catch (error) {
+      errorToast(`${error.message}`, 1500);
+    }
   };
 
+//* funciones para dar like o dislike a comentarios de reviews
   const handlerLike = async(idReview,likes) => {
     let like = {like: likes + 1}
   await axios.put(`${server.api.baseURL}review/${idReview}`,like);
@@ -86,7 +96,7 @@ const Detail = () => {
       successToast('Producto añadido correctamente!', 1000);
     }
   };
-  console.log(product.reviews)
+
   // * Al desmontar el componente también se borra el producto si lo obtiene del redux.
   useEffect(() => {
     return () => {
@@ -133,9 +143,9 @@ const Detail = () => {
                     </button>
                     <button
                       className={styles.btn_favorites}
-                      onClick={handleRedirectReview}
+                      onClick={handleAddToFavorites}
                     >
-                      opinar del producto
+                      Añadir a favoritos
                     </button>
                   </div>
                 </>
