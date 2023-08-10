@@ -52,6 +52,7 @@ const redirectToDetail = (idProduct) => {
                 <h4>${fav.selling_price}</h4>
                 <h6>Disponibles: {fav.stock}</h6>
                 <button className={Styles.addToCart} onClick={()=>handleAddToCart(fav,fav.id_inventory)}>Añadir al carrito</button>
+                <button className={Styles.deleteFav}>Eliminar de favoritos</button>
               </span>
             )
           })

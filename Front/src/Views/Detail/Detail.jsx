@@ -103,6 +103,7 @@ const Detail = () => {
       dispatch(clearProduct());
     };
   }, []);
+  console.log(product.reviews)
 
   return (
     <section className={styles.detail_wrapper}>
@@ -159,10 +160,12 @@ const Detail = () => {
                 readonly={true}
                 allowFraction={true}
               />
-              <h3>Opiniones del Producto</h3>
+                 <h3>Opiniones del Producto</h3>
+
                 {
                   product.reviews?.map((review,index)=>{
-                    return (
+                    if(review.message !== "") {
+                      return (
                       <div className={styles.review}>
                         <span key={index} className={styles.reviewComment}>
                         <p>{review.message}</p>
@@ -173,9 +176,10 @@ const Detail = () => {
                         <p>{review.dislike !== 0 ? review.dislike : null}</p>
                         </div>
                       </span> 
-                      </div>
-                      
-                    )
+                      </div> )
+                    } else {
+                      return <p>No hay cometarios...😢</p>
+                    }
                   })
                 }
                   </div>
