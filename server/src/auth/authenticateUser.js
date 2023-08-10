@@ -62,6 +62,7 @@ const authenticateUser = async (email, password) => {
             status: user.userStatus,
             carrito: user.carrito,
             ventas: user.ventas,
+            favoritos: user.favoritos,
           };
           resolve(auth);
         }
@@ -108,6 +109,7 @@ const authenticateThirdUser = async (email) => {
       role: user.role,
       status: user.userStatus,
       carrito: user.carrito,
+      favoritos: user.favoritos,
     };
 
     return {token, user: userData};
