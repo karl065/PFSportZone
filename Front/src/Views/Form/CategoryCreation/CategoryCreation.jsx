@@ -1,35 +1,46 @@
-import {Formik, Form, Field, ErrorMessage} from 'formik';
-import {useDispatch} from 'react-redux';
-import {createCategory} from '../../../redux/actions/actions';
-import * as Yup from 'yup';
-import styles from './CategoryCreation.module.css';
-import Swal from 'sweetalert2';
-import {useNavigate} from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { createCategory } from "../../../redux/actions/actions";
+import * as Yup from "yup";
+import styles from "./CategoryCreation.module.css";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const initialValues = {
-  categoryName: '',
-  description: '',
+  categoryName: "",
+  description: "",
 };
 
 export const CategoryCreation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { category } = useSelector((state) => state.app);
 
   const SignupSchema = Yup.object().shape({
     categoryName: Yup.string()
-      .required('Requerido')
-      .min(2, 'Muy corto!. Al menos 2 caracteres.')
-      .max(80, 'Muy largo!. No mas de 80 caracteres.')
-      .test('has-3-letters', 'Debe contener al menos 3 letras', (value) =>
+      .required("Requerido")
+      .min(2, "Muy corto!. Al menos 2 caracteres.")
+      .max(80, "Muy largo!. No mas de 80 caracteres.")
+      .test("has-3-letters", "Debe contener al menos 3 letras", (value) =>
         /^(.*[a-zA-Z].*){3,}$/.test(value)
-      ),
+      )
+      .test(
+        "no-special-chars",
+        "No se permiten caracteres especiales",
+        (value) => /^[a-zA-Z0-9\s]+$/.test(value)
+      )
+      .test("unique-brand", "Esta categoría ya existe", (value) => {
+        return !category.some(
+          (cat) => cat.categoryName.toLowerCase() === value.trim().toLowerCase()
+        );
+      }),
     description: Yup.string()
-      .required('Descripción requerida')
-      .min(20, 'Muy corto!. Al menos 20 caracteres')
-      .max(10000, 'Muy largo!. No mas de 10000 caracteres.'),
+      .required("Descripción requerida")
+      .min(10, "Muy corto!. Al menos 10 caracteres")
+      .max(300, "Muy largo!. No mas de 300 caracteres."),
   });
 
-  const handleSubmit = (values, {resetForm}) => {
+  const handleSubmit = (values, { resetForm }) => {
     try {
       dispatch(
         createCategory({
@@ -37,15 +48,15 @@ export const CategoryCreation = () => {
           status: true,
         })
       ).then(() => {
-        Swal.fire('Buen trabajo!', 'Categoría creada!', 'success');
+        Swal.fire("Buen trabajo!", "Categoría creada!", "success");
         resetForm();
-        navigate('/adminProducts');
+        navigate("/adminProducts");
       });
     } catch (error) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Error creando la categoría. Intente nuevamente.',
+        icon: "error",
+        title: "Oops...",
+        text: "Error creando la categoría. Intente nuevamente.",
       });
     }
   };
@@ -57,15 +68,15 @@ export const CategoryCreation = () => {
         onSubmit={handleSubmit}
         validationSchema={SignupSchema}
       >
-        {({errors}) => (
+        {({ errors }) => (
           <Form className={styles.form}>
-            <h1 className={styles.title}>Nueva Categoria</h1>
+            <h1 className={styles.title}>Nueva Categoría</h1>
             <div className={styles.field_container}>
               <label>Nombre</label>
               <div className={styles.input_box}>
                 <Field
                   name="categoryName"
-                  placeholder="Nombre Categoria"
+                  placeholder="Nombre Categoría"
                   className={styles.input}
                 />
                 <ErrorMessage
@@ -81,7 +92,7 @@ export const CategoryCreation = () => {
                 <Field
                   as="textarea"
                   name="description"
-                  placeholder="Descripción de la categoria"
+                  placeholder="Descripción de la categoría"
                   className={styles.input}
                   rows="4"
                 />
