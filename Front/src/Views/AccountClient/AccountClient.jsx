@@ -46,8 +46,9 @@ const AccountClient = (props) => {
 
     const urlImageCompras = 'https://res.cloudinary.com/dpjeltekx/image/upload/v1691095513/PF/icons8-zapatillas-96_pltlif.png'
     const urlImageDirecciones = 'https://res.cloudinary.com/dpjeltekx/image/upload/v1691095513/PF/icons8-mapa-96_xjg1rf.png'
-    const urlImagePago = 'https://res.cloudinary.com/dpjeltekx/image/upload/v1691095513/PF/icons8-mastercard-96_bdwxs0.png'
-    const urlImageAyuda = 'https://res.cloudinary.com/dpjeltekx/image/upload/v1691095513/PF/icons8-asistente-96_islsbl.png'
+    const urlImagePass = 'https://res.cloudinary.com/dpjeltekx/image/upload/v1691619583/PF/icons8-vuelva-a-introducir-el-c%C3%B3digo-pin-48_aghjdb.png'
+    const urlImageChangeI =  'https://res.cloudinary.com/dpjeltekx/image/upload/v1691619583/PF/icons8-cambiar-usuario-masculino-96_xihxya.png'
+    const urlImageFavs =  'https://res.cloudinary.com/dpjeltekx/image/upload/v1691619583/PF/icons8-favorites-100_iu6ubs.png'
 
   return (
     <main className={style.AccountClient} >
@@ -73,10 +74,10 @@ const AccountClient = (props) => {
                 <section className={style.containerEc}>
                   <button onClick={()=>{setView((<MisCompras />)); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImageCompras}')`, '--BgColor': 'rgba(114, 174, 226, 0.659)'}} ><p className={style.eleText}>Mis compras</p></button>
                   <button onClick={()=>{setView(<Direcciones/>); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImageDirecciones}')`, '--BgColor': 'rgba(225, 220, 133, 1)'}} ><p className={style.eleText}>direcciones</p></button>
-                  <button onClick={()=>{setView(<Favoritos/>); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImagePago}')`, '--BgColor': 'rgb(252, 131, 118)'}} ><p className={style.eleText}>Favoritos</p></button>
+                  <button onClick={()=>{setView(<Favoritos/>); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImageFavs}')`, '--BgColor': 'rgb(252, 131, 118)'}} ><p className={style.eleText}>Favoritos</p></button>
                 <hr style={{width:'100%'}} />
-                  <button onClick={()=>{setView((<ResetPass />)); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImagePago}')`, '--BgColor': '#78CFDA'}} ><p className={style.eleText}>Actualizar contraseña</p></button>
-                  <button onClick={()=>{setView((<EditInfo />)); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImagePago}')`, '--BgColor': 'rgb(103, 111, 111)'}} ><p className={style.eleText}>Editar datos</p></button>
+                  <button onClick={()=>{setView((<ResetPass />)); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImagePass}')`, '--BgColor': '#78CFDA'}} ><p className={style.eleText}>Actualizar contraseña</p></button>
+                  <button onClick={()=>{setView((<EditInfo />)); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImageChangeI}')`, '--BgColor': 'rgb(103, 111, 111)'}} ><p className={style.eleText}>Editar datos</p></button>
                 </section>
             </div>
         </section>
