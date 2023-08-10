@@ -16,11 +16,15 @@ import AdminNewUsers from './AdminNewUsers/AdminNewUsers.jsx';
 import AdminNewCategory from './AdminNewCategories/AdminNewCategories.jsx';
 import AdminNewDeportes from './AdminNewDeporte/AdminNewDeporte.jsx';
 import AdminNewMarca from './AdminNewMarca/AdminNewMarca.jsx';
-import AdminPagos from './AdminPagos/AdminPagos.jsx';
+import AdminSales from './AdminSales/AdminSales.jsx';
 import AdminEditProduct from './AdminEditProduct/AdminEditProduct.jsx';
+import AdminEditUser from './AdminEditUser/AdminEditUser.jsx';
+import AdminQuestions from './AdminQuestions/AdminQuestions.jsx';
 import Cart from './Cart/Cart.jsx';
 import EditProduct from './Form/EditProduct/EditProduct.jsx';
 import ResetPaas from './Form/ResetPaas/ResetPaas.jsx';
+import Compra from './DetailCompra/Compra.jsx';
+import DetalleCompra from './DetailCompra/DetalleCompra/DetalleCompra.jsx';
 
 export {
   Landing,
@@ -40,10 +44,14 @@ export {
   AdminNewUsers,
   AdminNewCategory,
   AdminEditProduct,
-  AdminPagos,
+  AdminEditUser,
+  AdminSales,
+  AdminQuestions,
   Cart,
   AdminNewDeportes,
   AdminNewMarca,
   EditProduct,
   ResetPaas,
+  Compra,
+  DetalleCompra,
 };

@@ -51,60 +51,12 @@ const enviarNotificacionCompra = async (email, article_name) => {
     from: "dianamtm55@gmail.com",
     to: email,
     subject: "Confirmación de compra",
-    text: `Gracias por tu compra. este es el articulo ${article_name}.`,
+    text: `Gracias por tu compra. Has adquirido el artículo: ${article_name}.`,
   };
 
   try {
     await transporter.sendMail(mensaje);
     return "Compra Exitosa";
-  } catch (error) {
-    return error.message;
-  }
-};
-
-const enviarNotificacionCompraPendiente = async (email, article_name) => {
-  const mensaje = {
-    from: "dianamtm55@gmail.com",
-    to: email,
-    subject: "Compra pendiente",
-    text: `Su compra se encuentra Pendiente de autorizacion ${article_name}.`,
-  };
-
-  try {
-    await transporter.sendMail(mensaje);
-    return "Compra pendiente";
-  } catch (error) {
-    return error.message;
-  }
-};
-
-const enviarNotificacionCompraRechazada = async (email, article_name) => {
-  const mensaje = {
-    from: "dianamtm55@gmail.com",
-    to: email,
-    subject: "Compra rechazada",
-    text: `Su compra fue rechazada ${article_name}.`,
-  };
-
-  try {
-    await transporter.sendMail(mensaje);
-    return "Compra rechazada";
-  } catch (error) {
-    return error.message;
-  }
-};
-
-const enviarNotificacionArticulo = async (email, article_name, stock) => {
-  const mensaje = {
-    from: "dianamtm55@gmail.com",
-    to: email,
-    subject: "Articulo con poco stock",
-    text: `El articulo ${article_name}, cuenta con solo ${stock} .`,
-  };
-
-  try {
-    await transporter.sendMail(mensaje);
-    return "Articulo notificado";
   } catch (error) {
     return error.message;
   }

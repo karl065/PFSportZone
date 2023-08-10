@@ -32,9 +32,12 @@ const postUserDbHandler = async (req, res) => {
       userStatus
     );
     // Envía la notificación de usuario nuevo después de crear exitosamente al usuario en la base de datos
-
-    await enviarNotificacionUsuarioNuevo(email);
-    console.log("Notificación de usuario nuevo enviada.");
+    try {
+      await enviarNotificacionUsuarioNuevo(email);
+      console.log("Notificación de usuario nuevo enviada.");
+    } catch (error) {
+      console.error("Error al enviar la notificación de usuario nuevo:", error);
+    }
 
     console.log(dataUser);
     return res.status(201).json(dataUser);

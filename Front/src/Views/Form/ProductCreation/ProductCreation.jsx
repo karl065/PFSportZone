@@ -29,7 +29,7 @@ export const ProductCreation = () => {
   const sports = useSelector((state) => state.app.sports);
   const marcas = useSelector((state) => state.app.marcas);
   const navigate = useNavigate();
-  const genero = ['Man', 'Women', 'Unisex'];
+  const genero = ['Men', 'Women', 'Unisex'];
 
   const SignupSchema = Yup.object().shape({
     id_inventory: Yup.string()
@@ -175,7 +175,7 @@ export const ProductCreation = () => {
                 />
               </div>
               <div className={styles.select_container}>
-                <label>Marca</label>
+                <label>Brand</label>
                 <Field as="select" name="idMarca">
                   <option value="">Seleccione una marca</option>
                   {marcas.map((marca, index) => (

@@ -1,65 +1,102 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {library} from '@fortawesome/fontawesome-svg-core';
-import {fas} from '@fortawesome/free-solid-svg-icons';
-import Pagination from '../../Components/Pagination/Pagination';
-import {useEffect, useState} from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {useSelector, useDispatch} from 'react-redux';
-import Sidebar from '../../Components/SideBar/Sidebar';
-import {editProduct, filterProductsByStatus} from '../../redux/actions/actions';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import Pagination from "../../Components/Pagination/Pagination";
+import { useEffect, useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSelector, useDispatch } from "react-redux";
+import Sidebar from "../../Components/SideBar/Sidebar";
+import {
+  editProduct,
+  filterProductsByStatus,
+  getProductById,
+} from "../../redux/actions/actions";
+import { Link } from "react-router-dom";
 
 library.add(fas);
 
 const AdminProducts = () => {
   const inventario = useSelector((state) => state.app.inventory);
-  const [statusSeleccionado, setStatusSeleccionado] = useState('');
+  const [statusSeleccionado, setStatusSeleccionado] = useState("");
+  const [displayedProducts, setDisplayedProducts] = useState(inventario);
+  const searchInputRef = useRef(null);
+  const debounceTimeout = useRef(null);
+
   const [page, setPage] = useState(1);
-  const [amountPerPage, setAmountPerPage] = useState(8);
-  const pageCount = inventario.length / amountPerPage;
+  const [amountPerPage, setAmountPerPage] = useState(10);
+  const pageCount = Math.ceil(displayedProducts.length / amountPerPage);
   const [statusOption, setStatusOption] = useState([
-    'Available',
-    'Not Available',
-    'Discontinued',
+    "Available",
+    "Not Available",
+    "Discontinued",
   ]);
   const dispatch = useDispatch();
 
   const handleStatusChange = (e) => {
-    const {value} = e.target;
-    console.log(value);
+    const { value } = e.target;
     dispatch(filterProductsByStatus(value));
     setStatusSeleccionado(value);
+  };
+
+  const handleEditProduct = (productId) => {
+    dispatch(getProductById(productId));
   };
 
   const statusSubmit = (e, id_inventory) => {
     e.preventDefault();
     if (statusSeleccionado) {
       dispatch(
-        editProduct({id_inventory, status: e.target.value}, statusSeleccionado)
+        editProduct(
+          { id_inventory, status: e.target.value },
+          statusSeleccionado
+        )
       );
     } else {
-      dispatch(editProduct({id_inventory, status: e.target.value}));
+      dispatch(editProduct({ id_inventory, status: e.target.value }));
     }
   };
+
+  const handleChange = (event) => {
+    handleSearch(event.target.value);
+  };
+
+  const handleSearch = (searchTerm) => {
+    clearTimeout(debounceTimeout.current);
+
+    // * Debounce => Luego de que el input cambie y pasen 500 ms sin escribir se realiza el filtrado
+    debounceTimeout.current = setTimeout(() => {
+      const filtered = inventario.filter((product) =>
+        product.article_name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setDisplayedProducts(filtered);
+    }, 500);
+  };
+
+  // * Cuando se realize el filtro de actualize con el "nuevo" inventario.
+  useEffect(() => {
+    setDisplayedProducts(inventario);
+  }, [inventario]);
+
   return (
     <div>
-      <div id="wrapper" style={{display: 'flex'}}>
+      <div id="wrapper" style={{ display: "flex" }}>
         <Sidebar />
         <div
           className="d-flex flex-column"
           id="content-wrapper"
-          style={{flex: '1', flexGrow: '1'}}
+          style={{ flex: "1", flexGrow: "1" }}
         >
           <div id="content">
-            <div className="container-fluid" style={{display: 'block'}}>
+            <div className="container-fluid" style={{ display: "block" }}>
               <div className="d-sm-flex justify-content-between align-items-center mb-4">
                 <h3 className="text-dark mb-0">Productos</h3>
                 <div>
                   <select
                     value={statusSeleccionado}
                     onChange={handleStatusChange}
-                    style={{height: '38px', marginTop: '10px'}}
+                    style={{ height: "38px", marginTop: "10px" }}
                   >
                     <option value="">Filtrar por</option>
                     {statusOption.map((option, index) => (
@@ -81,7 +118,12 @@ const AdminProducts = () => {
                           aria-controls="dataTable"
                         >
                           <label className="form-label">
-                            <select className="d-inline-block form-select form-select-sm">
+                            <select
+                              className="d-inline-block form-select form-select-sm"
+                              onChange={(e) =>
+                                setAmountPerPage(Number(e.target.value))
+                              }
+                            >
                               <option defaultValue="10">10</option>
                               <option value="25">25</option>
                               <option value="50">50</option>
@@ -101,6 +143,8 @@ const AdminProducts = () => {
                               type="search"
                               aria-controls="dataTable"
                               placeholder="Search"
+                              onChange={handleChange}
+                              ref={searchInputRef}
                             />
                           </label>
                         </div>
@@ -116,8 +160,8 @@ const AdminProducts = () => {
                         id="dataTable"
                         className="table my-0"
                         style={{
-                          fontSize: '16px',
-                          fontFamily: 'Assistant, sans-serif',
+                          fontSize: "16px",
+                          fontFamily: "Assistant, sans-serif",
                         }}
                       >
                         <thead>
@@ -134,18 +178,18 @@ const AdminProducts = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {inventario.length ? (
-                            inventario
+                          {displayedProducts.length ? (
+                            displayedProducts
                               .slice(
                                 (page - 1) * amountPerPage,
-                                (page - 1) * amountPerPage + amountPerPage
+                                page * amountPerPage
                               )
                               .map((inventory, index) => (
                                 <tr key={index}>
                                   <td>{inventory.id_inventory}</td>
                                   <td>
                                     <img
-                                      src={inventory?.image[0]}
+                                      src={inventory.image[0]}
                                       alt={inventory.article_name}
                                       width={100}
                                     />
@@ -158,7 +202,7 @@ const AdminProducts = () => {
                                   <td>
                                     {inventory.categorias
                                       ? inventory.categorias.categoryName
-                                      : 'categoria'}
+                                      : "categoria"}
                                   </td>
                                   <td>
                                     <select
@@ -176,7 +220,17 @@ const AdminProducts = () => {
                                     </select>
                                   </td>
                                   <td>
-                                    <FontAwesomeIcon icon="pencil-square" />
+                                    <Link to="/adminEditProd">
+                                      <FontAwesomeIcon
+                                        icon="pencil-square"
+                                        onClick={() =>
+                                          handleEditProduct(
+                                            inventory.id_inventory
+                                          )
+                                        }
+                                      />
+                                    </Link>
+                                    
                                   </td>
                                 </tr>
                               ))
@@ -187,11 +241,13 @@ const AdminProducts = () => {
                           )}
                         </tbody>
                       </table>
-                      <Pagination
-                        page={page}
-                        setPage={setPage}
-                        pageCount={pageCount}
-                      />
+                      {displayedProducts.length > amountPerPage && (
+                        <Pagination
+                          page={page}
+                          setPage={setPage}
+                          pageCount={pageCount}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>

@@ -1,28 +1,57 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Carousel, LoadingSpinner } from "../../Components/index";
-import { Link } from "react-router-dom";
-import { getProductById, setLoading } from "../../redux/actions/actions";
-import { addProduct, getCart } from "../../redux/actions/cartActions";
-import styles from "./Detail.module.css";
-import arrowLeft from "../../assets/arrow-left.svg";
-import { successToast } from "../../helpers/toastNotification";
+/* eslint-disable react-hooks/exhaustive-deps */
+import {useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {Carousel, LoadingSpinner} from '../../Components/index';
+import {Link} from 'react-router-dom';
+import {getProductById} from '../../redux/actions/actions';
+import {addProduct} from '../../redux/actions/cartActions';
+import styles from './Detail.module.css';
+import arrowLeft from '../../assets/arrow-left.svg';
+import {successToast} from '../../helpers/toastNotification';
+import {Rating} from '@micahlt/react-simple-star-rating';
+import ProductQuestions from '../../Components/ProductQuestions/ProductQuestions';
+import {isLoggedIn} from '../../helpers/helperLogin';
+import useLocalCart from '../../helpers/useLocalCart';
+import server from '../../Connections/Server';
+import axios from 'axios';
 
 const Detail = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const {addToLocalCart} = useLocalCart();
+  const {id} = useParams();
   const product = useSelector((state) => state.app.product);
-  let isLoading = useSelector((state) => state.app.isLoading);
-  const role = localStorage.getItem("role");
-  const idCarrito = localStorage.getItem("idCarrito");
+  const {role, carrito} = useSelector((state) => state.app.user);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const [productQuestions, setProductQuestions] = useState([]);
 
+  const ratingArray = product.reviews?.map((review) => {
+    let ratingNumber = Number(review?.evaluation);
+    return ratingNumber;
+  });
+
+  const ratingGeneral =
+    ratingArray?.reduce((acc, actualValue) => acc + actualValue, 0) /
+    ratingArray?.length;
+
+  const handleRedirectReview = () => {
+    navigate(`/review/${id}`);
+  };
+
+  // * Obtiene las preguntas y el nuevo producto.
   useEffect(() => {
-    dispatch(setLoading(true));
-    dispatch(getProductById(id)).then(() => dispatch(setLoading(false)));
-  }, [dispatch, id]);
+    console.log('Mensaje para ver cuantas veces se escibre useEffect');
+    Promise.all([
+      dispatch(getProductById(id)),
+      axios
+        .get(`${server.api.baseURL}questions/${id}`)
+        .then(({data}) => setProductQuestions(data)),
+    ]).finally(() => setIsLoading(false));
+  }, [dispatch]);
 
   const incrementQuantity = () => {
     if (selectedQuantity < product.stock) {
@@ -37,11 +66,15 @@ const Detail = () => {
   };
 
   const handleAddProduct = async () => {
-    await dispatch(
-      addProduct(idCarrito, product.id_inventory, selectedQuantity)
-    );
-    await dispatch(getCart(idCarrito));
-    successToast("Producto añadido correctamente!", 1000);
+    if (!isLoggedIn()) {
+      // * Si es un usuario que no esta registrado utiliza el carrito en localStorage.
+      addToLocalCart(product, selectedQuantity);
+    } else {
+      await dispatch(
+        addProduct(carrito.idCar, product.id_inventory, selectedQuantity)
+      );
+      successToast('Producto añadido correctamente!', 1000);
+    }
   };
 
   return (
@@ -67,7 +100,7 @@ const Detail = () => {
                 <p>{product.description}</p>
               </div>
               <p className={styles.stock_p}>Stock: {product.stock}</p>
-              {role === "Cliente" && (
+              {(!isLoggedIn() || role === 'Cliente') && (
                 <>
                   <div className={styles.stock_box}>
                     <button onClick={decrementQuantity}>-</button>
@@ -81,14 +114,36 @@ const Detail = () => {
                     >
                       Añadir al carrito
                     </button>
-                    {/* <button className={styles.btn_favorites}>
-                      Añadir a favoritos
-                    </button> */}
+                    <button
+                      className={styles.btn_favorites}
+                      onClick={handleRedirectReview}
+                    >
+                      opinar del producto
+                    </button>
                   </div>
                 </>
               )}
+              <h3>rating general</h3>
+              <Rating
+                initialValue={ratingGeneral}
+                readonly={true}
+                allowFraction={true}
+              />
+              <h3>opiniones del producto</h3>
+              <ul>
+                {product.reviews?.length
+                  ? product.reviews.map((review, index) => {
+                      return <li key={index}>{review.message}</li>;
+                    })
+                  : null}
+              </ul>
             </div>
           </div>
+          <ProductQuestions
+            productQuestions={productQuestions}
+            setProductQuestions={setProductQuestions}
+            productId={product.id_inventory}
+          />
         </>
       )}
     </section>

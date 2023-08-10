@@ -15,6 +15,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mercadopago/sdk-js": "^0.0.3",
     "@mercadopago/sdk-react": "^0.0.13",
     "@micahlt/react-simple-star-rating": "^5.1.9",
     "axios": "^1.4.0",
@@ -30,6 +31,7 @@
     "react-toastify": "^9.1.3",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
+    "simple-line-icons": "^2.5.5",
     "sweetalert2": "^11.7.18"
   },
   "devDependencies": {

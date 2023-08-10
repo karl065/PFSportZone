@@ -1,19 +1,19 @@
 /* eslint-disable react/prop-types */
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
-import {login} from '../../../helpers/helperLogin';
-import {useNavigate} from 'react-router-dom';
+import {login, thirdLogin} from '../../../helpers/helperLogin';
+import {Link, useNavigate} from 'react-router-dom';
+import {auth} from '../../../firebase/firebaseConfig';
 import {
-  // FacebookAuthProvider,
+  FacebookAuthProvider,
   GoogleAuthProvider,
   signInWithPopup,
 } from 'firebase/auth';
 import Swal from 'sweetalert2';
-import {auth} from '../../../firebase/firebaseConfig';
 import {createUser} from '../../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import googleIcon from '../../../assets/google-icon.svg';
-// import facebookIcon from '../../../assets/facebook-icon.svg';
+import facebookIcon from '../../../assets/facebook-icon.svg';
 import styles from './UserLogin.module.css';
 
 const UserLogin = () => {
@@ -34,7 +34,7 @@ const UserLogin = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      await login(values.email, values.password, navigate);
+      await login(values.email, values.password, navigate, dispatch);
     },
   });
 
@@ -59,45 +59,61 @@ const UserLogin = () => {
       const newUser = {
         email: result.user.email,
         user: result.user.displayName,
-        password: result.user.uid,
         userStatus: true,
         role: 'Cliente',
       };
 
       // ? Ver si después podemos hacer esto solo cuando no existe un usuario con ese email. y evitar la validación de arriba "23505"
       if (users.find((user) => user.email === newUser.email)) {
-        await login(newUser.email, newUser.password, navigate);
+        await thirdLogin(newUser.email, navigate, dispatch);
       } else {
         await dispatch(createUser(newUser));
-        await login(newUser.email, newUser.password, navigate);
+        await thirdLogin(newUser.email, navigate, dispatch);
       }
     } catch (error) {
-      swalErrorAuth(error);
+      if (error?.code === 'auth/account-exists-with-different-credential') {
+        // ? Informar al usuario que ingrese con el otro proveedor que ya tiene.
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Ya existe una cuenta con este correo electrónico. Por favor, inicie sesión con el otro proveedor antes de intentar vincular las cuentas.',
+        });
+      } else {
+        swalErrorAuth(error);
+      }
     }
   };
 
-  // const signInWithFacebook = async () => {
-  //   try {
-  //     const provider = new FacebookAuthProvider();
-  //     const result = await signInWithPopup(auth, provider);
-  //     const newUser = {
-  //       email: result.user.email,
-  //       user: result.user.displayName,
-  //       password: result.user.uid,
-  //       userStatus: true,
-  //       role: 'Cliente',
-  //     };
+  const signInWithFacebook = async () => {
+    try {
+      const provider = new FacebookAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const newUser = {
+        email: result.user?.providerData[0].email,
+        user: result.user.displayName,
+        userStatus: true,
+        role: 'Cliente',
+      };
 
-  //     if (users.find((user) => user.email === newUser.email)) {
-  //       await login(newUser.email, newUser.password, navigate, dispatch);
-  //     } else {
-  //       await dispatch(createUser(newUser));
-  //       await login(newUser.email, newUser.password, navigate);
-  //     }
-  //   } catch (error) {
-  //     swalErrorAuth(error);
-  //   }
-  // };
+      if (users.find((user) => user.email === newUser.email)) {
+        await thirdLogin(newUser.email, navigate, dispatch);
+      } else {
+        await dispatch(createUser(newUser));
+        await thirdLogin(newUser.email, navigate, dispatch);
+      }
+    } catch (error) {
+      if (error?.code === 'auth/account-exists-with-different-credential') {
+        // ? Informar al usuario que ingrese con el otro proveedor que ya tiene.
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Ya existe una cuenta con este correo electrónico. Por favor, inicie sesión con el otro proveedor antes de intentar vincular las cuentas.',
+        });
+      } else {
+        swalErrorAuth(error);
+      }
+    }
+  };
 
   return (
     <section>
@@ -197,16 +213,22 @@ const UserLogin = () => {
                               <img src={googleIcon} alt="Google icon" />
                               Ingresar con google
                             </button>
-                            {/* <button
+                            <button
                               type="button"
                               onClick={signInWithFacebook}
                               className={styles.btnLoginFacebook}
                             >
                               <img src={facebookIcon} alt="Facebook icon" />
                               Ingresar con facebook
-                            </button> */}
+                            </button>
                           </div>
                           <hr />
+                          <p className={styles.loginParagraph}>
+                            Aun no tiene cuenta?
+                            <Link to="/register" className={styles.loginText}>
+                              Registrese
+                            </Link>
+                          </p>
                           {/* <p className={styles.PassO}><Link to={'/login/resetpass'}>Olvidaste tu contraseña?</Link></p>
                           <hr /> */}
                         </form>

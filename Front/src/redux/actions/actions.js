@@ -1,13 +1,20 @@
 import {
   SET_LOADING,
+  SET_USER,
+  GET_USER,
   GET_USERS,
+  EDIT_USER,
+  CLEAR_USER,
+  CLEAR_USERED,
   GET_INVENTORY,
   GET_SPORTS,
   CREATE_USER,
   CREATE_PRODUCT,
   GET_PRODUCT_ID,
+  CLEAR_PRODUCT,
   FILTER_PRODUCTS_BY_NAME,
   RESET_DISPLAYED_PRODUCTS,
+  RESET_DISPLAYED_USERS,
   GET_CATEGORY,
   CREATE_CATEGORY,
   ORDER_PRODUCTS_BY_PRICE,
@@ -21,9 +28,55 @@ import {
   EDIT_PRODUCT,
   UPDATE_USERS_STATUS,
   UPDATE_ITEM_STATUS,
+  GET_VENTAS,
+  GET_SALES,
+  UPDATE_SALES_STATUS,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
+import {handleLogout} from '../../helpers/helperLogin';
+import {getCart} from './cartActions';
+
+export const getUser = (navigate, token) => {
+  return async (dispatch) => {
+    try {
+      const {data} = await axios.get(`${server.api.baseURL}auth`, {
+        headers: {
+          'x-auth-token': token,
+        },
+      });
+
+      dispatch(getCart(data.carrito.idCar));
+
+      dispatch({
+        type: GET_USER,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+      handleLogout(navigate, dispatch);
+    }
+  };
+};
+
+export const setUser = (user) => {
+  return {
+    type: SET_USER,
+    payload: user,
+  };
+};
+
+export const clearUser = () => {
+  return {
+    type: CLEAR_USER,
+  };
+};
+
+export const clearUserEd = () => {
+  return {
+    type: CLEAR_USERED,
+  };
+};
 
 export const getUsers = () => {
   return async (dispatch) => {
@@ -31,6 +84,43 @@ export const getUsers = () => {
     data.sort((a, b) => a.idUser - b.idUser);
     dispatch({
       type: GET_USERS,
+      payload: data,
+    });
+  };
+};
+
+export const getSales = () => {
+  return async (dispatch) => {
+    const {data} = await axios.get(`${server.api.baseURL}ventas`);
+    data.sort((a, b) => a.id_sales - b.id_sales);
+    dispatch({
+      type: GET_SALES,
+      payload: data,
+    });
+  };
+};
+
+export const updateSaleStatus = (idSale, status) => {
+  return async (dispatch) => {
+    const {data} = await axios.put(
+      `${server.api.baseURL}sales/${idSale}`,
+      status
+    );
+    dispatch({
+      type: UPDATE_SALES_STATUS,
+      payload: data,
+    });
+  };
+};
+
+export const editUser = (newValues) => {
+  return async (dispatch) => {
+    const {data} = await axios.put(
+      `${server.api.baseURL}users/${newValues.idUser}`,
+      newValues
+    );
+    dispatch({
+      type: EDIT_USER,
       payload: data,
     });
   };
@@ -87,12 +177,30 @@ export const createUser = (user) => {
 };
 
 export const createProduct = (product) => {
+  const token = localStorage.getItem('token');
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  if (token) {
+    headers['x-auth-token'] = token;
+  }
+
   return async (dispatch) => {
-    const {data} = await axios.post(`${server.api.baseURL}inventory`, product);
-    dispatch({
-      type: CREATE_PRODUCT,
-      payload: data,
-    });
+    try {
+      const {data} = await axios.post(
+        `${server.api.baseURL}inventory`,
+        product,
+        {headers: headers}
+      );
+
+      dispatch({
+        type: CREATE_PRODUCT,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 };
 
@@ -126,11 +234,21 @@ export const createDeporte = (deporte) => {
 };
 
 export const editProduct = (newValues, status) => {
+  const token = localStorage.getItem('token');
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  if (token) {
+    headers['x-auth-token'] = token;
+  }
   return async (dispatch) => {
     const {data} = await axios.put(
       `${server.api.baseURL}inventory/${newValues.id_inventory}`,
-      newValues
+      newValues,
+      {headers: headers}
     );
+    dispatch(getInventory());
     if (status) {
       dispatch(filterProductsByStatus(status));
     }
@@ -158,9 +276,21 @@ export const getProductById = (id) => {
   };
 };
 
+export const clearProduct = () => {
+  return {
+    type: CLEAR_PRODUCT,
+  };
+};
+
 export const resetDisplayedProducts = () => {
   return {
     type: RESET_DISPLAYED_PRODUCTS,
+  };
+};
+
+export const resetDisplayedUsers = () => {
+  return {
+    type: RESET_DISPLAYED_USERS,
   };
 };
 
@@ -252,6 +382,20 @@ export const updateUsersStatus = (idUser, newStatus, role, userStatus) => {
         type: UPDATE_USERS_STATUS,
         payload: data,
       });
+    }
+  };
+};
+
+export const getCompras = () => {
+  return async (dispatch) => {
+    try {
+      const {data} = await axios.get(`${server.api.baseURL}ventas`);
+      dispatch({
+        type: GET_VENTAS,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error.message);
     }
   };
 };

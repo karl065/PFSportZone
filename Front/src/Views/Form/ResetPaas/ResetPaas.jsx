@@ -6,9 +6,10 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import server from '../../../Connections/Server';
 import Swal from 'sweetalert2';
+import { useSelector } from 'react-redux';
 
 const ResetPaas = (props) => {
-  const idUser = localStorage.getItem('idUser');
+  const idUser = useSelector(state => state.app.user.idUser);
   useEffect(() => {
     props.setErrorPage(false);
 

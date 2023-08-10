@@ -1,31 +1,52 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-// import axios from 'axios';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {library} from '@fortawesome/fontawesome-svg-core';
-import {fas} from '@fortawesome/free-solid-svg-icons';
-import {useEffect, useState} from 'react';
-import Pagination from '../../Components/Pagination/Pagination';
-import {useSelector, useDispatch} from 'react-redux';
-import Sidebar from '../../Components/SideBar/Sidebar';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useRef, useState } from "react";
+import Pagination from "../../Components/Pagination/Pagination";
+import { useSelector, useDispatch } from "react-redux";
+import Sidebar from "../../Components/SideBar/Sidebar";
 import {
   filterUsersByRoleAndStatus,
   getUsers,
+  editUser,
   updateUsersStatus,
-} from '../../redux/actions/actions';
+} from "../../redux/actions/actions";
+import { Link } from "react-router-dom";
 
 library.add(fas);
 const AdminUsers = () => {
-  const users = useSelector((state) => state.app.users);
-  const [roleSeleccionado, setRoleSeleccionado] = useState('');
-  const [statusSeleccionado, setStatusSeleccionado] = useState('');
-  const [page, setPage] = useState(1);
-  const [amountPerPage, setAmountPerPage] = useState(8);
-  const pageCount = users.length / amountPerPage;
   const dispatch = useDispatch();
-  const [statusOption, setStatusOption] = useState(['Activo', 'Inactivo']);
+  const users = useSelector((state) => state.app.users);
+
+  const [displayedUsers, setDisplayedUsers] = useState(users);
+  const searchInputRef = useRef(null);
+  const debounceTimeout = useRef(null);
+
+  const [roleSeleccionado, setRoleSeleccionado] = useState("");
+  const [statusSeleccionado, setStatusSeleccionado] = useState("");
+  const [statusOption, setStatusOption] = useState(["Activo", "Inactivo"]);
   const [userStatusOptions, setUserStatusOptions] = useState({});
+
+  const [page, setPage] = useState(1);
+  const [amountPerPage, setAmountPerPage] = useState(10);
+  const pageCount = Math.ceil(displayedUsers.length / amountPerPage);
+
+  const handleChange = (event) => {
+    handleSearch(event.target.value);
+  };
+
+  const handleSearch = (searchTerm) => {
+    clearTimeout(debounceTimeout.current);
+
+    // * Debounce => Luego de que el input cambie y pasen 500 ms sin escribir se realiza el filtrado
+    debounceTimeout.current = setTimeout(() => {
+      const filtered = users.filter((user) =>
+        user?.date.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setDisplayedUsers(filtered);
+    }, 500);
+  };
 
   const applyFilters = () => {
     if (roleSeleccionado || statusSeleccionado) {
@@ -38,42 +59,46 @@ const AdminUsers = () => {
   };
 
   const handleRoleChange = (e) => {
-    const {value} = e.target;
+    const { value } = e.target;
     setRoleSeleccionado(value);
   };
 
   const handleStatusChange = (e) => {
-    const {value} = e.target;
+    const { value } = e.target;
     setStatusSeleccionado(value);
+  };
+
+  const handleEditUser = (userEd) => {
+    dispatch(editUser(userEd));
   };
 
   const statusSubmit = (e, idUser) => {
     e.preventDefault();
-    if (e.target.value === 'Inactivo') {
+    if (e.target.value === "Inactivo") {
       if (roleSeleccionado || statusSeleccionado) {
         dispatch(
           updateUsersStatus(
             idUser,
-            {userStatus: false},
+            { userStatus: false },
             roleSeleccionado,
             statusSeleccionado
           )
         );
       } else {
-        dispatch(updateUsersStatus(idUser, {userStatus: false}));
+        dispatch(updateUsersStatus(idUser, { userStatus: false }));
       }
-    } else if (e.target.value === 'Activo') {
+    } else if (e.target.value === "Activo") {
       if (roleSeleccionado || statusSeleccionado) {
         dispatch(
           updateUsersStatus(
             idUser,
-            {userStatus: true},
+            { userStatus: true },
             roleSeleccionado,
             statusSeleccionado
           )
         );
       } else {
-        dispatch(updateUsersStatus(idUser, {userStatus: true}));
+        dispatch(updateUsersStatus(idUser, { userStatus: true }));
       }
     }
   };
@@ -87,29 +112,31 @@ const AdminUsers = () => {
     const initialStatusOptions = {};
     users.forEach((user) => {
       initialStatusOptions[user.idUser] = user.userStatus
-        ? 'Activo'
-        : 'Inactivo';
+        ? "Activo"
+        : "Inactivo";
     });
     setUserStatusOptions(initialStatusOptions);
+    // * Cuando se realize el filtro de actualize con los "nuevos" usuarios.
+    setDisplayedUsers(users);
   }, [users]);
 
   return (
     <div>
-      <div id="wrapper" style={{display: 'flex'}}>
+      <div id="wrapper" style={{ display: "flex" }}>
         <Sidebar />
         <div
           className="d-flex flex-column"
           id="content-wrapper"
-          style={{flex: '1', flexGrow: '1'}}
+          style={{ flex: "1", flexGrow: "1" }}
         >
           <div id="content">
-            <div className="container-fluid" style={{display: 'block'}}>
+            <div className="container-fluid" style={{ display: "block" }}>
               <div className="d-sm-flex justify-content-between align-items-center mb-4">
                 <h3 className="text-dark mb-0">Usuarios</h3>
                 <div>
                   <select
                     // value={roleSeleccionado}
-                    style={{height: '38px', marginTop: '10px'}}
+                    style={{ height: "38px", marginTop: "10px" }}
                     onChange={handleRoleChange}
                   >
                     <option value="">Filtrar por role</option>
@@ -121,7 +148,7 @@ const AdminUsers = () => {
                 <div>
                   <select
                     // value={statusSeleccionado}
-                    style={{height: '38px', marginTop: '10px'}}
+                    style={{ height: "38px", marginTop: "10px" }}
                     onChange={handleStatusChange}
                   >
                     <option value="">Filtrar por estado</option>
@@ -141,7 +168,12 @@ const AdminUsers = () => {
                           aria-controls="dataTable"
                         >
                           <label className="form-label">
-                            <select className="d-inline-block form-select form-select-sm">
+                            <select
+                              className="d-inline-block form-select form-select-sm"
+                              onChange={(e) =>
+                                setAmountPerPage(Number(e.target.value))
+                              }
+                            >
                               <option defaultValue="10">10</option>
                               <option value="25">25</option>
                               <option value="50">50</option>
@@ -161,6 +193,8 @@ const AdminUsers = () => {
                               type="search"
                               aria-controls="dataTable"
                               placeholder="Search"
+                              onChange={handleChange}
+                              ref={searchInputRef}
                             />
                           </label>
                         </div>
@@ -176,8 +210,8 @@ const AdminUsers = () => {
                         id="dataTable"
                         className="table my-0"
                         style={{
-                          fontSize: '16px',
-                          fontFamily: 'Assistant, sans-serif',
+                          fontSize: "16px",
+                          fontFamily: "Assistant, sans-serif",
                         }}
                       >
                         <thead>
@@ -190,11 +224,11 @@ const AdminUsers = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {users.length ? (
-                            users
+                          {displayedUsers.length ? (
+                            displayedUsers
                               .slice(
                                 (page - 1) * amountPerPage,
-                                (page - 1) * amountPerPage + amountPerPage
+                                page * amountPerPage
                               )
                               .map((users, index) => (
                                 <tr key={index}>
@@ -218,7 +252,16 @@ const AdminUsers = () => {
                                     </select>
                                   </td>
                                   <td>
-                                    <FontAwesomeIcon icon="pencil-square" />
+                                  <Link to="/adminEditUser">
+                                      <FontAwesomeIcon
+                                        icon="pencil-square"
+                                        onClick={() =>
+                                          handleEditUser(
+                                            users
+                                          )
+                                        }
+                                      />
+                                    </Link>
                                   </td>
                                 </tr>
                               ))
@@ -229,11 +272,13 @@ const AdminUsers = () => {
                           )}
                         </tbody>
                       </table>
-                      <Pagination
-                        page={page}
-                        setPage={setPage}
-                        pageCount={pageCount}
-                      />
+                      {displayedUsers.length > amountPerPage && (
+                        <Pagination
+                          page={page}
+                          setPage={setPage}
+                          pageCount={pageCount}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>

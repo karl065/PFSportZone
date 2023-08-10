@@ -1,4 +1,4 @@
-const {Usuarios, Carrito} = require('../DB.js');
+const {Usuarios, Carrito, Ventas, Favoritos} = require('../DB.js');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {SECRETA} = process.env;
@@ -21,15 +21,24 @@ const authenticateUser = async (email, password) => {
   try {
     const user = await Usuarios.findOne({
       where: {email: email},
-      include: {model: Carrito, as: 'carrito'},
+      include: [
+        {model: Carrito, as: 'carrito'},
+        {
+          model: Ventas,
+          as: 'ventas',
+        },
+        {
+          model: Favoritos,
+          as: 'favoritos',
+        },
+      ],
     });
-
     const passwordValid = await bcryptjs.compare(password, user.password);
 
     if (!user || !passwordValid) {
-      throw new Error("Usuario o email incorrectos");
+      throw new Error('Usuario o email incorrectos');
     }
-    
+
     const payload = {
       user: {id: user.idUser},
     };
@@ -51,14 +60,61 @@ const authenticateUser = async (email, password) => {
             email: user.email,
             role: user.role,
             carrito: user.carrito,
+            ventas: user.ventas,
           };
           resolve(auth);
         }
       );
     });
   } catch (error) {
-    return error.message;
+    throw error;
   }
 };
 
-module.exports = {authenticateUser};
+const authenticateThirdUser = async (email) => {
+  try {
+    const user = await Usuarios.findOne({
+      where: {email: email},
+      include: [
+        {model: Carrito, as: 'carrito'},
+        {
+          model: Ventas,
+          as: 'ventas',
+        },
+        {
+          model: Favoritos,
+          as: 'favoritos',
+        },
+      ],
+    });
+
+    if (!user) {
+      throw new Error('Usuario no encontrado');
+    }
+
+    const payload = {
+      user: {id: user.idUser},
+    };
+
+    const token = jwt.sign(payload, SECRETA, {
+      expiresIn: '30d',
+    });
+
+    const userData = {
+      id: user.idUser,
+      user: user.user,
+      email: user.email,
+      role: user.role,
+      carrito: user.carrito,
+    };
+
+    return {token, user: userData};
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = {
+  authenticateUser,
+  authenticateThirdUser,
+};

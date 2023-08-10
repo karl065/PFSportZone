@@ -1,19 +1,22 @@
+/* eslint-disable react/prop-types */
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {SearchBar} from '../index';
 import {resetDisplayedProducts} from '../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {isLoggedIn, handleLogout} from '../../helpers/helperLogin';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faHeart} from '@fortawesome/free-solid-svg-icons';
 import styles from './NavBar.module.css';
 import cartIcon from '../../assets/shopping-cart.svg';
-
 
 const NavBar = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const localCart = useSelector((state) => state.cart.localCart);
   const products = useSelector((state) => state.cart.products);
-  const cartLength = products?.length;
-  const role = localStorage.getItem('role');
+  const {role} = useSelector((state) => state.app.user);
+  const cartLength = isLoggedIn() ? products?.length : localCart.length;
 
   const shouldRenderSearchBar =
     (location.pathname !== '/' && role === 'Cliente') ||
@@ -23,7 +26,8 @@ const NavBar = (props) => {
     if (location.pathname !== '/home') dispatch(resetDisplayedProducts());
   };
 
-    const urlImageUser = 'https://res.cloudinary.com/dpjeltekx/image/upload/v1690818714/PF/WhatsApp_Image_2023-07-31_at_10.39.59_uatatn.jpg'
+  const urlImageUser =
+    'https://res.cloudinary.com/dpjeltekx/image/upload/v1690818714/PF/WhatsApp_Image_2023-07-31_at_10.39.59_uatatn.jpg';
 
   return (
     <nav className={styles.nav}>
@@ -48,29 +52,39 @@ const NavBar = (props) => {
             Catalogo
           </Link>
         </li>
+        {(!isLoggedIn() || role === 'Cliente') && (
+          <div className={styles.clientIcons}>
+            <li className={styles.favorites_item}>
+              <Link to="/favorites">
+                <FontAwesomeIcon icon={faHeart} className={styles.item} />
+              </Link>
+            </li>
+
+            <li className={styles.cart_item}>
+              <Link to="/cart">
+                <img
+                  src={cartIcon}
+                  alt="Shopping Cart"
+                  className={styles.cart_img}
+                />
+              </Link>
+              {cartLength > 0 && <span>{cartLength}</span>}
+            </li>
+          </div>
+        )}
         {isLoggedIn() ? (
           <>
-            {role === 'Cliente' && (
-              <li className={styles.cart_item}>
-                <Link to="/cart">
-                  <img
-                    src={cartIcon}
-                    alt="Shopping Cart"
-                    className={styles.cart_img}
-                  />
-                </Link>
-                {cartLength > 0 && <span>{cartLength}</span>}
-              </li>
-            )}
             <li
               className={styles.logout}
-              onClick={() => handleLogout(navigate)}
+              onClick={() => handleLogout(navigate, dispatch)}
             >
               Salir
             </li>
-            <li className={styles.userSettings} style={{'--bgimage': `url('${urlImageUser}')`}} onClick={props.deployMenu} >
-            </li>
-            
+            <li
+              className={styles.userSettings}
+              style={{'--bgimage': `url('${urlImageUser}')`}}
+              onClick={props.deployMenu}
+            ></li>
           </>
         ) : (
           <>

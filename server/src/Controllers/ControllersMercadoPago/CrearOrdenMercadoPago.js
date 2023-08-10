@@ -3,7 +3,7 @@ const { TOKEN_MERCADO } = process.env;
 mercadopago.configure({
   access_token: TOKEN_MERCADO,
 });
-const crearOrdenController = async (Inventarios) => {
+const crearOrdenController = async (Inventarios, cartId) => {
   try {
     const carritoItems = Inventarios.map((prod) => ({
       id: prod.id_inventory,
@@ -41,13 +41,15 @@ const crearOrdenController = async (Inventarios) => {
 
     // const preference = {
     //   items: carritoItems,
+    //   external_reference: cartId.toString(),
     //   back_urls: {
     //     success: 'https://backsportzone.onrender.com/mercadopago/success',
     //     failure: 'https://backsportzone.onrender.com/mercadopago/failure',
     //     pending: 'https://backsportzone.onrender.com/mercadopago/pending',
     //   },
+    //   auto_return: 'approved',
     //   notification_url:
-    //     'https://backsportzone.onrender.com/mercadopago/notification',
+    //     'https://6457-186-154-207-195.ngrok-free.app/mercadopago/notification',
     // };
     const preference = {
       items: carritoItems,
