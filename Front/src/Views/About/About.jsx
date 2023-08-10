@@ -37,14 +37,14 @@ const integrantes = [
     descripcion:
       "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
-    linkedin: "link aca",
+    linkedin:
+      "https://www.linkedin.com/in/manuel-f-borrego-sterling-555480267/",
   },
   {
     nombre: "nombre",
     descripcion: "texto aca",
     foto: "link de foto aca",
-    linkedin:
-      "https://www.linkedin.com/in/manuel-f-borrego-sterling-555480267/",
+    linkedin: "link aca",
   },
   {
     nombre: "Roberto Saúl Hernández Velasco",
