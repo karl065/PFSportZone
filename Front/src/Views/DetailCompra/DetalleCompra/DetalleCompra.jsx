@@ -96,6 +96,7 @@ const DetalleCompra = () => {
                 <h1 className={styles.ttllimg}>{prod.article_name}</h1>
                 <img className={styles.imgpr} src={prod.image[0]} alt={prod.article_name} />
                 <h3>{prod.VentasInventarios.cant} {prod.VentasInventarios.cant >= 2 ? 'piezas' : 'pieza' }</h3>
+                <button className={styles.buttonReview} onClick={()=>handlerRedirectReview(prod.id_inventory)}>Da una reseña del producto</button>
               </div>
             )
             }
