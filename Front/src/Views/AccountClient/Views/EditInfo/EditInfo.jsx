@@ -1,23 +1,21 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 
 const EditInfo = () => {
 
-  const info_user = {
-                     user:'user',
-                     email:'email',
-                     name:'name',
-                     last_name:'last_name',
-                     phone:'phone',
-                    } 
+  const [user, setuser] = useState('') 
+  const [email, setemail] = useState('') 
+  const [name, setname] = useState('') 
+  const [last_name, setlast_name] = useState('') 
+  const [phone, setphone] = useState('') 
 
   return (
     <article>
-      <div>{info_user.user}</div>
-      <div>{info_user.email}</div>
-      <div>{info_user.name}</div>
-      <div>{info_user.last_name}</div>
-      <div>{info_user.phone}</div>
+      <div>{user}</div>
+      <div>{email}</div>
+      <div>{name}</div>
+      <div>{last_name}</div>
+      <div>{phone}</div>
     </article>
   )
 }

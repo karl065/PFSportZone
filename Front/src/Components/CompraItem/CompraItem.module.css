@@ -9,6 +9,7 @@
     padding: 1.5rem;
     border-radius: 1cqw;
     cursor: pointer;
+    margin-bottom: 0.5rem;
 }
 .status{
     width: fit-content;
@@ -34,7 +35,7 @@
     position: absolute;
     right: 1.8rem;
     bottom: 0%;
-    font-size: 5dvb;
+    font-size: 3dvb;
 }
 .Cid{
     display: flex;
