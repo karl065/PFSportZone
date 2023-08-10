@@ -112,8 +112,8 @@ const ChatBot = () => {
          {myResponse[0] ? <div className={m.right}>{myResponse[0]}</div> : null}
          {myResponse[0] ? (
            <div className={m.left}>
-             {botResponse[0]?.map((val) => {
-               return <li key={val}>{val}</li>;
+             {botResponse[0]?.map((val,index) => {
+               return <li key={index}>{val}</li>;
              })}
            </div>
          ) : null}
