@@ -59,6 +59,7 @@ const authenticateUser = async (email, password) => {
             id: user.idUser,
             email: user.email,
             role: user.role,
+            status: user.userStatus,
             carrito: user.carrito,
             ventas: user.ventas,
           };
@@ -105,6 +106,7 @@ const authenticateThirdUser = async (email) => {
       user: user.user,
       email: user.email,
       role: user.role,
+      status: user.userStatus,
       carrito: user.carrito,
     };
 

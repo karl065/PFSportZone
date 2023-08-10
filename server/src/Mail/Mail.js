@@ -46,17 +46,43 @@ const enviarNotificacionCambioContrasena = async (email) => {
   }
 };
 
-const enviarNotificacionCompra = async (email, article_name) => {
+const enviarNotificacionCompra = async (email, productos) => {
+  if (!Array.isArray(productos)) {
+    console.log("No se proporcionó una lista de productos válida.");
+  }
+
+  if (productos.length === 0) {
+    console.log("No se han adquirido productos.");
+  }
+
   const mensaje = {
     from: "dianamtm55@gmail.com",
     to: email,
     subject: "Confirmación de compra",
-    text: `Gracias por tu compra. Has adquirido el artículo: ${article_name}.`,
+    text: `Gracias por tu compra. Has adquirido ${
+      productos.length === 1 ? "el artículo" : "los artículos"
+    }: ${productos.join(", ")}.`,
   };
 
   try {
     await transporter.sendMail(mensaje);
     return "Compra Exitosa";
+  } catch (error) {
+    return error.message;
+  }
+};
+
+const enviarNotificacionPendiente = async (email, ticket) => {
+  const mensaje = {
+    from: "dianamtm55@gmail.com",
+    to: email,
+    subject: "Pago Pendiente",
+    text: `Gracias por tu compra, en el siguiente enlace podrás encontrar los pasos a seguir para hacer tu compra efectiva, ${ticket}`,
+  };
+
+  try {
+    await transporter.sendMail(mensaje);
+    return "Pago Pendiente";
   } catch (error) {
     return error.message;
   }
@@ -82,7 +108,4 @@ module.exports = {
   enviarNotificacionUsuarioNuevo,
   enviarNotificacionCambioContrasena,
   enviarNotificacionCompra,
-  //enviarNotificacionCompraPendiente,
-  //enviarNotificacionCompraRechazada,
-  enviarNotificacionArticulo,
 };

@@ -4,7 +4,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {Carousel, LoadingSpinner} from '../../Components/index';
 import {Link} from 'react-router-dom';
-import {getProductById} from '../../redux/actions/actions';
+import {clearProduct, getProductById} from '../../redux/actions/actions';
 import {addProduct} from '../../redux/actions/cartActions';
 import styles from './Detail.module.css';
 import arrowLeft from '../../assets/arrow-left.svg';
@@ -76,6 +76,13 @@ const Detail = () => {
       successToast('Producto añadido correctamente!', 1000);
     }
   };
+
+  // * Al desmontar el componente también se borra el producto si lo obtiene del redux.
+  useEffect(() => {
+    return () => {
+      dispatch(clearProduct());
+    };
+  }, []);
 
   return (
     <section className={styles.detail_wrapper}>

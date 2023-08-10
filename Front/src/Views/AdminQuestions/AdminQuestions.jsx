@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import styles from './AdminQuestions.module.css';
 import {useSelector} from 'react-redux';
+import { successToast } from '../../helpers/toastNotification';
 
 const AdminQuestions = () => {
   const [unansweredQuestions, setUnansweredQuestions] = useState([]);
@@ -73,6 +74,7 @@ const AdminQuestions = () => {
       );
 
       setUnansweredQuestions(filteredQuestions);
+      successToast("Respuesta enviada correctamente", 1500);
     } catch (error) {
       Swal.fire({
         icon: 'error',

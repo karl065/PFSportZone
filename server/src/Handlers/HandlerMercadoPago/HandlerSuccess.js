@@ -47,6 +47,9 @@ const success = async (req, res) => {
       idUser,
       Inventarios
     );
+    const userEmail = dataValues.usuario.dataValues.email;
+    enviarNotificacionCompra(userEmail, productos);
+
     await delAllCarrito(external_reference);
 
     res.redirect(
