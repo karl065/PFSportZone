@@ -5,6 +5,8 @@ import {addProduct} from '../../redux/actions/cartActions';
 import {successToast} from '../../helpers/toastNotification';
 import useLocalCart from '../../helpers/useLocalCart';
 import Styles from './Favorites.module.css';
+import { useEffect } from 'react';
+import { getFavorites } from '../../redux/actions/actions';
 
 export default function Favorites() {
   const navigate = useNavigate();
@@ -32,6 +34,10 @@ const redirectToDetail = (idProduct) => {
       successToast('Producto añadido correctamente!', 1500);
     }
   };
+
+  useEffect(()=>{
+    dispatch(getFavorites(favoritos))
+  },[])
 
   return (
     <>

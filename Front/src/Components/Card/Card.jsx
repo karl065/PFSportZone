@@ -9,7 +9,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {errorToast, successToast} from '../../helpers/toastNotification';
 import {isLoggedIn} from '../../helpers/helperLogin';
 import useLocalCart from '../../helpers/useLocalCart';
-import { getFavorites } from '../../redux/actions/actions';
 
 const Card = ({product}) => {
   const {id_inventory, article_name, selling_price, stock, image} = product;
@@ -18,7 +17,7 @@ const Card = ({product}) => {
 
   const {addToLocalCart} = useLocalCart();
   const cartId = useSelector((state) => state.cart.id);
-  const {role, idUser,favoritos} = useSelector((state) => state.app.user);
+  const {role, idUser} = useSelector((state) => state.app.user);
   const [redirectDetail, setRedirectDetail] = useState(true);
 
   const handleCardClick = () => {
@@ -39,8 +38,6 @@ const Card = ({product}) => {
       const info = {idUser, id_Inventory: id_inventory};
       await axios.post(`${server.api.baseURL}favorites`, info);
       successToast('Producto añadido correctamente!', 1500);
-      dispatch(getFavorites(favoritos));
-      console.log(favoritos);
     } catch (error) {
       errorToast(`${error.message}`, 1500);
     }
