@@ -14,6 +14,7 @@ const {
 const {
   delAllCarrito,
 } = require('../../Controllers/ControllersCarrito/deleteControllerCarrito');
+const {enviarNotificacionCompra} = require('../../Mail/Mail');
 
 const {TOKEN_MERCADO} = process.env;
 
@@ -28,10 +29,11 @@ const success = async (req, res) => {
         },
       }
     );
-    console.log(data);
     const {external_reference} = data;
     const {items} = data.additional_info;
+    const productos = [];
     for (const prod of items) {
+      productos.push(prod.title);
       const {stock} = await getInventariosById(prod.id);
       const newStock = stock - prod.quantity;
       await actualizarArticulo(prod.id, {stock: newStock});
@@ -47,6 +49,9 @@ const success = async (req, res) => {
       idUser,
       Inventarios
     );
+    const userEmail = dataValues.usuario.dataValues.email;
+    enviarNotificacionCompra(userEmail, productos);
+
     await delAllCarrito(external_reference);
 
     res.redirect(

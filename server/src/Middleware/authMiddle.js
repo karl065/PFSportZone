@@ -20,8 +20,6 @@ const {SECRETA} = process.env;
  */
 const authMiddle = async (req, res, next) => {
   const token = req.header('x-auth-token');
-  console.log('Esto es token ', token);
-  console.log('Esto es headers ', req.headers);
   if (!token) {
     return res.status(400).json({msg: 'No hay token'});
   }

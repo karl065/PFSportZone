@@ -256,7 +256,7 @@ export default function SortAndFilters() {
               onChange={(e) => handleFiltersChange(e)}
             >
               <option value="default">Elige una opcion</option>
-              <option value="Man">Hombre</option>
+              <option value="Men">Hombre</option>
               <option value="Women">Mujer</option>
               <option value="Unisex">Unisex</option>
             </select>
