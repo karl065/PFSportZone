@@ -60,7 +60,6 @@ const success = async (req, res) => {
     // res.redirect(
     //   `http://localhost:5173/detalleCompra?id=${dataValues.id_sales}&&status=${status}`
     // );
-    // res.send('Pago realizado');
   } catch (error) {
     return res.status(500).json({error: error.message});
   }

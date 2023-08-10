@@ -16,6 +16,7 @@
   object-position: center;
   height: 100%;
   min-width: 100%;
+  transition: all 0.8s;
 }
 
 .image:hover {
