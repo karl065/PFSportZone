@@ -44,7 +44,6 @@ const Detail = () => {
 
   // * Obtiene las preguntas y el nuevo producto.
   useEffect(() => {
-    console.log('Mensaje para ver cuantas veces se escibre useEffect');
     Promise.all([
       dispatch(getProductById(id)),
       axios
