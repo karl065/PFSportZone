@@ -12,6 +12,7 @@ const getInventariosHandler = async (req, res) => {
       return res.status(200).json(articulos);
     }
     const articulos = await getInventarios();
+
     return res.status(200).json(articulos);
   } catch (error) {
     return res.status(500).json({ error: error.message });

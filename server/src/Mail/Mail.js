@@ -62,11 +62,27 @@ const enviarNotificacionCompra = async (email, article_name) => {
   }
 };
 
+const enviarNotificacionArticulo = async (article_name, stock) => {
+  const mensaje = {
+    from: "dianamtm55@gmail.com",
+    to: "dianamtm55@gmail.com",
+    subject: "Articulo con poco stock",
+    text: `El articulo ${article_name} y stock${stock}.`,
+  };
+
+  try {
+    await transporter.sendMail(mensaje);
+    return "Articulo notificado";
+  } catch (error) {
+    return error.message;
+  }
+};
+
 module.exports = {
   enviarNotificacionUsuarioNuevo,
   enviarNotificacionCambioContrasena,
   enviarNotificacionCompra,
-  enviarNotificacionCompraPendiente,
-  enviarNotificacionCompraRechazada,
+  //enviarNotificacionCompraPendiente,
+  //enviarNotificacionCompraRechazada,
   enviarNotificacionArticulo,
 };
