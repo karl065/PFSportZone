@@ -31,6 +31,7 @@ import {
   CLEAR_USERED,
   GET_SALES,
   UPDATE_SALES_STATUS,
+  GET_FAVORITES,
 } from '../actions-types/action-types';
 
 const initialState = {
@@ -44,6 +45,7 @@ const initialState = {
   comprasUsuario: [],
   displayInventory: [],
   user: {},
+  favorites: [],
   userEd: {},
   product: {},
   isLoading: false,
@@ -111,6 +113,11 @@ export default function appReducer(state = initialState, {type, payload}) {
         ...state,
         inventory: updatedInventory,
       };
+    case GET_FAVORITES:
+      return{
+        ...state,
+        favorites: payload
+      }
     case FILTER_PRODUCTS_BY_NAME:
       const filteredInventory = state.inventory.filter((product) =>
         product.article_name.toLowerCase().includes(payload.toLowerCase())

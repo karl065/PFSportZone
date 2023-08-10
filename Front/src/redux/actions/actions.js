@@ -31,6 +31,7 @@ import {
   GET_VENTAS,
   GET_SALES,
   UPDATE_SALES_STATUS,
+  GET_FAVORITES,
 } from '../actions-types/action-types';
 import server from '../../Connections/Server';
 import axios from 'axios';
@@ -399,3 +400,10 @@ export const getCompras = () => {
     }
   };
 };
+
+export const getFavorites = (favorites) => {
+  return {
+    type: GET_FAVORITES,
+    payload: favorites
+  }
+}

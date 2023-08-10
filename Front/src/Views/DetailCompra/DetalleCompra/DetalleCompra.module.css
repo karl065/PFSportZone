@@ -1,4 +1,3 @@
-
 .DetalleCompra{
     background-color: #00000026;
     width: 100%;
@@ -87,4 +86,13 @@
 }
 .imgpr{
     width: 100%;
+}
+
+.buttonReview{
+    border-radius: 5px;
+}
+
+.buttonReview:hover{
+    background: black;
+    color:whitesmoke
 }

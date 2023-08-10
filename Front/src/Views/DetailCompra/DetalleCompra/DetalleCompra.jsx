@@ -3,7 +3,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import styles from './DetalleCompra.module.css';
 import axios from 'axios';
 import server from '../../../Connections/Server';
@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 
 const DetalleCompra = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
   const id = params.get('id');
   const status = params.get('status');
@@ -33,6 +34,11 @@ const DetalleCompra = () => {
       console.log(error);
     }
   };
+
+  const handlerRedirectReview = (id) => {
+    navigate(`/review/${id}`);
+  };
+
   useEffect(() => {
     if (status) {
       compraExitosa();
@@ -90,6 +96,7 @@ const DetalleCompra = () => {
                 <h1 className={styles.ttllimg}>{prod.article_name}</h1>
                 <img className={styles.imgpr} src={prod.image[0]} alt={prod.article_name} />
                 <h3>{prod.VentasInventarios.cant} {prod.VentasInventarios.cant >= 2 ? 'piezas' : 'pieza' }</h3>
+                <button className={styles.buttonReview} onClick={()=>handlerRedirectReview(prod.id_inventory)}>Da una reseña del producto</button>
               </div>
             )
             }

@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 import Direcciones from './Views/Direcciones/Direcciones';
-import Favoritos from './Views/Favoritos/Favoritos';
+import Favorites from '../../Views/favorites/Favorites';
 import Formasdepago from './Views/Formas de pago/Formas de pago';
 import MisCompras from './Views/MisCompras/MisCompras';
 import NuevaDireccion from './Views/NuevaDireccion/NuevaDireccion'
@@ -74,7 +74,7 @@ const AccountClient = (props) => {
                 <section className={style.containerEc}>
                   <button onClick={()=>{setView((<MisCompras />)); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImageCompras}')`, '--BgColor': 'rgba(114, 174, 226, 0.659)'}} ><p className={style.eleText}>Mis compras</p></button>
                   <button onClick={()=>{setView(<Direcciones/>); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImageDirecciones}')`, '--BgColor': 'rgba(225, 220, 133, 1)'}} ><p className={style.eleText}>direcciones</p></button>
-                  <button onClick={()=>{setView(<Favoritos/>); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImageFavs}')`, '--BgColor': 'rgb(252, 131, 118)'}} ><p className={style.eleText}>Favoritos</p></button>
+                  <button onClick={()=>{setView(<Favorites/>); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImageFavs}')`, '--BgColor': 'rgb(252, 131, 118)'}} ><p className={style.eleText}>Favoritos</p></button>
                 <hr style={{width:'100%'}} />
                   <button onClick={()=>{setView((<ResetPass />)); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImagePass}')`, '--BgColor': '#78CFDA'}} ><p className={style.eleText}>Actualizar contraseña</p></button>
                   <button onClick={()=>{setView((<EditInfo />)); SetDeployDetails(!deployDetails)}} className={style.elementAcc} style={{'--bgimage': `url('${urlImageChangeI}')`, '--BgColor': 'rgb(103, 111, 111)'}} ><p className={style.eleText}>Editar datos</p></button>
