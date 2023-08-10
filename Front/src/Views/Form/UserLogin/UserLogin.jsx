@@ -126,7 +126,7 @@ const UserLogin = () => {
           <div className="row justify-content-center">
             <div
               className="col-md-9 col-lg-12 col-xl-10"
-              style={{width: '400px'}}
+              style={{width: '25rem'}}
             >
               <div className="card shadow-lg o-hidden border-0 my-5">
                 <div className="card-body p-0">
@@ -136,7 +136,7 @@ const UserLogin = () => {
                       style={{
                         borderRadius: '10px',
                         borderColor: 'rgba(133,135,150,0)',
-                        width: '400px',
+                        width: '25rem',
                       }}
                     >
                       <div className="p-5" style={{width: '100%'}}>
