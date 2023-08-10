@@ -1,60 +1,74 @@
-.container{
-width: 100%;
-height: 100%;
-background: linear-gradient(196deg, rgba(0, 0, 0, 0.92) 40.60%, rgba(190, 243, 27, 0.97) 100%);
-color: #FFF;
-
+.container {
+  min-height: 100vh;
+  background: linear-gradient(
+    196deg,
+    rgba(0, 0, 0, 0.92) 40.6%,
+    rgba(190, 243, 27, 0.97) 100%
+  );
+  color: #fff;
 }
 
-.sportzone{
-    display: flex;
-    justify-content: center;
+.title {
+  text-align: center;
+  font-size: 4rem;
+  text-transform: capitalize;
+  background: linear-gradient(to right, #077e17, #34cf63);
+  text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.411);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
-.cards{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.sportzone {
+  font-size: 2rem;
+  text-transform: uppercase;
+  text-decoration: underline;
+  padding-left: 2rem;
+  color: #BAEE1C;
 }
 
-
-.cardIndividual{
-    border:transparent;
-    width: 520px;
-    height: 206px;
-    margin:15px;
-    gap:100px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    transition: .5s, color .10s;
-    -webkit-transition: .5s, color .10s;
-    -moz-transition: .5s, color .10s;
+.cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.cardIndividual img{
-    display: inline;
-    position: relative;
-    left: 40px;
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
+.cardIndividual {
+  border: transparent;
+  width: 50%;
+  height: 13rem;
+  margin: 1rem;
+  gap: 6.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  transition: 0.5s, color 0.1s;
+  -webkit-transition: 0.5s, color 0.1s;
+  -moz-transition: 0.5s, color 0.1s;
 }
 
-.cardIndividual:hover{
-    border:4px solid rgba(190, 243, 27, 0.97);
-    border-radius: 10px;
-    background-color: rgba(189, 243, 27, 0.596);
-    color: black;
-    transform: scale3d(1.5, 1.5, 0.3);
-        -webkit-transform: scale3d(1.5, 1.5, 0.3);
-        -moz-transform: scale3d(1.5, 1.5, 0.3);
+.cardIndividual img {
+  position: relative;
+  left: 40px;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 999px;
+}
 
+.cardIndividual:hover {
+  border: 4px solid rgba(190, 243, 27, 0.97);
+  border-radius: 10px;
+  background-color: rgba(189, 243, 27, 0.596);
+  color: black;
+  transform: scale3d(1.5, 1.5, 0.3);
+  -webkit-transform: scale3d(1.5, 1.5, 0.3);
+  -moz-transform: scale3d(1.5, 1.5, 0.3);
 }
-  
-.social :hover{
-    color: white
+
+.social :hover {
+  color: white;
 }
-.cardIndividual:hover img{
-    border:4px solid black
+
+.cardIndividual:hover img {
+  border: 4px solid black;
 }

@@ -3,7 +3,12 @@ import {useSelector} from 'react-redux';
 import CompraItem from './CompraItem/CompraItem';
 
 const Compra = () => {
-  const compras = useSelector((state) => state.app.comprasUsuario);
+  const compras =  [{
+                     id_sales:'23fx5d',
+                     cantProd:'4',
+                     total:'345',
+                     status:'estado'
+                    }, {}]  /* useSelector((state) => state.app.comprasUsuario); */
   return (
     <div className={styles.filas}>
       {compras.map((compra, index) => (
