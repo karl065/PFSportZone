@@ -3,12 +3,10 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Link, useNavigate} from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import {useEffect} from 'react';
-import {useSelector} from 'react-redux';
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const {user} = useSelector((state) => state.app);
-  const role = user.role;
+  const role = localStorage.getItem('role');
   useEffect(() => {
     if (role === 'Cliente') navigate('/');
   }, []);

@@ -23,16 +23,16 @@ export const DeporteCreation = () => {
       .test('has-3-letters', 'Debe contener al menos 3 letras', (value) =>
         /^(.*[a-zA-Z].*){3,}$/.test(value)
       )
-      .test('unique-deporte', 'Este deporte ya existe', async function (value) {
-        // Aquí puedes realizar la validación de existencia en la lista de deportes
-        const sportsList = []; // Obtén la lista de deportes del contexto
-        for (const i of sports) {
-          sportsList.push(i.deporteName.toUpperCase);
-        }
-        if (!sportsList) {
-          return true; // Si no tienes la lista, no hagas la validación
-        }
-        return !sportsList.some((sport) => sport === value.toUpperCase);
+      .test(
+        'no-special-chars',
+        'No se permiten caracteres especiales',
+        (value) => /^[a-zA-Z0-9\s]+$/.test(value)
+      )
+      .test('unique-sport', 'Este deporte ya existe', (value) => {
+        return !sports.some(
+          (sport) =>
+            sport.deporteName.toLowerCase() === value.trim().toLowerCase()
+        );
       }),
   });
 
