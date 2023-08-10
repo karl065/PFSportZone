@@ -1,4 +1,4 @@
-const { Carrito, Inventarios } = require("../../DB.js");
+const {Carrito, Inventarios} = require('../../DB.js');
 
 const mergeWithLocalCart = async (userId, localCart) => {
   try {
@@ -6,14 +6,14 @@ const mergeWithLocalCart = async (userId, localCart) => {
     const t = await Carrito.sequelize.transaction();
 
     const userCart = await Carrito.findOne({
-      where: { idUser: userId },
+      where: {idUser: userId},
       transaction: t,
     });
 
     const dispatchPromises = localCart.map(async (product) => {
       const inventoryProduct = await Inventarios.findByPk(
         product.id_inventory,
-        { transaction: t }
+        {transaction: t}
       );
 
       const precioPorCant = inventoryProduct.selling_price * product.cant;
@@ -38,16 +38,26 @@ const mergeWithLocalCart = async (userId, localCart) => {
     }, 0);
 
     await userCart.update(
-      { cantProd: userProductsInCart.length, total },
-      { transaction: t }
+      {cantProd: userProductsInCart.length, total},
+      {transaction: t}
     );
 
     await t.commit();
 
-    return userCart;
+    const carAll = await Carrito.findByPk(userCart.idCar, {
+      include: [
+        {
+          model: Inventarios,
+          through: {
+            attributes: ['cant', 'precioPorUnd', 'precioPorCant'],
+          },
+        },
+      ],
+    });
+    return carAll;
   } catch (error) {
     throw error;
   }
 };
 
-module.exports = { mergeWithLocalCart };
+module.exports = {mergeWithLocalCart};
