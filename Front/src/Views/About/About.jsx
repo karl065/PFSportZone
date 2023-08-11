@@ -16,14 +16,14 @@ const integrantes = [
     descripcion:
       "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
-    linkedin: "Link aca/"
+    linkedin: "Link aca/",
   },
   {
     nombre: "Diana Marcela Tabares Marin",
     descripcion:
       "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
-    linkedin: "link aca",,
+    linkedin: "link aca",
   },
   {
     nombre: "Facundo Cataldo",
@@ -38,11 +38,12 @@ const integrantes = [
       "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
     linkedin:
-      "https://www.linkedin.com/in/manuel-f-borrego-sterling-555480267/",,
+      "https://www.linkedin.com/in/manuel-f-borrego-sterling-555480267/",
   },
   {
     nombre: "Fabian Dario Parra Naranjo",
-    descripcion: "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
+    descripcion:
+      "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
     linkedin: "link aca",
   },
@@ -55,7 +56,8 @@ const integrantes = [
   },
   {
     nombre: "Wilson Alonso Collantes Aponte",
-    descripcion: "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
+    descripcion:
+      "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
     linkedin: "link aca",
   },
