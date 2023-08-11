@@ -16,14 +16,14 @@ const integrantes = [
     descripcion:
       "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
-    linkedin: "link aca",
+    linkedin: "Link aca/"
   },
   {
     nombre: "Diana Marcela Tabares Marin",
     descripcion:
       "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
-    linkedin: "link aca",
+    linkedin: "link aca",,
   },
   {
     nombre: "Facundo Cataldo",
@@ -38,11 +38,11 @@ const integrantes = [
       "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
     linkedin:
-      "https://www.linkedin.com/in/manuel-f-borrego-sterling-555480267/",
+      "https://www.linkedin.com/in/manuel-f-borrego-sterling-555480267/",,
   },
   {
-    nombre: "nombre",
-    descripcion: "texto aca",
+    nombre: "Fabian Dario Parra Naranjo",
+    descripcion: "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
     linkedin: "link aca",
   },
@@ -55,7 +55,7 @@ const integrantes = [
   },
   {
     nombre: "Wilson Alonso Collantes Aponte",
-    descripcion: "texto aca",
+    descripcion: "FullStack developer | javascript | react | redux | nodejs | express | postgresql | sequelize",
     foto: "link de foto aca",
     linkedin: "link aca",
   },
@@ -64,8 +64,8 @@ const integrantes = [
 const About = () => {
   return (
     <div className={Styles.container}>
-      <h1>desarrollado por: </h1>
-      <h1 className={Styles.sportzone}>SportZone Team</h1>
+      <h1 className={Styles.title}>SportZone Team</h1>
+      <h1 className={Styles.sportzone}>desarrollado por: </h1>
 
       <div className={Styles.cards}>
         {integrantes.length &&

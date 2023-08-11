@@ -52,13 +52,6 @@ const NavBar = (props) => {
             Catalogo
           </Link>
         </li>
-        {role === "Cliente" && (
-          <li className={styles.favorites_item}>
-          <Link to="/favorites">
-            <FontAwesomeIcon icon={faHeart} className={styles.item} />
-          </Link>
-        </li>
-        )}
         {(!isLoggedIn() || role === 'Cliente') && (
           <div className={styles.clientIcons}>
             <li className={styles.cart_item}>

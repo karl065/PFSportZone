@@ -2,8 +2,8 @@
   /* background-color: rgb(104, 255, 172); */
   background-color: rgb(160, 189, 201);
   position: absolute;
-  right: 5%;
-  top: 50rem;
+  /* right: 5%;
+  top: 50rem; */
   overflow-wrap: break-word;
   word-wrap: break-word;
   width: 23.12rem;
@@ -11,6 +11,8 @@
   padding: 0.6rem;
   overflow-y: scroll;
   border-radius: 1rem;
+  margin-top: 1px;
+  padding-top: 1px;
 }
 
 .main::-webkit-scrollbar {
@@ -45,8 +47,16 @@
 .button {
   display: flex;
   flex-direction: column;
-  width: fit-content;
+  /* width: fit-content; */
   margin-left: 0%;
   margin-bottom: 0.4rem;
   border-radius: 5px;
+}
+
+.toggle{
+margin-left: 3rem;
+margin-top: 3rem;
+border-radius: 5px;
+width: fit-content;
+  left: 20%;
 }

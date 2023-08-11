@@ -14,7 +14,7 @@ const router = require("express").Router();
 
 router.post("/", postReviewHandler);
 
-router.put("/", putReviewHandler);
+router.put("/:idReview", putReviewHandler);
 
 router
   .get("/", getAllReviewHandler)

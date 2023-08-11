@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import {
   GET_CART,
   MERGE_CARTS,
@@ -7,7 +8,7 @@ import {
   CLEAR_CART,
   GET_LOCAL_CART,
   SET_LOCAL_CART,
-} from "../actions-types/cartTypes";
+} from '../actions-types/cartTypes';
 
 const initialState = {
   id: null,
@@ -16,7 +17,7 @@ const initialState = {
   localCart: [],
 };
 
-const cartReducer = (state = initialState, { type, payload }) => {
+const cartReducer = (state = initialState, {type, payload}) => {
   switch (type) {
     case GET_CART:
       return {
@@ -43,16 +44,16 @@ const cartReducer = (state = initialState, { type, payload }) => {
         localCart: [],
       };
     case GET_LOCAL_CART:
-      const cart = localStorage.getItem("localCart");
-      return { ...state, localCart: cart ? JSON.parse(cart) : [] };
+      const cart = localStorage.getItem('localCart');
+      return {...state, localCart: cart ? JSON.parse(cart) : []};
     case SET_LOCAL_CART:
-      localStorage.setItem("localCart", JSON.stringify(payload));
+      localStorage.setItem('localCart', JSON.stringify(payload));
       return {
         ...state,
         localCart: payload,
       };
     default:
-      return { ...state };
+      return {...state};
   }
 };
 
