@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Koulen&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Koulen&display=swap");
 
 .container {
   background: linear-gradient(180deg, #b5e423 0%, hsl(0, 0%, 1%) 80.87%);
   background-color: #b5e423;
-  font-family: "Koulen", cursive;
+  /* font-family: "Koulen", cursive; */
+  font-family: "Singapore Sling Expanded";
   display: flex;
   flex-direction: column;
 }
